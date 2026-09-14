@@ -1,0 +1,14 @@
+import type { MetadataRoute } from "next";
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    name: "Flame Connect",
+    short_name: "Flame Connect",
+    description: "Practical AI for African progress.",
+    start_url: "/",
+    display: "browser",
+    background_color: "#FBF7F0",
+    theme_color: "#071B52",
+    icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml" }],
+  };
+}
