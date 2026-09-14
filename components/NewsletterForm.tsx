@@ -7,9 +7,16 @@ export function NewsletterForm() {
   const [state, setState] = useState<"idle" | "busy" | "ok" | "err">("idle");
   const [msg, setMsg] = useState("");
 
+  const staticDemo = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
+
   async function submit(e: FormEvent) {
     e.preventDefault();
     if (!email || state === "busy") return;
+    if (staticDemo) {
+      setState("err");
+      setMsg("Static preview build — sign-ups work on the deployed site.");
+      return;
+    }
     setState("busy");
     setMsg("");
     try {

@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { SITE } from "../lib/site";
 import { ALL_ROUTES } from "../lib/content";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return ALL_ROUTES.map((route) => ({

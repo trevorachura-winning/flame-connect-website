@@ -11,3 +11,5 @@ dist/
 coverage/
 .vercel/
 .venv/
+out/
+flame-connect-website-static.zip

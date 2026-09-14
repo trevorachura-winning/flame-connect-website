@@ -40,6 +40,9 @@ const INTENT_HEADLINE: Partial<Record<Intent, { title: string; copy: string }>> 
 
 type FieldErrors = Record<string, string>;
 
+/** Static demo builds (NEXT_OUTPUT=export) have no /api — say so instead of erroring. */
+const STATIC_DEMO = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
+
 export function LeadForm({
   initialIntent = "consultation",
   initialProduct,
@@ -95,6 +98,12 @@ export function LeadForm({
     setErrors(e);
     if (Object.keys(e).length) {
       document.getElementById("form-error-summary")?.focus();
+      return;
+    }
+    if (STATIC_DEMO) {
+      setServerError(
+        "This is the static preview build — the live form backend runs on the deployed site. Everything else here is fully functional."
+      );
       return;
     }
     setState("busy");

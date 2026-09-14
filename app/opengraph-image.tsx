@@ -7,6 +7,7 @@ export const contentType = "image/png";
 export const alt = "Flame Connect — Practical AI for African progress";
 
 export const runtime = "nodejs";
+export const dynamic = "force-static";
 
 const markSvg = (px: number) =>
   `data:image/svg+xml,${encodeURIComponent(
