@@ -22,7 +22,14 @@ const nextConfig = {
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          {
+            // Frame-ancestors supersedes X-Frame-Options in modern browsers: deny
+            // third-party framing while explicitly allowing the Arena/E2B live
+            // preview hosts to embed the site (otherwise the preview renders blank).
+            key: "Content-Security-Policy",
+            value:
+              "frame-ancestors 'self' https://*.arena.ai https://*.arena-ai.com https://*.e2b.app",
+          },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
         ],
       },
