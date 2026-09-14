@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { TOP_NAV } from "../content/navigation";
-import { FlameMark } from "./FlameMark";
+import { BrandLogo } from "./BrandLogo";
 import { Icon } from "./Icons";
 
 export function Header({
@@ -94,10 +94,8 @@ export function Header({
       <header className={`site-header${scrolled ? " scrolled" : ""}`}>
         <div className="container header-inner">
           <Link href="/" className="brand" aria-label="Flame Connect — home">
-            <FlameMark size={40} />
-            <span className="brand-word">
-              <b>Flame Connect</b>
-              <span>AI Centre of Change</span>
+            <span className="brand-lockup">
+              <BrandLogo height={38} withStrapline={false} />
             </span>
           </Link>
 
@@ -143,10 +141,8 @@ export function Header({
       >
         <div className="drawer-head">
           <span className="brand">
-            <FlameMark size={34} />
-            <span className="brand-word">
-              <b>Flame Connect</b>
-              <span>AI Centre of Change</span>
+            <span className="brand-lockup">
+              <BrandLogo height={32} withStrapline={false} />
             </span>
           </span>
           <button

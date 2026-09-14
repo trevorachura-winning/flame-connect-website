@@ -75,3 +75,11 @@ the site runs fully; product CTAs use the honest fallback routes described above
 Source-visible but **no license selected yet**, matching the platform repository's
 documented decision process. Do not describe this project as open source until a
 canonical `LICENSE` file is committed.
+
+## Brand
+
+Visual system follows the official **Flame Connect — Brand Snapshot**: Flame
+Orange `#F4511E`, Deep Navy `#07111F`, Ink Navy `#111827`, Light Blue `#EAF2FF`,
+White, Slate `#374151`; Montserrat/Poppins; dark/light rhythm with orange
+keylines. AA-safe interaction tones and the logo recreation are documented in
+[`docs/BRAND.md`](docs/BRAND.md).

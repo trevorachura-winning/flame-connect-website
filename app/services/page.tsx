@@ -77,7 +77,7 @@ export default function ServicesPage() {
             {ENGAGEMENT_STAGES.map((stage, i) => (
               <Reveal key={stage.stage} delay={i * 0.06}>
                 <div className="proof-item" style={{ height: "100%" }}>
-                  <b style={{ color: "var(--amber)" }}>{stage.stage}</b>
+                  <b style={{ color: "var(--flame)" }}>{stage.stage}</b>
                   <p style={{ marginBottom: "0.6rem" }}>{stage.what}</p>
                   <p style={{ fontSize: "0.8rem", color: "#8f9dca" }}>{stage.outputs}</p>
                 </div>

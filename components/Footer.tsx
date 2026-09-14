@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FlameMark } from "./FlameMark";
+import { BrandLogo } from "./BrandLogo";
 import { Icon } from "./Icons";
 import { NewsletterForm } from "./NewsletterForm";
 import { FOOTER_NAV } from "../content/navigation";
@@ -12,11 +12,9 @@ export function Footer() {
       <div className="container">
         <div className="band-top">
           <div className="footer-brand">
-            <span className="brand" style={{ color: "#fff" }}>
-              <FlameMark size={44} />
-              <span className="brand-word" style={{ color: "#fff" }}>
-                <b style={{ color: "#fff" }}>Flame Connect</b>
-                <span style={{ color: "#8496c6" }}>AI Centre of Change</span>
+            <span className="brand">
+              <span className="brand-lockup">
+                <BrandLogo height={44} withStrapline={false} />
               </span>
             </span>
             <p>{SITE.shortDescription}</p>

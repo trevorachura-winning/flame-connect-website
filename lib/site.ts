@@ -12,7 +12,7 @@ export const SITE = {
   tagline: "Practical AI for African progress.",
   shortDescription:
     "Flame Connect is an Africa-focused AI, digital and transformation company helping organizations and communities move from interest in technology to useful, measurable application.",
-  homeLocationLine: "Built in Uganda. Working across Africa.",
+  homeLocationLine: "Uganda outward to Africa.",
   // pending — Appendix C: official domains
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   // pending — Appendix C: confirmed public product/app domain

@@ -143,7 +143,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                     <StatusBadge status={product.status} />
                   </div>
                   <p>{product.purpose}</p>
-                  <Link href={`/products/${product.slug}`} className="text-link" style={{ color: "var(--amber)", marginTop: "0.7rem", display: "inline-flex" }}>
+                  <Link href={`/products/${product.slug}`} className="text-link" style={{ color: "var(--flame)", marginTop: "0.7rem", display: "inline-flex" }}>
                     View product <Icon name="arrow-right" size={15} />
                   </Link>
                 </article>
