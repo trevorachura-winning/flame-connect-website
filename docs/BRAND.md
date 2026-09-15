@@ -83,3 +83,39 @@ opportunity.
 Additional brand line in use: **"Uganda outward to Africa"** (footer location
 line, via `lib/site.ts`), and logo signature **"Digitizing Africa"** reserved to
 the logo lockup.
+
+## Brand asset files (canonical, swappable)
+
+The on-disk logo assets live in `public/brand/` and are the single source of
+truth for everything except the on-site lockup component:
+
+| File | Contains | Consumed by |
+|---|---|---|
+| `public/brand/flame-connect-mark.svg` | Flame-lens mark only | `app/opengraph-image.tsx` reads it at build; copy it over `app/icon.svg` when it changes; safe for any `<img>` / external use |
+| `public/brand/flame-connect-logo.svg` | Full lockup + "Digitizing Africa" signature | External sharing (decks, docs, press) |
+| `public/brand/flame-connect-logo-compact.svg` | Lockup without signature | External sharing, tight spaces |
+| `app/icon.svg` | Favicon — byte-identical copy of the mark file | Next.js serves it as the site icon |
+| `components/BrandLogo.tsx` | On-site header/drawer/footer lockup | Site UI (renders wordmark in live Montserrat webfont) |
+
+### Swapping the logo from the terminal
+
+When the official vector arrives (Appendix C — brand assets):
+
+```powershell
+# from the repo root of flame-connect-website
+# 1. replace the canonical files (keep the same filenames)
+Copy-Item C:\path\to\official-mark.svg public\brand\flame-connect-mark.svg
+Copy-Item public\brand\flame-connect-mark.svg app\icon.svg
+# 2. full lockups, if supplied — overwrite the two logo files the same way
+# 3. if the official lockup has outlined text, also point components/BrandLogo.tsx
+#    at the file (or ask an engineer); otherwise the component keeps matching.
+
+npm run dev      # check header/footer/favicon locally
+npm run validate    # brand + content + link checks
+git add -A
+git commit -m "Swap in official logo assets"
+git push         # Vercel redeploys automatically
+```
+
+The OG share card and favicon follow the mark file automatically — no manual
+OG edits needed.

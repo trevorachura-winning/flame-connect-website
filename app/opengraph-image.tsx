@@ -9,14 +9,23 @@ export const alt = "Flame Connect — Practical AI for African progress";
 export const runtime = "nodejs";
 export const dynamic = "force-static";
 
-const markSvg = (px: number) =>
-  `data:image/svg+xml,${encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${px}" height="${px}" viewBox="0 0 210 210"><circle cx="105" cy="105" r="76" fill="#F4511E"/><path d="M20 88c38-34 132-34 170 0 12 11-4 26-16 16-28-24-110-24-138 0-12 10-28-5-16-16Z" fill="#FFFFFF"/><path d="M30 126c34-26 116-26 150 0 10 9-3 21-13 13-26-18-98-18-124 0-10 8-23-4-13-13Z" fill="#FFFFFF" opacity="0.92"/></svg>`
-  )}`;
-
 export default async function OgImage() {
   const hero = await readFile(path.join(process.cwd(), "public", "images", "home-hero.jpg"));
   const heroUri = `data:image/jpeg;base64,${hero.toString("base64")}`;
+  // Mark comes from the canonical brand file — update
+  // public/brand/flame-connect-mark.svg and the OG card follows automatically.
+  const markFile = await readFile(
+    path.join(process.cwd(), "public", "brand", "flame-connect-mark.svg"),
+    "utf8"
+  );
+  const markSvg = (px: number) =>
+    `data:image/svg+xml,${encodeURIComponent(
+      markFile
+        .replace(/<\?xml[\s\S]*?\?>/, "") // satori rejects the XML prolog in data-URI SVGs
+        .replace(/<!--[\s\S]*?-->/g, "")
+        .trim()
+        .replace("<svg ", `<svg width="${px}" height="${px}" `)
+    )}`;
 
   return new ImageResponse(
     (

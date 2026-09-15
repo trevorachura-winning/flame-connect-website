@@ -13,6 +13,11 @@
  *
  * The wordmark uses the site-loaded Montserrat variable font so text renders
  * in the exact brand typeface.
+ *
+ * Canonical on-disk assets live in public/brand/ (flame-connect-mark.svg,
+ * flame-connect-logo.svg, flame-connect-logo-compact.svg). Keep this
+ * component's geometry in step with them — when the official outlined vector
+ * replaces them, this component swaps to it in the same change.
  */
 export function BrandLogo({
   height = 44,
