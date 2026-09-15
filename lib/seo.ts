@@ -40,7 +40,7 @@ export function organizationJsonLd() {
     ...(SITE.legalName ? { legalName: SITE.legalName } : {}),
     description: SITE.shortDescription,
     url: SITE.siteUrl,
-    logo: `${SITE.siteUrl}/icon.svg`,
+    logo: `${SITE.siteUrl}/icon.png`,
     email: SITE.contactEmail ?? undefined,
     address: {
       "@type": "PostalAddress",
@@ -94,7 +94,7 @@ export function articleJsonLd(a: {
     publisher: {
       "@type": "Organization",
       name: SITE.name,
-      logo: { "@type": "ImageObject", url: `${SITE.siteUrl}/icon.svg` },
+      logo: { "@type": "ImageObject", url: `${SITE.siteUrl}/icon.png` },
     },
     mainEntityOfPage: `${SITE.siteUrl}/resources/${a.slug}`,
   };

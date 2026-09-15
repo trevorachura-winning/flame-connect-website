@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.1 — 2026-09-15
+
+- **Official logo artwork integrated.** BrandLogo now composes the brand
+  owner's supplied mark + wordmark (alpha-matted, trimmed); retired the
+  interim vector reconstruction. Footer uses the sanctioned inverse wordmark
+  (light circuit) on navy. Favicon and the OG share card now derive from the
+  official mark. Canonical files live in `public/brand/` so future artwork
+  swaps are a file replace (see docs/BRAND.md).
+- Appendix C status: brand/logo assets resolved.
+
 ## 0.1.0 — 2026-09-14
 
 First full public website build from the Flame Connect comprehensive website brief.

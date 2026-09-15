@@ -12,20 +12,12 @@ export const dynamic = "force-static";
 export default async function OgImage() {
   const hero = await readFile(path.join(process.cwd(), "public", "images", "home-hero.jpg"));
   const heroUri = `data:image/jpeg;base64,${hero.toString("base64")}`;
-  // Mark comes from the canonical brand file — update
-  // public/brand/flame-connect-mark.svg and the OG card follows automatically.
+  // Official mark from the canonical brand file — update
+  // public/brand/flame-connect-mark.png and the OG card follows automatically.
   const markFile = await readFile(
-    path.join(process.cwd(), "public", "brand", "flame-connect-mark.svg"),
-    "utf8"
+    path.join(process.cwd(), "public", "brand", "flame-connect-mark.png")
   );
-  const markSvg = (px: number) =>
-    `data:image/svg+xml,${encodeURIComponent(
-      markFile
-        .replace(/<\?xml[\s\S]*?\?>/, "") // satori rejects the XML prolog in data-URI SVGs
-        .replace(/<!--[\s\S]*?-->/g, "")
-        .trim()
-        .replace("<svg ", `<svg width="${px}" height="${px}" `)
-    )}`;
+  const markSvg = () => `data:image/png;base64,${markFile.toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -64,7 +56,7 @@ export default async function OgImage() {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <img src={markSvg(64)} width={64} height={64} alt="" />
+            <img src={markSvg()} width={64} height={64} alt="" />
             <div style={{ display: "flex", flexDirection: "column" }}>
               <span style={{ fontSize: 30, fontWeight: 800, color: "#F4511E" }}>Flame Connect</span>
               <span style={{ fontSize: 15, letterSpacing: 4, color: "#A9BBDF", textTransform: "uppercase" }}>

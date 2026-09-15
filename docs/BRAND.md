@@ -49,20 +49,19 @@ interaction tones, swap the three variables in `app/globals.css`.
 
 ## Logo asset status
 
-`components/BrandLogo.tsx` is a **faithful vector recreation** of the supplied
-full-colour lockup from the snapshot: flame-lens mark, stacked FLAME CONNECT
-Montserrat wordmark, circuit flourish, and the "Digitizing Africa" signature
-(optional per placement). Usage rules from the guide are enforced by design:
-full-colour only, proportions locked (aspect computed from the lockup), clear
-space via layout, no recoloured/alternate treatments; the compact variant simply
-omits the signature for small placements.
+`components/BrandLogo.tsx` renders the **official artwork** supplied by the
+brand owner (September 2026): the flame-leaf mark and the FLAME CONNECT
+wordmark with its circuit flourish, composited from the alpha-matted files in
+`public/brand/`. Usage rules from the guide are enforced by design: full-colour
+treatment only, proportions locked, clear space via layout, no recoloured or
+alternate treatments. The only sanctioned variant is the inverse wordmark
+(light circuit) for the navy footer, generated from the supplied artwork
+itself. See "Brand asset files" below for the file map and swap procedure.
 
-**Action item (Appendix C):** when the brand team supplies the official
-SVG/AI/PNG source, drop it into `public/brand/` and swap the component's
-internals — every placement (header, drawer, footer, favicon, OG image) updates
-from this one component. Until then, the recreation is the canonical mark on
-this site and should be visually diffed against the source file at first
-opportunity.
+**Appendix C — brand assets: RESOLVED (Sept 2026).** The earlier reconstruction
+has been retired in favour of the official files. If the brand team later
+produces outlined SVG masters, they can replace `public/brand/` files under
+the same names with zero layout changes.
 
 ## Imagery & video
 
@@ -84,38 +83,34 @@ Additional brand line in use: **"Uganda outward to Africa"** (footer location
 line, via `lib/site.ts`), and logo signature **"Digitizing Africa"** reserved to
 the logo lockup.
 
-## Brand asset files (canonical, swappable)
+## Brand asset files (official artwork — Sept 2026)
 
 The on-disk logo assets live in `public/brand/` and are the single source of
-truth for everything except the on-site lockup component:
+truth. These are the OFFICIAL artwork files supplied by the brand owner
+(alpha-matted, canvas-trimmed); the original full-canvas rasters remain in this
+repo's git history (`git log -- public/brand/`).
 
 | File | Contains | Consumed by |
 |---|---|---|
-| `public/brand/flame-connect-mark.svg` | Flame-lens mark only | `app/opengraph-image.tsx` reads it at build; copy it over `app/icon.svg` when it changes; safe for any `<img>` / external use |
-| `public/brand/flame-connect-logo.svg` | Full lockup + "Digitizing Africa" signature | External sharing (decks, docs, press) |
-| `public/brand/flame-connect-logo-compact.svg` | Lockup without signature | External sharing, tight spaces |
-| `app/icon.svg` | Favicon — byte-identical copy of the mark file | Next.js serves it as the site icon |
-| `components/BrandLogo.tsx` | On-site header/drawer/footer lockup | Site UI (renders wordmark in live Montserrat webfont) |
+| `public/brand/flame-connect-mark.png` | Flame-leaf mark, transparent, square | `components/BrandLogo.tsx`, `app/icon.png` (favicon resize), `app/opengraph-image.tsx` (OG card reads it at build) |
+| `public/brand/flame-connect-wordmark.png` | FLAME CONNECT wordmark, navy circuit — for light surfaces | `components/BrandLogo.tsx` (header, drawer) |
+| `public/brand/flame-connect-wordmark-inverse.png` | Wordmark with Light Blue circuit — for the navy footer | `components/BrandLogo.tsx` with `tone="dark"` |
+| `app/icon.png` | 512px square favicon derived from the mark | Next.js serves it as the site icon |
 
-### Swapping the logo from the terminal
+### Replacing the logo from the terminal
 
-When the official vector arrives (Appendix C — brand assets):
+If the brand team ever supplies revised artwork, keep the same filenames:
 
 ```powershell
-# from the repo root of flame-connect-website
-# 1. replace the canonical files (keep the same filenames)
-Copy-Item C:\path\to\official-mark.svg public\brand\flame-connect-mark.svg
-Copy-Item public\brand\flame-connect-mark.svg app\icon.svg
-# 2. full lockups, if supplied — overwrite the two logo files the same way
-# 3. if the official lockup has outlined text, also point components/BrandLogo.tsx
-#    at the file (or ask an engineer); otherwise the component keeps matching.
+Copy-Item C:\path\to\new-mark.png public\brand\flame-connect-mark.png
+Copy-Item public\brand\flame-connect-mark.png app\icon.png   # or regenerate 512px square
 
-npm run dev      # check header/footer/favicon locally
-npm run validate    # brand + content + link checks
+npm run dev        # eyeball header, footer, favicon
+npm run validate   # brand + content + link checks
 git add -A
-git commit -m "Swap in official logo assets"
-git push         # Vercel redeploys automatically
+git commit -m "Update logo artwork"
+git push           # Vercel redeploys automatically
 ```
 
-The OG share card and favicon follow the mark file automatically — no manual
-OG edits needed.
+The OG share card, favicon, header, drawer and footer all follow the
+`public/brand/` files — no layout code changes needed for same-shape swaps.
