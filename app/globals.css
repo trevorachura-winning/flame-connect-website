@@ -810,7 +810,15 @@ a.chip-link.on { background: var(--ink); border-color: var(--ink); color: #fff; 
 @media (max-width: 62rem) {
   .grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
   .hero-grid, .page-hero-grid, .split, .article-grid { grid-template-columns: 1fr; }
-  .hero-card { position: static; margin-top: -2rem; margin-inline: 1rem; }
+  .hero-card {
+    /* Stay 'positioned' (not static): the image frame is position:relative and
+       would otherwise paint ON TOP of the card's overlap zone, clipping the
+       card title on mobile. z-index puts the card back in front. */
+    position: relative;
+    z-index: 2;
+    margin-top: -2rem;
+    margin-inline: 1rem;
+  }
   .article-aside { position: static; }
   .os-cap-grid { grid-template-columns: 1fr; }
   .steps-grid { grid-template-columns: repeat(2, 1fr); }

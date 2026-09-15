@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.4 — 2026-09-15
+
+- Mobile hero fix: the "AI Centre of Change" badge card was clipped behind the
+  hero image frame on small screens (CSS painting order — static card vs
+  positioned frame). Card now stays positioned with z-index in the mobile
+  breakpoint; overlap preserved, title fully visible.
+
 ## 0.1.3 — 2026-09-15
 
 - Security review (see docs/SECURITY_REVIEW.md): pinned PostCSS to a patched
