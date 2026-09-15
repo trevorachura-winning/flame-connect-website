@@ -8,7 +8,7 @@
 
 export const SITE = {
   name: "Flame Connect",
-  legalName: null as string | null, // pending — Appendix C: legal/company name
+  legalName: "Flame Connect", // confirmed by founder (Sept 2026); update if URSB certificate shows a formal suffix
   tagline: "Practical AI for African progress.",
   shortDescription:
     "Flame Connect is an Africa-focused AI, digital and transformation company helping organizations and communities move from interest in technology to useful, measurable application.",

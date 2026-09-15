@@ -203,8 +203,8 @@ export default function TrustPage() {
               <span className="pending-tag">Pending confirmation</span>
               <h3>Legal & contact details</h3>
               <p>
-                The registered company name, direct email, phone/WhatsApp line and approved social
-                accounts are being confirmed. They will appear here and in the footer once final —
+                A direct email, phone/WhatsApp line and approved social
+                accounts are still being confirmed. They will appear here and in the footer once final —
                 we publish facts, not placeholders that look like facts.
               </p>
               <p style={{ marginTop: "0.6rem" }}>
