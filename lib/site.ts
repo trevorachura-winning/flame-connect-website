@@ -13,8 +13,13 @@ export const SITE = {
   shortDescription:
     "Flame Connect is an Africa-focused AI, digital and transformation company helping organizations and communities move from interest in technology to useful, measurable application.",
   homeLocationLine: "Uganda outward to Africa.",
-  // pending — Appendix C: official domains
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  // pending — Appendix C: official domains.
+  // Note: `||`-style fallback (not `??`) so an EMPTY-STRING env var — e.g. a
+  // placeholder pasted into Vercel's env panel — falls back instead of
+  // crashing `new URL("")` during static page-data collection.
+  siteUrl:
+    (process.env.NEXT_PUBLIC_SITE_URL || "").trim().replace(/\/+$/, "") ||
+    "https://flameconnect.org",
   // pending — Appendix C: confirmed public product/app domain
   flameOsUrl: (process.env.NEXT_PUBLIC_FLAME_OS_URL || "").replace(/\/$/, "") || null,
   // pending — Appendix C: confirmed public contact points.
