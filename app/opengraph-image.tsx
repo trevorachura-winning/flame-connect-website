@@ -4,7 +4,7 @@ import path from "node:path";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "Flame Connect — Practical AI for African progress";
+export const alt = "Flame Connect — Digitize Africa.";
 
 export const runtime = "nodejs";
 export const dynamic = "force-static";
@@ -65,7 +65,7 @@ export default async function OgImage() {
             </div>
           </div>
           <span style={{ fontSize: 66, fontWeight: 800, lineHeight: 1.05, letterSpacing: -2 }}>
-            Practical AI for <span style={{ color: "#F4511E" }}>African progress.</span>
+            Digitize <span style={{ color: "#F4511E" }}>Africa.</span>
           </span>
           <span style={{ fontSize: 24, color: "#C5D4F5", lineHeight: 1.4 }}>
             Services, practical tools, learning and community — Uganda outward to Africa.

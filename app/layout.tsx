@@ -15,7 +15,7 @@ import { signInHref, exploreToolsHref } from "../lib/links";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.siteUrl),
   title: {
-    default: "Flame Connect | Practical AI for African Progress",
+    default: "Flame Connect | Digitize Africa",
     template: "%s | Flame Connect",
   },
   description:

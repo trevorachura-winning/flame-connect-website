@@ -2,7 +2,7 @@
 
 The corporate website for **Flame Connect — AI Centre of Change**.
 
-> **Practical AI for African progress.**
+> **Digitize Africa.**
 
 Built from the Flame Connect comprehensive website brief (14 September 2026): corporate
 positioning + services + products + Flame OS + community + resources + trust, designed

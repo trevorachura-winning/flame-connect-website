@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.2 — 2026-09-15
+
+- Official tagline/vision set to **"Digitize Africa."** (founder-confirmed):
+  hero headline, browser titles, manifest, OG share card and `SITE.tagline`.
+- Legal company name set to **Flame Connect** (founder-confirmed): footer shows
+  the name instead of the pending placeholder; Trust page updated.
+- Appendix C remaining: official domains, contact email/phone/WhatsApp,
+  analytics IDs.
+
 ## 0.1.1 — 2026-09-15
 
 - **Official logo artwork integrated.** BrandLogo now composes the brand

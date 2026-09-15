@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Flame Connect",
     short_name: "Flame Connect",
-    description: "Practical AI for African progress.",
+    description: "Flame Connect — Digitize Africa.",
     start_url: "/",
     display: "browser",
     background_color: "#FBF7F0",

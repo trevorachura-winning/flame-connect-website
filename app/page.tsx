@@ -13,7 +13,7 @@ import { flameOsAppHref } from "../lib/links";
 import { pageMetadata } from "../lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Flame Connect | Practical AI for African Progress",
+  title: "Flame Connect | Digitize Africa",
   description:
     "Flame Connect helps African businesses and communities use AI, digital communications and practical tools to improve decisions, workflows and growth.",
   path: "/",
@@ -38,7 +38,7 @@ export default function HomePage() {
             <Reveal>
               <span className="eyebrow">AI · Digital · Transformation · Africa</span>
               <h1 className="display-1">
-                Practical AI for <span className="accent">African progress.</span>
+                Digitize <span className="accent">Africa.</span>
               </h1>
               <p className="lede">
                 Flame Connect helps businesses, professionals and communities turn technology into

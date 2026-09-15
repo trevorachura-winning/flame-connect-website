@@ -80,8 +80,9 @@ the same names with zero layout changes.
   (`lib/content.ts`, `scripts/check-content.mjs`).
 
 Additional brand line in use: **"Uganda outward to Africa"** (footer location
-line, via `lib/site.ts`), and logo signature **"Digitizing Africa"** reserved to
-the logo lockup.
+line, via `lib/site.ts`), and official tagline/vision **"Digitize Africa."**
+(confirmed by the founder, Sept 2026) used in titles, hero headline, share card
+and `lib/site.ts` `tagline`.
 
 ## Brand asset files (official artwork — Sept 2026)
 
