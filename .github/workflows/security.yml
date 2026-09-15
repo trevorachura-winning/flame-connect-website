@@ -1,0 +1,33 @@
+name: Security baseline (OWASP ZAP)
+
+# Runs OWASP ZAP's passive baseline scan against the production site:
+# - weekly on a schedule (catches new dependency/header regressions)
+# - on demand from the GitHub Actions tab (run it after any big change)
+#
+# ZAP passive baseline does NOT attack the site — it crawls pages and inspects
+# responses (headers, cookie flags, information leakage, outdated components).
+# Safe to run against production, ~3-6 minutes.
+#
+# Findings appear in the workflow output; raise --fail-level via ZAP_ARGS if
+# you later want the job to go red on medium-severity issues.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  zap-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.14.0
+        with:
+          target: "https://flame-connect-website-ruddy.vercel.app"
+          # Relative rules file is optional; commit zap-rules.tsv to tune later.
+          rules_file_name: ""
+          cmd_options: "-a -j -l PASS"

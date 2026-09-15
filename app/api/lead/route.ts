@@ -76,9 +76,11 @@ function validate(body: Body) {
 }
 
 export async function POST(request: Request) {
+  // Prefer x-real-ip: on Vercel the platform sets it to the client IP, while the
+  // first x-forwarded-for hop is client-supplied and therefore spoofable.
   const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
     request.headers.get("x-real-ip") ||
+    request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
     "unknown";
 
   if (rateLimited(ip)) {

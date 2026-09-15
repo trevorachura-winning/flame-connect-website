@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.3 — 2026-09-15
+
+- Security review (see docs/SECURITY_REVIEW.md): pinned PostCSS to a patched
+  release via npm overrides (npm audit now 0 vulnerabilities), hardened lead
+  rate-limiting against spoofed x-forwarded-for (prefers Vercel-set
+  x-real-ip), escaped `<` in JSON-LD injection, added weekly/on-demand OWASP
+  ZAP baseline workflow for the live site.
+
 ## 0.1.2 — 2026-09-15
 
 - Official tagline/vision set to **"Digitize Africa."** (founder-confirmed):
