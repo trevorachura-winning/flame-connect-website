@@ -13,3 +13,4 @@ coverage/
 .venv/
 out/
 flame-connect-website-static.zip
+tsconfig.tsbuildinfo
