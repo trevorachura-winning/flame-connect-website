@@ -77,7 +77,7 @@ export default function FlameOsPage() {
                 Explore products <Icon name="arrow-right" size={18} />
               </Link>
               {app.external ? (
-                <a href={app.href} className="btn btn-ghost">Sign in</a>
+                <a href={app.href} className="btn btn-ghost" rel="noopener noreferrer">Sign in</a>
               ) : (
                 <Link href={app.href} className="btn btn-ghost">Sign in</Link>
               )}
@@ -140,7 +140,7 @@ export default function FlameOsPage() {
           <SectionHead
             eyebrow="The family it carries"
             title="Tools already riding on the foundation"
-            copy="The public alphas and the pilot workspace are the first proof that one platform can serve many very different jobs."
+            copy="Flame Sales in pilot, and the tools being built alongside it in the same platform, are the first proof that one foundation can serve many very different jobs."
           />
           <div className="grid cols-3">
             {liveFamily.map((product, i) => (

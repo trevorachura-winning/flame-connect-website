@@ -19,7 +19,7 @@ export const metadata = pageMetadata({
 });
 
 const STATUS_DESCRIPTIONS: Record<string, string> = {
-  live: "Publicly usable today in a simplified alpha form; improving in the open with user feedback.",
+  live: "Publicly usable today; improving in the open with user feedback.",
   pilot: "Running with a limited group while usefulness, reliability and fit are tested.",
   development: "Being designed and tested with users; not available — a waitlist or a conversation is the honest route.",
 };
@@ -180,6 +180,9 @@ export default function TrustPage() {
                   <td className="small">
                     Build-validated in source; production deployment gates (hosting, auth, tenant
                     isolation, smoke tests) still being verified. {SITE.flameOsUrl ? "App domain configured." : "App domain not yet confirmed — see Appendix C items in the launch runbook."}
+                    {SITE.flameSalesUrl
+                      ? " Flame Sales ships separately from this shared layer: it is deployed and sign-in is live for pilot teams."
+                      : ""}
                   </td>
                   <td><Link href="/flame-os" className="text-link small">View</Link></td>
                 </tr>

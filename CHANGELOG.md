@@ -1,5 +1,127 @@
 # Changelog
 
+## 0.3.1 — 2026-09-16
+
+**Product statuses reconciled with what is actually deployed.** Status audit
+against the live Flame Sales platform, confirmed with the founder: it contains
+the sales tools and sign-in works; Lens, Ready and Academy are *not* built yet
+and will be built in the platform later. The site previously claimed otherwise.
+
+- **Flame Sales** — CTA changed from "Request access" (contact form) to
+  **"Sign in to Flame Sales"**, routed to the platform via `productCtaHref()`.
+  A new per-product `PRODUCT_APP_URLS` map in `lib/links.ts` does the routing so
+  a site-wide Flame OS URL can never repoint other products' buttons. Status
+  stays `pilot` (limited-group framing, matching the announcement ribbon) with
+  the note updated to say it is deployed and sign-in is live.
+- **Flame Lens, Flame Ready** — `live` → `development`. Removed every
+  "public alpha / usable today / try the alpha" claim: statusNote, how-it-works
+  copy, trust notes, requirements, FAQs and SEO descriptions. CTAs are now
+  "Join the waitlist". The site no longer promises tools a visitor cannot reach.
+- **Flame Academy** — `pilot` → `development` (the "role diagnostic is public"
+  and "cohorts in pilot" claims removed); CTA → "Join the waitlist".
+- **Flame Reach / Flame Impact** — removed phantom claims that capabilities
+  exist "in alpha form inside the platform's Social Commerce Copilot /
+  Community Impact OS"; replaced with plain in-development statements.
+- **Flame OS page + Trust board + field-notes article** — copy updated to match:
+  no "public alphas" language; the Trust board's Flame OS row now notes that
+  Flame Sales ships separately with sign-in live for pilot teams.
+- `CTA_KIND_LABEL` for `try` now reads "Available now" (only Flame Sales uses it).
+
+Gates green: content, links (27 routes), typecheck, production build (36/36).
+
+## 0.3.0 — 2026-09-16
+
+**Flame Sales platform wired into "Sign in".** The platform is deployed at
+`https://flame-connect-salesos-ai.vercel.app`; header and drawer Sign in now go
+there instead of the on-site fallback page. Resolves the Appendix C item
+"product/app domain" for Flame Sales specifically.
+
+- **New `NEXT_PUBLIC_FLAME_SALES_URL`** — a *per-product* app origin, deliberately
+  separate from `NEXT_PUBLIC_FLAME_OS_URL`. That existing variable also drives
+  `productCtaHref()`, so pointing it at the Flame Sales deployment would have
+  silently repointed the Flame Lens / Flame Ready / Flame Academy launch buttons
+  at an app they do not belong to. Those keep their honest access-request
+  fallback until they have deployments of their own.
+- **New `NEXT_PUBLIC_FLAME_SALES_SIGNIN_PATH`** — the auth path appended to the
+  origin, default `/login`. Configurable because auth routes differ by stack and
+  the website build cannot verify the platform's own routes. Changing it needs no
+  code change.
+- **`signInHref()` precedence:** Flame Sales → Flame OS → on-site `/sign-in`.
+  `flameOsAppHref()` now falls through to `signInHref()` instead of hardcoding
+  `/sign-in`, so the generic "Sign in" buttons on the homepage and `/flame-os`
+  land on the same live destination as the header rather than a fallback page.
+  Verified: zero internal `/sign-in` hrefs remain on `/`, `/flame-os`,
+  `/products`, `/about`, `/contact`.
+- **`lib/site.ts` validates app URLs at build time** and throws on a malformed
+  value (missing protocol, non-http scheme, bad sign-in path) instead of shipping
+  a broken button. Matches the fail-loudly convention in `lib/content.ts`.
+- **New gate `npm run platform:check`** (`scripts/check-platform-link.mjs`) —
+  fetches the URLs the site actually renders and reports 404s. It loads
+  `lib/site.ts` directly so it cannot drift from the config. Non-strict by
+  default (a transient platform outage should not red the website build);
+  `--strict` fails. Network-unreachable is reported as INCONCLUSIVE, never as a
+  failure. Wired into CI as a step, with the env passed to the production build
+  so URL shape is validated there too. Set `FLAME_SALES_URL` /
+  `FLAME_SALES_SIGNIN_PATH` as repository Variables to activate it.
+- **`/sign-in` fallback page made state-aware.** Its copy claimed "Sign-in opens
+  when the platform does", which a working header link would have contradicted.
+  It now switches headline, lede and primary action when a platform is
+  configured, and lists both configured app domains.
+- External sign-in anchors now carry `rel="noopener noreferrer"`.
+- Docs: `.env.example` and `docs/DEPLOYMENT.md` document both variables, the
+  build-time inlining caveat (a Vercel env change needs a **redeploy**, not a
+  restart), the exact wiring steps, verification, and rollback.
+
+Deliberately **not** changed: the Flame Sales product page still shows status
+`pilot` with a "Request access" button resolving to the contact form. Relabelling
+it to a launch CTA is a content/status decision under the release discipline
+("status changes are content changes — same review bar"), so it is left for an
+explicit call rather than implied by an env var.
+
+## 0.2.0 — 2026-09-16
+
+**UI craft pass — "clarity".** Same brand palette, same two typefaces, same
+content and same dark/light rhythm. No copy changed, no routes added, no new
+dependencies. This is a finish-and-motion pass across the shared design system,
+so it applies to all 18 routes at once.
+
+- **Whitespace & rhythm:** section padding opens up to `clamp(4.5rem, 9vw, 8rem)`
+  (was ~6.5rem max); grid gaps 1.1rem → 1.5rem; section heads get more air below.
+- **Typography:** display weights eased from 900 → 800/750/700 with tighter
+  tracking (`-0.045em` on display-1) and `text-wrap: balance`; body moved to
+  17px with a three-step ink ladder (`--ink` / `--ink-soft` / `--ink-faint`)
+  instead of two. Headings read calmer at large sizes.
+- **Surfaces & elevation:** flat 1px outlines replaced by hairline borders
+  (`rgba(7,17,31,.075)`) plus a three-level layered shadow scale
+  (`--shadow-1/2/3`). Radii stepped up (cards 20px, frames 28px, hero 36px).
+- **Light Blue #EAF2FF is now an accent surface.** Large alternating sections
+  use a whisper-cool `--paper-2: #f1f6fd` so full Light Blue stays reserved for
+  chips, wells and table headers; `.section.panel-blue` restores the full tint
+  where a section should read as a panel. Recorded in docs/BRAND.md.
+- **Motion:** one signature easing curve (`cubic-bezier(.32,.72,0,1)`) and a
+  four-step duration scale replace the mixed ad-hoc timings. Reveals now rise
+  26px and settle with a blur-to-sharp — **on pointer devices only**, so mobile
+  keeps a plain fade-and-rise (access-first / low-bandwidth principle).
+- **New `Reveal` variants** (`up` / `left` / `right` / `scale` / `fade` / `none`)
+  and a `blur={false}` opt-out used for large media; homepage splits now enter
+  directionally and the hero cascades line by line.
+- **New `Parallax` component** — rAF-throttled, IntersectionObserver-gated,
+  ~±25px of travel on the hero media. Skipped entirely under
+  `prefers-reduced-motion` and on touch/coarse-pointer devices.
+- **Header:** 84px → 68px, condensing to 60px on scroll with the lockup scaling
+  to 0.88. Translucency moved to `saturate(180%) blur(20px)`. Nav hover no
+  longer paints a Light Blue pill; the active item keeps its flame keyline,
+  which now scales in from the centre.
+- **Micro-interactions:** buttons lift and glow (hover stays *darker* for AA —
+  the feedback is motion, not a lighter fill), card icons spring, product glyphs
+  tilt, image frames Ken-Burns on hover, chevrons travel, Flame OS progress bars
+  sweep in with their section, ribbon dot pulses, social icons rise and fill.
+- **Reduced motion** now also disables parallax, ambient glow drift and the bar
+  sweep, in addition to the existing transition hard-stop.
+
+Verified: content gate ✓ · link gate (27 routes) ✓ · typecheck ✓ · production
+build ✓ (36/36 pages) · all 30 public URLs return 200 ✓.
+
 ## 0.1.4 — 2026-09-15
 
 - Mobile hero fix: the "AI Centre of Change" badge card was clipped behind the

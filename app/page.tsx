@@ -6,6 +6,7 @@ import { ProductCard } from "../components/ProductCard";
 import { InsightCard } from "../components/InsightCard";
 import { Icon, type IconName } from "../components/Icons";
 import { Reveal } from "../components/Reveal";
+import { Parallax } from "../components/Parallax";
 import { OsMock } from "../components/OsMock";
 import { PRODUCTS, SERVICES, sortedArticles } from "../lib/content";
 import { APPROACH_STAGES, AFRICA_FIRST_POINTS, COMMUNITY_SURFACES } from "../content/home";
@@ -31,19 +32,25 @@ export default function HomePage() {
 
   return (
     <>
-      {/* 1 — Hero */}
+      {/* 1 — Hero. Staggered cascade: each line settles in turn. */}
       <section className="hero hero-home motif">
         <div className="container hero-grid">
           <div>
-            <Reveal>
+            <Reveal delay={0.04} variant="fade">
               <span className="eyebrow">AI · Digital · Transformation · Africa</span>
+            </Reveal>
+            <Reveal delay={0.1}>
               <h1 className="display-1">
                 Digitize <span className="accent">Africa.</span>
               </h1>
+            </Reveal>
+            <Reveal delay={0.18}>
               <p className="lede">
                 Flame Connect helps businesses, professionals and communities turn technology into
                 better decisions, stronger communication, smarter workflows and measurable growth.
               </p>
+            </Reveal>
+            <Reveal delay={0.26} variant="fade">
               <div className="hero-actions">
                 <Link href="/products" className="btn btn-primary">
                   Explore free tools <Icon name="arrow-right" size={18} />
@@ -52,6 +59,8 @@ export default function HomePage() {
                   Book a consultation
                 </Link>
               </div>
+            </Reveal>
+            <Reveal delay={0.34} variant="fade">
               <div className="hero-points">
                 <span><Icon name="check" size={16} /> Services and products</span>
                 <span><Icon name="check" size={16} /> Human-controlled AI</span>
@@ -59,23 +68,27 @@ export default function HomePage() {
               </div>
             </Reveal>
           </div>
-          <Reveal delay={0.12}>
-            <div className="hero-media">
-              <div className="frame">
-                <Image
-                  src="/images/home-hero.jpg"
-                  alt="African business team reviewing a digital workflow together in a modern Kampala workspace."
-                  width={1774}
-                  height={887}
-                  priority
-                  sizes="(max-width: 62rem) 92vw, 46vw"
-                />
+          {/* No blur filter over a large image — it would cost a full-frame
+              composite for no visible gain. Parallax carries the depth here. */}
+          <Reveal delay={0.2} variant="scale" blur={false}>
+            <Parallax strength={0.045}>
+              <div className="hero-media">
+                <div className="frame">
+                  <Image
+                    src="/images/home-hero.jpg"
+                    alt="African business team reviewing a digital workflow together in a modern Kampala workspace."
+                    width={1774}
+                    height={887}
+                    priority
+                    sizes="(max-width: 62rem) 92vw, 46vw"
+                  />
+                </div>
+                <div className="hero-card">
+                  <b>AI Centre of Change</b>
+                  <span>Assess. Learn. Improve. Implement.</span>
+                </div>
               </div>
-              <div className="hero-card">
-                <b>AI Centre of Change</b>
-                <span>Assess. Learn. Improve. Implement.</span>
-              </div>
-            </div>
+            </Parallax>
           </Reveal>
         </div>
       </section>
@@ -135,7 +148,7 @@ export default function HomePage() {
       {/* 4 — Flame OS */}
       <section className="section paper2">
         <div className="container split">
-          <Reveal>
+          <Reveal variant="left">
             <span className="eyebrow">One platform. A growing family of tools.</span>
             <h2 className="display-2" style={{ margin: "0.85rem 0 1rem" }}>Meet Flame OS.</h2>
             <p className="lede">
@@ -149,13 +162,13 @@ export default function HomePage() {
                 Explore Flame OS <Icon name="arrow-right" size={18} />
               </Link>
               {osApp.external ? (
-                <a href={osApp.href} className="btn btn-outline">Sign in</a>
+                <a href={osApp.href} className="btn btn-outline" rel="noopener noreferrer">Sign in</a>
               ) : (
                 <Link href={osApp.href} className="btn btn-outline">Sign in</Link>
               )}
             </div>
           </Reveal>
-          <Reveal delay={0.12}>
+          <Reveal delay={0.12} variant="right" blur={false}>
             <OsMock />
           </Reveal>
         </div>
@@ -189,7 +202,7 @@ export default function HomePage() {
       {/* 6 — Built for African realities */}
       <section className="section paper2">
         <div className="container split">
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} variant="left" blur={false}>
             <div className="collage">
               <div className="c-a">
                 <div className="frame tall">
@@ -206,7 +219,7 @@ export default function HomePage() {
               </div>
             </div>
           </Reveal>
-          <Reveal>
+          <Reveal variant="right">
             <span className="eyebrow">Built for African realities</span>
             <h2 className="display-2" style={{ margin: "0.85rem 0 1rem" }}>
               Africa-first is a design decision.

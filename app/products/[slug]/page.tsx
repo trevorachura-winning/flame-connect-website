@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 const CTA_KIND_LABEL: Record<string, string> = {
-  try: "Available to try",
+  try: "Available now",
   access: "Request access",
   waitlist: "Join the waitlist",
   talk: "Start a conversation",
