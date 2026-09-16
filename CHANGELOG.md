@@ -1,5 +1,54 @@
 # Changelog
 
+## 0.3.0 — 2026-09-16
+
+**Flame Sales platform wired into "Sign in".** The platform is deployed at
+`https://flame-connect-salesos-ai.vercel.app`; header and drawer Sign in now go
+there instead of the on-site fallback page. Resolves the Appendix C item
+"product/app domain" for Flame Sales specifically.
+
+- **New `NEXT_PUBLIC_FLAME_SALES_URL`** — a *per-product* app origin, deliberately
+  separate from `NEXT_PUBLIC_FLAME_OS_URL`. That existing variable also drives
+  `productCtaHref()`, so pointing it at the Flame Sales deployment would have
+  silently repointed the Flame Lens / Flame Ready / Flame Academy launch buttons
+  at an app they do not belong to. Those keep their honest access-request
+  fallback until they have deployments of their own.
+- **New `NEXT_PUBLIC_FLAME_SALES_SIGNIN_PATH`** — the auth path appended to the
+  origin, default `/login`. Configurable because auth routes differ by stack and
+  the website build cannot verify the platform's own routes. Changing it needs no
+  code change.
+- **`signInHref()` precedence:** Flame Sales → Flame OS → on-site `/sign-in`.
+  `flameOsAppHref()` now falls through to `signInHref()` instead of hardcoding
+  `/sign-in`, so the generic "Sign in" buttons on the homepage and `/flame-os`
+  land on the same live destination as the header rather than a fallback page.
+  Verified: zero internal `/sign-in` hrefs remain on `/`, `/flame-os`,
+  `/products`, `/about`, `/contact`.
+- **`lib/site.ts` validates app URLs at build time** and throws on a malformed
+  value (missing protocol, non-http scheme, bad sign-in path) instead of shipping
+  a broken button. Matches the fail-loudly convention in `lib/content.ts`.
+- **New gate `npm run platform:check`** (`scripts/check-platform-link.mjs`) —
+  fetches the URLs the site actually renders and reports 404s. It loads
+  `lib/site.ts` directly so it cannot drift from the config. Non-strict by
+  default (a transient platform outage should not red the website build);
+  `--strict` fails. Network-unreachable is reported as INCONCLUSIVE, never as a
+  failure. Wired into CI as a step, with the env passed to the production build
+  so URL shape is validated there too. Set `FLAME_SALES_URL` /
+  `FLAME_SALES_SIGNIN_PATH` as repository Variables to activate it.
+- **`/sign-in` fallback page made state-aware.** Its copy claimed "Sign-in opens
+  when the platform does", which a working header link would have contradicted.
+  It now switches headline, lede and primary action when a platform is
+  configured, and lists both configured app domains.
+- External sign-in anchors now carry `rel="noopener noreferrer"`.
+- Docs: `.env.example` and `docs/DEPLOYMENT.md` document both variables, the
+  build-time inlining caveat (a Vercel env change needs a **redeploy**, not a
+  restart), the exact wiring steps, verification, and rollback.
+
+Deliberately **not** changed: the Flame Sales product page still shows status
+`pilot` with a "Request access" button resolving to the contact form. Relabelling
+it to a launch CTA is a content/status decision under the release discipline
+("status changes are content changes — same review bar"), so it is left for an
+explicit call rather than implied by an env var.
+
 ## 0.2.0 — 2026-09-16
 
 **UI craft pass — "clarity".** Same brand palette, same two typefaces, same

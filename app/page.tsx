@@ -162,7 +162,7 @@ export default function HomePage() {
                 Explore Flame OS <Icon name="arrow-right" size={18} />
               </Link>
               {osApp.external ? (
-                <a href={osApp.href} className="btn btn-outline">Sign in</a>
+                <a href={osApp.href} className="btn btn-outline" rel="noopener noreferrer">Sign in</a>
               ) : (
                 <Link href={osApp.href} className="btn btn-outline">Sign in</Link>
               )}

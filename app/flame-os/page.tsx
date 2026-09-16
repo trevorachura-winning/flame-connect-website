@@ -77,7 +77,7 @@ export default function FlameOsPage() {
                 Explore products <Icon name="arrow-right" size={18} />
               </Link>
               {app.external ? (
-                <a href={app.href} className="btn btn-ghost">Sign in</a>
+                <a href={app.href} className="btn btn-ghost" rel="noopener noreferrer">Sign in</a>
               ) : (
                 <Link href={app.href} className="btn btn-ghost">Sign in</Link>
               )}

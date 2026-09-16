@@ -23,9 +23,24 @@ jobs:
         run: npm run content:check
       - name: Link gate
         run: npm run links:check
+      # Verifies the platform URLs the site points visitors at actually resolve.
+      # Non-strict on purpose: a transient platform outage should not red the
+      # website build. Flip to `-- --strict` once the link is confirmed stable.
+      # Set FLAME_SALES_URL as a repository *Variable* (Settings → Secrets and
+      # variables → Actions → Variables) so this gate has something to check.
+      - name: Platform link gate
+        run: npm run platform:check
+        env:
+          NEXT_PUBLIC_FLAME_SALES_URL: ${{ vars.FLAME_SALES_URL }}
+          NEXT_PUBLIC_FLAME_SALES_SIGNIN_PATH: ${{ vars.FLAME_SALES_SIGNIN_PATH }}
       - name: Type check
         run: npm run typecheck
       - name: Production build
         run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: https://flame-connect-website.vercel.app
+          # Passed so lib/site.ts validates the URL shape at build time
+          # (NEXT_PUBLIC_* values are inlined during the build, and Vercel
+          # supplies the real deployment value separately).
+          NEXT_PUBLIC_FLAME_SALES_URL: ${{ vars.FLAME_SALES_URL }}
+          NEXT_PUBLIC_FLAME_SALES_SIGNIN_PATH: ${{ vars.FLAME_SALES_SIGNIN_PATH }}

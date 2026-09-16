@@ -1,6 +1,6 @@
 {
   "name": "flame-connect-website",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,6 +10,7 @@
     "lint": "next lint",
     "content:check": "node scripts/check-content.mjs",
     "links:check": "node scripts/check-links.mjs",
+    "platform:check": "node scripts/check-platform-link.mjs",
     "validate": "npm run content:check && npm run typecheck && npm run build",
     "build:static": "node scripts/build-static.mjs"
   },

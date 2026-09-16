@@ -66,7 +66,7 @@ export function Header({
   };
 
   const signinLink = signin.external ? (
-    <a className="header-signin" href={signin.href}>
+    <a className="header-signin" href={signin.href} rel="noopener noreferrer">
       Sign in
     </a>
   ) : (
@@ -176,7 +176,7 @@ export function Header({
             Explore free tools
           </Link>
           {signin.external ? (
-            <a className="drawer-signin" href={signin.href}>
+            <a className="drawer-signin" href={signin.href} rel="noopener noreferrer">
               Sign in
             </a>
           ) : (
