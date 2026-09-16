@@ -26,6 +26,9 @@ and (b) requires the site target AA. Resolution, held constant everywhere:
 - **Orange text on light surfaces:** `--flame-strong: #C43D0A` (5.23:1 white, 4.64:1 light blue ✓).
 - **Orange-filled buttons with white labels:** `--flame-btn: #CE3F0C` (4.84:1 ✓),
   hover `--flame-btn-hover: #A53408`. Hover/focus *keylines* keep pure `#F4511E`.
+  Hover deliberately goes **darker, never lighter**: a brighter orange would drop
+  the white label below 4.5:1. The "alive" feedback therefore comes from motion
+  (lift + `--shadow-flame` glow), not from lightening the fill.
 - Focus ring stays pure Flame Orange (3:1 non-text requirement ✓).
 
 These tints are computed derivations for legibility, recorded here so no one
@@ -34,18 +37,41 @@ interaction tones, swap the three variables in `app/globals.css`.
 
 ## Typography
 
-- Headings / section titles / strong statements: **Montserrat** 600–800 — site uses the variable cut with 800/900 for display.
+- Headings / section titles / strong statements: **Montserrat** 600–800 — the site
+  uses the variable cut at 800 (`display-1`), 750 (`display-2`) and 700 (everything
+  else, including `h1–h4` defaults). The clarity pass eased display weights down
+  from 900 and tightened tracking instead, so large headings read calm rather than
+  dense; both moves stay inside the guide's 600–800 range.
 - Body / UI / captions / CTAs: **Poppins** 400–600 — self-hosted 400/500/600/700.
 - Both bundled as static assets (no third-party font requests, low-bandwidth friendly).
 
 ## Graphic system → CSS mapping
 
-- **Dark/light rhythm:** `.band` deep-navy sections alternate with white (`.section`)
-  and light-blue (`.section.paper2`) surfaces.
-- **Orange keylines:** eyebrow rules, card hover outlines (`border-color: var(--flame)`),
-  active-nav underlines, callout rails, focus rings.
-- **Cards:** rounded rectangles (`--radius-*`), restrained `--shadow`, clean internal spacing.
-- **Whitespace:** generous section rhythm per the guide; content never edge-to-edge.
+- **Dark/light rhythm:** `.band` deep-navy sections alternate with white
+  (`.section`) and tinted (`.section.paper2`) surfaces.
+- **Light Blue is an accent surface, not a section fill.** Since the 0.2.0
+  clarity pass, large alternating sections use a whisper-cool neutral
+  (`--paper-2: #f1f6fd`) and the brand's Light Blue `#EAF2FF` (`--panel`) is
+  reserved for chips, wells, table headers and small panels — this keeps big
+  surfaces calm without retiring the token. `.section.panel-blue` applies the
+  full Light Blue when a section should genuinely read as a brand panel.
+  This is a *placement* decision about an existing brand colour, not a new one.
+- **Orange keylines:** eyebrow rules, card hover outlines
+  (`border-color: rgba(244,81,30,.32)`), active-nav underlines, callout rails,
+  focus rings, Flame OS bar gradients.
+- **Cards:** rounded rectangles (`--radius-*`) with hairline borders
+  (`--hairline: rgba(7,17,31,.075)`) and a three-level layered elevation scale
+  (`--shadow-1/2/3`), rather than flat 1px outlines and a single shadow.
+- **Whitespace:** generous section rhythm per the guide
+  (`clamp(4.5rem, 9vw, 8rem)` vertical); content never edge-to-edge.
+- **Motion:** one signature curve (`--ease: cubic-bezier(.32,.72,0,1)`) and a
+  four-step duration scale (`--dur-1..4`). Reveals rise and settle; the
+  blur-to-sharp component of a reveal is applied on pointer devices only so
+  low-power/mobile devices get a plain fade-and-rise (access-first principle).
+  Ambient glow drift (`band::before`, `hero-home::before`) and hero parallax
+  (`components/Parallax.tsx`) are both fully disabled under
+  `prefers-reduced-motion`, and parallax is additionally skipped on
+  touch/coarse-pointer devices.
 
 ## Logo asset status
 
