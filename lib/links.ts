@@ -78,6 +78,12 @@ export function exploreToolsHref(): string {
 export function productCtaHref(product: Product): { href: string; external: boolean } {
   const kind: ProductCtaKind = product.cta.kind;
   if (kind === "try" || kind === "access") {
+    // A product with its own deployed app signs in there. This is a per-product
+    // map on purpose: a single site-wide Flame OS URL would repoint *every*
+    // launch CTA at one app, which is how Lens/Ready/Academy would end up
+    // "launching" Flame Sales.
+    const appUrl = PRODUCT_APP_URLS[product.slug];
+    if (appUrl) return signInHref();
     if (SITE.flameOsUrl) return { href: SITE.flameOsUrl, external: true };
     // No live app configured: honest access request instead of a broken launch.
     return { href: contactHref(product.cta.intent, product.slug), external: false };
@@ -85,3 +91,13 @@ export function productCtaHref(product: Product): { href: string; external: bool
   if (kind === "waitlist") return { href: contactHref("waitlist", product.slug), external: false };
   return { href: contactHref("consultation", product.slug), external: false };
 }
+
+/**
+ * Products with a deployed application, and the origin that serves them.
+ * Confirmed with the founder (Sept 2026): Flame Sales is live in the Flame
+ * Sales platform; every other product is still being built there, so none of
+ * them appear here and their CTAs stay on honest on-site routes.
+ */
+const PRODUCT_APP_URLS: Record<string, string | null> = {
+  "flame-sales": SITE.flameSalesUrl,
+};

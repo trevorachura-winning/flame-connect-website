@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.3.1 — 2026-09-16
+
+**Product statuses reconciled with what is actually deployed.** Status audit
+against the live Flame Sales platform, confirmed with the founder: it contains
+the sales tools and sign-in works; Lens, Ready and Academy are *not* built yet
+and will be built in the platform later. The site previously claimed otherwise.
+
+- **Flame Sales** — CTA changed from "Request access" (contact form) to
+  **"Sign in to Flame Sales"**, routed to the platform via `productCtaHref()`.
+  A new per-product `PRODUCT_APP_URLS` map in `lib/links.ts` does the routing so
+  a site-wide Flame OS URL can never repoint other products' buttons. Status
+  stays `pilot` (limited-group framing, matching the announcement ribbon) with
+  the note updated to say it is deployed and sign-in is live.
+- **Flame Lens, Flame Ready** — `live` → `development`. Removed every
+  "public alpha / usable today / try the alpha" claim: statusNote, how-it-works
+  copy, trust notes, requirements, FAQs and SEO descriptions. CTAs are now
+  "Join the waitlist". The site no longer promises tools a visitor cannot reach.
+- **Flame Academy** — `pilot` → `development` (the "role diagnostic is public"
+  and "cohorts in pilot" claims removed); CTA → "Join the waitlist".
+- **Flame Reach / Flame Impact** — removed phantom claims that capabilities
+  exist "in alpha form inside the platform's Social Commerce Copilot /
+  Community Impact OS"; replaced with plain in-development statements.
+- **Flame OS page + Trust board + field-notes article** — copy updated to match:
+  no "public alphas" language; the Trust board's Flame OS row now notes that
+  Flame Sales ships separately with sign-in live for pilot teams.
+- `CTA_KIND_LABEL` for `try` now reads "Available now" (only Flame Sales uses it).
+
+Gates green: content, links (27 routes), typecheck, production build (36/36).
+
 ## 0.3.0 — 2026-09-16
 
 **Flame Sales platform wired into "Sign in".** The platform is deployed at

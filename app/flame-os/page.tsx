@@ -140,7 +140,7 @@ export default function FlameOsPage() {
           <SectionHead
             eyebrow="The family it carries"
             title="Tools already riding on the foundation"
-            copy="The public alphas and the pilot workspace are the first proof that one platform can serve many very different jobs."
+            copy="Flame Sales in pilot, and the tools being built alongside it in the same platform, are the first proof that one foundation can serve many very different jobs."
           />
           <div className="grid cols-3">
             {liveFamily.map((product, i) => (

@@ -38,9 +38,11 @@ export const STATUS_LABEL: Record<ProductStatus, string> = {
 
 /**
  * Statuses trace to docs/PLATFORM_STATUS.md in the platform repository:
- * source-validated public alphas are labelled "Live — public alpha", the
- * authenticated workspace is a limited "Pilot", and unbuilt directions are
- * plainly "In development". Nothing here claims production availability.
+ * statuses reflect the real deployment state, confirmed with the founder
+ * (Sept 2026): Flame Sales is deployed with sign-in live for pilot teams and
+ * is labelled "Pilot"; tools still being built in the platform (Lens, Ready,
+ * Academy, Forge, Reach, Impact) are plainly "In development". Nothing here
+ * claims availability a visitor cannot actually reach.
  */
 export const PRODUCTS: Product[] = [
   {
@@ -51,7 +53,7 @@ export const PRODUCTS: Product[] = [
     body: "Flame Sales supports pipeline visibility, lead prioritisation, follow-up discipline and practical sales insight so teams can spend less time chasing information and more time moving the right opportunities forward.",
     status: "pilot",
     statusNote:
-      "Pilot — available to a limited group while we test usefulness, reliability and fit.",
+      "Pilot — deployed and sign-in is live; access is currently limited to a group of teams while we validate usefulness, reliability and fit.",
     audiences: ["Sales teams", "Founders", "Commercial leaders"],
     outcomes: [
       "See the pipeline clearly without rebuilding spreadsheets every week.",
@@ -97,7 +99,7 @@ export const PRODUCTS: Product[] = [
           "The workspace is organization-scoped with row-level security, tenant-isolation test harnesses and deterministic scoring. Production validation is still in progress, which is why access is currently limited rather than open to everyone.",
       },
     ],
-    cta: { kind: "access", label: "Request access", intent: "access" },
+    cta: { kind: "try", label: "Sign in to Flame Sales", intent: "access" },
     relatedServiceSlug: "ai-in-business",
     seo: {
       title: "Flame Sales — Sales AI built for African teams",
@@ -111,9 +113,9 @@ export const PRODUCTS: Product[] = [
     purpose: "Digital and social performance insight with practical recommendations.",
     headline: "See what your digital presence is telling you.",
     body: "Flame Lens is designed to bring social and digital performance signals into one clearer view, then translate them into practical recommendations for what to improve next.",
-    status: "live",
+    status: "development",
     statusNote:
-      "Public alpha — usable today in a simplified form; your feedback shapes what gets built next.",
+      "In development — being built as part of the Flame platform alongside Flame Sales. Join the waitlist and we will share progress honestly.",
     audiences: ["Marketing teams", "Communications teams", "Business owners"],
     outcomes: [
       "Score your digital presence against a practical public framework.",
@@ -123,7 +125,7 @@ export const PRODUCTS: Product[] = [
     howItWorks: [
       {
         title: "Answer grounded questions",
-        body: "Describe your channels, activity and evidence. No account connection is required to try the alpha.",
+        body: "Describe your channels, activity and evidence. The design avoids requiring account connections.",
       },
       {
         title: "Receive a scored view",
@@ -135,28 +137,28 @@ export const PRODUCTS: Product[] = [
       },
     ],
     trustNotes: [
-      "The public alpha avoids collecting sensitive data while the workflow is still being validated.",
+      "The design avoids collecting sensitive data while the workflow is still being validated.",
       "Recommendations come with rationale; nothing is presented as an unquestionable output.",
     ],
-    requirements: ["Works in the browser — no accounts to connect for the alpha."],
+    requirements: ["Planned to work in the browser without accounts to connect."],
     faqs: [
       {
         question: "Is this connected to my social accounts?",
         answer:
-          "Not in the alpha. Manual and evidence-first scoring comes before connectors, so you can evaluate the approach without handing over credentials.",
+          "No. Manual and evidence-first scoring comes before connectors, so the approach can be evaluated without handing over credentials.",
       },
       {
-        question: "What does 'public alpha' mean?",
+        question: "When will Flame Lens be available?",
         answer:
-          "It means the tool is usable now in a simplified form while the full product is still being validated with users. Expect it to improve in public, and tell us what worked or did not.",
+          "It is in development as part of the Flame platform. Join the waitlist and we will share honest progress updates as it is built.",
       },
     ],
-    cta: { kind: "try", label: "Try the alpha", intent: "access" },
+    cta: { kind: "waitlist", label: "Join the waitlist", intent: "waitlist" },
     relatedServiceSlug: "digital-communications",
     seo: {
       title: "Flame Lens — Digital performance insight",
       description:
-        "Flame Lens turns digital and social performance signals into practical, prioritised recommendations. Public alpha available now.",
+        "Flame Lens turns digital and social performance signals into practical, prioritised recommendations. In development as part of the Flame platform.",
     },
   },
   {
@@ -165,9 +167,9 @@ export const PRODUCTS: Product[] = [
     purpose: "AI readiness assessment and priority-setting for organizations.",
     headline: "Know where AI can actually help.",
     body: "Flame Ready helps organizations assess AI readiness, identify priority use cases and surface the capability, data, governance and process gaps that should be addressed before scale.",
-    status: "live",
+    status: "development",
     statusNote:
-      "Public alpha — usable today in a simplified form; structured results can inform a consultation.",
+      "In development — being built as part of the Flame platform. Join the waitlist for honest progress updates.",
     audiences: ["Leadership teams", "Transformation leads", "Technology leaders"],
     outcomes: [
       "A shared, honest view of readiness across capability, data, governance and process.",
@@ -205,12 +207,12 @@ export const PRODUCTS: Product[] = [
           "You get a prioritised gap list and candidate use cases. If you want, we can turn that into a scoped pilot through an AI in Business engagement.",
       },
     ],
-    cta: { kind: "try", label: "Start the assessment", intent: "access" },
+    cta: { kind: "waitlist", label: "Join the waitlist", intent: "waitlist" },
     relatedServiceSlug: "ai-in-business",
     seo: {
       title: "Flame Ready — AI readiness assessment",
       description:
-        "Assess your organization's AI readiness, identify priority use cases and surface the gaps to fix before scale. Public alpha available.",
+        "Assess your organization's AI readiness, identify priority use cases and surface the gaps to fix before scale. In development as part of the Flame platform.",
     },
   },
   {
@@ -219,9 +221,9 @@ export const PRODUCTS: Product[] = [
     purpose: "Practical learning for AI, digital work and transformation capability.",
     headline: "Build capability people can use at work.",
     body: "Flame Academy brings practical AI and digital learning into structured pathways for professionals, teams and organizations, with a focus on application rather than theory alone.",
-    status: "pilot",
+    status: "development",
     statusNote:
-      "Pilot — the role diagnostic is public; structured cohorts run with a limited group while we validate the format.",
+      "In development — planned as part of the Flame platform. Join the waitlist and we will share progress honestly.",
     audiences: ["Professionals", "Teams", "Organizations"],
     outcomes: [
       "Personalised learning paths from a practical role diagnostic.",
@@ -256,15 +258,15 @@ export const PRODUCTS: Product[] = [
       {
         question: "Can a whole team join?",
         answer:
-          "Yes. Team and organizational formats are part of the pilot. Use the learning enquiry route and tell us the size and goal of the group.",
+          "Yes — team and organizational formats are planned. Tell us the size and goal of your group when you join the waitlist.",
       },
     ],
-    cta: { kind: "access", label: "Explore learning paths", intent: "learning" },
+    cta: { kind: "waitlist", label: "Join the waitlist", intent: "waitlist" },
     relatedServiceSlug: "ai-in-business",
     seo: {
       title: "Flame Academy — Practical AI & digital learning",
       description:
-        "Structured, application-first AI and digital learning for African professionals, teams and organizations. Diagnostic public; cohorts in pilot.",
+        "Structured, application-first AI and digital learning for African professionals, teams and organizations. In development as part of the Flame platform.",
     },
   },
   {
@@ -352,7 +354,7 @@ export const PRODUCTS: Product[] = [
     ],
     trustNotes: [
       "Human-approved drafts only; no automatic posting to social accounts.",
-      "The capability exists today in alpha form inside the platform's Social Commerce Copilot while the dedicated product is shaped.",
+      "The dedicated product is in development; no live posting capability is claimed until it exists.",
     ],
     requirements: [],
     faqs: [
@@ -400,7 +402,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     trustNotes: [
-      "Aggregate-first measurement by design, reflected in the platform's Community Impact OS alpha.",
+      "Aggregate-first measurement by design, to be delivered through the Flame platform.",
       "We do not publish impact claims without a stated method and an owner.",
     ],
     requirements: [],

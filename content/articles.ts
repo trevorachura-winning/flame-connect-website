@@ -243,7 +243,7 @@ export const ARTICLES: Article[] = [
     slug: "field-notes-what-early-testers-showed-us",
     title: "Field notes: what early testers in Uganda changed in our products",
     summary:
-      "Qualitative observations from early alpha testing and community sessions in Kampala — the assumptions that broke, and what we changed because of them.",
+      "Qualitative observations from early testing and community sessions in Kampala — the assumptions that broke, and what we changed because of them.",
     category: "Field notes",
     date: "2026-09-08",
     readingTime: "6 min read",
@@ -252,7 +252,7 @@ export const ARTICLES: Article[] = [
       {
         heading: "Why we publish this",
         paragraphs: [
-          "We say community feedback shapes our tools, and that claim deserves receipts. These notes are qualitative — observations from early testing sessions and structured feedback on our public alphas — and they are published in that spirit: honest about what broke, specific about what changed.",
+          "We say community feedback shapes our tools, and that claim deserves receipts. These notes are qualitative — observations from early testing sessions and structured feedback from pilot teams — and they are published in that spirit: honest about what broke, specific about what changed.",
         ],
       },
       {
