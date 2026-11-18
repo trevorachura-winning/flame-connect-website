@@ -13,9 +13,8 @@
  * leave the site through the visitor's own email app or WhatsApp, prefilled
  * by components/EnquiryComposer.tsx; nothing is posted to a server.
  *
- * To go live with enquiries, set `contactEmail` and/or `contactWhatsApp`
- * below to the confirmed public details (Appendix C). Until then the contact
- * page states honestly that direct details are being confirmed.
+ * Public enquiry destinations are defined below. The visitor must still
+ * press Send in their own email or WhatsApp app: the website does not submit.
  */
 export const SITE = {
   name: "Flame Connect",
@@ -31,13 +30,12 @@ export const SITE = {
   siteUrl:
     (process.env.NEXT_PUBLIC_SITE_URL || "").trim().replace(/\/+$/, "") ||
     "https://flameconnect.org",
-  // pending — Appendix C: confirmed public contact points.
-  // contactEmail: e.g. "hello@your-domain" (published as a mailto: link).
-  // contactWhatsApp: international digits only, no "+" or spaces,
-  //   e.g. "2567XXXXXXXX" (used to build https://wa.me/<number> links).
-  contactEmail: null as string | null,
+  // Public contact details confirmed by Product Owner (18 Nov 2026).
+  // WhatsApp uses digits-only international format for wa.me links.
+  // Do not infer a separate phone/voice line from the WhatsApp number.
+  contactEmail: "flameconnect1@gmail.com" as string | null,
   contactPhone: null as string | null,
-  contactWhatsApp: null as string | null,
+  contactWhatsApp: "256764018701" as string | null,
   officeLocation: "Kampala, Uganda", // publicly stated headquarters language
   // Approved accounts only. Empty until marketing confirms handles (Appendix C).
   social: {
