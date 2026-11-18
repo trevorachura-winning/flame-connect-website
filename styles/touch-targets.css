@@ -35,3 +35,8 @@
   .brand { min-height: 44px; }
   .footer-social a { min-width: 44px; min-height: 44px; }
 }
+
+/* Card "Explore" links on home service cards */
+@media (pointer: coarse) {
+  .card .text-link { display: inline-flex; align-items: center; min-height: 44px; }
+}
