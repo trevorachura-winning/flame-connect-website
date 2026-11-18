@@ -1,0 +1,329 @@
+.shell {
+  width: min(100%, 870px);
+  margin-inline: auto;
+  padding: clamp(1.25rem, 4vw, 3rem);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--hairline);
+  background: var(--white);
+  box-shadow: var(--shadow-2);
+  color: var(--ink);
+}
+
+.eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--flame-strong);
+}
+
+.progressHeader,
+.controls,
+.dimensionLabel,
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.progressText {
+  margin-top: 0.45rem;
+  color: var(--ink-soft);
+  font-size: 0.89rem;
+}
+
+.progressPercent {
+  color: var(--flame-strong);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
+.progress {
+  display: block;
+  width: 100%;
+  height: 8px;
+  margin: 1.5rem 0 2rem;
+  border: 0;
+  border-radius: 99px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.progress::-webkit-progress-bar { background: var(--line); border-radius: 99px; }
+.progress::-webkit-progress-value { background: var(--flame-btn); border-radius: 99px; }
+.progress::-moz-progress-bar { background: var(--flame-btn); border-radius: 99px; }
+
+.fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+  min-width: 0;
+}
+
+.legend {
+  padding: 0;
+  width: 100%;
+}
+
+.questionTitle,
+.resultHeading {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.8vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  color: var(--navy-deep);
+}
+
+.questionTitle:focus,
+.resultHeading:focus {
+  outline: none;
+}
+
+.hint,
+.disclaimer {
+  color: var(--ink-soft);
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+.hint { margin: 0.85rem 0 1.5rem; }
+
+.options {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.95rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+  cursor: pointer;
+  background: var(--white);
+  transition: background-color 200ms var(--ease), border-color 200ms var(--ease), transform 200ms var(--ease);
+}
+
+.option:hover,
+.option:focus-within {
+  border-color: var(--flame-btn);
+  background: var(--flame-tint);
+}
+
+.option:focus-within {
+  outline: 2px solid var(--flame-btn);
+  outline-offset: 2px;
+}
+
+.chosen {
+  border-color: var(--flame-btn);
+  background: var(--flame-tint);
+}
+
+.option input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--flame-btn);
+  flex: none;
+}
+
+.optionCopy {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.optionCopy strong {
+  font-size: 0.97rem;
+  color: var(--navy-deep);
+}
+
+.optionCopy span {
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+.controls {
+  margin-top: 1.8rem;
+}
+
+.controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.privacy {
+  margin-top: 1.7rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.79rem;
+  color: var(--ink-faint);
+  line-height: 1.6;
+}
+
+.resultHeader {
+  margin-bottom: 1.6rem;
+}
+
+.resultHeading {
+  margin: 0.6rem 0;
+}
+.resultHeading span {
+  color: var(--flame-strong);
+}
+
+.resultGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 1rem;
+}
+
+.scoreCard,
+.dimensionCard,
+.actionsCard,
+.nextSteps {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding: clamp(1rem, 3vw, 1.7rem);
+}
+
+.scoreCard {
+  background: var(--navy-canvas);
+  color: #fff;
+}
+
+.scoreLabel {
+  display: block;
+  font-size: 0.83rem;
+  color: #c9d7f6;
+}
+
+.scoreNumber {
+  display: block;
+  margin: 0.4rem 0 0.6rem;
+  font: 800 clamp(3rem, 7vw, 5.5rem)/1 var(--font-display);
+  color: #fff;
+  letter-spacing: -0.05em;
+}
+
+.scoreNumber small {
+  font-size: 0.27em;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: #c9d7f6;
+}
+
+.scoreCard p {
+  font-size: 0.91rem;
+  line-height: 1.7;
+  color: #dde6f9;
+}
+
+.dimensionCard h3,
+.actionsCard h3,
+.nextSteps h3 {
+  font: 700 1.15rem/1.25 var(--font-display);
+  color: var(--navy-deep);
+}
+
+.dimensionList {
+  display: grid;
+  gap: 1.05rem;
+  margin-top: 1.35rem;
+}
+
+.dimensionLabel {
+  color: var(--ink);
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+
+.dimensionLabel b {
+  color: var(--navy-deep);
+}
+
+.track {
+  background: var(--line);
+  border-radius: 100px;
+  height: 9px;
+  overflow: hidden;
+}
+
+.track span {
+  display: block;
+  height: 100%;
+  background: var(--flame-btn);
+  border-radius: inherit;
+  transition: width 600ms var(--ease);
+}
+
+.actionsCard {
+  margin-top: 1rem;
+  background: var(--paper-2);
+}
+
+.actionsCard h3 {
+  margin: 0.45rem 0;
+}
+
+.actionList {
+  display: grid;
+  gap: 1rem;
+  margin: 1.2rem 0 0;
+  padding-left: 1.4rem;
+}
+
+.actionList li {
+  padding-left: 0.45rem;
+}
+
+.actionList p {
+  margin-top: 0.3rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  font-size: 0.91rem;
+}
+
+.nextSteps {
+  margin-top: 1rem;
+}
+
+.nextSteps p {
+  margin-top: 0.6rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.buttons {
+  justify-content: flex-start;
+  margin-top: 1.4rem;
+}
+
+.reset {
+  padding: 0.8rem 0.6rem;
+  background: none;
+  border: none;
+  color: var(--flame-strong);
+  font-size: 0.89rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.reset:focus-visible { outline: 2px solid var(--flame-btn); outline-offset: 2px; }
+
+@media (max-width: 44rem) {
+  .resultGrid { grid-template-columns: minmax(0, 1fr); }
+  .controls button { flex: 1 1 40%; }
+  .buttons .btn { width: 100%; text-align: center; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .option,
+  .track span { transition: none; }
+}
