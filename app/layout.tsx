@@ -7,6 +7,7 @@ import "@fontsource/poppins/700.css";
 import "./globals.css";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { CursorHalo } from "../components/CursorHalo";
 import { JsonLd } from "../components/JsonLd";
 import { SITE } from "../lib/site";
 import { organizationJsonLd, websiteJsonLd } from "../lib/seo";
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header ctaHref={consultationHref()} ribbon={RIBBON} />
         <main id="main">{children}</main>
         <Footer />
+        <CursorHalo />
       </body>
     </html>
   );
