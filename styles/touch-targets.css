@@ -1,0 +1,29 @@
+/* ==================================================================
+   Touch-target comfort (mobile & tablet polish, 18 Nov 2026)
+   On touch screens, every tappable control reaches the 44px target goal
+   from the brief (WCAG 2.5.5 AAA; 2.5.8 AA minimum is 24px). Applies only
+   to coarse pointers, so desktop layouts are unchanged.
+   ================================================================== */
+@media (pointer: coarse) {
+  .btn-sm,
+  .header-actions .btn {
+    min-height: 44px;
+  }
+  .chip-link,
+  .chip-row a.chip {
+    min-height: 44px;
+  }
+  .footer-col a,
+  .footer-col li > span,
+  .footer-bottom a,
+  .breadcrumbs a,
+  .card-foot .text-link,
+  .faq-item summary {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .footer-col ul {
+    gap: 0;
+  }
+}
