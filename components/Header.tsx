@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { TOP_NAV } from "../content/navigation";
+import { DesktopMegaNavigation, MobileMegaNavigation } from "./MegaNavigation";
+import styles from "./MegaNavigation.module.css";
 import { BrandLogo } from "./BrandLogo";
 import { Icon } from "./Icons";
 
@@ -20,6 +21,7 @@ export function Header({
   const [ribbonVisible, setRibbonVisible] = useState(false);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -55,8 +57,34 @@ export function Header({
     return () => window.removeEventListener("keydown", onKey);
   }, [drawerOpen]);
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
+  // Keep keyboard focus inside the open mobile drawer, and return it to the
+  // launcher on Escape. Regular route changes close the drawer separately.
+  useEffect(() => {
+    if (!drawerOpen) return;
+    const trapTab = (event: KeyboardEvent) => {
+      if (event.key !== "Tab" || !drawerRef.current) return;
+      const available = Array.from(
+        drawerRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((node) => node.getClientRects().length > 0);
+      if (available.length === 0) return;
+      const first = available[0];
+      const last = available[available.length - 1];
+      if (!drawerRef.current.contains(document.activeElement)) {
+        event.preventDefault();
+        first.focus();
+      } else if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", trapTab);
+    return () => document.removeEventListener("keydown", trapTab);
+  }, [drawerOpen]);
 
   const dismissRibbon = () => {
     setRibbonVisible(false);
@@ -87,18 +115,7 @@ export function Header({
             </span>
           </Link>
 
-          <nav className="main-nav" aria-label="Primary">
-            {TOP_NAV.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={isActive(item.href) ? "active" : undefined}
-                aria-current={isActive(item.href) ? "page" : undefined}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+          <DesktopMegaNavigation />
 
           <div className="header-actions">
             <Link href={ctaHref} className="btn btn-primary btn-sm">
@@ -107,7 +124,7 @@ export function Header({
             </Link>
             <button
               ref={menuBtnRef}
-              className="menu-btn"
+              className={`menu-btn ${styles.mobileTrigger}`}
               aria-label="Open menu"
               aria-expanded={drawerOpen}
               onClick={() => setDrawerOpen(true)}
@@ -118,8 +135,9 @@ export function Header({
         </div>
       </header>
 
-      {drawerOpen && <div className="drawer-backdrop open" onClick={() => setDrawerOpen(false)} />}
+      {drawerOpen && <div className="drawer-backdrop open" onClick={() => { setDrawerOpen(false); menuBtnRef.current?.focus(); }} />}
       <div
+        ref={drawerRef}
         className={`drawer${drawerOpen ? " open" : ""}`}
         role="dialog"
         aria-modal="true"
@@ -144,20 +162,8 @@ export function Header({
             <Icon name="x" size={20} />
           </button>
         </div>
-        <nav aria-label="Mobile">
-          {TOP_NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={isActive(item.href) ? "active" : undefined}
-              aria-current={isActive(item.href) ? "page" : undefined}
-            >
-              {item.label}
-              <Icon name="arrow-right" size={18} />
-            </Link>
-          ))}
-          <Link href="/contact">Contact <Icon name="arrow-right" size={18} /></Link>
-        </nav>
+        <MobileMegaNavigation onNavigate={() => setDrawerOpen(false)} />
+
         <div className="drawer-cta">
           <Link href={ctaHref} className="btn btn-primary">
             Book a consultation
