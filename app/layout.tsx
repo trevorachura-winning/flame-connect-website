@@ -15,8 +15,8 @@ import { consultationHref } from "../lib/links";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.siteUrl),
   title: {
-    default: "Flame Connect | Digitize Africa",
-    template: "%s | Flame Connect",
+    default: "Flame Connect | Digitizing Africa",
+    template: "%s", // Child pageMetadata titles already include the full brand name.
   },
   description:
     "Flame Connect helps African businesses and communities use AI, digital communications and practical tools to improve decisions, workflows and growth.",
