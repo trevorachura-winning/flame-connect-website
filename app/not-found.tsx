@@ -6,7 +6,7 @@ export default function NotFound() {
     <section className="section">
       <div className="container" style={{ maxWidth: "44rem", textAlign: "center" }}>
         <span className="eyebrow" style={{ justifyContent: "center" }}>404</span>
-        <h1 className="display-1" style={{ margin: "1rem 0" }}>This page moved — or never existed.</h1>
+        <h1 className="display-1" style={{ margin: "1rem 0" }}>We can't find that page.</h1>
         <p className="lede" style={{ marginInline: "auto" }}>
           Nothing here should be a dead end. Pick a working path below, or tell us what you were
           looking for and we will point you at it.

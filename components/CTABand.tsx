@@ -5,7 +5,7 @@ import { Reveal } from "./Reveal";
 /** One strong question, one primary action — max two CTAs, per the brief. */
 export function CTABand({
   question = "What are you trying to change?",
-  copy = "Tell us the problem, workflow or opportunity you are working on. We will help you identify the most useful next step — a service, a tool, a learning path or a focused pilot.",
+  copy = "Tell us the problem, workflow or opportunity you are working on. We will help you find the most useful next step. That might be a service, a tool, a learning path or a small pilot.",
   primary = { label: "Book a consultation", href: "/contact?intent=consultation" },
   secondary = { label: "Explore our products", href: "/products" },
 }: {

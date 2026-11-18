@@ -143,7 +143,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             <SectionHead
               eyebrow="Our platforms"
               title="Platforms that travel with this service"
-              copy="Our platforms can be rolled out as part of this service — configured around your organisation."
+              copy="We can roll out our platforms as part of this service, set up around how your organisation works."
               light
             />
             <div className={s.cols3}>

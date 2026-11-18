@@ -15,7 +15,7 @@ const LAST_UPDATED = "2026-11-18";
 
 export default function PrivacyPage() {
   const updated = new Date(LAST_UPDATED).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-  const wa = whatsappHref("Hello Flame Connect — privacy request");
+  const wa = whatsappHref("Hello Flame Connect, I have a privacy request");
 
   return (
     <>
@@ -57,8 +57,8 @@ export default function PrivacyPage() {
             </li>
             <li>
               <b>Technical information.</b> Like most websites, our hosting provider automatically
-              processes basic technical data — such as IP address, browser type, device and pages
-              requested — to deliver the site securely and reliably.
+              processes basic technical data, such as your IP address, browser type, device and the pages
+              you request, to deliver the site securely and reliably.
             </li>
           </ul>
           <p>
@@ -89,8 +89,8 @@ export default function PrivacyPage() {
           <h2>5. Sharing your information</h2>
           <p>
             We do not sell personal information. We share it only with trusted service providers
-            who help us operate — for example website hosting, email and messaging services — and
-            only as needed for those services; with professional advisers where necessary; or
+            who help us operate, such as website hosting, email and messaging services, and
+            only as far as those services need; with professional advisers where necessary; or
             where required by law. When you contact us by WhatsApp or email, those services also
             process your messages under their own privacy terms.
           </p>
@@ -103,9 +103,9 @@ export default function PrivacyPage() {
 
           <h2>7. Retention</h2>
           <p>
-            We keep personal information only for as long as needed for the purposes above — for
-            example, for the duration of an enquiry or engagement and a reasonable period
-            afterwards — or as required by law. You can ask to be removed from the early-access or
+            We keep personal information only for as long as we need it for the purposes above,
+            for example for the length of an enquiry or engagement and a reasonable period
+            afterwards, or for as long as the law requires. You can ask to be removed from the early-access or
             updates list at any time.
           </p>
 
@@ -135,7 +135,7 @@ export default function PrivacyPage() {
           </ul>
           <p>
             We will respond within a reasonable time. If you are not satisfied with our response,
-            you may complain to the relevant data protection authority — in Uganda, the Personal
+            you can complain to the relevant data protection authority. In Uganda, that is the Personal
             Data Protection Office.
           </p>
 

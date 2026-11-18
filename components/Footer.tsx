@@ -83,7 +83,7 @@ export function Footer() {
           <span>
             {SITE.legalName
               ? SITE.legalName
-              : "Registered company name shown here once confirmed — see our Trust page."}
+              : "Registered company name shown here once confirmed. See our Trust page."}
           </span>
           <span style={{ display: "inline-flex", gap: "1.2rem" }}>
             <Link href="/privacy">Privacy</Link>

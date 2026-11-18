@@ -19,7 +19,7 @@ const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 export const metadata = pageMetadata({
   title: "AI, Digital & Transformation Services",
   description:
-    "Digital & Communications, AI in Business and Consulting & Thought Leadership — each built from a real business challenge to a realistic, measurable outcome.",
+    "Digital & Communications, AI in Business and Consulting & Thought Leadership. Each one starts from a real business challenge and works towards a realistic, measurable result.",
   path: "/services",
 });
 
@@ -33,8 +33,8 @@ export default function ServicesPage() {
             <SplitText text="Strategy, communication and AI that move into real work." accent="real work." delayMs={80} />
           </h1>
           <p className={`lede ${m.rise}`} style={v({ "--i": 6 })}>
-            Three service lines, one engagement model. We start from the challenge in front of you,
-            deliver in small tested steps and leave your team more capable — not more dependent.
+            Three services, one way of working. We start from the challenge in front of you,
+            deliver in small, tested steps and leave your team more capable and less dependent on us.
           </p>
           <div className={`hero-actions ${m.rise}`} style={v({ "--i": 7 })}>
             <Link href="/contact?intent=consultation" className={`btn btn-primary ${s.wrapBtn}`}>
@@ -67,8 +67,8 @@ export default function ServicesPage() {
               <SplitText text="Which of these sounds familiar?" accent="sounds familiar?" />
             </h2>
             <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
-              Pick the closest match. If none fit, describe the problem in a consultation — we will
-              recommend a route, including when the honest answer is &ldquo;none of ours&rdquo;.
+              Pick the closest match. If none fit, describe the problem in a consultation and we will
+              suggest a route, even when the honest answer is &ldquo;none of ours&rdquo;.
             </p>
           </InView>
           <ServiceChooser items={SERVICE_CHOOSER} services={SERVICES} />
@@ -83,8 +83,8 @@ export default function ServicesPage() {
               <SplitText text="One engagement model, three service lines." accent="three service lines." />
             </h2>
             <p className={`lede light ${m.rise}`} style={v({ "--i": 3 })}>
-              Every engagement follows the same arc — diagnose before design, test before scale — so
-              the work produces evidence, not just documents.
+              Every engagement follows the same path. We diagnose before we design and test before we scale,
+              so the work produces evidence as well as documents.
             </p>
           </InView>
           <InView as="ol" className={`${s.cols5} list-plain`}>
@@ -107,7 +107,7 @@ export default function ServicesPage() {
 
       <CTABand
         question="Not sure which service line fits?"
-        copy="You do not need to know. Describe the problem and the outcome you want — we will recommend the route in a discovery consultation."
+        copy="You do not need to know yet. Describe the problem and the result you want, and we will recommend a route in a discovery consultation."
         primary={{ label: "Book a discovery consultation", href: "/contact?intent=consultation" }}
         secondary={{ label: "Read our playbooks", href: "/resources?category=Playbooks" }}
       />

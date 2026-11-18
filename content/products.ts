@@ -58,7 +58,7 @@ export const PRODUCTS: Product[] = [
   {
     slug: "flame-os",
     name: "Flame OS",
-    purpose: "CRM, campaigns, automations and insight in one platform — so African businesses can win and keep more customers.",
+    purpose: "CRM, campaigns, automations and insight in one platform, so African businesses can win and keep more customers.",
     tagline: "The growth operating system for African businesses",
     category: "CRM & marketing automation",
     image: {
@@ -68,7 +68,7 @@ export const PRODUCTS: Product[] = [
       height: 1024,
     },
     headline: "Win and keep more customers, from one simple platform.",
-    body: "Flame OS brings your contacts, sales pipeline, campaigns and follow-up together — designed for mobile-first teams, real connectivity and the way business actually runs across Africa.",
+    body: "Flame OS brings your contacts, sales pipeline, campaigns and follow-up together. It is designed for teams who work from their phones, on everyday connections, and for the way business really runs across Africa.",
     status: "development",
     statusNote:
       "Flame OS is launching soon. Join early access to hear first, see it before public launch and help shape what it does.",
@@ -87,24 +87,24 @@ export const PRODUCTS: Product[] = [
       {
         name: "Automations",
         icon: "workflow",
-        copy: "Turn repeat work — follow-ups, reminders, hand-offs — into simple automated workflows your team stays in control of.",
+        copy: "Turn repeat work like follow-ups, reminders and hand-offs into simple automated workflows that your team stays in control of.",
       },
       {
         name: "Insights & reporting",
         icon: "chart",
-        copy: "See what is working across sales and marketing, with scores that explain their reasons in plain language.",
+        copy: "See what is working across sales and marketing, with scores that explain themselves in plain language.",
       },
     ],
     outcomes: [
       "See your whole pipeline without rebuilding spreadsheets every week.",
       "Focus on the leads most likely to convert, with reasons you can check.",
-      "Never let a follow-up slip, with reminders and automated next steps.",
+      "Stop follow-ups slipping through the cracks with reminders and automated next steps.",
       "Know which campaigns bring in real customers, not just clicks.",
     ],
     howItWorks: [
       {
         title: "Bring your contacts",
-        body: "Start from the spreadsheet or list you already have. Import, clean and organise it in minutes — no expensive migration.",
+        body: "Start from the spreadsheet or list you already have. Import, clean and organise it in minutes, with no expensive migration.",
       },
       {
         title: "Automate the follow-up",
@@ -112,14 +112,14 @@ export const PRODUCTS: Product[] = [
       },
       {
         title: "Grow with insight",
-        body: "Track your pipeline and campaign results in one view, then double down on what is working.",
+        body: "Track your pipeline and campaign results in one view, then put more into what is working.",
       },
     ],
     trustNotes: [
       "Your customer data stays yours and is not used to train AI models by default.",
       "Every organisation's data is kept separate and access-controlled.",
       "AI suggestions come with their reasons, and important actions stay with your team.",
-      "Designed for mobile phones and variable connectivity from day one.",
+      "Designed for mobile phones and unreliable connections from the start.",
     ],
     requirements: ["A contact list in CSV or Excel is enough to start."],
     faqs: [
@@ -147,9 +147,9 @@ export const PRODUCTS: Product[] = [
     cta: { kind: "waitlist", label: "Join early access", intent: "waitlist" },
     relatedServiceSlug: "ai-in-business",
     seo: {
-      title: "Flame OS — CRM & marketing automation for African businesses",
+      title: "Flame OS: CRM and marketing automation for African businesses",
       description:
-        "Flame OS brings contacts, pipeline, campaigns and automated follow-up into one simple platform built for African businesses. Launching soon — join early access.",
+        "Flame OS brings contacts, pipeline, campaigns and automated follow-up into one simple platform built for African businesses. Launching soon. Join early access.",
     },
   },
   {
@@ -157,9 +157,9 @@ export const PRODUCTS: Product[] = [
     name: "Flame Academy",
     tagline: "Digital skills for Africa's next generation",
     category: "Digital skills & learning platform",
-    purpose: "A digital-skills platform for Africa's education sector — learning paths, Flame Clubs and practical projects that prepare young people for the digital economy.",
+    purpose: "A digital skills platform for Africa's education sector. Learning paths, Flame Clubs and practical projects prepare young people for the digital economy.",
     headline: "Equip young Africans with the digital skills that open doors.",
-    body: "Flame Academy helps schools, universities, training institutions and youth programmes teach practical digital and AI skills — through structured learning paths, Flame Clubs and real-world projects, designed for mobile phones and real connectivity.",
+    body: "Flame Academy helps schools, universities, training institutions and youth programmes teach practical digital and AI skills. It uses structured learning paths, Flame Clubs and real-world projects, and it is designed for mobile phones and everyday connections.",
     image: {
       src: "/images/community-learning.jpg",
       alt: "Young African learners and a facilitator working together on digital skills in a collaborative session.",
@@ -174,12 +174,12 @@ export const PRODUCTS: Product[] = [
       {
         name: "Learning paths",
         icon: "book",
-        copy: "Structured, practical courses in digital literacy, AI basics, content creation, digital marketing and entrepreneurship — built for mobile learning.",
+        copy: "Practical, structured courses in digital literacy, AI basics, content creation, digital marketing and entrepreneurship, built for learning on a phone.",
       },
       {
         name: "Flame Clubs",
         icon: "users",
-        copy: "Digital-skills clubs for schools, campuses and communities, with ready-to-run club guides, weekly challenges and team projects.",
+        copy: "Digital skills clubs for schools, campuses and communities, with ready-to-run club guides, weekly challenges and team projects.",
       },
       {
         name: "Facilitator & institution tools",
@@ -194,7 +194,7 @@ export const PRODUCTS: Product[] = [
     ],
     outcomes: [
       "Young people gain practical digital and AI skills they can use for work and enterprise.",
-      "Schools and institutions run digital-skills programmes without building them from scratch.",
+      "Schools and institutions can run digital skills programmes without building them from scratch.",
       "Clubs turn learning into a habit, with peer support, challenges and shared projects.",
       "Partners can follow participation and progress across their programmes.",
     ],
@@ -205,7 +205,7 @@ export const PRODUCTS: Product[] = [
       },
       {
         title: "Learn, practise, build",
-        body: "Learners follow practical paths, meet in Flame Clubs and apply new skills to real projects — on the phones they already use.",
+        body: "Learners follow practical paths, meet in Flame Clubs and use their new skills on real projects, all on the phones they already have.",
       },
       {
         title: "Showcase and grow",
@@ -213,7 +213,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     trustNotes: [
-      "Designed for mobile phones, shared devices and variable connectivity.",
+      "Designed for mobile phones, shared devices and unreliable connections.",
       "Safeguarding and age-appropriate design are requirements for every learner experience.",
       "We collect only the learner information a programme needs.",
       "Built with African educators, for African learners and contexts.",
@@ -233,7 +233,7 @@ export const PRODUCTS: Product[] = [
       {
         question: "What is a Flame Club?",
         answer:
-          "A digital-skills club run in a school, campus or community. Clubs follow a simple guide with weekly challenges and team projects, led by a facilitator or club lead.",
+          "A digital skills club run in a school, on a campus or in a community. A facilitator or club lead runs each club using a simple guide with weekly challenges and team projects.",
       },
       {
         question: "How much will it cost?",
@@ -244,7 +244,7 @@ export const PRODUCTS: Product[] = [
     cta: { kind: "waitlist", label: "Register interest", intent: "waitlist" },
     relatedServiceSlug: "consulting-thought-leadership",
     seo: {
-      title: "Flame Academy — digital skills platform for Africa's education sector",
+      title: "Flame Academy: a digital skills platform for Africa's education sector",
       description:
         "Flame Academy helps schools, institutions and youth programmes teach practical digital and AI skills through learning paths, Flame Clubs and real-world projects. Launching soon.",
     },

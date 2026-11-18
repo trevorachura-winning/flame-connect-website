@@ -7,7 +7,7 @@ export default function GlobalError({ reset }: { error: Error; reset: () => void
         <span className="eyebrow" style={{ justifyContent: "center" }}>Something went wrong</span>
         <h1 className="display-2" style={{ margin: "1rem 0" }}>The page hit a problem on our side.</h1>
         <p className="lede" style={{ marginInline: "auto" }}>
-          Try again — if it keeps happening, use the contact page and we will fix it.
+          Please try again. If it keeps happening, let us know through the contact page and we will fix it.
         </p>
         <div className="hero-actions" style={{ justifyContent: "center" }}>
           <button className="btn btn-primary" onClick={reset}>Try again</button>

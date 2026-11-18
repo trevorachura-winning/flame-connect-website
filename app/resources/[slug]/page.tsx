@@ -84,7 +84,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
 
             <div className="callout" style={{ borderLeftColor: "var(--navy)" }}>
-              <h3 id="limits" style={{ scrollMarginTop: "6rem" }}>Limits — what stays uncertain</h3>
+              <h3 id="limits" style={{ scrollMarginTop: "6rem" }}>Limits: what we are still unsure about</h3>
               <ul>
                 {article.limits.map((limit) => (
                   <li key={limit}>{limit}</li>
@@ -132,7 +132,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             )}
             <div className="aside-card">
               <h3>Talk it through</h3>
-              <p>Bring this topic into a consultation — we will apply it to your context.</p>
+              <p>Bring this topic to a consultation and we will apply it to your situation.</p>
               <Link href="/contact?intent=consultation" className="btn btn-primary btn-sm">
                 Book a consultation
               </Link>

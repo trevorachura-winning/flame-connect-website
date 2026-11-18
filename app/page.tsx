@@ -32,7 +32,7 @@ import m from "../styles/marketing/motion.module.css";
 export const metadata = pageMetadata({
   title: "Flame Connect | Practical AI for African progress",
   description:
-    "Flame Connect is an AI Centre of Change in Kampala, Uganda — practical AI, digital communications and transformation support for African organizations. Digitizing Africa.",
+    "Flame Connect is an AI Centre of Change in Kampala, Uganda. We offer practical AI, digital communications and transformation support for African organisations. Digitizing Africa.",
   path: "/",
 });
 
@@ -132,14 +132,14 @@ export default function HomePage() {
           <InView className="section-head">
             <span className={`eyebrow ${m.rise}`}>Why change stalls</span>
             <h2 id="stalls-title" className="display-2">
-              <SplitText text="Most organizations are not short of technology. They are short of traction." accent="short of traction." />
+              <SplitText text="Most organisations are not short of technology. They are short of traction." accent="short of traction." />
             </h2>
           </InView>
           <ChallengeList items={HOME_CHALLENGES} />
           <Reveal>
             <p className={s.turn}>
-              We start with the problem, the people and the operating reality —{" "}
-              <span>then choose the technology.</span>
+              We start with the problem, the people and how the work really runs.{" "}
+              <span>Then we choose the technology.</span>
             </p>
           </Reveal>
         </div>
@@ -345,7 +345,7 @@ export default function HomePage() {
       {/* 10 — Conversion */}
       <CTABand
         question="What are you trying to change?"
-        copy="Tell us the problem, workflow or opportunity you are working on. In a discovery consultation we will help you identify the most useful next step — a service, a tool, a learning path or a focused pilot."
+        copy="Tell us the problem, workflow or opportunity you are working on. In a discovery consultation we will help you find the most useful next step. That might be a service, a tool, a learning path or a small pilot."
         primary={{ label: "Book a discovery consultation", href: "/contact?intent=consultation" }}
         secondary={{ label: "Explore our services", href: "/services" }}
       />

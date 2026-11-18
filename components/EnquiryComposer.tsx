@@ -101,7 +101,7 @@ export function EnquiryComposer({
         : intent === "waitlist"
           ? "Join early access"
           : INTENT_LABELS[intent];
-  const subject = `${heading} — ${form.topic}${form.organization.trim() ? ` (${form.organization.trim()})` : ""}`;
+  const subject = `${heading}: ${form.topic}${form.organization.trim() ? ` (${form.organization.trim()})` : ""}`;
   const body = [
     form.message.trim(),
     "",
@@ -110,7 +110,7 @@ export function EnquiryComposer({
     `Topic: ${form.topic}`,
     product ? `Product: ${titleCase(product)}` : null,
     "",
-    "— Sent from the Flame Connect website",
+    "Sent from the Flame Connect website",
   ]
     .filter((line): line is string => line !== null)
     .join("\n");
@@ -136,8 +136,8 @@ export function EnquiryComposer({
       <div style={{ marginBottom: "1.4rem" }}>
         <h2 className="display-3" style={{ fontSize: "1.5rem" }}>{heading}</h2>
         <p className="small muted" style={{ marginTop: "0.4rem" }}>
-          Write your enquiry here, then send it from your own email or WhatsApp — it opens
-          prefilled. This website does not store or transmit what you type.
+          Write your enquiry here, then send it from your own email or WhatsApp. Your message opens
+          ready to send. This website does not store or send anything you type.
         </p>
       </div>
 
@@ -194,9 +194,9 @@ export function EnquiryComposer({
 
       <p id="enq-note" className="small muted" style={{ marginTop: "1rem" }} aria-live="polite">
         {opened === "email"
-          ? "Your email app should now be open with the message ready — press send there. If nothing opened, copy your message and email us directly."
+          ? "Your email app should now be open with your message ready. Press send there. If nothing opened, copy your message and email us directly."
           : opened === "whatsapp"
-            ? "WhatsApp should now be open in a new tab with the message ready — press send there."
+            ? "WhatsApp should now be open in a new tab with your message ready. Press send there."
             : "Please do not include passwords, confidential client information or sensitive personal data."}
       </p>
     </form>

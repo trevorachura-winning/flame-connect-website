@@ -25,9 +25,9 @@ export function ContactPageClient() {
           <span className="eyebrow">Contact</span>
           <h1 className="display-1">Tell us what you are trying to improve.</h1>
           <p className="lede">
-            Whether you need a clearer digital presence, an AI adoption plan, a practical
+            Start with the problem. You might need a clearer online presence, an AI adoption plan, a practical
             automation, a custom tool, a learning programme or a partner for research and
-            innovation — start with the problem. We will help identify the most useful next step.
+            innovation. We will help you find the most useful next step.
           </p>
         </div>
       </section>
@@ -42,9 +42,9 @@ export function ContactPageClient() {
             <div className="contact-note">
               <h3>What happens next</h3>
               <ul>
-                <li>A person reads every enquiry — no autoresponder pretending to care.</li>
+                <li>A real person reads every enquiry. There are no automatic replies.</li>
                 <li>You get a useful next step: a scoped conversation, the right tool, a learning path, or an honest "not us".</li>
-                <li>One follow-up at most if we do not hear back. No nurture-sequence drip campaigns.</li>
+                <li>If we do not hear back, we follow up once at most. We will not add you to a mailing sequence.</li>
               </ul>
             </div>
 
