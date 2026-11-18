@@ -33,6 +33,8 @@ jobs:
         env:
           NEXT_PUBLIC_FLAME_SALES_URL: ${{ vars.FLAME_SALES_URL }}
           NEXT_PUBLIC_FLAME_SALES_SIGNIN_PATH: ${{ vars.FLAME_SALES_SIGNIN_PATH }}
+      - name: Lead delivery regression tests
+        run: npm run test:lead
       - name: Type check
         run: npm run typecheck
       - name: Production build
