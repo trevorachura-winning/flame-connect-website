@@ -1,115 +1,66 @@
-# Deployment & launch runbook
+# Flame Connect Corporate Website — Deployment Runbook
 
-## Environments
+**Release decision (18 Nov 2026):** Website-only public point of sale. No sign-in, accounts, CRM/backend, server-side contact form or direct platform-launch URLs. Products are explained under `/products` and keep their approved statuses. Enquiries open the visitor's mail or WhatsApp application; the visitor must press Send there.
 
-| Stage | Purpose | Required configuration |
-|---|---|---|
-| Local | Development | none (site runs fully with fallbacks) |
-| Preview | PR review | `NEXT_PUBLIC_SITE_URL` |
-| Production | Public site | all confirmed Appendix C values |
+## Hosting and canonical domain
+- Production domain: **https://www.flameconnect.tech**. The apex `https://flameconnect.tech` redirects to www.
+- Set `NEXT_PUBLIC_SITE_URL=https://www.flameconnect.tech` for **Production and Preview** in Vercel Project Settings → Environment Variables.
+- Public `NEXT_PUBLIC_*` values are baked into the Next.js build. Changes require a **redeployment**, not a server restart.
+- `lib/site.ts` supplies the www fallback and normalizes the former apex domain value; always confirm Vercel's actual environment settings.
+- `main` is the Git production branch, with Vercel automatic deployment on merge. Confirm team, project, source SHA, and READY state before accepting release.
 
-Recommended hosting: Vercel, matching the brief's technical direction. The site is
-statically rendered except `/contact` (search params) and `POST /api/lead`.
+## Scheduled Coming Soon launch gate
+- Current marketing launch gate: `middleware.ts` rewrites the two production hostnames to `public/coming-soon/index.html` **until 20 November 2026 at 12:00 EAT** (09:00 UTC).
+- Preview `*.vercel.app` and localhost are not gated, so the full site remains available for QA before launch.
+- The countdown page contains the same launch timestamp and reloads when the gate opens.
+- **This is automatic**: the current `main` website becomes public at the stated time. To delay launch, update both `middleware.ts` and the page countdown in a reviewed PR before that time.
+- While the gate is active, even old `/sign-in` and `/api/lead` paths show Coming Soon; their redirect/404 behavior can be verified only on an ungated preview or after launch.
+- Keep the existing full Flame Connect logo and cinematic tech-line assets. The public Coming Soon page includes direct email/WhatsApp contact actions.
 
-## Environment variables
+## Launch line-up
+- The current product registry lists **Flame OS** and **Flame Academy**, both marked `Launching soon`.
+- Friday's release is the corporate website, **not** proof that those two products have launched. Their CTAs remain on-site enquiries.
+- Services and product descriptions must not promise functionality not yet shipped.
 
-See `.env.example` (names only, never values):
+## Contact conversion
+- Email: **flameconnect1@gmail.com**
+- WhatsApp: **+256 764 018701**, click-to-chat `https://wa.me/256764018701`
+- `components/EnquiryComposer.tsx` validates an enquiry in the browser, then opens pre-filled `mailto:` or `wa.me` links via `lib/links.ts`.
+- There is **no server-side delivery guarantee**. Visitors complete Send in their own app.
+- Test both channels on desktop and mobile. Don't ask visitors to send passwords or sensitive information.
+- After the gate opens, `/api/lead` must return **404** and `/sign-in` must redirect to `/products`.
 
-- `NEXT_PUBLIC_SITE_URL` — canonical/origin for metadata, sitemap, OG.
-- `NEXT_PUBLIC_FLAME_OS_URL` — **the switch that makes product CTAs go live** for
-  the *shared platform layer*. It drives the site-wide "Explore Flame OS" CTA and,
-  via `productCtaHref()`, **every** product whose CTA kind is `try` or `access`
-  (Flame Sales, Flame Academy, Flame Lens, Flame Ready). Do not point it at a
-  single product's deployment — that repoints the other products' buttons at an
-  app they do not belong to. Until set, those CTAs resolve to the on-site access
-  route and the Trust board shows the platform as "in validation". Set this only
-  when the Flame OS deployment has passed its own readiness gates (see the
-  platform repository's `docs/PLATFORM_STATUS.md`).
-- `NEXT_PUBLIC_FLAME_SALES_URL` — **the Flame Sales platform origin** (per-product,
-  added Sept 2026). Drives header + drawer "Sign in" only, so wiring Flame Sales
-  up cannot change any other product's CTA. Must be an absolute http(s) URL;
-  `lib/site.ts` throws at build time on a malformed value rather than shipping a
-  broken button.
-- `NEXT_PUBLIC_FLAME_SALES_SIGNIN_PATH` — auth path appended to that origin for
-  the "Sign in" link. **Defaults to `/login`.** Set to `/signin`, `/auth`, `/`
-  etc. to match the platform's actual routing — configuration only, no code
-  change. Verify with `npm run platform:check`.
-- `LEAD_WEBHOOK_URL` — form delivery target (CRM/lead inbox automation). Without
-  it, submissions are validated and recorded server-side (metadata only).
-- `LEAD_NOTIFICATION_EMAIL` — reserved for direct notification wiring.
-- `NEXT_PUBLIC_ANALYTICS_ID` — analytics measurement ID. Without it, no
-  third-party analytics script is loaded at all.
+## Active configuration
+- `NEXT_PUBLIC_SITE_URL`: required for explicit canonical production identity.
+- `NEXT_PUBLIC_ANALYTICS_ID`: optional, only if approved; review consent/privacy implications.
 
-## Wiring a deployed product app (Flame Sales)
+## Legacy variables
+The website-only code does **not use**:
+- `NEXT_PUBLIC_FLAME_SALES_URL`
+- `NEXT_PUBLIC_FLAME_OS_URL`
+- `NEXT_PUBLIC_FLAME_SALES_SIGNIN_PATH`
+- `LEAD_WEBHOOK_URL`
+- `LEAD_NOTIFICATION_EMAIL`
 
-Confirmed origin: `https://flame-connect-salesos-ai.vercel.app`
+**Do not delete any Vercel variables without direct Product Owner authorization.** The separate product/SaaS repositories are not affected by this website release.
 
-**`NEXT_PUBLIC_*` values are inlined at BUILD time.** Setting one in Vercel does
-not take effect on a restart — it requires a redeploy, because most routes here
-are statically prerendered and the link is baked into the emitted HTML.
+## Release gates
+1. Verify `main` HEAD and target PR files. Preserve the current approved cursor and tech-line design; keep unfinished assessment work separate.
+2. GitHub CI must pass `npm run content:check`, `npm run links:check`, `npm run test:marketing`, `npm run typecheck` and `npm run build`.
+3. Review Vercel preview with real browser at 320/375/390/768/1024/1440 px, with keyboard, touch and reduced motion; no horizontal overflow or console errors.
+4. Confirm page conversion buttons resolve to working email/WhatsApp destinations and product statuses remain accurate.
+5. Merge only after Product Owner approval. Vercel may deploy `main` automatically; check the resulting deployment ID and READY status.
+6. Check the live **www** site: page canonical and `og:url`, `/robots.txt`, `/sitemap.xml`, Open Graph image URL, working `/contact`, redirect from `/sign-in`, 404 from `/api/lead`, no sign-in copy, footer and 375px mobile overflow, console.
+7. Record PR number, merged SHA, deployment ID, test evidence and release blockers.
 
-1. Vercel → project → **Settings → Environment Variables**.
-2. Add `NEXT_PUBLIC_FLAME_SALES_URL` = `https://flame-connect-salesos-ai.vercel.app`
-   for Production (and Preview, if you want PR deploys to carry the link).
-3. Add `NEXT_PUBLIC_FLAME_SALES_SIGNIN_PATH` **only if the platform's auth route
-   is not `/login`.**
-4. **Redeploy** (Deployments → latest → ⋯ → Redeploy). A new commit also works.
-5. Verify on the deployed site: header "Sign in" is an external `<a>` pointing at
-   the platform, and the mobile drawer's Sign in matches.
-6. Run the gate from a machine with outbound network. It reads `.env.local`
-   automatically, exactly like `next dev`:
+## Browser acceptance (mandatory, still outstanding)
+- Confirm at widths **320, 375, 390, 768, 1024, 1440 px** using a real browser. Inspect header, countdown, contact CTAs, product pages, footer, mobile drawer and both form handoffs.
+- Test keyboard and screen-reader labels, reduced-motion and touch/coarse pointer, console errors and horizontal overflow. CI source tests are not browser proof.
+- Test email and WhatsApp destinations on an actual device; the website cannot establish whether external messages were sent.
+- Confirm official logo and no missing image/font/video assets.
 
-   ```bash
-   npm run platform:check              # warns, exits 0
-   npm run platform:check -- --strict  # fails on a bad link
-   ```
-
-   Or override inline without a `.env.local`:
-
-   ```bash
-   NEXT_PUBLIC_FLAME_SALES_URL=https://flame-connect-salesos-ai.vercel.app \
-     npm run platform:check
-   ```
-
-   It reports `INCONCLUSIVE` (not failure) when it cannot reach the host, so a
-   sandbox or restricted runner never reds the build.
-
-Local development: put the same values in `.env.local` (git-ignored) and restart
-`npm run dev`.
-
-### Rollback
-
-Unset `NEXT_PUBLIC_FLAME_SALES_URL` and redeploy. `signInHref()` falls back to
-the on-site `/sign-in` page, which renders honest "not yet live" copy — the same
-state as before, with no dead button. Every deploy is a static snapshot, so
-redeploying the previous one also works.
-
-## Pre-launch checklist (from the brief's Appendix C)
-
-- [ ] Legal/company name → `lib/site.ts` `legalName` (footer + JSON-LD update automatically)
-- [ ] Official domain → `NEXT_PUBLIC_SITE_URL` (sitemap, canonical, OG)
-- [x] Flame Sales app domain → `NEXT_PUBLIC_FLAME_SALES_URL` (confirmed Sept 2026:
-      `https://flame-connect-salesos-ai.vercel.app`; drives header/drawer "Sign in")
-- [ ] Flame Sales auth path confirmed → `NEXT_PUBLIC_FLAME_SALES_SIGNIN_PATH`
-      if it is not `/login` — verify with `npm run platform:check`
-- [ ] Shared Flame OS/app domain → `NEXT_PUBLIC_FLAME_OS_URL` (still pending; do
-      not set it to the Flame Sales origin — see the note above)
-- [ ] Direct email / phone / WhatsApp → `lib/site.ts` contact fields
-- [ ] Approved social accounts → `lib/site.ts` `social`
-- [ ] Team list & bios approved → replace the honest pending block on `/about`
-- [ ] Case studies with verified metrics & written approval → publish via `content/articles.ts` (category `Research`) or a dedicated case-study flow
-- [ ] Privacy notice formal legal review → bump version on `/privacy`
-- [ ] Product statuses re-confirmed against the platform repository's status doc
-- [ ] `npm run content:check`, `npm run links:check`, `npm run platform:check`, `npm run build` green
-- [ ] Device sweep: 320/375/414/768/1024/1440, keyboard-only, reduced-motion, slow-network
-- [ ] Flame OS launch CTAs verified in production after `NEXT_PUBLIC_FLAME_OS_URL` is set
-- [ ] Flame Sales "Sign in" verified in production (header + mobile drawer land on a
-      real auth screen, not a 404) after `NEXT_PUBLIC_FLAME_SALES_URL` is set
-
-## Release discipline
-
-1. All changes through PRs against `main`; CI must pass.
-2. Status changes are content changes — same review bar.
-3. The Trust page status board is the public source of truth; it must never lag
-   reality in the optimistic direction.
-4. Rollback: every deploy is a static snapshot; redeploy the previous one.
+## Rollback
+- When the latest production deployment breaks, use Vercel **Instant Rollback** to the previous verified READY production deployment.
+- Do not claim rollback is possible from a connector that does not expose the target project.
+- Earlier user-supplied rollback candidate: `dpl_5kbFc3vToZHw9dSmN9HrbUZ9hmkD`; independently confirm it is still the appropriate previous READY deployment before using it.
+- After rollback, re-run critical live checks and document recovery.
