@@ -118,8 +118,8 @@ via_field = [(x, y) for x in range(330, 900, 26) for y in (30, 572) if rnd.rando
 
 TONES = {
     #          trace                    packet                  via/chip line            chip fill                 glow
-    "orange": ("rgba(244,81,30,0.24)", "rgba(244,81,30,0.95)", "rgba(244,81,30,0.42)", "rgba(244,81,30,0.06)", "rgba(244,81,30,0.22)"),
-    "white": ("rgba(255,255,255,0.2)", "rgba(255,255,255,0.95)", "rgba(255,255,255,0.34)", "rgba(255,255,255,0.05)", "rgba(255,255,255,0.20)"),
+    "orange": ("rgba(244,81,30,0.12)", "rgba(244,81,30,0.55)", "rgba(244,81,30,0.20)", "rgba(244,81,30,0.03)", "rgba(244,81,30,0.10)"),
+    "white": ("rgba(255,255,255,0.13)", "rgba(255,255,255,0.75)", "rgba(255,255,255,0.22)", "rgba(255,255,255,0.03)", "rgba(255,255,255,0.12)"),
 }
 
 
@@ -131,7 +131,7 @@ def svg(tone, animated):
     o.append(
         '<defs>'
         '<linearGradient id="fx" x1="0" x2="1"><stop offset="0" stop-color="#fff"/>'
-        '<stop offset=".32" stop-color="#fff" stop-opacity=".45"/><stop offset=".68" stop-color="#fff" stop-opacity=".45"/>'
+        '<stop offset=".3" stop-color="#fff" stop-opacity=".3"/><stop offset=".7" stop-color="#fff" stop-opacity=".3"/>'
         '<stop offset="1" stop-color="#fff"/></linearGradient>'
         '<linearGradient id="fy" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/>'
         '<stop offset=".1" stop-color="#fff"/><stop offset=".9" stop-color="#fff"/>'
