@@ -1,0 +1,57 @@
+/*
+ * Site-wide "data network" lines (Product Owner request, 19 Nov 2026).
+ * Orange lines on light surfaces, white lines on dark ones. The artwork is
+ * an animated SVG used as a background layer (public/tech-lines/*, generated
+ * by scripts/gen-tech-lines.py), so it needs no extra markup, never blocks
+ * clicks and is invisible to screen readers. Reduced motion gets still art.
+ * Loaded after globals.css so these longhands layer over existing fills.
+ */
+:root {
+  --tl-light: url("/tech-lines/orange.svg");
+  --tl-dark: url("/tech-lines/white.svg");
+  /* One 2:1 tile, at least 1100px wide, repeated down tall sections.
+     The artwork fades at its top and bottom edges, so tiles join smoothly. */
+  --tl-size: max(100%, 1100px) auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --tl-light: url("/tech-lines/orange-static.svg");
+    --tl-dark: url("/tech-lines/white-static.svg");
+  }
+}
+
+/* Light surfaces: plain, tinted and white sections, page heroes */
+.section,
+.section.paper2,
+.section.white,
+.section.panel-blue,
+.page-hero,
+.page-hero.white {
+  background-image: var(--tl-light);
+  background-size: var(--tl-size);
+  background-position: center top;
+  background-repeat: repeat-y;
+}
+
+/* Home and product heroes keep their soft top wash under the lines */
+.hero-home {
+  background-image: var(--tl-light), linear-gradient(180deg, #f6f9fd 0%, #ffffff 34%, #ffffff 100%);
+  background-size: var(--tl-size), auto;
+  background-position: center top, center;
+  background-repeat: repeat-y, no-repeat;
+}
+
+/* Dark surfaces: bands and footer */
+.band,
+.section.band {
+  background-image: var(--tl-dark), linear-gradient(168deg, #0d1b30 0%, var(--navy-canvas) 46%, #03080e 100%);
+  background-size: var(--tl-size), auto;
+  background-position: center top, center;
+  background-repeat: repeat-y, no-repeat;
+}
+.footer {
+  background-image: var(--tl-dark), linear-gradient(180deg, var(--navy-ink) 0%, #02060b 100%);
+  background-size: var(--tl-size), auto;
+  background-position: center top, center;
+  background-repeat: repeat-y, no-repeat;
+}
