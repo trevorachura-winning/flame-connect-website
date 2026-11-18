@@ -1,38 +1,37 @@
-# Security review — 2026-09-15 (v0.1.3)
+# Flame Connect Website — Security Review
 
-Scope: codebase audit + dependency scan of the Next.js website. Live-site HTTP
-checks run via OWASP ZAP baseline (`.github/workflows/security.yml`, weekly +
-on demand). Test only infrastructure you own.
+**Scope and model:** website-only marketing/point-of-sale release, updated 19 Nov 2026. This is a public Next.js website, **not** the Flame Sales application.
 
-## Findings and resolutions
+## Current attack surface
+- Before Friday 20 Nov 2026 12:00 EAT, `middleware.ts` rewrites production requests to a public Coming Soon HTML page with contact links. Browser-side countdown does not transmit visitor input.
+- `/api/lead` and retired sign-in URLs appear to render Coming Soon until the gate opens; this must not be mistaken for an active backend or working sign-in.
+- Public content and product status registry, metadata and SEO routes.
+- Browser-side enquiry composer with `mailto:` and WhatsApp click-to-chat destinations.
+- No site-managed user accounts, login, server-side contact API, lead database or CRM storage.
+- `app/api/lead` was removed by the approved website-only release (#5/#7). Old findings about rate-limiting or webhook delivery apply only to earlier versions; they are **not active controls**.
 
-| # | Area | Assessment | Action |
-|---|---|---|---|
-| 1 | Dependencies | `npm audit` flagged 2 PostCSS advisories (moderate/high) via the Next.js build toolchain. Build-time only (no user-controlled CSS, no `.map` serving), but fixed cleanly | ✅ `overrides.postcss ^8.5.6` → **0 vulnerabilities** (CI `npm ci` enforces the lockfile) |
-| 2 | Lead API (`app/api/lead/route.ts`) | Sound baseline: per-IP rate limiting (5/min, in-memory), 16KB body cap, JSON parse guard, honeypot, intent allowlist, field-length caps, consent required, no reflection of user input in responses, free text never logged, 405 on GET | ✅ Rate-limit key now prefers `x-real-ip` (Vercel-set) over client-spoofable first `x-forwarded-for` hop |
-| 3 | JSON-LD (`components/JsonLd.tsx`) | Static trusted content only, but an early `</script>` could theoretically break out of the tag | ✅ `<` escaped to `\u003c` before injection (defense-in-depth) |
-| 4 | Security headers (`next.config.mjs`) | `nosniff`, `Referrer-Policy`, `Permissions-Policy`, CSP `frame-ancestors` allowlist (Arena/E2B preview + self). XFO intentionally dropped (CSP supersedes in modern browsers) | Keep. Optional future: full CSP with nonces; HSTS automatic on `vercel.app`, verify when attaching custom domain |
-| 5 | Secrets hygiene | No `.env` in repo; `.env.example` placeholders only; `NEXT_PUBLIC_*` vars are non-secret by design | ✅ verified clean |
-| 6 | Dangerous sinks | single `dangerouslySetInnerHTML` (item 3, hardened); no `eval`, no DOM APIs; content registry has no `</script>` payloads | ✅ verified clean |
-| 7 | Data exposure | sitemap/robots expose public routes only; OG/icon routes read local files; Portals page is demo-mode until Supabase migrations run | ✅ as designed |
+## Controls and considerations
+1. **Input handling:** enquiry fields are composed locally. There is no website API receiving their contents. Prefilled email/WhatsApp URLs must remain correctly encoded. Never ask for sensitive personal/company data.
+2. **No delivery assertion:** the site cannot know that the user pressed Send in their external app; communications are not recorded automatically. UI must never claim a message was submitted by the site.
+3. **External links:** WhatsApp links use the approved digits-only `256764018701` and `rel="noopener noreferrer"` on new-tab anchors. Email uses `mailto:flameconnect1@gmail.com`.
+4. **JSON-LD:** `components/JsonLd.tsx` escapes `<` to avoid prematurely terminating a script tag; use reviewed static content only.
+5. **Headers:** review `next.config.mjs` for CSP, content-type sniffing, Referrer-Policy and Permissions-Policy on each release. Verify HSTS and redirects for the live custom domain.
+6. **Dependencies:** run the repo's package/dependency audit in CI or local environment. Do not assume historic advisory counts are still accurate.
+7. **Privacy:** no first-party storage of enquiries under this release; email/WhatsApp are third-party services, and the user's message is transferred only after they send. Re-review the privacy notice before enabling analytics.
+8. **Product claims:** source-of-truth status labels from `content/products.ts` and public Trust board must not overstate shipped functionality.
+9. **Environment:** public `NEXT_PUBLIC_SITE_URL` config controls canonical metadata. Legacy platform and `LEAD_*` variables are unused. Do not remove account-level configuration without owner approval.
 
-## Documented limitations (by design)
-
-- Rate limit is per serverless instance; a motivated attacker rotating
-  instances can exceed it. Acceptable at marketing volume; upgrade path is
-  Upstash/edge KV when lead volume grows.
-- No full Content-Security-Policy yet: Next.js inline runtime needs nonces;
-  frame-ancestors + nosniff + strict referrer covers this static marketing
-  surface. Revisit when app surfaces (dashboards) move in.
-- The lead webhook URL is env-controlled (not user-controlled) so no SSRF
-  surface exists from the endpoint.
-
-## How to re-run this review
-
-```powershell
-npm audit            # dependency advisories (expect: 0 vulnerabilities)
-npm run validate     # content + link + type + build gates
-npm run build        # full production build
+## Regression checks
+```bash
+npm ci
+npm run content:check
+npm run links:check
+npm run test:marketing
+npm run typecheck
+npm run build
 ```
 
-Plus the automated weekly ZAP baseline in the Actions tab ("Security baseline").
+Additional **ungated-preview or post-launch** checks: `/api/lead` returns 404, `/sign-in` redirects to `/products`, public links work, and no console errors appear in the browser. Production-domain HTTP checks before launch cannot assess the hidden full site. Confirm dependency audits and weekly ZAP baseline separately if configured.
+
+## Historical note
+The September 2026 audit discussed an older `POST /api/lead` route with in-memory rate limiting and a `LEAD_WEBHOOK_URL` contract. That implementation is intentionally **not part of** the November website-only public release. No backend credential, login or lead persistence should be reintroduced by a marketing-site PR.

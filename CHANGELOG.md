@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-19 — website-only launch readiness documentation
+- Updated the deployment and security runbooks for current no-sign-in/no-backend website operation, www canonical identity and Friday 20 Nov at 12:00 EAT automatic Coming Soon gate.
+- Recorded the **current two-product line-up**: Flame OS and Flame Academy, both `Launching soon`. Earlier changelog entries refer to superseded product iterations.
+- Added `docs/LAUNCH_QA_2026-11-19.md` with verified GitHub/Vercel checks and explicit manual-browser, post-launch and rollback blockers.
+- Linked the approved Coming Soon contact actions (PR #25) and official brand lockup (PR #27).
+- No production code or environment variable values changed by this documentation update.
+
+
 
 ## Unreleased — website-only release + marketing polish (Nov 2026)
 
