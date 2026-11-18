@@ -13,8 +13,6 @@ import { SplitText } from "../components/marketing/motion/SplitText";
 import { HeroStage } from "../components/marketing/motion/HeroStage";
 import { SpotlightGroup } from "../components/marketing/motion/SpotlightGroup";
 import { MethodRail } from "../components/marketing/motion/MethodRail";
-import { Marquee } from "../components/marketing/motion/Marquee";
-import { PathwayCards } from "../components/marketing/motion/PathwayCards";
 import ambient from "../components/AmbientTechLines.module.css";
 import { PRODUCTS, SERVICES, sortedArticles } from "../lib/content";
 import {
@@ -22,7 +20,11 @@ import {
   AFRICA_FIRST_POINTS,
   HOME_HERO,
   HOME_CHALLENGES,
-  HOME_PATHWAYS,
+  HOME_CHAPTERS,
+  HOME_PROVERB_OPEN,
+  HOME_PROVERB_CLOSE,
+  HOME_SCENES,
+  HOME_SCENES_NOTE,
   METHOD_OUTPUTS,
 } from "../content/home";
 import { pageMetadata } from "../lib/seo";
@@ -39,34 +41,32 @@ export const metadata = pageMetadata({
 const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 
 /**
- * Homepage narrative (marketing revamp, Nov 2026):
- *   1 hero (promise, staged entrance, layered depth) → 2 practice strip
- *   → 3 why change stalls → 4 three service lines → 5 method rail
- *   → 6 tools, honestly labelled → 7 Africa-first → 8 evidence + thinking
- *   → 9 where to start → 10 consultation CTA.
+ * Homepage: a fireside story in seven chapters (UI/UX audit, 19 Nov 2026).
+ *   01 the call (proverb + promise) → 02 the people (three scenes from our
+ *   field notes) → 03 the trouble → 04 the journey (one method, three
+ *   services) → 05 the tools (Flame OS, Flame Academy) → 06 what we have
+ *   learned (design lessons + field notes) → 07 the invitation (proverb + CTA).
  */
 export default function HomePage() {
   const insights = sortedArticles().slice(0, 3);
-  const marquee = [
-    ...SERVICES.map((sv) => ({ text: sv.name, kind: "service" as const })),
-    ...APPROACH_STAGES.map((st) => ({ text: st.key, kind: "method" as const })),
-    ...PRODUCTS.flatMap((p) => [
-      { text: p.name, kind: "product" as const },
-      ...(p.features ?? []).map((f) => ({ text: f.name, kind: "product" as const })),
-    ]),
-  ];
 
   return (
     <div className={m.scope}>
-      {/* 1 — Hero */}
-      <section className="hero hero-home motif" aria-labelledby="home-title">
+      {/* 01 — The call */}
+      <section className="hero hero-home" aria-labelledby="home-title">
         <div className={`container ${s.split} ${ambient.foreground}`}>
           <div className={m.heroIntro}>
-            <span className={`eyebrow ${m.rise}`} style={v({ "--i": 0 })}>{HOME_HERO.eyebrow}</span>
-            <h1 id="home-title" className="display-1" style={{ marginTop: "1rem" }}>
-              <SplitText text={HOME_HERO.title} accent="African progress." delayMs={120} />
+            <span className={`eyebrow ${m.rise}`} style={v({ "--i": 0 })}>{HOME_CHAPTERS.call}</span>
+            <figure className={`${s.proverb} ${m.rise}`} style={v({ "--i": 1 })}>
+              <blockquote>&ldquo;{HOME_PROVERB_OPEN.text}&rdquo;</blockquote>
+              <figcaption>{HOME_PROVERB_OPEN.source}</figcaption>
+            </figure>
+            <h1 id="home-title" className="display-1" style={{ marginTop: "0.6rem" }}>
+              <SplitText text={HOME_HERO.title} accent="progress." delayMs={120} />
             </h1>
-            <p className={`lede ${m.rise}`} style={v({ "--i": 4, "--d": "150ms" })}>{HOME_HERO.lede}</p>
+            <p className={`lede ${m.rise}`} style={v({ "--i": 4, "--d": "150ms" })}>
+              {HOME_PROVERB_OPEN.meaning} {HOME_HERO.lede}
+            </p>
             <div className={`hero-actions ${m.rise}`} style={v({ "--i": 5, "--d": "150ms" })}>
               <Link href="/contact?intent=consultation" className={`btn btn-primary ${s.wrapBtn}`}>
                 Book a discovery consultation <Icon name="arrow-right" size={18} />
@@ -123,16 +123,47 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2 — Practice strip: Flame's own services, method and product family */}
-      <Marquee label="Flame Connect service lines, method and product family" items={marquee} />
-
-      {/* 3 — The problem */}
-      <section className="section" aria-labelledby="stalls-title">
+      {/* 02 — The people: three scenes from our field notes */}
+      <section className="section" aria-labelledby="people-title">
         <div className="container">
           <InView className="section-head">
-            <span className={`eyebrow ${m.rise}`}>Why change stalls</span>
+            <span className={`eyebrow ${m.rise}`}>{HOME_CHAPTERS.people}</span>
+            <h2 id="people-title" className="display-2">
+              <SplitText text="Every story starts with someone trying to get work done." />
+            </h2>
+            <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>{HOME_SCENES_NOTE}</p>
+          </InView>
+          <div className={s.cols3}>
+            {HOME_SCENES.map((scene, i) => (
+              <InView key={scene.title} className={m.rise} style={v({ "--i": i })}>
+                <article className={`card ${s.scene}`}>
+                  <div className={s.sceneMedia}>
+                    <Image
+                      src={scene.image.src}
+                      alt={scene.image.alt}
+                      width={scene.image.width}
+                      height={scene.image.height}
+                      sizes="(max-width: 44rem) 92vw, (max-width: 62rem) 46vw, 30vw"
+                    />
+                  </div>
+                  <div className={s.sceneBody}>
+                    <h3>{scene.title}</h3>
+                    <p>{scene.copy}</p>
+                  </div>
+                </article>
+              </InView>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 03 — The trouble */}
+      <section className="section paper2" aria-labelledby="stalls-title">
+        <div className="container">
+          <InView className="section-head">
+            <span className={`eyebrow ${m.rise}`}>{HOME_CHAPTERS.trouble}</span>
             <h2 id="stalls-title" className="display-2">
-              <SplitText text="Most organisations are not short of technology. They are short of traction." accent="short of traction." />
+              <SplitText text="Most organisations are not short of technology. They are short of traction." accent="traction." />
             </h2>
           </InView>
           <ChallengeList items={HOME_CHALLENGES} />
@@ -145,36 +176,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4 — Practical change: three service lines */}
-      <section className="section paper2" aria-labelledby="services-title">
-        <div className="container">
-          <InView className="section-head">
-            <span className={`eyebrow ${m.rise}`}>What we do</span>
-            <h2 id="services-title" className="display-2">
-              <SplitText text="From possibility to practical change." accent="practical change." />
-            </h2>
-            <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
-              Three service lines, one way of working. Each begins with a focused, low-risk first
-              engagement and builds your team&rsquo;s own capability as it goes.
-            </p>
-          </InView>
-          <SpotlightGroup>
-            <ServiceOutcomeCards services={SERVICES} />
-          </SpotlightGroup>
-        </div>
-      </section>
-
-      {/* 5 — Method: scroll-linked numbered rail */}
-      <section className={`band motif section ${m.bandRise}`} aria-labelledby="method-title">
+      {/* 04 — The journey: one method, walked with three services */}
+      <section className={`band section ${m.bandRise}`} aria-labelledby="method-title">
         <div className={`container ${ambient.foreground}`}>
           <InView className="section-head center">
-            <span className={`eyebrow light ${m.rise}`}>How we work</span>
+            <span className={`eyebrow light ${m.rise}`}>{HOME_CHAPTERS.journey}</span>
             <h2 id="method-title" className="display-2">
               <SplitText text="Assess. Learn. Improve. Implement." accent="Implement." />
             </h2>
             <p className={`lede light ${m.rise}`} style={v({ "--i": 3 })}>
-              We understand the current reality before prescribing a tool, build shared
-              understanding, improve the process, then implement and measure what works.
+              Every piece of work we take on follows the same four steps. We understand the
+              situation first, build shared understanding, improve the process, then put the
+              solution in place and measure what changes.
             </p>
           </InView>
           <MethodRail
@@ -184,17 +197,36 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6 — Our platforms: Flame OS + Flame Academy (launching soon) */}
-      <section className="section" aria-labelledby="tools-title">
+      <section className="section" aria-labelledby="services-title">
         <div className="container">
           <InView className="section-head">
-            <span className={`eyebrow ${m.rise}`}>Our platforms · launching soon</span>
+            <span className={`eyebrow ${m.rise}`}>Who walks it with you</span>
+            <h2 id="services-title" className="display-2">
+              <SplitText text="Three services, one path." />
+            </h2>
+            <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
+              Each one starts with a small, low-risk first step and builds your team&rsquo;s own
+              skills as it goes.
+            </p>
+          </InView>
+          <SpotlightGroup>
+            <ServiceOutcomeCards services={SERVICES} />
+          </SpotlightGroup>
+        </div>
+      </section>
+
+      {/* 05 — The tools: our two platforms */}
+      <section className="section paper2" aria-labelledby="tools-title">
+        <div className="container">
+          <InView className="section-head">
+            <span className={`eyebrow ${m.rise}`}>{HOME_CHAPTERS.tools}</span>
             <h2 id="tools-title" className="display-2">
-              <SplitText text="Two platforms built for African progress." accent="African progress." />
+              <SplitText text="Two platforms for the people in our story." />
             </h2>
             <p className={`lede ${m.rise}`} style={v({ "--i": 5 })}>
-              One helps businesses win and keep customers. The other helps young Africans build the
-              digital skills to lead what comes next.
+              Flame OS helps the shop owner follow up with every customer. Flame Academy helps the
+              school teach digital skills on the phones its students already carry. Both are
+              launching soon.
             </p>
           </InView>
           <SpotlightGroup className={s.cols2}>
@@ -242,17 +274,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7 — Built for African realities */}
-      <section className="section paper2" aria-labelledby="africa-title">
+      {/* 06 — What we have learned: design lessons + field notes */}
+      <section className="section" aria-labelledby="africa-title">
         <div className={`container ${s.split}`}>
           <Reveal variant="fade" blur={false}>
             <div className={s.collage}>
               <div className={`${s.photo} ${s.photoTall} ${m.imgDrift}`}>
                 <Image
-                  src="/images/sme-mobile.jpg"
-                  alt="Ugandan small business owner managing daily work with a smartphone and notebook in her shop."
-                  width={1024}
-                  height={1536}
+                  src="/images/thought-leadership.jpg"
+                  alt="African technology and business leaders in a candid strategy discussion in Kampala."
+                  width={1536}
+                  height={1024}
                   sizes="(max-width: 44rem) 92vw, (max-width: 62rem) 50vw, 26vw"
                 />
               </div>
@@ -279,14 +311,13 @@ export default function HomePage() {
             </div>
           </Reveal>
           <InView>
-            <span className={`eyebrow ${m.rise}`}>Built for African realities</span>
+            <span className={`eyebrow ${m.rise}`}>{HOME_CHAPTERS.lessons}</span>
             <h2 id="africa-title" className="display-2" style={{ margin: "0.85rem 0 1rem" }}>
-              <SplitText text="Africa-first is a design decision." accent="design decision." />
+              <SplitText text="Lessons from building here." accent="here." />
             </h2>
             <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
-              Local relevance is not a visual theme. It means designing for mobile use, variable
-              connectivity, affordability, different levels of digital maturity and the realities of
-              how work gets done across African markets.
+              Designing for Africa is a set of decisions, not a colour scheme. Our early testers
+              taught us these, and we hold every project to them.
             </p>
             <ul className="tick-list" style={{ marginTop: "1.4rem" }}>
               {AFRICA_FIRST_POINTS.map((point, i) => (
@@ -299,18 +330,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8 — Latest thinking */}
-      <section className="section" aria-labelledby="insights-title">
+      <section className="section paper2" aria-labelledby="insights-title">
         <div className="container">
           <InView className="section-head">
-            <span className={`eyebrow ${m.rise}`}>Latest thinking</span>
+            <span className={`eyebrow ${m.rise}`}>From our field notes</span>
             <h2 id="insights-title" className="display-2">
-              <SplitText text="Ideas grounded in African practice." accent="African practice." />
+              <SplitText text="What we write down so others can use it." />
             </h2>
-            <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
-              Practical field notes, playbooks and perspectives on AI, digital communication and
-              business growth.
-            </p>
           </InView>
           <SpotlightGroup className={s.cols3}>
             {insights.map((article, i) => (
@@ -329,23 +355,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 9 — Where to start */}
-      <section className="section paper2" aria-labelledby="start-title">
-        <div className="container">
-          <InView className="section-head">
-            <span className={`eyebrow ${m.rise}`}>Where would you like to start?</span>
-            <h2 id="start-title" className="display-2">
-              <SplitText text="Three ways in. One conversation away." accent="One conversation away." />
-            </h2>
-          </InView>
-          <PathwayCards paths={HOME_PATHWAYS} />
-        </div>
-      </section>
-
-      {/* 10 — Conversion */}
+      {/* 07 — The invitation */}
       <CTABand
-        question="What are you trying to change?"
-        copy="Tell us the problem, workflow or opportunity you are working on. In a discovery consultation we will help you find the most useful next step. That might be a service, a tool, a learning path or a small pilot."
+        eyebrow={HOME_CHAPTERS.invitation}
+        question={`“${HOME_PROVERB_CLOSE.text}”`}
+        copy={`${HOME_PROVERB_CLOSE.source}, and how we like to work. Tell us what you are trying to change and we will find the most useful next step together: a service, a tool, a learning path or a small pilot.`}
         primary={{ label: "Book a discovery consultation", href: "/contact?intent=consultation" }}
         secondary={{ label: "Explore our services", href: "/services" }}
       />

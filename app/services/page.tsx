@@ -30,7 +30,7 @@ export default function ServicesPage() {
         <div className={`container ${m.heroIntro}`}>
           <span className={`eyebrow ${m.rise}`}>Services</span>
           <h1 id="services-title" className="display-1">
-            <SplitText text="Strategy, communication and AI that move into real work." accent="real work." delayMs={80} />
+            <SplitText text="Strategy, communication and AI that move into real work." accent="work." delayMs={80} />
           </h1>
           <p className={`lede ${m.rise}`} style={v({ "--i": 6 })}>
             Three services, one way of working. We start from the challenge in front of you,
@@ -64,7 +64,7 @@ export default function ServicesPage() {
           <InView className="section-head">
             <span className={`eyebrow ${m.rise}`}>Start from your challenge</span>
             <h2 id="chooser-title" className="display-2">
-              <SplitText text="Which of these sounds familiar?" accent="sounds familiar?" />
+              <SplitText text="Which of these sounds familiar?" />
             </h2>
             <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
               Pick the closest match. If none fit, describe the problem in a consultation and we will
@@ -80,14 +80,14 @@ export default function ServicesPage() {
           <InView className="section-head">
             <span className={`eyebrow light ${m.rise}`}>How engagements run</span>
             <h2 id="engagement-title" className="display-2">
-              <SplitText text="One engagement model, three service lines." accent="three service lines." />
+              <SplitText text="Assess. Learn. Improve. Implement." accent="Implement." />
             </h2>
             <p className={`lede light ${m.rise}`} style={v({ "--i": 3 })}>
-              Every engagement follows the same path. We diagnose before we design and test before we scale,
-              so the work produces evidence as well as documents.
+              Every engagement follows the same four steps as everything else we do. We understand
+              before we design, and we test before we scale, so the work produces evidence as well as documents.
             </p>
           </InView>
-          <InView as="ol" className={`${s.cols5} list-plain`}>
+          <InView as="ol" className={`${s.cols4} list-plain`}>
             {ENGAGEMENT_STAGES.map((stage, i) => (
               <li key={stage.stage} className={m.rise} style={v({ "--i": i })}>
                 <div className="proof-item" style={{ height: "100%" }}>

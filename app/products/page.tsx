@@ -30,7 +30,7 @@ export default function ProductsPage() {
         <div className={`container ${m.heroIntro}`}>
           <span className={`eyebrow ${m.rise}`}>Products</span>
           <h1 id="products-title" className="display-1">
-            <SplitText text="Platforms built for African progress." accent="African progress." delayMs={80} />
+            <SplitText text="Two platforms, launching soon." accent="launching soon." delayMs={80} />
           </h1>
           <p className={`lede ${m.rise}`} style={v({ "--i": 5 })}>
             Two platforms, one aim: help African businesses grow and help young Africans build the

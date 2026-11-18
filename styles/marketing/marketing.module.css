@@ -721,3 +721,56 @@
   line-height: 1.3;
   max-width: 100%;
 }
+
+/* ---- Fireside story (19 Nov 2026) ---- */
+.proverb {
+  margin: 1.1rem 0 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--flame);
+  max-width: 34rem;
+}
+.proverb blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.45;
+  color: var(--ink);
+}
+.proverb figcaption {
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+
+.scene {
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.sceneMedia {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--panel);
+}
+.sceneMedia img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.sceneBody {
+  padding: clamp(1.2rem, 2.4vw, 1.6rem);
+}
+.sceneBody h3 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.15rem, 1.8vw, 1.3rem);
+}
+.sceneBody p {
+  margin: 0;
+  color: var(--ink-soft);
+}

@@ -11,7 +11,7 @@ export function ServiceAtAGlance({ service }: { service: Service }) {
       </div>
       <div className={s.glanceCell}>
         <span className={s.kicker}>How we deliver</span>
-        <p>Diagnose, design, test, build capability, then scale what the evidence supports.</p>
+        <p>Assess, learn, improve, then implement and scale what the evidence supports.</p>
       </div>
       <div className={`${s.glanceCell} ${s.glanceCellOutcome}`}>
         <span className={s.kicker}>Realistic outcome</span>

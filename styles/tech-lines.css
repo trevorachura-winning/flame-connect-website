@@ -55,3 +55,11 @@
   background-position: center top, center;
   background-repeat: repeat-y, no-repeat;
 }
+
+/* The circuit lines replace the old diamond motif everywhere, so the two
+   patterns never compete (UI/UX audit, 19 Nov 2026). */
+.motif::after,
+.band.motif::after,
+.motif.dark::after {
+  display: none;
+}

@@ -111,7 +111,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       <section className="section tight">
         <div className={`container ${s.split} ${s.splitTop}`}>
           <Reveal>
-            <SectionHead eyebrow="How we work" title="The engagement arc" />
+            <SectionHead eyebrow="How we work" title="Assess. Learn. Improve. Implement." />
             <ol className="list-plain" style={{ counterReset: "s" }}>
               {ENGAGEMENT_STAGES.map((stage) => (
                 <li key={stage.stage} style={{ borderLeft: "2px solid var(--line)", paddingLeft: "1rem" }}>

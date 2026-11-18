@@ -38,7 +38,7 @@ export function ProductLanding({ product }: { product: Product }) {
               <StatusBadge status={product.status} />
             </div>
             <h1 id="product-title" className="display-1" style={{ marginTop: "1rem", fontSize: "clamp(2.4rem, 4.8vw, 4rem)" }}>
-              <SplitText text={product.headline} accent={product.headline.split(" ").slice(-3).join(" ")} delayMs={100} />
+              <SplitText text={product.headline} accent={product.headline.split(" ").slice(-2).join(" ")} delayMs={100} />
             </h1>
             <p className={`lede ${m.rise}`} style={v({ "--i": 6, "--d": "150ms" })}>{product.body}</p>
             <div className={`hero-actions ${m.rise}`} style={v({ "--i": 7, "--d": "150ms" })}>
@@ -87,7 +87,7 @@ export function ProductLanding({ product }: { product: Product }) {
           <InView className="section-head">
             <span className={`eyebrow ${m.rise}`}>What it does</span>
             <h2 id="features-title" className="display-2">
-              <SplitText text={`What ${product.name} brings together.`} accent="brings together." />
+              <SplitText text={`What ${product.name} brings together.`} />
             </h2>
             <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>{product.purpose}</p>
           </InView>
@@ -132,7 +132,7 @@ export function ProductLanding({ product }: { product: Product }) {
           <InView>
             <span className={`eyebrow light ${m.rise}`}>What changes</span>
             <h2 id="outcomes-title" className="display-2" style={{ margin: "0.85rem 0 1.2rem" }}>
-              <SplitText text="The difference it is built to make." accent="built to make." />
+              <SplitText text="The difference it is built to make." />
             </h2>
             <ul className="tick-list">
               {product.outcomes.map((o, i) => (
@@ -180,7 +180,7 @@ export function ProductLanding({ product }: { product: Product }) {
       </section>
 
       <CTABand
-        question={`Be among the first with ${product.name}.`}
+        question={`Hear first when ${product.name} launches.`}
         copy={product.statusNote}
         primary={{ label: product.cta.label, href: cta.href }}
         secondary={{ label: "Talk to our team", href: `/contact?intent=consultation&product=${product.slug}` }}

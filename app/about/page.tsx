@@ -117,7 +117,7 @@ export default function AboutPage() {
           <InView className="section-head">
             <span className={`eyebrow ${m.rise}`}>Our model</span>
             <h2 id="model-title" className="display-2">
-              <SplitText text="Three ways we create change that lasts." accent="change that lasts." />
+              <SplitText text="Three ways we create change that lasts." accent="lasts." />
             </h2>
             <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
               Software on its own rarely changes how an organisation works. We combine expert
