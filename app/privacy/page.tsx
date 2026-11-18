@@ -30,14 +30,17 @@ export default function PrivacyPage() {
         <div className="container prose" style={{ maxWidth: "52rem" }}>
           <h2>What we collect</h2>
           <p>
-            When you use a form on this site, we collect the fields you fill in: typically your
-            name, work email, organization, country, the kind of help you want and your description
-            of the challenge. Newsletter and community sign-ups collect only your email address.
+            This website does not collect enquiries itself. There are no accounts, no sign-in and
+            no forms that send data to our servers. When you use the enquiry composer on the{" "}
+            <Link href="/contact">contact page</Link>, what you type stays in your browser until you
+            choose to open it in your own email app or WhatsApp — and nothing is sent until you press
+            send there. We then receive what you chose to send: typically your name, organization,
+            the kind of help you want and your description of the challenge, plus your email address
+            or WhatsApp number.
           </p>
           <p>
-            We deliberately do not collect sensitive personal data through this website. Please do
-            not send passwords, confidential client information or sensitive personal data through
-            any Flame form — the forms themselves warn you of the same.
+            Please do not send passwords, confidential client information or sensitive personal
+            data in an enquiry — the composer warns you of the same.
           </p>
 
           <h2>Why we collect it</h2>
@@ -73,8 +76,9 @@ export default function PrivacyPage() {
 
           <h2>Where data is processed</h2>
           <p>
-            Website hosting and form processing use reputable cloud providers. When the final
-            processor list is confirmed it will be named here — one of the launch items on our{" "}
+            The website is hosted by a reputable cloud provider and processes no enquiry data.
+            Enquiries you send arrive through your chosen email or WhatsApp service. When the final
+            provider list is confirmed it will be named here — one of the launch items on our{" "}
             <Link href="/trust">Trust page</Link>.
           </p>
 

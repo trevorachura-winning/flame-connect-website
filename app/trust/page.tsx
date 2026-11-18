@@ -8,7 +8,6 @@ import { StatusBadge } from "../../components/StatusBadge";
 import { RESPONSIBLE_AI_COMMITMENTS } from "../../content/home";
 import { PRODUCTS } from "../../lib/content";
 import { STATUS_LABEL } from "../../content/products";
-import { SITE } from "../../lib/site";
 import { pageMetadata } from "../../lib/seo";
 
 export const metadata = pageMetadata({
@@ -179,10 +178,8 @@ export default function TrustPage() {
                   <td><span className="status development">In validation</span></td>
                   <td className="small">
                     Build-validated in source; production deployment gates (hosting, auth, tenant
-                    isolation, smoke tests) still being verified. {SITE.flameOsUrl ? "App domain configured." : "App domain not yet confirmed — see Appendix C items in the launch runbook."}
-                    {SITE.flameSalesUrl
-                      ? " Flame Sales ships separately from this shared layer: it is deployed and sign-in is live for pilot teams."
-                      : ""}
+                    isolation, smoke tests) still being verified. Flame Sales ships separately from this
+                    shared layer and is in pilot with a limited group of teams.
                   </td>
                   <td><Link href="/flame-os" className="text-link small">View</Link></td>
                 </tr>

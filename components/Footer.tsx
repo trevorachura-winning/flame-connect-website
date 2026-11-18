@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { BrandLogo } from "./BrandLogo";
 import { Icon } from "./Icons";
-import { NewsletterForm } from "./NewsletterForm";
 import { FOOTER_NAV } from "../content/navigation";
 import { SITE } from "../lib/site";
 
@@ -18,7 +17,9 @@ export function Footer() {
               </span>
             </span>
             <p>{SITE.shortDescription}</p>
-            <NewsletterForm />
+            <Link href="/contact?intent=newsletter" className="btn btn-primary btn-sm" style={{ marginTop: "1rem" }}>
+              Get updates <Icon name="arrow-right" size={16} />
+            </Link>
             <div style={{ marginTop: "1.3rem", display: "grid", gap: "0.6rem" }}>
               <span className="loc" style={{ fontSize: "0.86rem", color: "#9fb0dd", display: "inline-flex", gap: "0.45rem", alignItems: "center" }}>
                 <Icon name="map-pin" size={16} /> {SITE.officeLocation} · {SITE.homeLocationLine}

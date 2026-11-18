@@ -14,6 +14,13 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [320, 420, 640, 768, 1024, 1280, 1600],
   },
+  // Website-only release: the old /sign-in page is retired. Keep old links
+  // and bookmarks useful instead of 404ing (redirects are not available in
+  // static-export mode, where /sign-in simply no longer exists).
+  async redirects() {
+    if (isExport) return [];
+    return [{ source: "/sign-in", destination: "/products", permanent: false }];
+  },
   async headers() {
     if (isExport) return [];
     return [

@@ -10,7 +10,7 @@
     "lint": "next lint",
     "content:check": "node scripts/check-content.mjs",
     "links:check": "node scripts/check-links.mjs",
-    "platform:check": "node scripts/check-platform-link.mjs",
+    "test:marketing": "node --test tests/marketing/*.test.mjs",
     "validate": "npm run content:check && npm run typecheck && npm run build",
     "build:static": "node scripts/build-static.mjs"
   },

@@ -26,7 +26,7 @@ const BANNED_CLAIMS = [
 
 const STATIC_ROUTES = [
   "/", "/products", "/services", "/flame-os", "/community", "/resources",
-  "/about", "/trust", "/contact", "/sign-in", "/privacy",
+  "/about", "/trust", "/contact", "/privacy",
 ];
 
 function collectStrings(value: unknown, into: string[] = []): string[] {

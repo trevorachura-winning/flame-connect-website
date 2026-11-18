@@ -23,7 +23,7 @@ allows it, with the full public surface of the company:
 | Resources | `/resources` + articles | Insights · Playbooks · Research · Field notes with an explicit editorial standard |
 | About | `/about` | Story, mission/vision, principles, honest team-pending block |
 | Trust | `/trust` | Responsible AI commitments, security/privacy/accessibility, **public product status board** |
-| Contact | `/contact` | Validated enquiry form (`POST /api/lead`), no dead buttons |
+| Contact | `/contact` | Enquiry composer that opens a prefilled email or WhatsApp message — no server, no stored data |
 | Privacy | `/privacy` | Plain-language notice, flagged pending legal review |
 
 ## Quick start
@@ -38,15 +38,19 @@ Validation (the same gates CI runs):
 ```bash
 npm run content:check   # content integrity + claim discipline
 npm run links:check     # every internal href resolves to a route
+npm run test:marketing  # claim discipline, routes, website-only rules
 npm run typecheck
 npm run build
 ```
 
 ## Design principles wired into the code
 
-- **Never a dead button.** Product CTAs point at the live app only when
-  `NEXT_PUBLIC_FLAME_OS_URL` is configured; otherwise they fall back to an on-site
-  access-request route (`lib/links.ts`).
+- **Website only — the point of sale.** No sign-in, no accounts, no backend and
+  no links into the Flame platforms (Nov 2026 Product Owner decision). The tools
+  are presented under Products; every product action is an on-site enquiry
+  (`lib/links.ts`). Enquiries leave via the visitor's own email or WhatsApp,
+  prefilled by `components/EnquiryComposer.tsx`. Set the public contact details
+  in `lib/site.ts` (`contactEmail`, `contactWhatsApp`) before launch.
 - **Never an invented fact.** Contact details, legal name, team members, case-study
   metrics and social handles that the brief marks "pending confirmation" render as
   honest pending states rather than plausible-looking fabrications (`lib/site.ts`).
@@ -60,8 +64,9 @@ npm run build
 
 ## Environment contract
 
-See `.env.example`. Names only — values are never committed. Without any variables
-the site runs fully; product CTAs use the honest fallback routes described above.
+See `.env.example`. Names only — values are never committed. Only
+`NEXT_PUBLIC_SITE_URL` (canonical domain) and the optional analytics ID are read;
+without them the site still runs fully.
 
 ## Documentation
 

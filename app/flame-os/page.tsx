@@ -8,7 +8,6 @@ import { AmbientVideo } from "../../components/AmbientVideo";
 import { OsMock } from "../../components/OsMock";
 import { ProductCard } from "../../components/ProductCard";
 import { PRODUCTS } from "../../lib/content";
-import { flameOsAppHref } from "../../lib/links";
 import { pageMetadata } from "../../lib/seo";
 
 export const metadata = pageMetadata({
@@ -52,7 +51,6 @@ const CAPABILITIES: { name: string; copy: string; icon: IconName }[] = [
 ];
 
 export default function FlameOsPage() {
-  const app = flameOsAppHref();
   const liveFamily = PRODUCTS.filter((p) => p.status !== "development").slice(0, 3);
 
   return (
@@ -76,11 +74,9 @@ export default function FlameOsPage() {
               <Link href="/products" className="btn btn-primary">
                 Explore products <Icon name="arrow-right" size={18} />
               </Link>
-              {app.external ? (
-                <a href={app.href} className="btn btn-ghost" rel="noopener noreferrer">Sign in</a>
-              ) : (
-                <Link href={app.href} className="btn btn-ghost">Sign in</Link>
-              )}
+              <Link href="/contact?intent=access" className="btn btn-ghost">
+                Ask about access
+              </Link>
             </div>
           </Reveal>
         </div>
@@ -99,10 +95,10 @@ export default function FlameOsPage() {
               <h3>Status, stated plainly</h3>
               <p style={{ color: "var(--ink-soft)" }}>
                 Flame OS exists in source and is build-validated, but it is{" "}
-                <b>not yet production-deployed</b>. That is why Sign in and Launch actions currently
-                route to access updates rather than a live app. When the deployment gates on our{" "}
-                <Link href="/trust#product-status">Trust page</Link> turn green, these buttons will
-                point at the real thing.
+                <b>not yet production-deployed</b>. This website presents the platform and its
+                tools; access is arranged with our team, not through a sign-in here. Current status
+                for every product is on our{" "}
+                <Link href="/trust#product-status">Trust page</Link>.
               </p>
             </div>
           </Reveal>
@@ -204,7 +200,7 @@ export default function FlameOsPage() {
         question="Want to hear when Flame OS opens?"
         copy="Join the access list and we will tell you — with an honest description of what is ready, what is pilot and what is still being built."
         primary={{ label: "Request access updates", href: "/contact?intent=access" }}
-        secondary={{ label: "Explore free tools", href: "/products" }}
+        secondary={{ label: "Explore our products", href: "/products" }}
       />
     </>
   );

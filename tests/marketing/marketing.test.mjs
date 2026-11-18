@@ -28,11 +28,12 @@ function load(file) {
   const mod = { exports: {} };
   cache.set(abs, mod);
   const req = (spec) => {
+    if (spec.startsWith("node:")) return {};
     if (!spec.startsWith(".")) throw new Error(`${file} imports package ${spec}`);
     const rel = path.relative(ROOT, path.join(path.dirname(abs), spec));
     return load(fs.existsSync(path.join(ROOT, rel + ".ts")) ? rel + ".ts" : rel);
   };
-  vm.runInNewContext(`(function(require, module, exports){${js}})`, vm.createContext({}))(req, mod, mod.exports);
+  vm.runInNewContext(`(function(require, module, exports){${js}})`, vm.createContext({ process: { env: {} }, URL, URLSearchParams, encodeURIComponent }))(req, mod, mod.exports);
   return mod.exports;
 }
 
@@ -42,7 +43,7 @@ const { PRODUCTS } = load("content/products.ts");
 const { ARTICLES, ARTICLE_CATEGORIES } = load("content/articles.ts");
 const { filterArticles } = load("components/marketing/resourceSearch.ts");
 
-const STATIC = ["/", "/products", "/services", "/flame-os", "/community", "/resources", "/about", "/trust", "/contact", "/sign-in", "/privacy"];
+const STATIC = ["/", "/products", "/services", "/flame-os", "/community", "/resources", "/about", "/trust", "/contact", "/privacy"];
 const ROUTES = new Set([
   ...STATIC,
   ...PRODUCTS.map((p) => `/products/${p.slug}`),
@@ -120,4 +121,60 @@ test("resource search: empty query returns all, category filters, terms AND toge
   assert.ok(readiness.some((a) => a.slug === "ai-readiness-is-a-people-problem-first"));
   assert.equal(filterArticles(ARTICLES, null, "readiness zzzz-no-match").length, 0);
   assert.equal(filterArticles(ARTICLES, "Research", "workflow").length, filterArticles(ARTICLES, "Research", "").filter((a) => /workflow/i.test(a.title + a.summary + a.sections.map((s) => s.heading).join(" "))).length);
+});
+
+/* ---------------- Website-only release (Nov 2026) ---------------- */
+const walk = (dir) =>
+  fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true }).flatMap((d) =>
+    d.isDirectory() ? walk(path.join(dir, d.name)) : [path.join(dir, d.name)]
+  );
+const SOURCES = [...walk("app"), ...walk("components"), ...walk("content"), ...walk("lib")].filter((f) => /\.(tsx?|mjs)$/.test(f));
+
+test("no sign-in, login or platform-app links anywhere in the site", () => {
+  for (const f of SOURCES) {
+    const src = fs.readFileSync(path.join(ROOT, f), "utf8");
+    // Visible "Sign in"/"Log in" UI text or routes (comments explaining the removal are allowed).
+    const code = src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+    assert.ok(!/>\s*(Sign|Log) ?in\b/i.test(code), `${f}: visible sign-in text`);
+    assert.ok(!/["'`]\/(sign-in|login|signin)["'`?#]/.test(code), `${f}: sign-in route`);
+    assert.ok(!/FLAME_(OS|SALES)_URL|flame(Os|Sales)Url/.test(code), `${f}: platform app URL`);
+  }
+});
+
+test("no backend: no API routes, server actions or fetch calls", () => {
+  assert.ok(!fs.existsSync(path.join(ROOT, "app/api")), "app/api must not exist");
+  for (const f of SOURCES) {
+    const src = fs.readFileSync(path.join(ROOT, f), "utf8");
+    assert.ok(!/\bfetch\(/.test(src), `${f}: fetch() call`);
+    assert.ok(!/^\s*["']use server["']/m.test(src), `${f}: server action`);
+  }
+});
+
+test("enquiry links: null until contact details are confirmed, correctly encoded when set", () => {
+  const ctx = (email, wa) => {
+    const site = load("lib/site.ts");
+    site.SITE.contactEmail = email;
+    site.SITE.contactWhatsApp = wa;
+    return load("lib/links.ts");
+  };
+  let links = ctx(null, null);
+  assert.equal(links.mailtoHref("Hi", "Body"), null);
+  assert.equal(links.whatsappHref("Hi"), null);
+  links = ctx("hello@example.org", "+256 700 000000");
+  const mail = links.mailtoHref("Book a consultation — AI in Business", "Line 1\nName: A & B");
+  assert.ok(mail.startsWith("mailto:hello@example.org?subject="));
+  assert.ok(!mail.includes("+"), "spaces must be %20, not +, for mail clients");
+  assert.ok(decodeURIComponent(mail).includes("Name: A & B"));
+  assert.equal(links.whatsappHref("Hi there"), "https://wa.me/256700000000?text=Hi%20there");
+  assert.equal(links.contactHref("waitlist", "flame-lens"), "/contact?intent=waitlist&product=flame-lens");
+});
+
+test("every product CTA stays on-site", () => {
+  const links = load("lib/links.ts");
+  for (const p of PRODUCTS) {
+    const cta = links.productCtaHref(p);
+    assert.equal(cta.external, false);
+    assert.ok(cta.href.startsWith("/contact?"), `${p.slug}: ${cta.href}`);
+    assert.ok(!/sign in|log in|launch/i.test(p.cta.label), `${p.slug}: CTA label "${p.cta.label}"`);
+  }
 });

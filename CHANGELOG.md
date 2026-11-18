@@ -1,5 +1,27 @@
 # Changelog
 
+
+## Unreleased — website-only release + marketing polish (Nov 2026)
+
+### Changed — website as the point of sale (Product Owner decision)
+- Removed sign-in everywhere: header, mobile menu, Flame OS page and the
+  `/sign-in` page (now redirects to `/products`). Header CTA is now
+  "Book a consultation".
+- Removed all server code: `app/api/lead`, `LeadForm`, `NewsletterForm`.
+  New `EnquiryComposer` opens a prefilled email or WhatsApp message;
+  nothing is stored or transmitted by the site. Privacy notice updated.
+- Product CTAs always resolve to on-site enquiries; Flame Sales CTA is now
+  "Request pilot access" (status unchanged: Pilot).
+- Removed platform URL settings (`NEXT_PUBLIC_FLAME_OS_URL`,
+  `NEXT_PUBLIC_FLAME_SALES_URL`, `..._SIGNIN_PATH`, `LEAD_*`), the platform
+  link gate and its CI step; added `npm run test:marketing` to CI.
+- "Explore free tools" → "Explore our products" (6 of 7 tools are in development).
+
+### Added — marketing experience
+- Rebuilt Home, Services, About and Resources narratives; scoped
+  `components/marketing/*` and `styles/marketing/marketing.module.css`;
+  resource search; service chooser; tests in `tests/marketing/`.
+
 ## 0.3.1 — 2026-09-16
 
 **Product statuses reconciled with what is actually deployed.** Status audit

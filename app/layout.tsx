@@ -10,7 +10,7 @@ import { Footer } from "../components/Footer";
 import { JsonLd } from "../components/JsonLd";
 import { SITE } from "../lib/site";
 import { organizationJsonLd, websiteJsonLd } from "../lib/seo";
-import { signInHref, exploreToolsHref } from "../lib/links";
+import { consultationHref } from "../lib/links";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.siteUrl),
@@ -60,7 +60,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </a>
         <JsonLd data={organizationJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
-        <Header exploreHref={exploreToolsHref()} signin={signInHref()} ribbon={RIBBON} />
+        <Header ctaHref={consultationHref()} ribbon={RIBBON} />
         <main id="main">{children}</main>
         <Footer />
       </body>
