@@ -118,8 +118,8 @@ via_field = [(x, y) for x in range(330, 900, 26) for y in (30, 572) if rnd.rando
 
 TONES = {
     #          trace                    packet                  via/chip line            chip fill                 glow
-    "orange": ("rgba(244,81,30,0.12)", "rgba(244,81,30,0.55)", "rgba(244,81,30,0.20)", "rgba(244,81,30,0.03)", "rgba(244,81,30,0.10)"),
-    "white": ("rgba(255,255,255,0.13)", "rgba(255,255,255,0.75)", "rgba(255,255,255,0.22)", "rgba(255,255,255,0.03)", "rgba(255,255,255,0.12)"),
+    "orange": ("rgba(244,81,30,0.12)", "rgba(244,81,30,0.42)", "rgba(244,81,30,0.20)", "rgba(244,81,30,0.03)", "rgba(244,81,30,0.10)"),
+    "white": ("rgba(255,255,255,0.13)", "rgba(255,255,255,0.55)", "rgba(255,255,255,0.22)", "rgba(255,255,255,0.03)", "rgba(255,255,255,0.12)"),
 }
 
 
@@ -143,8 +143,8 @@ def svg(tone, animated):
     css = (
         'path,line{fill:none;stroke-linecap:round;stroke-linejoin:round}'
         f'.t path{{stroke:{trace};stroke-width:1.15}}'
-        f'.pk path{{stroke:{packet};stroke-width:2.2;stroke-dasharray:10 990}}'
-        f'.pg path{{stroke:{glow};stroke-width:7;stroke-dasharray:14 986}}'
+        f'.pk path{{stroke:{packet};stroke-width:1.3;stroke-linecap:butt;stroke-dasharray:160 840}}'
+        f'.pg path{{display:none}}'
         f'.c rect{{fill:{chip_fill};stroke:{line};stroke-width:1.1}}'
         f'.c .core{{fill:none;stroke:{trace}}}'
         f'.pin line{{stroke:{line};stroke-width:2.4;stroke-linecap:butt}}'
@@ -154,13 +154,13 @@ def svg(tone, animated):
     )
     if animated:
         css += (
-            '.pk path,.pg path{animation:run 6s linear infinite}'
+            '.pk path{animation:run 12s linear infinite}'
             '.led circle{animation:blink 3.2s ease-in-out infinite}'
             '@keyframes run{from{stroke-dashoffset:1000}to{stroke-dashoffset:0}}'
             '@keyframes blink{0%,100%{opacity:.15}45%,55%{opacity:1}}'
         )
     else:
-        css += '.pk path{stroke-dasharray:10 190}.pg path{display:none}.led circle{opacity:.6}'
+        css += '.pk path{stroke-dasharray:160 840;opacity:.7}.led circle{opacity:.6}'
     o.append(f'<style>{css}</style>')
     o.append('<g mask="url(#my)"><g mask="url(#mx)">')
 
@@ -178,10 +178,10 @@ def svg(tone, animated):
     o.append('<g class="pd">' + ''.join(f'<rect x="{x - 2.5:.1f}" y="{y - 4:.1f}" width="5" height="8" rx="1"/>' for x, y in pads) + '</g>')
 
     # data packets: a share of traces carry traffic, at varied speeds
-    moving = [t for i, t in enumerate(traces) if i % 2 == 0]
+    moving = [t for i, t in enumerate(traces) if i % 3 == 0]
     pk, pg = [], []
     for i, t in enumerate(moving):
-        dur = 4.5 + (i * 0.73) % 4.5
+        dur = 10 + (i * 1.7) % 6
         delay = (i * 1.37) % dur
         reverse = i % 3 == 0
         pts = list(reversed(t)) if reverse else t

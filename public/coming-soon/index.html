@@ -116,7 +116,7 @@
   .core .countdown { margin: 0; position: relative; z-index: 1; }
   .core-chip { position: absolute; z-index: 0; left: 50%; top: 50%; width: 340%; height: auto; transform: translate(-50%, -50%); pointer-events: none; overflow: visible; }
   .cc-tr path { fill: none; stroke: rgba(255,255,255,.16); stroke-width: 1.1; vector-effect: non-scaling-stroke; }
-  .cc-pk path { fill: none; stroke: #ff8a5c; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 18 982; vector-effect: non-scaling-stroke; opacity: .95; }
+  .cc-pk path { fill: none; stroke: #ff8a5c; stroke-width: 1.3; stroke-linecap: butt; stroke-dasharray: 140 860; vector-effect: non-scaling-stroke; opacity: .7; }
   .cc-pin rect { fill: rgba(244,81,30,.55); }
   .cc-body { stroke: rgba(244,81,30,.55); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
   .cc-die { fill: rgba(244,81,30,.05); stroke: rgba(255,255,255,.12); stroke-width: 1; vector-effect: non-scaling-stroke; }
@@ -124,14 +124,14 @@
   .cc-glow { opacity: .75; }
   .countdown li { background: linear-gradient(180deg, rgba(10,22,38,.72), rgba(10,22,38,.5)); }
   @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-    .cc-pk path { animation: inflow 3s linear infinite; }
+    .cc-pk path { animation: inflow 7s linear infinite; }
     .cc-glow { animation: breathe 3.6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
     .cc-led { animation: led 1.8s ease-in-out infinite; }
     @keyframes inflow { from { stroke-dashoffset: 1000; } to { stroke-dashoffset: 0; } }
     @keyframes breathe { 0%,100% { opacity: .55; transform: scale(.96); } 50% { opacity: .95; transform: scale(1.04); } }
     @keyframes led { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
   }
-  @media (prefers-reduced-motion: reduce) { .cc-pk path { stroke-dasharray: 18 182; } }
+  @media (prefers-reduced-motion: reduce) { .cc-pk path { stroke-dasharray: 140 360; } }
 
   .when { margin-top: clamp(2.4rem, 6vw, 3.4rem); color: var(--muted); font-size: .9rem; }
   .when strong { color: var(--text); font-weight: 500; }
