@@ -18,7 +18,7 @@ const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 export const metadata = pageMetadata({
   title: "About Flame Connect",
   description:
-    "Flame Connect is an AI Centre of Change built in Uganda for African realities — expert services, our own platform and practical insight in one model.",
+    "Flame Connect is an AI Centre of Change built in Uganda for the way Africa works. We bring expert services, our own platforms and practical insight together in one model.",
   path: "/about",
 });
 
@@ -77,13 +77,13 @@ export default function AboutPage() {
             <div className="prose">
               <p>
                 Flame Connect is based in Uganda and is being built for a wider African future. Our
-                work sits at the intersection of technology, communication, business improvement
+                work brings together technology, communication, business improvement
                 and learning.
               </p>
               <p>
-                We are building a model that combines expert services, our own platform and
-                practical insight, because meaningful change rarely comes from software alone.
-                Organizations need clarity, people need capability and solutions need to fit the
+                We are building a model that combines expert services, our own platforms and
+                practical insight, because real change rarely comes from software alone.
+                Organisations need clarity, people need skills and solutions need to fit the
                 environment in which they will be used.
               </p>
             </div>
@@ -120,8 +120,8 @@ export default function AboutPage() {
               <SplitText text="Three ways we create change that lasts." accent="change that lasts." />
             </h2>
             <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
-              Software alone rarely changes how an organization works. We combine expert
-              services, our own platform and practical insight so clarity, capability and tools
+              Software on its own rarely changes how an organisation works. We combine expert
+              services, our own platforms and practical insight, so clarity, skills and tools
               arrive together.
             </p>
           </InView>
@@ -157,7 +157,7 @@ export default function AboutPage() {
           <SectionHead
             eyebrow="Operating principles"
             title="How the work gets done"
-            copy="Six principles govern everything from product design to the claims we allow on this website."
+            copy="Six principles guide everything we do, from how we design products to what we allow ourselves to claim on this website."
           />
           <div className={s.cols3}>
             {OPERATING_PRINCIPLES.map((principle, i) => (
@@ -211,7 +211,7 @@ export default function AboutPage() {
 
       <CTABand
         question="Want to build this with us?"
-        copy="We are open to partnerships with businesses, institutions, development organizations, investors and ecosystem actors who share the ambition."
+        copy="We welcome partnerships with businesses, institutions, development organisations, investors and others who share this ambition."
         primary={{ label: "Partner with Flame", href: "/contact?intent=partnership" }}
         secondary={{ label: "See how we work", href: "/services" }}
       />

@@ -3,26 +3,26 @@
 export const APPROACH_STAGES = [
   {
     key: "Assess",
-    copy: "Understand goals, people, systems, data, constraints and readiness.",
+    copy: "Understand your goals, people, systems, data, constraints and readiness.",
   },
   {
     key: "Learn",
-    copy: "Build the knowledge and confidence needed to make informed choices.",
+    copy: "Build the knowledge and confidence your team needs to make good choices.",
   },
   {
     key: "Improve",
-    copy: "Redesign the workflow, communication or experience before automating it.",
+    copy: "Redesign the workflow, message or experience before automating anything.",
   },
   {
     key: "Implement",
-    copy: "Deploy practical solutions, track adoption and scale with evidence.",
+    copy: "Put practical solutions in place, track how they are used and scale what the evidence supports.",
   },
 ] as const;
 
 export const AFRICA_FIRST_POINTS = [
   "Mobile-first interfaces",
   "Low-bandwidth performance",
-  "Practical language, not technical jargon",
+  "Plain language instead of jargon",
   "Human support and capability building",
   "Context-aware workflows",
   "Evidence before scale",
@@ -33,15 +33,15 @@ export const AFRICA_FIRST_POINTS = [
 export const OPERATING_PRINCIPLES = [
   {
     name: "Practical",
-    meaning: "Start with a real need and a useful outcome, not technology for its own sake.",
+    meaning: "Start with a real need and a useful result. The technology comes second.",
   },
   {
     name: "Clear & evidence-led",
-    meaning: "Explain what a solution does, measure what changes and communicate limitations plainly.",
+    meaning: "Explain what a solution does, measure what changes and be plain about its limits.",
   },
   {
     name: "Human control",
-    meaning: "Use AI to support people, not remove accountability from important decisions.",
+    meaning: "AI supports people. Accountability for important decisions stays with them.",
   },
   {
     name: "Access-first",
@@ -49,22 +49,22 @@ export const OPERATING_PRINCIPLES = [
   },
   {
     name: "Community-built",
-    meaning: "Learn with users, practitioners, businesses and communities rather than designing in isolation.",
+    meaning: "Learn alongside users, practitioners, businesses and communities instead of designing alone.",
   },
   {
     name: "Honest measurement",
-    meaning: "Do not overstate impact, readiness, automation or intelligence. Make status and evidence visible.",
+    meaning: "Never overstate impact, readiness, automation or intelligence. Keep status and evidence visible.",
   },
 ] as const;
 
 export const RESPONSIBLE_AI_COMMITMENTS = [
-  "Human accountability remains with people and organizations for important decisions.",
-  "Users should understand when AI is being used and what it is intended to do.",
-  "High-impact recommendations should be reviewable rather than treated as unquestionable outputs.",
-  "Data collection should be proportionate to the service and explained in plain language.",
-  "Products should expose limitations, status and confidence where relevant.",
-  "Testing should include African contexts and real user constraints, not only ideal connectivity and devices.",
-  "Security, privacy, access control and auditability are treated as product requirements.",
+  "People and organisations stay accountable for important decisions.",
+  "Users should know when AI is being used and what it is meant to do.",
+  "High-impact recommendations should be open to review, never accepted without question.",
+  "Data collection should match what the service needs and be explained in plain language.",
+  "Products should show their limitations, status and confidence where it matters.",
+  "Testing should include African settings and real constraints, such as patchy connectivity and older devices.",
+  "Security, privacy, access control and auditability are product requirements.",
 ] as const;
 
 /* ------------------------------------------------------------------
@@ -79,7 +79,7 @@ export const HOME_HERO = {
   eyebrow: "AI Centre of Change · Kampala, Uganda",
   title: "Practical AI for African progress.",
   lede:
-    "Flame Connect helps organizations in Uganda and across Africa turn AI and digital ambition into work that actually changes — clearer communication, better decisions and workflows that hold up in real conditions.",
+    "Flame Connect helps organisations in Uganda and across Africa put AI and digital tools to work. The result is clearer communication, better decisions and workflows that hold up in real conditions.",
   points: ["Human-controlled AI", "Designed for mobile and low bandwidth", "Uganda-rooted, Africa-focused"],
   /** Official master-logo signature (confirmed by the Product Owner, 18 Nov 2026). */
   signature: "Digitizing Africa.",
@@ -101,20 +101,20 @@ export const METHOD_OUTPUTS: Record<(typeof APPROACH_STAGES)[number]["key"], str
 export const HOME_PATHWAYS = [
   {
     title: "Talk through a challenge",
-    copy: "A discovery consultation to find the most useful next step — a service, a tool, a learning path or a focused pilot.",
+    copy: "In a discovery consultation we work out the most useful next step. That might be a service, a tool, a learning path or a small pilot.",
     href: "/contact?intent=consultation",
     cta: "Book a discovery consultation",
     primary: true,
   },
   {
     title: "Get early access to our platforms",
-    copy: "Flame OS for business growth and Flame Academy for digital skills are launching soon. Be among the first.",
+    copy: "Flame OS for business growth and Flame Academy for digital skills are launching soon. Join early access to hear first.",
     href: "/products",
     cta: "Explore our products",
   },
   {
     title: "Read before you decide",
-    copy: "Field notes, playbooks and perspectives — each piece ends with actions and stated limits.",
+    copy: "Field notes, playbooks and perspectives. Each piece ends with practical actions and is clear about its limits.",
     href: "/resources",
     cta: "Browse resources",
   },
@@ -124,19 +124,19 @@ export const HOME_PATHWAYS = [
 export const HOME_CHALLENGES = [
   {
     title: "Interest without direction",
-    copy: "AI enthusiasm arrives before anyone has agreed which problem to solve — or what must stay with a person.",
+    copy: "Teams get excited about AI before anyone agrees which problem to solve, or what should stay with a person.",
   },
   {
     title: "Tools before process",
-    copy: "Software is bought before the workflow is understood, so it automates confusion and is quietly shelved.",
+    copy: "Software gets bought before anyone understands the workflow. It automates the confusion and ends up quietly shelved.",
   },
   {
     title: "Activity without outcomes",
-    copy: "Campaigns and content generate noise, but not enquiries, decisions or change anyone can point to.",
+    copy: "Campaigns and content create noise, but no enquiries, decisions or change anyone can point to.",
   },
   {
     title: "Built for ideal conditions",
-    copy: "Solutions assume constant connectivity, new devices and digital maturity that many teams do not have.",
+    copy: "Solutions assume constant connectivity, new devices and a level of digital maturity many teams do not have yet.",
   },
 ] as const;
 
@@ -151,7 +151,7 @@ export const ABOUT_MODEL = [
   },
   {
     name: "Our platforms",
-    copy: "Flame OS, the growth operating system for businesses, and Flame Academy for digital skills — launching soon.",
+    copy: "Flame OS, the growth operating system for businesses, and Flame Academy for digital skills. Both are launching soon.",
     href: "/products",
     cta: "Explore our products",
   },

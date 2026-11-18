@@ -21,7 +21,7 @@ export const SITE = {
   legalName: "Flame Connect", // confirmed by founder (Sept 2026); update if URSB certificate shows a formal suffix
   tagline: "Digitizing Africa.", // official signature — confirmed by the Product Owner (18 Nov 2026)
   shortDescription:
-    "Flame Connect is an Africa-focused AI, digital and transformation company helping organizations and communities move from interest in technology to useful, measurable application.",
+    "Flame Connect is an Africa-focused AI, digital and transformation company. We help organisations and communities move from interest in technology to using it in ways that make a measurable difference.",
   homeLocationLine: "Uganda outward to Africa.",
   // Canonical public origin: https://www.flameconnect.tech (apex redirects to www).
   // Note: `||`-style fallback (not `??`) so an EMPTY-STRING env var — e.g. a

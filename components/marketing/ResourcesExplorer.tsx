@@ -55,7 +55,7 @@ export function ResourcesExplorer({
           </h1>
           <p className={`lede ${m.rise}`} style={{ "--i": 8 } as CSSProperties}>
             Practical guides, field notes, research and perspectives on AI, digital communication,
-            business growth and transformation in African contexts. Written to be used, not just read.
+            business growth and transformation in Africa. Written to be put to use.
           </p>
           <div className={`${s.toolbar} ${m.rise}`} style={{ "--i": 9 } as CSSProperties}>
             <div className={s.search} role="search">
@@ -71,7 +71,7 @@ export function ResourcesExplorer({
               <input
                 id="resource-search"
                 type="search"
-                placeholder="Search by topic — e.g. readiness, workflow, sales"
+                placeholder="Search by topic, such as readiness, workflow or sales"
                 value={query}
                 onChange={(e: { currentTarget: HTMLInputElement }) => setQuery(e.currentTarget.value)}
                 autoComplete="off"
@@ -146,9 +146,9 @@ export function ResourcesExplorer({
               <h3>{q ? "No pieces match that search yet" : "Nothing in this category yet"}</h3>
               <p>
                 {q
-                  ? "Try a broader word, or suggest the topic — the best resources start as real problems."
+                  ? "Try a broader word, or suggest the topic. Our best resources start as real problems."
                   : active === "Research"
-                    ? "Longer research is in progress. We publish when the evidence is ready, not to fill a slot — subscribe and it will reach you honestly labelled."
+                    ? "Longer research is in progress. We publish when the evidence is ready, not to fill a schedule. Subscribe and you will hear when it is out."
                     : "More is coming. Try another category meanwhile."}
               </p>
               {q && (

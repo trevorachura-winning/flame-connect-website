@@ -14,7 +14,7 @@ import s from "../../styles/marketing/marketing.module.css";
 import m from "../../styles/marketing/motion.module.css";
 
 export const metadata = pageMetadata({
-  title: "Products — Flame OS and Flame Academy",
+  title: "Products: Flame OS and Flame Academy",
   description:
     "Flame OS, the growth operating system for African businesses, and Flame Academy, the digital-skills platform for Africa's education sector. Both launching soon.",
   path: "/products",
@@ -99,7 +99,7 @@ export default function ProductsPage() {
 
       <CTABand
         question="Want to be first in line?"
-        copy="Join early access for Flame OS or register your institution's interest in Flame Academy — or talk to our team about what you need."
+        copy="Join early access for Flame OS, register your institution's interest in Flame Academy or talk to our team about what you need."
         primary={{ label: "Talk to our team", href: "/contact?intent=consultation" }}
         secondary={{ label: "Explore our services", href: "/services" }}
       />

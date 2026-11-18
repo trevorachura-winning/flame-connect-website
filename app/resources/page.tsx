@@ -7,7 +7,7 @@ import { pageMetadata } from "../../lib/seo";
 import s from "../../styles/marketing/marketing.module.css";
 
 export const metadata = pageMetadata({
-  title: "Resources — useful ideas for the work in front of you",
+  title: "Resources: useful ideas for the work in front of you",
   description:
     "Explore practical guides, field notes, research and perspectives on AI, digital communication, business growth and transformation in African contexts.",
   path: "/resources",
@@ -45,7 +45,7 @@ export default function ResourcesPage() {
 
       <CTABand
         question="Have a challenge worth a playbook?"
-        copy="The best resources start as real problems. Share yours — if it teaches something useful, we will write it up in the open."
+        copy="Our best resources start as real problems. Share yours. If it teaches something useful, we will write about it openly."
         primary={{ label: "Suggest a topic", href: "/contact?intent=other" }}
         secondary={{ label: "Book a discovery consultation", href: "/contact?intent=consultation" }}
       />

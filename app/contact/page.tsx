@@ -3,9 +3,9 @@ import { ContactPageClient } from "../../components/ContactPageClient";
 import { pageMetadata } from "../../lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Contact — tell us what you are trying to improve",
+  title: "Contact us: tell us what you are trying to improve",
   description:
-    "Whether you need a clearer digital presence, an AI adoption plan, a practical automation, a custom tool, a learning programme or a research partner — start with the problem.",
+    "Tell us the problem you want to solve. It might be a clearer online presence, an AI adoption plan, a practical automation, a custom tool, a learning programme or a research partner.",
   path: "/contact",
 });
 

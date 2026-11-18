@@ -32,7 +32,7 @@ export const ARTICLES: Article[] = [
     slug: "ai-readiness-is-a-people-problem-first",
     title: "AI readiness is a people problem first",
     summary:
-      "Most organizations asking about AI are not blocked by technology. They are blocked by unclear priorities, unmapped workflows and unspoken fear. Readiness work starts there.",
+      "Technology is rarely what holds organisations back with AI. Unclear priorities, unmapped workflows and unspoken fears do. That is where readiness work should start.",
     category: "Insights",
     date: "2026-09-01",
     readingTime: "6 min read",
@@ -41,26 +41,26 @@ export const ARTICLES: Article[] = [
       {
         heading: "Why this matters",
         paragraphs: [
-          "Across the organizations we meet, the AI conversation usually begins with a tool question: which platform, which model, which vendor. It is rarely the right first question. The organizations that get value from AI are not the ones that moved fastest on procurement — they are the ones that understood their own work clearly enough to know where help was needed.",
-          "Readiness is commonly framed as an infrastructure question: do we have the data, the systems, the connectivity. Those matter. But in practice, the first constraints are human: nobody has agreed what problem to solve, the workflow as documented does not match the workflow as lived, and the people closest to the work have not been asked what actually slows them down.",
+          "In most organisations we meet, the AI conversation starts with a tool question: which platform, which model, which vendor. That is rarely the right place to begin. The organisations that get real value from AI understood their own work well enough to know where help was needed. How fast they bought something had little to do with it.",
+          "Readiness is usually treated as an infrastructure question. Do we have the data, the systems, the connectivity? Those things matter. In practice, though, the first obstacles are human. Nobody has agreed which problem to solve, the workflow on paper does not match the one people actually follow, and nobody has asked the people closest to the work what slows them down.",
         ],
       },
       {
         heading: "What we are seeing",
         paragraphs: [
-          "In structured readiness assessments, the same pattern repeats. Capability scores are middling but fixable. Data quality is uneven but rarely impossible. The real spread appears in two places: governance — who is allowed to decide, and what must stay human — and shared understanding, where the leader's picture of the workflow differs sharply from the operator's.",
-          "That gap is not a problem to hide. It is the most useful diagnostic signal available, because disagreement between roles almost always marks the spot where a workflow is held together by memory and goodwill rather than by design.",
+          "Our readiness assessments keep showing the same pattern. Skills are average but fixable. Data quality is uneven but rarely hopeless. The real differences show up in two places. One is governance: who is allowed to decide, and what must stay with a person. The other is shared understanding, where a leader's picture of the workflow is very different from the picture held by the person doing the work.",
+          "Don't hide that gap. It is the most useful clue you have. When roles disagree, it almost always marks the place where a workflow runs on memory and goodwill instead of design.",
         ],
       },
       {
         heading: "Practical implications",
         paragraphs: [
-          "A readiness review that earns its cost produces three things: a prioritised list of use cases tied to real work, a gap list that names what must be fixed before scale, and a shared language the whole leadership team can argue with. If an assessment produces only a score, it has told you very little.",
+          "A readiness review worth paying for gives you three things. You get a prioritised list of use cases tied to real work, a list of what must be fixed before you scale, and a shared language your leadership team can debate. If an assessment only gives you a score, it has told you very little.",
         ],
         list: [
-          "Treat different answers between roles as findings, not failures.",
+          "When roles give different answers, treat it as a finding instead of a failure.",
           "Score governance and process alongside data and tools.",
-          "End every assessment with two candidate pilots, not forty ideas.",
+          "End every assessment with two possible pilots instead of forty ideas.",
         ],
       },
     ],
@@ -70,21 +70,21 @@ export const ARTICLES: Article[] = [
       "Name one decision that must always stay with a person, before you automate anything.",
     ],
     limits: [
-      "These observations come from our own assessments and community sessions, not a continental survey.",
-      "Readiness frameworks evolve; treat any score as a conversation starter, not a certification.",
+      "These observations come from our own assessments and community sessions. They are not a survey of the whole continent.",
+      "Readiness frameworks change over time. Treat any score as a starting point for discussion, never as a certificate.",
     ],
     relatedServiceSlug: "ai-in-business",
     seo: {
-      title: "AI readiness is a people problem first — Flame Connect",
+      title: "AI readiness is a people problem first",
       description:
-        "Most AI adoption is blocked by unclear priorities and unmapped workflows, not technology. What readiness work should actually start with.",
+        "Unclear priorities and unmapped workflows hold back AI adoption far more often than technology does. Here is where readiness work should start.",
     },
   },
   {
     slug: "map-one-workflow-before-automation",
     title: "Playbook: map one workflow before you automate anything",
     summary:
-      "A one-afternoon method for documenting a real workflow — including its exceptions — so automation decisions are made on evidence instead of enthusiasm.",
+      "A one-afternoon method for writing down a real workflow, exceptions included, so you decide what to automate based on evidence instead of enthusiasm.",
     category: "Playbooks",
     date: "2026-08-24",
     readingTime: "7 min read",
@@ -93,53 +93,53 @@ export const ARTICLES: Article[] = [
       {
         heading: "Why this matters",
         paragraphs: [
-          "Automation projects fail quietly. A tool is installed on top of a process nobody has written down, exceptions pile up, and within a quarter the team has routed around it. The cheapest insurance is unglamorous: one afternoon, one workflow, one wall of sticky notes.",
-          "This playbook is the exact mapping exercise we run before any engagement. It requires no software and produces a document your whole team can argue with.",
+          "Automation projects fail quietly. Someone installs a tool on top of a process nobody has written down, the exceptions pile up, and within three months the team is working around it. The cheapest protection is simple: one afternoon, one workflow and a wall of sticky notes.",
+          "This is the same mapping exercise we run before every engagement. It needs no software, and it gives your whole team a document they can debate.",
         ],
       },
       {
         heading: "The method",
         paragraphs: [
-          "Choose one workflow that is frequent, painful and bounded — lead follow-up, invoice chasing, client onboarding. Bounded means you can say where it starts and where it ends. Gather the two or three people who actually do it, not only the people who manage it.",
+          "Choose one workflow that happens often, causes pain and has clear edges, such as lead follow-up, chasing invoices or onboarding clients. Clear edges means you can say where it starts and where it ends. Bring in the two or three people who actually do the work, as well as the people who manage it.",
         ],
         list: [
           "Step 1 (20 min): List every step from trigger to done, one sticky note per step, in the order it really happens.",
-          "Step 2 (20 min): Mark the exceptions — the five percent of cases that take fifty percent of the time.",
-          "Step 3 (20 min): Mark every handoff between people or systems. Handoffs are where work silently waits.",
-          "Step 4 (20 min): Mark the judgement calls — steps where a human decides something that depends on context.",
-          "Step 5 (20 min): Agree as a group what 'good' looks like: speed, quality, cost, or the thing your customer actually feels.",
+          "Step 2 (20 min): Mark the exceptions, the five percent of cases that take fifty percent of the time.",
+          "Step 3 (20 min): Mark every handoff between people or systems. Handoffs are where work sits and waits without anyone noticing.",
+          "Step 4 (20 min): Mark the judgement calls, where a person decides something that depends on the situation.",
+          "Step 5 (20 min): Agree as a group what ‘good’ looks like: speed, quality, cost or what your customer actually notices.",
         ],
       },
       {
         heading: "Reading the map",
         paragraphs: [
-          "Automate candidates are steps that are frequent, rules-based and low-judgement. Steps heavy with judgement are assistant candidates — technology that prepares, a person that decides. The exceptions list tells you what will break a naive automation, and it becomes your test plan.",
-          "If the group cannot agree on what 'good' looks like, stop. That disagreement is the finding; automate nothing until success has a definition.",
+          "Steps that happen often, follow clear rules and need little judgement are good candidates for automation. Steps that need a lot of judgement suit an assistant instead, where the technology prepares and a person decides. Your list of exceptions shows what would break a simple automation, and it becomes your test plan.",
+          "If the group cannot agree on what ‘good’ looks like, stop there. That disagreement is your finding. Automate nothing until you have defined success.",
         ],
       },
     ],
     actions: [
       "Block one afternoon this month and map a single workflow using the five steps.",
       "Circle exactly one automation candidate and one assistant candidate on the map.",
-      "Write the success measure for a pilot before you speak to any vendor — including us.",
+      "Write down how you will measure a pilot's success before you speak to any vendor, including us.",
     ],
     limits: [
-      "A map shows one workflow, not the whole organization; resist generalising from a single afternoon.",
-      "Workflows change after automation; plan to re-map after the first pilot, not before it.",
+      "A map shows one workflow, not the whole organisation. Be careful about drawing big conclusions from a single afternoon.",
+      "Workflows change once you automate them. Plan to map the workflow again after the first pilot.",
     ],
     relatedServiceSlug: "ai-in-business",
     relatedProductSlug: "flame-os",
     seo: {
-      title: "Map one workflow before you automate anything — Flame Connect",
+      title: "Map one workflow before you automate anything",
       description:
-        "A one-afternoon playbook for documenting a real workflow so automation decisions rest on evidence, not enthusiasm.",
+        "A one-afternoon playbook for writing down a real workflow, so your automation decisions rest on evidence instead of enthusiasm.",
     },
   },
   {
     slug: "five-questions-before-any-ai-tool",
     title: "Five questions to ask before buying any AI tool",
     summary:
-      "A short filter for vendor demos and internal proposals alike. If a tool cannot answer these plainly, the risk is not in the model — it is in the purchase.",
+      "A short filter for vendor demos and internal proposals. If a tool cannot answer these questions plainly, the risk lies in buying it, whatever the model behind it.",
     category: "Playbooks",
     date: "2026-08-10",
     readingTime: "5 min read",
@@ -148,50 +148,50 @@ export const ARTICLES: Article[] = [
       {
         heading: "Why this matters",
         paragraphs: [
-          "The AI market rewards confident demos. Buyers — especially those without deep technical teams — need a counterweight: questions that work regardless of what is under the hood. These five have served our clients well, and we hold our own products to them.",
+          "The AI market rewards confident demos. Buyers, especially those without large technical teams, need something to balance that: questions that work whatever is under the hood. These five have served our clients well, and we hold our own products to them too.",
         ],
       },
       {
         heading: "The questions",
         paragraphs: [
-          "Ask them in writing. Good vendors answer in documents, not only on calls.",
+          "Ask them in writing. Good vendors will answer in a document as well as on a call.",
         ],
         list: [
           "1. What specific workflow does this improve, and how will we measure the change from a baseline we already have?",
-          "2. What happens when the AI is wrong or unavailable — what is the fallback, and who finds out first?",
-          "3. Which decisions does the tool never make on its own, and how is that boundary enforced technically, not just promised?",
-          "4. What happens to our data — where does it live, who can see it, and is it used to train anything?",
-          "5. What does leaving look like — can we export our data and our history in a format we can actually use?",
+          "2. What happens when the AI is wrong or unavailable? What is the fallback, and who finds out first?",
+          "3. Which decisions does the tool never make on its own, and how is that limit enforced in the software itself instead of just promised?",
+          "4. What happens to our data? Where is it stored, who can see it, and is it used to train anything?",
+          "5. What happens if we leave? Can we export our data and history in a format we can actually use?",
         ],
       },
       {
         heading: "Practical implications",
         paragraphs: [
-          "Notice that none of these questions require understanding the model. They test the things that actually determine whether a tool earns its place: fit to real work, behaviour under failure, human control, data conduct and reversibility. A vendor who resists written answers is telling you something important.",
+          "None of these questions need you to understand the model. They test what decides whether a tool earns its place: how well it fits real work, how it behaves when it fails, who stays in control, how it treats your data and whether you can walk away. A vendor who avoids giving written answers is telling you something important.",
         ],
       },
     ],
     actions: [
-      "Send these five questions to your next vendor before the demo, not after.",
-      "Score the answers with the person who owns the workflow, not only the person who owns the budget.",
-      "Keep the written answers; they become your acceptance criteria later.",
+      "Send these five questions to your next vendor before the demo.",
+      "Score the answers with the person who runs the workflow as well as the person who holds the budget.",
+      "Keep the written answers. They become your acceptance criteria later.",
     ],
     limits: [
-      "These questions filter obvious misfit; they do not replace due diligence for high-stakes deployments.",
-      "Our own tools are works in progress — ask us these questions too and judge the answers.",
+      "These questions catch obvious mismatches. They do not replace proper due diligence for high-stakes systems.",
+      "Our own tools are still in development. Ask us these questions too, and judge our answers.",
     ],
     relatedServiceSlug: "ai-in-business",
     seo: {
-      title: "Five questions to ask before buying any AI tool — Flame Connect",
+      title: "Five questions to ask before buying any AI tool",
       description:
-        "A practical vendor filter for AI tools: workflow fit, failure behaviour, human control, data conduct and exit.",
+        "A practical filter for AI vendors: workflow fit, behaviour when things fail, human control, data handling and how to leave.",
     },
   },
   {
     slug: "human-in-the-loop-in-practice",
-    title: "'Human in the loop' is a design decision, not a slogan",
+    title: "‘Human in the loop’ is a design decision",
     summary:
-      "Every AI product claims human oversight. Fewer specify where it lives, how it is enforced and what happens when it is inconvenient. Here is what the principle looks like as engineering.",
+      "Every AI product claims human oversight. Far fewer say where it happens, how it is enforced and what happens when it gets in the way. Here is what the principle looks like when you build it.",
     category: "Insights",
     date: "2026-07-28",
     readingTime: "6 min read",
@@ -200,49 +200,49 @@ export const ARTICLES: Article[] = [
       {
         heading: "Why this matters",
         paragraphs: [
-          "'Human in the loop' appears in nearly every responsible-AI statement, including ours. Used loosely, it means nothing — a person somewhere in the building, technically able to intervene in theory. Used precisely, it is a set of enforceable design choices that can be inspected.",
+          "‘Human in the loop’ appears in nearly every responsible AI statement, including ours. Used loosely, it means very little: a person somewhere in the building who could, in theory, step in. Used properly, it is a set of design choices that are enforced and can be checked.",
         ],
       },
       {
-        heading: "What the principle looks like as engineering",
+        heading: "What the principle looks like in practice",
         paragraphs: [
-          "In our own products, the principle resolves into concrete mechanisms. Deterministic scoring sits beside any generative narrative, so a model outage degrades the explanation, never the arithmetic. Consequential actions — sending a customer-facing communication, changing data at scale — require an explicit human click. And every governed use case is registered with its risk tier, so the level of oversight is decided before the feature ships rather than after something goes wrong.",
+          "In our own products, the principle becomes specific mechanisms. Fixed, rule-based scoring sits beside any AI-written explanation, so if the model goes down you lose the explanation but never the numbers. Actions with real consequences, such as sending a message to a customer or changing data in bulk, need a person to click and approve them. Every AI use case is also recorded with its risk level, so we decide how much oversight it needs before the feature ships, not after something goes wrong.",
         ],
         list: [
-          "Approval gates: consequential actions are impossible without a named person's action, not merely possible to review.",
-          "Deterministic baselines: when AI narrative fails, the system falls back to calculations a person can audit.",
-          "Use-case registers: each AI application is documented with purpose, risk tier and required controls.",
-          "Visible limitations: product status and confidence are exposed in the interface instead of smoothed over.",
+          "Approval gates: actions with real consequences cannot happen until a named person approves them.",
+          "Rule-based fallbacks: when the AI explanation fails, the system falls back to calculations a person can check.",
+          "Use-case registers: each AI feature is documented with its purpose, risk level and required controls.",
+          "Visible limits: product status and confidence are shown on screen instead of being glossed over.",
         ],
       },
       {
         heading: "Practical implications",
         paragraphs: [
-          "For buyers: ask where the loop actually is, and test it. For builders: if removing the human would merely be embarrassing in a meeting, that is governance by reputation, not by design. Design the oversight so it survives a busy Tuesday.",
+          "If you are buying, ask exactly where the human sits in the process, and test it. If you are building, ask what would happen if the person were removed. If the only consequence is an awkward meeting, your oversight depends on reputation instead of design. Build oversight that still works on a busy Tuesday.",
         ],
       },
     ],
     actions: [
-      "For any AI system you use, name the exact click or signature where a human approves a consequential action.",
+      "For every AI system you use, name the exact click or signature where a person approves an important action.",
       "Ask for the fallback: what does the system do on its worst day?",
-      "Write your non-negotiables — the decisions that stay human — before the next procurement.",
+      "Before your next purchase, write down your non-negotiables: the decisions that always stay with people.",
     ],
     limits: [
-      "Our own mechanisms are documented publicly in the platform repository and remain under active validation.",
-      "This describes baseline practice, not a claim of perfection; oversight design is an ongoing discipline.",
+      "Our own mechanisms are still being tested and refined.",
+      "This describes our baseline practice. It is not a claim of perfection, and designing good oversight is ongoing work.",
     ],
     relatedServiceSlug: "ai-in-business",
     seo: {
-      title: "Human in the loop is a design decision — Flame Connect",
+      title: "Human in the loop is a design decision",
       description:
-        "What human oversight means as enforceable engineering: approval gates, deterministic baselines, use-case registers and visible limitations.",
+        "What human oversight looks like when it is built into the product: approval gates, rule-based fallbacks, use-case registers and visible limits.",
     },
   },
   {
     slug: "field-notes-what-early-testers-showed-us",
     title: "Field notes: what early testers in Uganda changed in our products",
     summary:
-      "Qualitative observations from early testing and community sessions in Kampala — the assumptions that broke, and what we changed because of them.",
+      "What we saw in early testing and community sessions in Kampala: the assumptions that turned out wrong, and what we changed as a result.",
     category: "Field notes",
     date: "2026-09-08",
     readingTime: "6 min read",
@@ -251,45 +251,45 @@ export const ARTICLES: Article[] = [
       {
         heading: "Why we publish this",
         paragraphs: [
-          "We say community feedback shapes our tools, and that claim deserves receipts. These notes are qualitative — observations from early testing sessions and structured feedback from early testers — and they are published in that spirit: honest about what broke, specific about what changed.",
+          "We say community feedback shapes our tools, so we should show the evidence. These notes are observations from early testing sessions and structured feedback from early testers. We publish them to be honest about what broke and specific about what we changed.",
         ],
       },
       {
         heading: "What we observed",
         paragraphs: [
-          "First: mobile-first was not a preference, it was the default reality. Testers arrived on Android phones first and laptops second, often on constrained data. Features that assumed a wide screen or heavy assets were quietly abandoned, regardless of how useful the scoring underneath was.",
-          "Second: vocabulary decided trust. Words like 'algorithm' and 'model' closed conversations; words like 'checklist', 'score with reasons' and 'draft for your review' opened them. The capability barely changed between those framings — the willingness to test it changed completely.",
-          "Third: the CSV upload was the feature. Teams that 'did not have data' turned out to have years of it in spreadsheets and exercise books. Meeting teams at their actual data reality produced more adoption energy than any connector roadmap we described.",
+          "First, mobile came first for everyone. Testers used Android phones before laptops, often on limited data. People quietly stopped using features that assumed a wide screen or heavy downloads, however useful the scoring behind them was.",
+          "Second, the words we used decided whether people trusted us. ‘Algorithm’ and ‘model’ ended conversations. ‘Checklist’, ‘score with reasons’ and ‘draft for your review’ started them. The feature behind the words barely changed, but people's willingness to try it changed completely.",
+          "Third, the spreadsheet upload mattered most. Teams that said they ‘did not have data’ turned out to have years of it in spreadsheets and exercise books. Working with the data they really had got people more engaged than any list of future integrations we described.",
         ],
       },
       {
         heading: "What we changed",
         paragraphs: [
-          "We rebuilt primary flows around a 320-pixel baseline before adding desktop polish. We rewrote result screens so every score arrives with its stated reasons in plain language. And we kept the CSV/Excel-first path as a permanent design decision rather than a temporary bridge, because for our users it is not a compromise — it is the product.",
+          "We rebuilt the main screens for a 320-pixel phone screen first and polished the desktop version after. We rewrote the results screens so every score comes with its reasons in plain language. We also kept starting from CSV or Excel as a permanent feature instead of a stopgap, because for our users it is the product, not a compromise.",
         ],
       },
     ],
     actions: [
-      "If you are building for African markets: test on the phone your users carry, on the connection they pay for.",
+      "If you are building for African markets, test on the phones your users carry and the data connections they pay for.",
       "Rewrite one screen of your product in the plainest language you can and watch what happens to completion.",
       "Ask users where their data really lives before designing your import experience.",
     ],
     limits: [
-      "These are qualitative observations from a small early group, not survey statistics — we publish them as direction, not proof.",
-      "What we observed in Kampala will not map perfectly onto every market; treat local testing as non-negotiable.",
+      "These are observations from a small early group, not survey statistics. We share them as a direction to explore, not as proof.",
+      "What we saw in Kampala will not apply perfectly to every market. Always test locally.",
     ],
     relatedProductSlug: "flame-os",
     seo: {
-      title: "Field notes: what early testers changed in our products — Flame Connect",
+      title: "Field notes: what early testers changed in our products",
       description:
-        "Qualitative observations from early product testing in Uganda: mobile-first reality, the vocabulary of trust, and why CSV-first is a feature.",
+        "What early product testing in Uganda taught us about phones, the words that build trust and why starting from spreadsheets matters.",
     },
   },
   {
     slug: "sales-discipline-before-sales-software",
     title: "Sales discipline beats sales software",
     summary:
-      "Follow-up cadence, honest pipeline stages and a daily focus list move revenue more reliably than any platform. The software's job is to make that discipline easier to keep.",
+      "A steady follow-up routine, honest pipeline stages and a daily focus list bring in revenue more reliably than any platform. Good software makes those habits easier to keep.",
     category: "Playbooks",
     date: "2026-08-17",
     readingTime: "5 min read",
@@ -298,41 +298,41 @@ export const ARTICLES: Article[] = [
       {
         heading: "Why this matters",
         paragraphs: [
-          "Ask a struggling sales team what they need and the answer is usually a system. Watch the same team for a week and the gap is usually rhythm: follow-ups that depend on memory, pipeline stages that mean different things to different people, and a Monday that starts with inbox triage instead of the three conversations that matter most.",
+          "Ask a struggling sales team what they need and they will usually say a system. Watch the same team for a week and you will usually see that they lack a routine. Follow-ups depend on memory, pipeline stages mean different things to different people, and Monday starts with clearing the inbox instead of the three conversations that matter most.",
         ],
       },
       {
         heading: "The discipline underneath",
         paragraphs: [
-          "Three habits carry more weight than any tool. A defined follow-up cadence — agreed response windows that do not collapse when the week gets busy. Shared stage definitions — a 'qualified' lead means the same thing to everyone. And a daily focus list — a short, ranked set of actions decided before the day's noise begins.",
+          "Three habits matter more than any tool. The first is a set follow-up routine, with agreed response times that hold even in a busy week. The second is shared stage definitions, so a ‘qualified’ lead means the same thing to everyone. The third is a daily focus list: a short, ranked set of actions chosen before the day gets noisy.",
         ],
         list: [
-          "Cadence: write down response windows per lead stage and keep them visible.",
-          "Stages: define each pipeline stage by evidence, not optimism.",
+          "Routine: write down the response time for each lead stage and keep it where everyone can see it.",
+          "Stages: define each pipeline stage by evidence instead of optimism.",
           "Focus: choose tomorrow's top three actions before you close today.",
         ],
       },
       {
         heading: "Where software actually helps",
         paragraphs: [
-          "This is the design philosophy behind Flame OS, and it is worth stating plainly: software should make a good rhythm easier to keep, not substitute for having one. Scoring that explains itself, reminders that surface the follow-up due today, debriefs that turn a lost deal into next month's better decision — these are valuable precisely because they serve discipline rather than replacing it.",
+          "This is the thinking behind Flame OS. Software should make a good routine easier to keep. It cannot replace having one. Scores that explain themselves, reminders that show today's follow-ups and reviews that turn a lost deal into a better decision next month are useful because they support good habits instead of replacing them.",
         ],
       },
     ],
     actions: [
-      "Agree follow-up windows per pipeline stage and put them where the team works.",
-      "Rewrite your stage names as evidence: what must be true for a lead to sit here?",
+      "Agree follow-up times for each pipeline stage and put them where the team works.",
+      "Rewrite each stage name as a test: what must be true for a lead to sit here?",
       "Run two weeks of daily focus lists before evaluating any new tool.",
     ],
     limits: [
-      "Discipline-first is a philosophy, not a law — the right system still matters at scale.",
-      "Flame OS is launching soon; we make no revenue claims for it yet, by design.",
+      "Putting habits first is a principle, not a rule. As you grow, the right system still matters.",
+      "Flame OS is launching soon. We deliberately make no revenue claims for it yet.",
     ],
     relatedProductSlug: "flame-os",
     seo: {
-      title: "Sales discipline beats sales software — Flame Connect",
+      title: "Sales discipline beats sales software",
       description:
-        "Follow-up cadence, honest pipeline stages and daily focus lists move revenue more reliably than platforms. What software should actually do.",
+        "A follow-up routine, honest pipeline stages and daily focus lists bring in revenue more reliably than platforms. Here is what software should actually do.",
     },
   },
 ];

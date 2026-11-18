@@ -109,7 +109,7 @@ export function Header({
       )}
       <header className={`site-header${scrolled ? " scrolled" : ""}`}>
         <div className="container header-inner">
-          <Link href="/" className="brand" aria-label="Flame Connect — home">
+          <Link href="/" className="brand" aria-label="Flame Connect home">
             <span className="brand-lockup">
               <BrandLogo height={34} priority />
             </span>

@@ -10,7 +10,7 @@ import { pageMetadata } from "../../lib/seo";
 export const metadata = pageMetadata({
   title: "Responsible AI",
   description:
-    "How Flame Connect designs AI with human oversight, clear safeguards, privacy and accessibility — the commitments behind our services and platforms.",
+    "How Flame Connect designs AI with human oversight, clear safeguards, privacy and accessibility. These are the commitments behind our services and platforms.",
   path: "/trust",
 });
 
@@ -113,7 +113,7 @@ export default function TrustPage() {
 
       <CTABand
         question="Have a question about how we use AI?"
-        copy="Ask us directly — about our services, our platforms or how we handle data."
+        copy="Ask us directly about our services, our platforms or how we handle data."
         primary={{ label: "Talk to our team", href: "/contact?intent=other" }}
         secondary={{ label: "Read the privacy notice", href: "/privacy" }}
       />
