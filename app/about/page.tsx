@@ -4,8 +4,16 @@ import { SectionHead } from "../../components/SectionHead";
 import { CTABand } from "../../components/CTABand";
 import { Icon } from "../../components/Icons";
 import { Reveal } from "../../components/Reveal";
-import { OPERATING_PRINCIPLES } from "../../content/home";
+import { OPERATING_PRINCIPLES, ABOUT_MODEL, APPROACH_STAGES } from "../../content/home";
 import { pageMetadata } from "../../lib/seo";
+import s from "../../styles/marketing/marketing.module.css";
+import m from "../../styles/marketing/motion.module.css";
+import type { CSSProperties } from "react";
+import { InView } from "../../components/marketing/motion/InView";
+import { SplitText } from "../../components/marketing/motion/SplitText";
+import { SpotlightGroup } from "../../components/marketing/motion/SpotlightGroup";
+
+const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 
 export const metadata = pageMetadata({
   title: "About Flame Connect",
@@ -25,21 +33,29 @@ const VALUES = [
 
 export default function AboutPage() {
   return (
-    <>
+    <div className={m.scope}>
       <section className="page-hero white">
         <div className="container page-hero-grid">
-          <div>
-            <span className="eyebrow">About</span>
+          <div className={m.heroIntro}>
+            <span className={`eyebrow ${m.rise}`}>About Flame Connect · AI Centre of Change</span>
             <h1 className="display-1" style={{ fontSize: "clamp(2.3rem, 5.2vw, 3.9rem)" }}>
-              Technology should fit the people and places using it.
+              <SplitText text="Technology should fit the people and places using it." accent="places using it." delayMs={80} />
             </h1>
-            <p className="lede">
+            <p className={`lede ${m.rise}`} style={v({ "--i": 8 })}>
               Flame Connect was built around a simple belief: African businesses and communities
               should not be passive consumers of technological change. We should help shape it,
               apply it and create value from it on our own terms.
             </p>
+            <div className={`hero-actions ${m.rise}`} style={v({ "--i": 9 })}>
+              <a href="#our-model" className={`btn btn-dark ${s.wrapBtn}`}>
+                How the model works <Icon name="arrow-right" size={18} />
+              </a>
+              <Link href="/contact?intent=partnership" className={`btn btn-outline ${s.wrapBtn}`}>
+                Partner with us
+              </Link>
+            </div>
           </div>
-          <div className="frame">
+          <div className={`frame ${m.zoom}`}>
             <Image
               src="/images/about-team.jpg"
               alt="African technology strategist in a Kampala working environment, relaxed and confident."
@@ -55,7 +71,7 @@ export default function AboutPage() {
 
       {/* Story */}
       <section className="section tight">
-        <div className="container split">
+        <div className={`container ${s.split}`}>
           <Reveal>
             <SectionHead eyebrow="Our story" title="Built in Uganda. Working across Africa." />
             <div className="prose">
@@ -95,15 +111,54 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* The model — services, tools, community, thought leadership */}
+      <section id="our-model" className="section paper2" aria-labelledby="model-title">
+        <div className="container">
+          <InView className="section-head">
+            <span className={`eyebrow ${m.rise}`}>Our model</span>
+            <h2 id="model-title" className="display-2">
+              <SplitText text="Four parts, one aim: change that lasts." accent="change that lasts." />
+            </h2>
+            <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
+              Software alone rarely changes how an organization works. We combine four connected
+              parts so clarity, capability and tools arrive together.
+            </p>
+          </InView>
+          <SpotlightGroup>
+          <ol className={`${s.cols4} ${s.model} list-plain`}>
+            {ABOUT_MODEL.map((part, i) => (
+              <Reveal as="li" key={part.name} delay={i * 0.06}>
+                <article className={`card lift ${s.modelItem} ${m.spot}`} data-spotlight="">
+                  <h3>{part.name}</h3>
+                  <p>{part.copy}</p>
+                  <div className="card-foot">
+                    <Link href={part.href} className="text-link">
+                      {part.cta} <Icon name="arrow-right" size={16} />
+                    </Link>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </ol>
+          </SpotlightGroup>
+          <Reveal>
+            <p className={s.turn}>
+              Every engagement follows one method:{" "}
+              <span>{APPROACH_STAGES.map((st) => `${st.key}.`).join(" ")}</span>
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Principles */}
-      <section className="section paper2">
+      <section className="section">
         <div className="container">
           <SectionHead
             eyebrow="Operating principles"
             title="How the work gets done"
             copy="Six principles govern everything from product design to the claims we allow on this website."
           />
-          <div className="grid cols-3">
+          <div className={s.cols3}>
             {OPERATING_PRINCIPLES.map((principle, i) => (
               <Reveal key={principle.name} delay={(i % 3) * 0.06}>
                 <div className="card value-card" style={{ height: "100%" }}>
@@ -118,8 +173,8 @@ export default function AboutPage() {
       </section>
 
       {/* Long-term ambition */}
-      <section className="band motif section">
-        <div className="container split">
+      <section className={`band motif section ${m.bandRise}`}>
+        <div className={`container ${s.split}`}>
           <Reveal>
             <span className="eyebrow light">Long-term ambition</span>
             <h2 className="display-2" style={{ margin: "0.85rem 0 1rem" }}>
@@ -149,16 +204,16 @@ export default function AboutPage() {
       <section className="section tight">
         <div className="container">
           <SectionHead eyebrow="Values in behaviour" title="What you can hold us to" />
-          <div className="grid cols-3">
+          <ul className={`${s.cols3} list-plain`}>
             {VALUES.map((value, i) => (
-              <Reveal key={value} delay={(i % 3) * 0.05}>
-                <div className="card" style={{ flexDirection: "row", alignItems: "center", gap: "0.8rem", padding: "1.2rem 1.3rem" }}>
+              <Reveal as="li" key={value} delay={(i % 3) * 0.05}>
+                <div className="card" style={{ flexDirection: "row", alignItems: "center", gap: "0.8rem", padding: "1.2rem 1.3rem", height: "100%" }}>
                   <Icon name="check" size={18} />
                   <span style={{ fontWeight: 600, color: "var(--navy-deep)", fontFamily: "var(--font-display)" }}>{value}</span>
                 </div>
               </Reveal>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
@@ -185,6 +240,6 @@ export default function AboutPage() {
         primary={{ label: "Partner with Flame", href: "/contact?intent=partnership" }}
         secondary={{ label: "See how we work", href: "/services" }}
       />
-    </>
+    </div>
   );
 }

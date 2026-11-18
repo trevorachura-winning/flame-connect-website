@@ -50,6 +50,38 @@ export const ENGAGEMENT_STAGES = [
   },
 ] as const;
 
+/**
+ * "Start from your challenge" — maps problems already listed on each
+ * service (see `problems` below) to the service line that addresses them.
+ * Used by the Services overview chooser (marketing revamp, Nov 2026).
+ */
+export const SERVICE_CHOOSER = [
+  {
+    challenge: "Our message is not landing, and our digital presence does not move anyone to act.",
+    serviceSlug: "digital-communications",
+  },
+  {
+    challenge: "Campaigns generate activity, but not enquiries.",
+    serviceSlug: "digital-communications",
+  },
+  {
+    challenge: "We are interested in AI but have no agreed use cases or priorities.",
+    serviceSlug: "ai-in-business",
+  },
+  {
+    challenge: "Manual, repetitive workflows are consuming skilled people's time.",
+    serviceSlug: "ai-in-business",
+  },
+  {
+    challenge: "We are under pressure to 'do something with AI' without a defensible direction.",
+    serviceSlug: "consulting-thought-leadership",
+  },
+  {
+    challenge: "Our leadership team does not yet share the same picture of the problem.",
+    serviceSlug: "consulting-thought-leadership",
+  },
+] as const;
+
 export const SERVICES: Service[] = [
   {
     slug: "digital-communications",

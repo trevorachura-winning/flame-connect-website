@@ -2,11 +2,11 @@
 /**
  * Build a fully static demo snapshot of the site into out/ + zip it.
  *
- * The production site keeps its /api/lead route (dynamic); a static export
- * cannot include API routes, so this script moves app/api aside, builds with
- * NEXT_OUTPUT=export, and ALWAYS restores it (restoration guarded, never
- * skipped by exit paths). Safe to re-run; refuses to start if a previous
- * run left a stash behind.
+ * Since the website-only release (Nov 2026) the site has no API routes, so a
+ * static export needs no special handling. If an app/api folder ever
+ * reappears, it is moved aside for the export and ALWAYS restored
+ * (restoration guarded, never skipped by exit paths). Safe to re-run;
+ * refuses to start if a previous run left a stash behind.
  */
 import { spawnSync, execFileSync } from "node:child_process";
 import fs from "node:fs";
@@ -20,16 +20,14 @@ if (fs.existsSync(stash)) {
   console.error(".api-stash exists from a previous interrupted run — restore it first (mv .api-stash app/api).");
   process.exit(1);
 }
-if (!fs.existsSync(apiDir)) {
-  console.error("app/api not found — expected the lead route to exist.");
-  process.exit(1);
-}
 
 let status = 1;
 let moved = false;
 try {
-  fs.renameSync(apiDir, stash);
-  moved = true;
+  if (fs.existsSync(apiDir)) {
+    fs.renameSync(apiDir, stash);
+    moved = true;
+  }
   const res = spawnSync("npx", ["next", "build"], {
     stdio: "inherit",
     cwd: ROOT,

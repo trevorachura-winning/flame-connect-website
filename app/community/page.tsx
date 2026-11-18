@@ -178,7 +178,7 @@ export default function CommunityPage() {
             </p>
             <div className="hero-actions" style={{ justifyContent: "center" }}>
               <Link href="/contact?intent=community" className="btn btn-primary">
-                Join via the community form <Icon name="arrow-right" size={18} />
+                Join the community <Icon name="arrow-right" size={18} />
               </Link>
             </div>
             <p className="small" style={{ color: "#9fb0dd", marginTop: "1.2rem" }}>

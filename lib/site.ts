@@ -7,47 +7,15 @@
  */
 
 /**
- * Normalize an application origin from the environment.
+ * Website-only release (Nov 2026, Product Owner decision): the corporate site
+ * is the point of sale. It has NO sign-in, NO backend and NO links into the
+ * Flame platforms — the tools are presented under Products only. Enquiries
+ * leave the site through the visitor's own email app or WhatsApp, prefilled
+ * by components/EnquiryComposer.tsx; nothing is posted to a server.
  *
- * Returns null when unset/empty (so the honest on-site fallbacks render), and
- * THROWS on a malformed value. Throwing is deliberate and matches the
- * content-gate culture in lib/content.ts: a typo'd app URL would otherwise
- * ship silently as a broken button, and NEXT_PUBLIC_* values are inlined at
- * build time — so the failure surfaces in CI, not in front of a visitor.
+ * Public enquiry destinations are defined below. The visitor must still
+ * press Send in their own email or WhatsApp app: the website does not submit.
  */
-function appOrigin(raw: string | undefined, name: string): string | null {
-  const value = (raw || "").trim();
-  if (!value) return null;
-  let parsed: URL;
-  try {
-    parsed = new URL(value);
-  } catch {
-    throw new Error(
-      `${name} is not a valid absolute URL: "${value}". ` +
-        `Include the protocol, e.g. https://your-app.vercel.app`
-    );
-  }
-  if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
-    throw new Error(`${name} must be an http(s) URL — got "${value}"`);
-  }
-  return value.replace(/\/+$/, "");
-}
-
-/**
- * Normalize the sign-in path appended to an app origin. Defaults to "/login",
- * which is the convention this site already assumed. Overridable per
- * deployment because auth routes differ by stack (/signin, /auth, /…) and the
- * website cannot verify the platform's routes at build time.
- */
-function signInPath(raw: string | undefined, name: string): string {
-  const value = (raw || "").trim();
-  if (!value) return "/login";
-  if (!value.startsWith("/")) {
-    throw new Error(`${name} must be a path starting with "/" — got "${value}"`);
-  }
-  return value.replace(/\/+$/, "") || "/";
-}
-
 export const SITE = {
   name: "Flame Connect",
   legalName: "Flame Connect", // confirmed by founder (Sept 2026); update if URSB certificate shows a formal suffix
@@ -55,36 +23,19 @@ export const SITE = {
   shortDescription:
     "Flame Connect is an Africa-focused AI, digital and transformation company helping organizations and communities move from interest in technology to useful, measurable application.",
   homeLocationLine: "Uganda outward to Africa.",
-  // pending — Appendix C: official domains.
+  // Confirmed public domain: flameconnect.tech (Vercel registration verified 18 Nov 2026).
   // Note: `||`-style fallback (not `??`) so an EMPTY-STRING env var — e.g. a
   // placeholder pasted into Vercel's env panel — falls back instead of
   // crashing `new URL("")` during static page-data collection.
   siteUrl:
     (process.env.NEXT_PUBLIC_SITE_URL || "").trim().replace(/\/+$/, "") ||
-    "https://flameconnect.org",
-  // pending — Appendix C: confirmed public product/app domain for the SHARED
-  // Flame OS platform layer. Deliberately still unset: this one variable drives
-  // the site-wide "Explore Flame OS" CTA and, via productCtaHref(), every
-  // product launch button. Pointing it at a single product's deployment would
-  // silently repoint Flame Lens / Flame Ready / Flame Academy at an app they do
-  // not belong to — so per-product apps get their own setting below.
-  flameOsUrl: appOrigin(process.env.NEXT_PUBLIC_FLAME_OS_URL, "NEXT_PUBLIC_FLAME_OS_URL"),
-  // Flame Sales — the deployed Sales OS platform (confirmed by founder, Sept 2026).
-  // Kept SEPARATE from flameOsUrl for the reason above. Drives header/drawer
-  // "Sign in"; see lib/links.ts signInHref().
-  flameSalesUrl: appOrigin(process.env.NEXT_PUBLIC_FLAME_SALES_URL, "NEXT_PUBLIC_FLAME_SALES_URL"),
-  // Auth route appended to flameSalesUrl. Defaults to "/login" (this site's
-  // original assumption) and is overridable without a code change, because the
-  // website build cannot verify the platform's own routes.
-  flameSalesSignInPath: signInPath(
-    process.env.NEXT_PUBLIC_FLAME_SALES_SIGNIN_PATH,
-    "NEXT_PUBLIC_FLAME_SALES_SIGNIN_PATH"
-  ),
-  // pending — Appendix C: confirmed public contact points.
-  // The contact form remains the canonical route until these are confirmed.
-  contactEmail: null as string | null,
+    "https://flameconnect.tech",
+  // Public contact details confirmed by Product Owner (18 Nov 2026).
+  // WhatsApp uses digits-only international format for wa.me links.
+  // Do not infer a separate phone/voice line from the WhatsApp number.
+  contactEmail: "flameconnect1@gmail.com" as string | null,
   contactPhone: null as string | null,
-  contactWhatsApp: null as string | null,
+  contactWhatsApp: "256764018701" as string | null,
   officeLocation: "Kampala, Uganda", // publicly stated headquarters language
   // Approved accounts only. Empty until marketing confirms handles (Appendix C).
   social: {

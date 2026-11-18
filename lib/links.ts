@@ -1,20 +1,13 @@
 import { SITE, type Intent } from "./site";
-import type { Product, ProductCtaKind } from "../content/products";
+import type { Product } from "../content/products";
 
 /**
  * CTA resolution — the brief's golden rule: "Never a dead button."
  *
- * Precedence for "Sign in":
- *   1. NEXT_PUBLIC_FLAME_SALES_URL  → the deployed Flame Sales platform
- *   2. NEXT_PUBLIC_FLAME_OS_URL     → a shared Flame OS deployment's login
- *   3. neither                      → the on-site /sign-in fallback page
- *
- * The two app settings are kept separate on purpose. `flameOsUrl` also drives
- * productCtaHref() below, so pointing it at the Flame Sales deployment would
- * silently repoint every other product's launch button at Flame Sales. A
- * per-product app gets its own variable; unset products keep resolving to an
- * on-site route that always works (the enquiry form, pre-set to the right
- * intent and product context).
+ * Website-only release (Nov 2026): there is no sign-in and no link into any
+ * Flame platform. Every product and service action resolves to an on-site
+ * route — the contact page, pre-set with the right intent and context — and
+ * the contact page hands the enquiry to the visitor's own email or WhatsApp.
  */
 
 export function contactHref(intent: Intent, product?: string): string {
@@ -23,81 +16,29 @@ export function contactHref(intent: Intent, product?: string): string {
   return `/contact?${params.toString()}`;
 }
 
-/** Join an origin and a path without doubling or dropping the separator. */
-function joinUrl(base: string, path: string): string {
-  const cleanBase = base.replace(/\/+$/, "");
-  if (!path || path === "/") return cleanBase || "/";
-  return `${cleanBase}/${path.replace(/^\/+/, "")}`;
+/** Primary conversion route used site-wide (header, CTA bands). */
+export function consultationHref(): string {
+  return "/contact?intent=consultation";
 }
 
-export function signInHref(): { href: string; external: boolean } {
-  // 1 — Flame Sales platform is deployed: sign in goes to its own auth route.
-  //     The path is configurable because auth routes differ by stack and this
-  //     build cannot verify the platform's routes from here.
-  if (SITE.flameSalesUrl) {
-    return { href: joinUrl(SITE.flameSalesUrl, SITE.flameSalesSignInPath), external: true };
-  }
-  // 2 — a shared Flame OS deployment exists.
-  if (SITE.flameOsUrl) return { href: joinUrl(SITE.flameOsUrl, "/login"), external: true };
-  // 3 — neither configured: honest on-site fallback.
-  return { href: "/sign-in", external: false };
-}
-
-/**
- * Direct entry to the Flame Sales app root — the platform performs its own
- * auth redirect from there. Falls back to a pre-contextualised access request
- * when unconfigured, so the button stays honest either way.
- *
- * Not yet wired into the Flame Sales product page: that button is labelled
- * "Request access" for a limited pilot, and relabelling it is a content/status
- * decision (see docs/DEPLOYMENT.md and the release discipline note).
- */
-export function flameSalesAppHref(): { href: string; external: boolean } {
-  if (SITE.flameSalesUrl) return { href: SITE.flameSalesUrl, external: true };
-  return { href: contactHref("access", "flame-sales"), external: false };
-}
-
-/**
- * "Explore Flame OS" / generic in-page "Sign in" buttons.
- *
- * Falls through to signInHref() rather than hardcoding /sign-in: when there is
- * no separate shared-platform deployment, the only sign-in that actually exists
- * is the per-product one (currently Flame Sales). Routing every "Sign in" to the
- * same live destination keeps the site coherent — and if nothing is deployed,
- * signInHref() still resolves to the on-site fallback, so no button dead-ends.
- */
-export function flameOsAppHref(): { href: string; external: boolean } {
-  if (SITE.flameOsUrl) return { href: SITE.flameOsUrl, external: true };
-  return signInHref();
-}
-
-export function exploreToolsHref(): string {
-  return "/products";
-}
-
-export function productCtaHref(product: Product): { href: string; external: boolean } {
-  const kind: ProductCtaKind = product.cta.kind;
-  if (kind === "try" || kind === "access") {
-    // A product with its own deployed app signs in there. This is a per-product
-    // map on purpose: a single site-wide Flame OS URL would repoint *every*
-    // launch CTA at one app, which is how Lens/Ready/Academy would end up
-    // "launching" Flame Sales.
-    const appUrl = PRODUCT_APP_URLS[product.slug];
-    if (appUrl) return signInHref();
-    if (SITE.flameOsUrl) return { href: SITE.flameOsUrl, external: true };
-    // No live app configured: honest access request instead of a broken launch.
-    return { href: contactHref(product.cta.intent, product.slug), external: false };
-  }
+/** Product page action: always an on-site enquiry, never an app launch. */
+export function productCtaHref(product: Product): { href: string; external: false } {
+  const kind = product.cta.kind;
   if (kind === "waitlist") return { href: contactHref("waitlist", product.slug), external: false };
-  return { href: contactHref("consultation", product.slug), external: false };
+  if (kind === "talk") return { href: contactHref("consultation", product.slug), external: false };
+  return { href: contactHref(product.cta.intent, product.slug), external: false };
 }
 
-/**
- * Products with a deployed application, and the origin that serves them.
- * Confirmed with the founder (Sept 2026): Flame Sales is live in the Flame
- * Sales platform; every other product is still being built there, so none of
- * them appear here and their CTAs stay on honest on-site routes.
- */
-const PRODUCT_APP_URLS: Record<string, string | null> = {
-  "flame-sales": SITE.flameSalesUrl,
-};
+/** mailto: link with a prefilled subject and body, or null when no public email is confirmed. */
+export function mailtoHref(subject: string, body: string): string | null {
+  if (!SITE.contactEmail) return null;
+  const q = new URLSearchParams({ subject, body }).toString().replace(/\+/g, "%20");
+  return `mailto:${SITE.contactEmail}?${q}`;
+}
+
+/** WhatsApp click-to-chat link with prefilled text, or null when no number is confirmed. */
+export function whatsappHref(text: string): string | null {
+  const digits = (SITE.contactWhatsApp ?? "").replace(/\D/g, "");
+  if (!digits) return null;
+  return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
+}

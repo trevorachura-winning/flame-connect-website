@@ -8,12 +8,10 @@ import { BrandLogo } from "./BrandLogo";
 import { Icon } from "./Icons";
 
 export function Header({
-  exploreHref,
-  signin,
+  ctaHref,
   ribbon,
 }: {
-  exploreHref: string;
-  signin: { href: string; external: boolean };
+  ctaHref: string;
   ribbon?: { text: string; href: string; linkText: string } | null;
 }) {
   const pathname = usePathname();
@@ -65,16 +63,6 @@ export function Header({
     sessionStorage.setItem("fc-ribbon-dismissed", "1");
   };
 
-  const signinLink = signin.external ? (
-    <a className="header-signin" href={signin.href} rel="noopener noreferrer">
-      Sign in
-    </a>
-  ) : (
-    <Link className="header-signin" href={signin.href}>
-      Sign in
-    </Link>
-  );
-
   return (
     <>
       {ribbon && ribbonVisible && (
@@ -113,10 +101,9 @@ export function Header({
           </nav>
 
           <div className="header-actions">
-            {signinLink}
-            <Link href={exploreHref} className="btn btn-primary btn-sm">
-              <span className="header-cta-text">Explore free tools</span>
-              <span aria-hidden="true" className="only-compact">Tools</span>
+            <Link href={ctaHref} className="btn btn-primary btn-sm">
+              <span className="header-cta-text">Book a consultation</span>
+              <span aria-hidden="true" className="only-compact">Talk to us</span>
             </Link>
             <button
               ref={menuBtnRef}
@@ -172,18 +159,12 @@ export function Header({
           <Link href="/contact">Contact <Icon name="arrow-right" size={18} /></Link>
         </nav>
         <div className="drawer-cta">
-          <Link href={exploreHref} className="btn btn-primary">
-            Explore free tools
+          <Link href={ctaHref} className="btn btn-primary">
+            Book a consultation
           </Link>
-          {signin.external ? (
-            <a className="drawer-signin" href={signin.href} rel="noopener noreferrer">
-              Sign in
-            </a>
-          ) : (
-            <Link className="drawer-signin" href={signin.href}>
-              Sign in
-            </Link>
-          )}
+          <Link className="drawer-signin" href="/products">
+            Explore our products
+          </Link>
         </div>
       </div>
     </>

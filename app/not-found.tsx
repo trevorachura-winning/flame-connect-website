@@ -13,7 +13,7 @@ export default function NotFound() {
         </p>
         <div className="hero-actions" style={{ justifyContent: "center" }}>
           <Link href="/" className="btn btn-primary">Back to home</Link>
-          <Link href="/products" className="btn btn-outline">Explore free tools <Icon name="arrow-right" size={16} /></Link>
+          <Link href="/products" className="btn btn-outline">Explore our products <Icon name="arrow-right" size={16} /></Link>
           <Link href="/contact" className="btn btn-outline">Contact us</Link>
         </div>
       </div>

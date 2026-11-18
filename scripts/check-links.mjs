@@ -40,7 +40,7 @@ const { ARTICLES } = loadTs("content/articles.ts");
 
 const STATIC_ROUTES = new Set([
   "/", "/products", "/services", "/flame-os", "/community", "/resources",
-  "/about", "/trust", "/contact", "/sign-in", "/privacy",
+  "/about", "/trust", "/contact", "/privacy",
 ]);
 const ROUTES = new Set([
   ...STATIC_ROUTES,

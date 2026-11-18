@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { LeadForm } from "./LeadForm";
+import { EnquiryComposer } from "./EnquiryComposer";
 import { Icon } from "./Icons";
 import { SITE, type Intent } from "../lib/site";
+import m from "../styles/marketing/marketing.module.css";
+import { whatsappHref } from "../lib/links";
 
 const VALID_INTENTS: Intent[] = ["consultation", "access", "waitlist", "community", "learning", "partnership", "newsletter", "media", "other"];
 
@@ -14,6 +16,7 @@ export function ContactPageClient() {
   const intent: Intent = rawIntent && VALID_INTENTS.includes(rawIntent) ? rawIntent : "consultation";
   const product = params.get("product")?.slice(0, 60) ?? undefined;
   const service = params.get("service")?.slice(0, 60) ?? undefined;
+  const waLink = whatsappHref("Hello Flame Connect");
 
   return (
     <>
@@ -30,9 +33,9 @@ export function ContactPageClient() {
       </section>
 
       <section className="section tight">
-        <div className="container split" style={{ alignItems: "start" }}>
+        <div className={`container ${m.split} ${m.splitTop}`}>
           <div className="form-card">
-            <LeadForm initialIntent={intent} initialProduct={product} initialService={service} />
+            <EnquiryComposer intent={intent} product={product} service={service} />
           </div>
 
           <aside className="contact-side">
@@ -46,12 +49,17 @@ export function ContactPageClient() {
             </div>
 
             <div className="contact-note">
-              <span className="pending-tag">Pending confirmation</span>
+              {!SITE.contactEmail && !SITE.contactWhatsApp && <span className="pending-tag">Pending confirmation</span>}
               <h3>Direct contact details</h3>
               <p>
-                {SITE.contactEmail
-                  ? <>Email us at <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.</>
-                  : "Our direct email, phone and WhatsApp lines are being finalised. The form is the reliable route right now — it reaches the same people, and it cannot be mis-typed."}
+                {SITE.contactEmail || SITE.contactWhatsApp ? (
+                  <>
+                    {SITE.contactEmail && <>Email <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>. </>}
+                    {waLink && <>WhatsApp <a href={waLink} rel="noopener noreferrer">+{(SITE.contactWhatsApp ?? "").replace(/\D/g, "")}</a>.</>}
+                  </>
+                ) : (
+                  "Our public email and WhatsApp line are being finalised and will be published here before launch."
+                )}
               </p>
               <p style={{ marginTop: "0.6rem", display: "flex", gap: "0.5rem", alignItems: "center" }}>
                 <Icon name="map-pin" size={16} /> {SITE.officeLocation}

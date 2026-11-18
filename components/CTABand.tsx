@@ -7,7 +7,7 @@ export function CTABand({
   question = "What are you trying to change?",
   copy = "Tell us the problem, workflow or opportunity you are working on. We will help you identify the most useful next step — a service, a tool, a learning path or a focused pilot.",
   primary = { label: "Book a consultation", href: "/contact?intent=consultation" },
-  secondary = { label: "Explore free tools", href: "/products" },
+  secondary = { label: "Explore our products", href: "/products" },
 }: {
   question?: string;
   copy?: string;

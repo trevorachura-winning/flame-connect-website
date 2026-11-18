@@ -1,0 +1,734 @@
+/* ==================================================================
+   Flame Connect — marketing motion system (scoped)
+   Benchmarked against the Datamellon interaction patterns recorded in
+   docs/FLAME_CONNECT_MOTION_BENCHMARK_2026-11-18.md — original
+   execution, Flame brand only.
+
+   Rules (from the benchmark doc):
+   · transform + opacity only for anything that runs per frame
+   · no scroll hijacking, no forced smooth scroll, no perpetual JS loops
+   · hidden-until-revealed states apply ONLY when scripting is enabled
+     and the visitor has not asked for reduced motion — so content is
+     never stuck invisible (no-JS, reduced motion, failed hydration)
+   · hover is an enhancement; nothing depends on it (touch-safe)
+   Flame Blue #153A8A is not yet a global token (request filed with
+   Codex), so it is declared locally as --fc-blue where used.
+   ================================================================== */
+
+.scope {
+  --fc-blue: #153a8a;
+  --m-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --m-ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* ---------- Split headline: masked word rise ---------- */
+.w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* room for descenders inside the mask */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.wi {
+  display: inline-block;
+}
+.accent {
+  color: var(--flame-strong);
+}
+:global(.band) .accent,
+.onDark .accent {
+  color: var(--flame);
+}
+
+/* Long single words (e.g. "communication") must never exceed a 320px
+   viewport: masked words cannot hyphenate, so headings using SplitText
+   cap their size by viewport width on very small screens. */
+@media (max-width: 24rem) {
+  :global(.display-1):has(.w) {
+    font-size: min(2.4rem, 9.6vw);
+  }
+}
+
+/* ---------- Generic staggered rise for children ---------- */
+.rise {
+  /* visible by default */
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .wi {
+    transform: translate3d(0, 108%, 0) rotate(2deg);
+    transform-origin: 0 100%;
+    transition: transform 0.95s var(--m-ease, cubic-bezier(0.22, 1, 0.36, 1));
+    transition-delay: calc(var(--d, 0ms) + var(--i, 0) * 55ms);
+    will-change: transform;
+  }
+  [data-inview="true"] .wi {
+    transform: none;
+  }
+
+  .rise {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    transition: opacity 0.8s var(--m-ease, ease-out), transform 0.9s var(--m-ease, ease-out);
+    transition-delay: calc(var(--d, 0ms) + var(--i, 0) * 70ms);
+  }
+  [data-inview="true"] .rise,
+  [data-inview="true"].rise {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Hero intro: CSS-only entrance on first paint ----------
+   The hero must not wait for hydration (low-bandwidth first). These
+   keyframes run immediately and end fully visible; they override the
+   in-view hidden state above via animation fill. */
+@media (prefers-reduced-motion: no-preference) {
+  .heroIntro .wi {
+    animation: wordUp 0.95s var(--m-ease, ease-out) both;
+    animation-delay: calc(var(--d, 0ms) + var(--i, 0) * 60ms);
+  }
+  .heroIntro .rise {
+    animation: riseUp 0.9s var(--m-ease, ease-out) both;
+    animation-delay: calc(var(--d, 0ms) + var(--i, 0) * 70ms);
+  }
+}
+@keyframes wordUp {
+  from {
+    transform: translate3d(0, 108%, 0) rotate(2deg);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes riseUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Hero stage: layered depth ---------- */
+.heroStage {
+  position: relative;
+  --px: 0;
+  --py: 0;
+  --sy: 0;
+  padding: 1.5rem 0 2.5rem;
+}
+.layer {
+  transform: translate3d(
+    calc(var(--px) * var(--depth, 0) * 1px),
+    calc(var(--py) * var(--depth, 0) * 1px + var(--sy) * var(--sdepth, 0) * 1px),
+    0
+  );
+  will-change: transform;
+}
+.heroMain {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-3);
+  border: 1px solid var(--hairline);
+  aspect-ratio: 5 / 4;
+  background: var(--panel);
+}
+.heroMain img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 55% 50%;
+  display: block;
+}
+.heroMain::after {
+  /* warm Flame glow + legibility gradient for the floating cards */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(200deg, rgba(244, 81, 30, 0.14), transparent 40%),
+    linear-gradient(0deg, rgba(7, 17, 31, 0.28), transparent 45%);
+  pointer-events: none;
+}
+.heroInset {
+  position: absolute;
+  right: -1.25rem;
+  bottom: -0.5rem;
+  width: 34%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  border: 4px solid var(--white);
+  box-shadow: var(--shadow-3);
+  background: var(--panel);
+}
+.heroInset img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.glassCard {
+  position: absolute;
+  left: -1.5rem;
+  bottom: 1.25rem;
+  max-width: 17rem;
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius-m);
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: var(--shadow-3);
+}
+.glassCard b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.glassCard span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 0.15rem;
+}
+.methodTicks {
+  display: flex;
+  gap: 0.3rem;
+  margin-top: 0.7rem;
+}
+.methodTicks i {
+  height: 4px;
+  flex: 1;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--flame), #ff8a5c);
+  transform-origin: 0 50%;
+}
+.chip {
+  position: absolute;
+  top: 1.1rem;
+  right: 26%;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-pill);
+  background: var(--navy-canvas);
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: var(--shadow-2);
+  white-space: nowrap;
+}
+.pulse {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--flame);
+  box-shadow: 0 0 0 0 rgba(244, 81, 30, 0.6);
+}
+.signature {
+  margin-top: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  color: var(--fc-blue, #153a8a);
+}
+.signature::before {
+  content: "";
+  width: 1.6rem;
+  height: 2px;
+  background: var(--flame);
+  border-radius: 2px;
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  /* Staged entrance of the hero layers (CSS only — runs once on load) */
+  .heroMain {
+    /* transform-only: the hero photo is the LCP candidate, never fade it */
+    animation: stageMove 1.2s var(--m-ease, ease-out) both;
+  }
+  .heroInset {
+    animation: stageIn 1.2s var(--m-ease, ease-out) 0.45s both;
+  }
+  .glassCard {
+    animation: cardIn 1s var(--m-ease, ease-out) 0.75s both;
+  }
+  .chip {
+    animation: cardIn 1s var(--m-ease, ease-out) 0.95s both;
+  }
+  .methodTicks i {
+    animation: tick 0.9s var(--m-ease, ease-out) both;
+    animation-delay: calc(1.1s + var(--i, 0) * 0.14s);
+  }
+  .pulse {
+    /* finite: 6 pulses then rest (no perpetual loop) */
+    animation: pulse 2.2s ease-out 1.4s 6;
+  }
+}
+@keyframes stageIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 34px, 0) scale(0.97);
+  }
+}
+@keyframes stageMove {
+  from {
+    transform: translate3d(0, 26px, 0) scale(0.975);
+  }
+}
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0) scale(0.96);
+  }
+}
+@keyframes tick {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes pulse {
+  70% {
+    box-shadow: 0 0 0 10px rgba(244, 81, 30, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(244, 81, 30, 0);
+  }
+}
+
+/* ---------- Spotlight cards (pointer-follow glow, desktop only) ---------- */
+.spot {
+  position: relative;
+  isolation: isolate;
+  --mx: 50%;
+  --my: 0%;
+}
+.spot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    22rem circle at var(--mx) var(--my),
+    rgba(244, 81, 30, 0.1),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.spot::after {
+  /* orange keyline that follows the pointer along the border */
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    14rem circle at var(--mx) var(--my),
+    rgba(244, 81, 30, 0.75),
+    transparent 70%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .spot:hover::before,
+  .spot:hover::after {
+    opacity: 1;
+  }
+}
+.spot:focus-within::after {
+  opacity: 1;
+}
+
+/* ---------- Method rail: scroll-linked numbered process ---------- */
+.rail {
+  position: relative;
+  list-style: none;
+  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(2.25rem, 5vw, 4.5rem);
+  --p: 1; /* progress 0..1 (JS); default complete for no-JS / reduced motion */
+}
+.rail::before,
+.rail::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: 2px;
+}
+.rail::before {
+  background: rgba(255, 255, 255, 0.1);
+}
+.rail::after {
+  background: linear-gradient(var(--flame), #ff8a5c);
+  transform-origin: 50% 0;
+  transform: scaleY(var(--p));
+  box-shadow: 0 0 18px rgba(244, 81, 30, 0.45);
+}
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 4.5rem minmax(0, 1fr);
+  align-items: center;
+}
+.stepNode {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: var(--navy-canvas);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  z-index: 1;
+  transition: background 0.5s ease, border-color 0.5s ease, transform 0.6s var(--m-ease-soft, ease);
+}
+.stepBody {
+  grid-row: 1;
+  grid-column: 3;
+  padding: 0 0 0 0.5rem;
+}
+.step:nth-child(even) .stepBody {
+  grid-column: 1;
+  text-align: right;
+  padding: 0 0.5rem 0 0;
+}
+.stepNo {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.4rem, 8vw, 6.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(244, 81, 30, 0.55);
+  transition: color 0.7s ease, -webkit-text-stroke-color 0.7s ease, transform 0.9s var(--m-ease-soft, ease);
+}
+.step h3 {
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  letter-spacing: -0.035em;
+  margin: 0.6rem 0 0.45rem;
+  color: var(--white);
+}
+.step p {
+  margin: 0;
+  color: var(--on-navy);
+  max-width: 26rem;
+}
+.step:nth-child(even) p {
+  margin-left: auto;
+}
+.stepOut {
+  display: block;
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  color: var(--on-navy-soft);
+}
+.stepOut b {
+  color: var(--flame);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  margin-right: 0.4rem;
+}
+/* Active state — when the progress line has passed the step */
+.step[data-active="true"] .stepNode {
+  background: var(--flame);
+  border-color: var(--flame);
+  transform: scale(1.25);
+  box-shadow: 0 0 0 6px rgba(244, 81, 30, 0.18);
+}
+.step[data-active="true"] .stepNo {
+  color: var(--flame);
+  -webkit-text-stroke-color: var(--flame);
+}
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-armed="true"] .step:not([data-active="true"]) .stepNo {
+    transform: translate3d(0, 10px, 0);
+  }
+  [data-armed="true"] .step:not([data-active="true"]) .stepBody {
+    opacity: 0.45;
+  }
+  .stepBody {
+    transition: opacity 0.6s ease;
+  }
+}
+
+/* ---------- Marquee: Flame's own practice + product family ---------- */
+.marquee {
+  position: relative;
+  overflow: hidden;
+  padding: 1.15rem 0;
+  border-block: 1px solid var(--hairline);
+  background: var(--white);
+  -webkit-mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.track {
+  display: flex;
+  width: max-content;
+}
+.group {
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+  padding-right: 2.25rem;
+  margin: 0;
+  list-style: none;
+}
+.group li {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.25rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.group li::after {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--flame);
+}
+.group .mProduct {
+  color: var(--fc-blue, #153a8a);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .track {
+    animation: marquee 48s linear infinite;
+  }
+  .marquee:hover .track,
+  .marquee:focus-within .track {
+    animation-play-state: paused;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* Static, swipeable single row instead of motion (no tall wrapped list) */
+  .marquee {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .marquee::-webkit-scrollbar {
+    display: none;
+  }
+  .group {
+    padding-inline: 1.25rem;
+  }
+  .group[aria-hidden="true"] {
+    display: none;
+  }
+}
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ---------- Pathway cards (conversion) ---------- */
+.paths {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+.path {
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+  min-height: 14rem;
+  padding: clamp(1.4rem, 2.6vw, 2rem);
+  border-radius: var(--radius-l);
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-1);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.6s var(--m-ease-soft, ease), box-shadow 0.6s var(--m-ease-soft, ease);
+}
+.path h3 {
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  letter-spacing: -0.035em;
+  margin: 0;
+}
+.path p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+.pathGo {
+  margin-top: auto;
+  padding-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--flame-strong);
+}
+.pathGo svg {
+  transition: transform 0.5s var(--m-ease-soft, ease);
+}
+.pathPrimary {
+  background: var(--navy-canvas);
+  border-color: transparent;
+}
+.pathPrimary h3 {
+  color: var(--white);
+}
+.pathPrimary p {
+  color: var(--on-navy);
+}
+.pathPrimary .pathGo {
+  color: var(--flame);
+}
+.path:focus-visible {
+  outline: 2px solid var(--flame);
+  outline-offset: 3px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .path:hover {
+    transform: translate3d(0, -6px, 0);
+    box-shadow: var(--shadow-lift);
+  }
+  .path:hover .pathGo svg {
+    transform: translate3d(5px, 0, 0);
+  }
+}
+
+/* ---------- Card lift + media zoom helpers (hover = enhancement) ---------- */
+.zoom img {
+  transition: transform 1.2s var(--m-ease-soft, ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .zoom:hover img {
+    transform: scale(1.045);
+  }
+}
+
+/* ---------- Section transitions: native scroll-driven (progressive) ---------- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .bandRise {
+      animation: bandRise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+      transform-origin: 50% 0;
+    }
+    .imgDrift img {
+      animation: imgDrift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+@keyframes bandRise {
+  from {
+    transform: scale(0.95);
+    border-radius: 2.5rem 2.5rem 0 0;
+  }
+  to {
+    transform: none;
+    border-radius: 0;
+  }
+}
+@keyframes imgDrift {
+  from {
+    transform: scale(1.1) translate3d(0, -3%, 0);
+  }
+  to {
+    transform: scale(1.1) translate3d(0, 3%, 0);
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 62rem) {
+  .paths {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .path {
+    min-height: 0;
+  }
+  .heroStage {
+    max-width: 38rem;
+    margin-inline: auto;
+  }
+}
+@media (max-width: 44rem) {
+  /* Method rail collapses to a left-aligned timeline on phones */
+  .rail::before,
+  .rail::after {
+    left: 0.55rem;
+  }
+  .step {
+    grid-template-columns: 1.1rem minmax(0, 1fr);
+    gap: 0 1.1rem;
+    align-items: start;
+  }
+  .stepNode {
+    grid-column: 1;
+    margin-top: 1.4rem;
+  }
+  .stepBody,
+  .step:nth-child(even) .stepBody {
+    grid-column: 2;
+    text-align: left;
+    padding: 0;
+  }
+  .step:nth-child(even) p {
+    margin-left: 0;
+  }
+  .heroInset {
+    right: -0.4rem;
+    width: 36%;
+  }
+  .glassCard {
+    left: -0.4rem;
+    max-width: 60%;
+    padding: 0.8rem 0.9rem;
+  }
+  .chip {
+    right: auto;
+    left: 0.9rem;
+    top: 0.9rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .layer {
+    transform: none !important;
+  }
+  .path,
+  .pathGo svg,
+  .zoom img,
+  .stepNo,
+  .stepNode {
+    transition: none;
+  }
+}

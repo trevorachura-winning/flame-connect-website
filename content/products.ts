@@ -39,7 +39,7 @@ export const STATUS_LABEL: Record<ProductStatus, string> = {
 /**
  * Statuses trace to docs/PLATFORM_STATUS.md in the platform repository:
  * statuses reflect the real deployment state, confirmed with the founder
- * (Sept 2026): Flame Sales is deployed with sign-in live for pilot teams and
+ * (Sept 2026): Flame Sales is deployed for a limited pilot group and
  * is labelled "Pilot"; tools still being built in the platform (Lens, Ready,
  * Academy, Forge, Reach, Impact) are plainly "In development". Nothing here
  * claims availability a visitor cannot actually reach.
@@ -53,7 +53,7 @@ export const PRODUCTS: Product[] = [
     body: "Flame Sales supports pipeline visibility, lead prioritisation, follow-up discipline and practical sales insight so teams can spend less time chasing information and more time moving the right opportunities forward.",
     status: "pilot",
     statusNote:
-      "Pilot — deployed and sign-in is live; access is currently limited to a group of teams while we validate usefulness, reliability and fit.",
+      "Pilot — deployed and in use by a limited group of teams while we validate usefulness, reliability and fit. Access is arranged with our team.",
     audiences: ["Sales teams", "Founders", "Commercial leaders"],
     outcomes: [
       "See the pipeline clearly without rebuilding spreadsheets every week.",
@@ -99,7 +99,7 @@ export const PRODUCTS: Product[] = [
           "The workspace is organization-scoped with row-level security, tenant-isolation test harnesses and deterministic scoring. Production validation is still in progress, which is why access is currently limited rather than open to everyone.",
       },
     ],
-    cta: { kind: "try", label: "Sign in to Flame Sales", intent: "access" },
+    cta: { kind: "access", label: "Request pilot access", intent: "access" },
     relatedServiceSlug: "ai-in-business",
     seo: {
       title: "Flame Sales — Sales AI built for African teams",

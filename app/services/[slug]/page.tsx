@@ -11,6 +11,8 @@ import { SERVICES, ENGAGEMENT_STAGES, getService } from "../../../content/servic
 import { getProduct } from "../../../lib/content";
 import { StatusBadge } from "../../../components/StatusBadge";
 import { pageMetadata, faqJsonLd } from "../../../lib/seo";
+import { ServiceAtAGlance } from "../../../components/marketing/ServiceAtAGlance";
+import s from "../../../styles/marketing/marketing.module.css";
 
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ slug: s.slug }));
@@ -57,9 +59,18 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         </div>
       </section>
 
+      {/* 1b — At a glance: challenge → delivery → outcome */}
+      <section className="section tight" style={{ paddingBottom: 0 }} aria-label={`${service.name} at a glance`}>
+        <div className="container">
+          <Reveal>
+            <ServiceAtAGlance service={service} />
+          </Reveal>
+        </div>
+      </section>
+
       {/* 2 — Who it's for + 3 — Problems */}
       <section className="section tight">
-        <div className="container split" style={{ alignItems: "start" }}>
+        <div className={`container ${s.split} ${s.splitTop}`}>
           <Reveal>
             <SectionHead eyebrow="Who it is for" title="Built for these situations" />
             <ul className="tick-list">
@@ -83,10 +94,10 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       <section className="section paper2 tight">
         <div className="container">
           <SectionHead eyebrow="What we can do" title={`${service.name} capabilities`} />
-          <div className="grid cols-4">
+          <div className={s.cols4}>
             {service.capabilities.map((cap, i) => (
               <Reveal key={cap} delay={(i % 4) * 0.05}>
-                <div className="card" style={{ padding: "1.15rem", flexDirection: "row", alignItems: "center", gap: "0.7rem" }}>
+                <div className="card" style={{ padding: "1.15rem", flexDirection: "row", alignItems: "center", gap: "0.7rem", height: "100%" }}>
                   <Icon name="check" size={17} />
                   <span style={{ fontSize: "0.92rem", fontWeight: 500, color: "var(--ink)" }}>{cap}</span>
                 </div>
@@ -98,7 +109,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
       {/* 5 — How we work + 6 — Outputs */}
       <section className="section tight">
-        <div className="container split" style={{ alignItems: "start" }}>
+        <div className={`container ${s.split} ${s.splitTop}`}>
           <Reveal>
             <SectionHead eyebrow="How we work" title="The engagement arc" />
             <ol className="list-plain" style={{ counterReset: "s" }}>
@@ -135,7 +146,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               copy="Our tools often arrive inside service engagements — scoped to your workflow, with status shown honestly."
               light
             />
-            <div className="grid cols-3">
+            <div className={s.cols3}>
               {relatedProducts.map((product) => (
                 <article key={product.slug} className="proof-item">
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "0.6rem", marginBottom: "0.6rem" }}>
