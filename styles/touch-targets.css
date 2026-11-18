@@ -27,3 +27,11 @@
     gap: 0;
   }
 }
+
+/* Live audit follow-up: announcement ribbon, logo, footer social icons */
+@media (pointer: coarse) {
+  .ribbon-close { min-width: 44px; min-height: 44px; }
+  .ribbon a { display: inline-flex; align-items: center; min-height: 44px; }
+  .brand { min-height: 44px; }
+  .footer-social a { min-width: 44px; min-height: 44px; }
+}
