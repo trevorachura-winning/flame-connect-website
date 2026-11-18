@@ -35,4 +35,7 @@ test("website-only sign-in and backend are not reintroduced", () => {
   assert.doesNotMatch(header, />\s*Sign in\s*</i);
   assert.match(header, /Book a consultation/);
   assert.match(header, /href=\{ctaHref\}/);
+  assert.match(nav, /href="\/contact\?intent=consultation"/);
+  assert.match(nav, /onPointerDown/);
+  assert.match(nav, /aria-current/);
 });
