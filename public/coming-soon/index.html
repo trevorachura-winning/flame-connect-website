@@ -102,8 +102,62 @@
   .when { margin-top: 1.5rem; color: var(--muted); font-size: .9rem; }
   .when strong { color: var(--text); font-weight: 500; }
 
+  /* Working contact routes before the full website opens. */
+  .prelaunch-actions {
+    margin: clamp(1.35rem, 3vw, 1.85rem) auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .75rem;
+  }
+  .prelaunch-actions a {
+    min-height: 48px;
+    min-width: 182px;
+    padding: .8rem 1.35rem;
+    border: 1px solid rgba(255,255,255,.32);
+    border-radius: 999px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: .87rem;
+    font-weight: 500;
+    line-height: 1.4;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .2s ease, border-color .2s ease, background-color .2s ease;
+  }
+  .prelaunch-actions a.primary {
+    background: #f4511e;
+    border-color: #f4511e;
+    color: #07111f;
+    font-weight: 600;
+  }
+  .prelaunch-actions a:hover {
+    transform: translateY(-2px);
+    border-color: var(--flame-soft);
+    background: rgba(255,255,255,.1);
+  }
+  .prelaunch-actions a.primary:hover {
+    background: #ff936b;
+    border-color: #ff936b;
+  }
+  .prelaunch-actions a:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+  }
+  .contact-context { margin: 1.1rem auto 0; color: var(--muted); font-size: .78rem; }
+  @media (max-width: 420px) {
+    .prelaunch-actions { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 320px; }
+    .prelaunch-actions a { width: 100%; min-width: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .prelaunch-actions a { transition: none; }
+    .prelaunch-actions a:hover { transform: none; }
+  }
+
   .live { display: none; margin-top: 2.4rem; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: clamp(1.4rem, 4vw, 2rem); }
-  body.is-live .countdown, body.is-live .when { display: none; }
+  body.is-live .countdown, body.is-live .when, body.is-live .prelaunch-actions, body.is-live .contact-context { display: none; }
   body.is-live .live { display: block; }
 
   footer { padding: 1.5rem 0 calc(1.5rem + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
@@ -155,6 +209,11 @@
       </ul>
       <p class="sr-only" id="sr-countdown" aria-live="polite"></p>
       <p class="when rise d4">Friday 20 November 2026 · <strong>12:00 EAT</strong> (Kampala)</p>
+      <nav class="prelaunch-actions rise d4" aria-label="Contact Flame Connect before launch">
+        <a class="primary" href="https://wa.me/256764018701?text=Hello%20Flame%20Connect%2C%20I%27d%20like%20to%20learn%20more." target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
+        <a href="mailto:flameconnect1@gmail.com?subject=Flame%20Connect%20pre-launch%20enquiry">Email us</a>
+      </nav>
+      <p class="contact-context rise d4">We are here if you would like to talk before launch.</p>
       <p class="live" role="status">We are live. Opening the site…</p>
     </div>
   </main>
