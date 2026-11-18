@@ -18,7 +18,7 @@ const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 export const metadata = pageMetadata({
   title: "About Flame Connect",
   description:
-    "Flame Connect is an AI Centre of Change built in Uganda for African realities — services, practical tools, community and thought leadership in one model.",
+    "Flame Connect is an AI Centre of Change built in Uganda for African realities — expert services, our own platform and practical insight in one model.",
   path: "/about",
 });
 
@@ -27,7 +27,7 @@ const VALUES = [
   "Explain what is true.",
   "Design with people, not around them.",
   "Make access part of the product.",
-  "Learn in public where appropriate.",
+  "Share what we learn.",
   "Measure what changes.",
 ];
 
@@ -57,13 +57,13 @@ export default function AboutPage() {
           </div>
           <div className={`frame ${m.zoom}`}>
             <Image
-              src="/images/about-team.jpg"
-              alt="African technology strategist in a Kampala working environment, relaxed and confident."
-              width={1122}
-              height={1402}
+              src="/images/community-learning.jpg"
+              alt="African professionals learning and working together in a collaborative session."
+              width={1536}
+              height={1024}
               priority
               sizes="(max-width: 62rem) 92vw, 44vw"
-              style={{ aspectRatio: "4/5" }}
+              style={{ aspectRatio: "4/3", objectFit: "cover" }}
             />
           </div>
         </div>
@@ -81,8 +81,8 @@ export default function AboutPage() {
                 and learning.
               </p>
               <p>
-                We are developing a model that combines services, practical tools, community and
-                thought leadership because meaningful change rarely comes from software alone.
+                We are building a model that combines expert services, our own platform and
+                practical insight, because meaningful change rarely comes from software alone.
                 Organizations need clarity, people need capability and solutions need to fit the
                 environment in which they will be used.
               </p>
@@ -111,21 +111,22 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* The model — services, tools, community, thought leadership */}
+      {/* The model — services, platform, insight */}
       <section id="our-model" className="section paper2" aria-labelledby="model-title">
         <div className="container">
           <InView className="section-head">
             <span className={`eyebrow ${m.rise}`}>Our model</span>
             <h2 id="model-title" className="display-2">
-              <SplitText text="Four parts, one aim: change that lasts." accent="change that lasts." />
+              <SplitText text="Three ways we create change that lasts." accent="change that lasts." />
             </h2>
             <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
-              Software alone rarely changes how an organization works. We combine four connected
-              parts so clarity, capability and tools arrive together.
+              Software alone rarely changes how an organization works. We combine expert
+              services, our own platform and practical insight so clarity, capability and tools
+              arrive together.
             </p>
           </InView>
           <SpotlightGroup>
-          <ol className={`${s.cols4} ${s.model} list-plain`}>
+          <ol className={`${s.cols3} ${s.model} list-plain`}>
             {ABOUT_MODEL.map((part, i) => (
               <Reveal as="li" key={part.name} delay={i * 0.06}>
                 <article className={`card lift ${s.modelItem} ${m.spot}`} data-spotlight="">
@@ -174,7 +175,7 @@ export default function AboutPage() {
 
       {/* Long-term ambition */}
       <section className={`band motif section ${m.bandRise}`}>
-        <div className={`container ${s.split}`}>
+        <div className="container" style={{ maxWidth: "52rem" }}>
           <Reveal>
             <span className="eyebrow light">Long-term ambition</span>
             <h2 className="display-2" style={{ margin: "0.85rem 0 1rem" }}>
@@ -186,16 +187,6 @@ export default function AboutPage() {
               practical problem-solving. A future technology and innovation city is part of that
               ambition.
             </p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="proof-item" style={{ background: "rgba(255,255,255,.05)" }}>
-              <b>Said carefully, on purpose.</b>
-              <p>
-                That city is a long-range vision requiring partnerships, infrastructure and
-                sustained ecosystem development. It is not an existing Flame facility, and we will
-                never present it as one. Ambition communicated honestly is ambition worth joining.
-              </p>
-            </div>
           </Reveal>
         </div>
       </section>
@@ -217,22 +208,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team — honest pending block instead of unnamed placeholders (brief §12) */}
-      <section className="section paper2 tight">
-        <div className="container" style={{ maxWidth: "48rem" }}>
-          <Reveal>
-            <div className="pending-block">
-              <span className="eyebrow" style={{ justifyContent: "center" }}>Team</span>
-              <h3 style={{ marginTop: "0.6rem" }}>Meet the team — soon, with real faces.</h3>
-              <p>
-                We will introduce the people behind Flame Connect with real photography and short,
-                role-focused bios once the list is approved. Until then we publish no ceremonial
-                biographies and no stock-photo stand-ins — the work and this site speak first.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
       <CTABand
         question="Want to build this with us?"

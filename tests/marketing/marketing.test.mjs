@@ -43,10 +43,9 @@ const { PRODUCTS } = load("content/products.ts");
 const { ARTICLES, ARTICLE_CATEGORIES } = load("content/articles.ts");
 const { filterArticles } = load("components/marketing/resourceSearch.ts");
 
-const STATIC = ["/", "/products", "/services", "/flame-os", "/community", "/resources", "/about", "/trust", "/contact", "/privacy"];
+const STATIC = ["/", "/products", "/services", "/resources", "/about", "/trust", "/contact", "/privacy"];
 const ROUTES = new Set([
   ...STATIC,
-  ...PRODUCTS.map((p) => `/products/${p.slug}`),
   ...SERVICES.map((s) => `/services/${s.slug}`),
   ...ARTICLES.map((a) => `/resources/${a.slug}`),
 ]);
@@ -60,7 +59,7 @@ const strings = (v, out = []) => {
   else if (v && typeof v === "object") Object.values(v).forEach((x) => strings(x, out));
   return out;
 };
-const NEW_COPY = { HOME_HERO: home.HOME_HERO, HOME_CHALLENGES: home.HOME_CHALLENGES, HOME_PROOF_POINTS: home.HOME_PROOF_POINTS, ABOUT_MODEL: home.ABOUT_MODEL, SERVICE_CHOOSER };
+const NEW_COPY = { HOME_HERO: home.HOME_HERO, HOME_CHALLENGES: home.HOME_CHALLENGES, HOME_PATHWAYS: home.HOME_PATHWAYS, ABOUT_MODEL: home.ABOUT_MODEL, SERVICE_CHOOSER };
 
 test("new marketing copy passes claim discipline", () => {
   for (const text of strings(NEW_COPY)) {
@@ -82,7 +81,7 @@ test("marketing page sources contain no banned phrases", () => {
 });
 
 test("every marketing content href resolves to a route", () => {
-  const hrefs = [...home.HOME_PROOF_POINTS, ...home.ABOUT_MODEL].map((x) => x.href);
+  const hrefs = [...home.HOME_PATHWAYS, ...home.ABOUT_MODEL].map((x) => x.href);
   for (const href of hrefs) assert.ok(ROUTES.has(routeOf(href)), `unknown route ${href}`);
 });
 
@@ -109,7 +108,7 @@ test("service pillars stay the approved three", () => {
 });
 
 test("homepage states no product status of its own", () => {
-  const src = fs.readFileSync(path.join(ROOT, "app/page.tsx"), "utf8") + fs.readFileSync(path.join(ROOT, "components/marketing/ProductGateway.tsx"), "utf8");
+  const src = fs.readFileSync(path.join(ROOT, "app/page.tsx"), "utf8") + fs.readFileSync(path.join(ROOT, "app/products/page.tsx"), "utf8");
   assert.ok(!/\b(now live|available now|launched)\b/i.test(src), "status language must come from content/products.ts");
 });
 
@@ -249,4 +248,36 @@ test("motion: no animation libraries and no perpetual JS loops", () => {
 
 test("signature is the confirmed 'Digitizing Africa.'", () => {
   assert.equal(home.HOME_HERO.signature, "Digitizing Africa.");
+});
+
+/* ---------------- Launch line-up (Product Owner, 18 Nov 2026) ---------------- */
+test("launch: exactly one flagship product — Flame Sales, launching soon", () => {
+  const { STATUS_LABEL } = load("content/products.ts");
+  assert.equal(PRODUCTS.length, 1);
+  const [p] = PRODUCTS;
+  assert.equal(p.slug, "flame-sales");
+  assert.equal(p.status, "development", "not shipped: must not claim live or pilot");
+  assert.equal(STATUS_LABEL[p.status], "Launching soon");
+  assert.equal(p.cta.kind, "waitlist");
+  assert.ok((p.features ?? []).length >= 3, "flagship lists its capabilities");
+  const text = strings(p).join(" ");
+  assert.ok(!/\b(available now|now live|pilot)\b/i.test(text), "no availability claims for an unshipped product");
+});
+
+test("launch: no GitHub links and no internal notes on the public site", () => {
+  const banned = [/github\.com/i, /Proof, promised properly/, /Said carefully, on purpose/, /Meet the team — soon/, /status board/i, /Learn in public/];
+  for (const f of SOURCES) {
+    const src = fs.readFileSync(path.join(ROOT, f), "utf8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+    for (const rule of banned) assert.ok(!rule.test(src), `${f}: ${rule}`);
+  }
+});
+
+test("launch: retired pages are gone and redirected", () => {
+  for (const dir of ["app/flame-os", "app/community", "app/products/[slug]"]) {
+    assert.ok(!fs.existsSync(path.join(ROOT, dir)), `${dir} should be removed`);
+  }
+  const cfg = fs.readFileSync(path.join(ROOT, "next.config.mjs"), "utf8");
+  for (const src of ['"/flame-os"', '"/community"', '"/products/:slug"', '"/sign-in"']) {
+    assert.ok(cfg.includes(`source: ${src}`), `redirect for ${src}`);
+  }
 });

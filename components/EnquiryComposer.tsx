@@ -15,9 +15,7 @@ const TOPICS = [
   "Digital & Communications",
   "AI in Business",
   "Consulting & Thought Leadership",
-  "Products (access, demos & waitlists)",
-  "Learning & Flame Academy",
-  "Community",
+  "Flame Sales (early access & demos)",
   "Partnership",
   "Media or speaking",
   "Other",
@@ -25,10 +23,10 @@ const TOPICS = [
 
 const INTENT_TOPIC: Record<Intent, string> = {
   consultation: "Other",
-  access: "Products (access, demos & waitlists)",
-  waitlist: "Products (access, demos & waitlists)",
-  community: "Community",
-  learning: "Learning & Flame Academy",
+  access: "Flame Sales (early access & demos)",
+  waitlist: "Flame Sales (early access & demos)",
+  community: "Other",
+  learning: "Other",
   partnership: "Partnership",
   newsletter: "Other",
   media: "Media or speaking",
@@ -44,7 +42,7 @@ const SERVICE_TOPIC: Record<string, string> = {
 const titleCase = (slug: string) => slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
 function starterMessage(intent: Intent, product?: string, service?: string): string {
-  if (intent === "waitlist" && product) return `Please add me to the ${titleCase(product)} waitlist.`;
+  if (intent === "waitlist" && product) return `Please add me to the ${titleCase(product)} early-access list.`;
   if (intent === "access" && product) return `I would like to discuss access to ${titleCase(product)}.`;
   if (intent === "newsletter") return "Please keep me updated on Flame Connect news, resources and events.";
   if (service) return `I would like to talk about your ${titleCase(service)} service.`;

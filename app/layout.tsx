@@ -15,7 +15,7 @@ import { consultationHref } from "../lib/links";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.siteUrl),
   title: {
-    default: "Flame Connect | Digitize Africa",
+    default: "Flame Connect | Practical AI for African progress",
     template: "%s | Flame Connect",
   },
   description:
@@ -46,9 +46,9 @@ const RIBBON =
   process.env.NEXT_PUBLIC_RIBBON_DISABLED === "1"
     ? null
     : {
-        text: "Flame Sales is in pilot with a limited group of teams.",
-        href: "/products/flame-sales",
-        linkText: "See what that means",
+        text: "Flame Sales — CRM & marketing automation for African businesses — is launching soon.",
+        href: "/contact?intent=waitlist&product=flame-sales",
+        linkText: "Join early access",
       };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

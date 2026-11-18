@@ -19,7 +19,7 @@
 export const SITE = {
   name: "Flame Connect",
   legalName: "Flame Connect", // confirmed by founder (Sept 2026); update if URSB certificate shows a formal suffix
-  tagline: "Digitize Africa.", // official tagline/vision — confirmed by founder (Sept 2026),
+  tagline: "Digitizing Africa.", // official signature — confirmed by the Product Owner (18 Nov 2026)
   shortDescription:
     "Flame Connect is an Africa-focused AI, digital and transformation company helping organizations and communities move from interest in technology to useful, measurable application.",
   homeLocationLine: "Uganda outward to Africa.",
@@ -42,8 +42,8 @@ export const SITE = {
     linkedin: null as string | null,
     x: null as string | null,
     youtube: null as string | null,
-    // The product platform is genuinely source-visible; this link is real.
-    github: "https://github.com/trevorachura-winning/flame-connect-salesos-ai",
+    // Product Owner (18 Nov 2026): no GitHub link on the public website.
+    github: null as string | null,
   },
   analyticsId: process.env.NEXT_PUBLIC_ANALYTICS_ID || null,
 } as const;

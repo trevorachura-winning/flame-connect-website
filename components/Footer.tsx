@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { BrandLogo } from "./BrandLogo";
 import { Icon } from "./Icons";
+import { whatsappHref } from "../lib/links";
 import { FOOTER_NAV } from "../content/navigation";
 import { SITE } from "../lib/site";
 
 export function Footer() {
+  const waLink = whatsappHref("Hello Flame Connect");
   const year = new Date().getFullYear();
   return (
     <footer className="footer">
@@ -34,11 +36,6 @@ export function Footer() {
                 {SITE.social.youtube && (
                   <a href={SITE.social.youtube} aria-label="YouTube"><Icon name="external" size={18} /></a>
                 )}
-                {SITE.social.github && (
-                  <a href={SITE.social.github} aria-label="GitHub — learn in public">
-                    <Icon name="github" size={18} />
-                  </a>
-                )}
                 <Link href="/contact" aria-label="Contact us"><Icon name="mail" size={18} /></Link>
               </div>
             </div>
@@ -62,6 +59,23 @@ export function Footer() {
                 </ul>
               </div>
             ))}
+            <div className="footer-col">
+              <h3>Get in touch</h3>
+              <ul>
+                {SITE.contactEmail && (
+                  <li><a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a></li>
+                )}
+                {waLink && (
+                  <li>
+                    <a href={waLink} rel="noopener noreferrer">
+                      WhatsApp +{(SITE.contactWhatsApp ?? "").replace(/\D/g, "")}
+                    </a>
+                  </li>
+                )}
+                <li><Link href="/contact?intent=consultation">Book a consultation</Link></li>
+                <li><span style={{ color: "var(--on-navy-soft)", fontSize: "0.9rem" }}>{SITE.officeLocation}</span></li>
+              </ul>
+            </div>
           </nav>
         </div>
         <div className="footer-bottom">
