@@ -5,6 +5,10 @@ import { Icon } from "../../../components/Icons";
 import { JsonLd } from "../../../components/JsonLd";
 import { ARTICLES, getArticle, getProduct, getService, sortedArticles } from "../../../lib/content";
 import { pageMetadata, articleJsonLd } from "../../../lib/seo";
+import s from "../../../styles/marketing/marketing.module.css";
+
+const anchor = (text: string) =>
+  text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 export function generateStaticParams() {
   return ARTICLES.map((a) => ({ slug: a.slug }));
@@ -55,8 +59,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <div className="container article-grid">
           <article className="prose">
             {article.sections.map((section) => (
-              <section key={section.heading}>
-                <h2>{section.heading}</h2>
+              <section key={section.heading} aria-labelledby={anchor(section.heading)}>
+                <h2 id={anchor(section.heading)} style={{ scrollMarginTop: "6rem" }}>{section.heading}</h2>
                 {section.paragraphs.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
@@ -71,7 +75,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             ))}
 
             <div className="callout">
-              <h3>Actions you can take</h3>
+              <h3 id="actions" style={{ scrollMarginTop: "6rem" }}>Actions you can take</h3>
               <ul>
                 {article.actions.map((action) => (
                   <li key={action}>{action}</li>
@@ -80,7 +84,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             </div>
 
             <div className="callout" style={{ borderLeftColor: "var(--navy)" }}>
-              <h3>Limits — what stays uncertain</h3>
+              <h3 id="limits" style={{ scrollMarginTop: "6rem" }}>Limits — what stays uncertain</h3>
               <ul>
                 {article.limits.map((limit) => (
                   <li key={limit}>{limit}</li>
@@ -90,7 +94,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <JsonLd data={articleJsonLd({ title: article.title, description: article.summary, slug: article.slug, date: article.date, category: article.category })} />
           </article>
 
-          <aside className="article-aside">
+          <aside className="article-aside" aria-label="About this piece">
+            <nav className="aside-card" aria-label="In this piece">
+              <span className="eyebrow" style={{ fontSize: "0.7rem" }}>In this piece</span>
+              <ol className={s.toc}>
+                {article.sections.map((section) => (
+                  <li key={section.heading}>
+                    <a href={`#${anchor(section.heading)}`}>{section.heading}</a>
+                  </li>
+                ))}
+                <li><a href="#actions">Actions you can take</a></li>
+                <li><a href="#limits">What stays uncertain</a></li>
+              </ol>
+            </nav>
             {(relatedProduct || relatedService) && (
               <div className="aside-card">
                 <span className="eyebrow" style={{ fontSize: "0.7rem" }}>Related</span>
@@ -131,7 +147,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <span className="eyebrow">Keep reading</span>
             <h2 className="display-3">More from Resources</h2>
           </div>
-          <div className="grid cols-2">
+          <div className={s.cols2}>
             {more.map((a) => (
               <article key={a.slug} className="card lift insight-card">
                 <div className="meta">

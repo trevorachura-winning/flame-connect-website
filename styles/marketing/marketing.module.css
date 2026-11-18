@@ -1,0 +1,644 @@
+/* ==================================================================
+   Marketing experience — scoped styles (Home, About, Services, Resources)
+   Owner: marketing workstream. Uses ONLY tokens defined in
+   app/globals.css (brand palette, radii, shadows, motion) — no new
+   colours. All grids use minmax(0, 1fr) so min-content children
+   (long words, nowrap meta rows, mock UIs) can never push a column
+   wider than the viewport (the overflow seen at 320–768px on main).
+   ================================================================== */
+
+/* ---------- Layout primitives ---------- */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 5.5vw, 4.5rem);
+  align-items: center;
+}
+.splitTop {
+  align-items: start;
+}
+.cols2,
+.cols3,
+.cols4 {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+.cols2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.cols3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.cols4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.cols5 {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+/* Shared cards rendered inside our grids: let their nowrap meta rows wrap. */
+.cols2 :global(.meta),
+.cols3 :global(.meta) {
+  flex-wrap: wrap;
+  row-gap: 0.2rem;
+}
+.center {
+  text-align: center;
+  margin-top: 2.4rem;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.8rem;
+}
+
+/* ---------- Kicker / small labels ---------- */
+.kicker {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--flame-strong);
+}
+.kickerMuted {
+  composes: kicker;
+  color: var(--ink-faint);
+}
+
+/* ---------- Home: "Why change stalls" (editorial numbered list) ---------- */
+.challengeList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+.challenge {
+  border-top: 2px solid var(--line);
+  padding-top: 1.25rem;
+  transition: border-color var(--dur-3) var(--ease);
+}
+.challenge:hover {
+  border-top-color: var(--flame);
+}
+.challengeNo {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--flame-strong);
+  margin-bottom: 0.7rem;
+}
+.challenge h3 {
+  font-size: 1.12rem;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.5rem;
+}
+.challenge p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+.turn {
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+  color: var(--ink);
+  max-width: 46rem;
+  text-wrap: balance;
+}
+.turn span {
+  color: var(--flame-strong);
+}
+
+/* ---------- Service outcome cards (home) ---------- */
+.serviceCard {
+  height: 100%;
+}
+.entry {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hairline);
+  display: grid;
+  gap: 0.25rem;
+}
+.entry p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ---------- Product gateway ---------- */
+.statusSummary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  margin: 1.1rem 0.4rem 0;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+.statusSummary > span + span:not(:first-child)::before {
+  content: "·";
+  margin-right: 1rem;
+  color: var(--ink-faint);
+}
+.statusSummary > span:nth-child(2)::before {
+  content: none;
+}
+.productList {
+  list-style: none;
+  margin: 0;
+  padding: 0.4rem;
+  border-radius: var(--radius-l);
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-2);
+}
+.productRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.35rem 1rem;
+  align-items: center;
+  padding: 0.95rem 1.1rem;
+  min-height: 44px;
+  border-radius: var(--radius-m);
+  color: inherit;
+  text-decoration: none;
+  transition: background var(--dur-2) var(--ease);
+}
+.productRow + .productRow {
+  border-top: 1px solid var(--line-soft);
+}
+.productRow:hover {
+  background: var(--paper-2);
+}
+.productRow:focus-visible {
+  outline: 2px solid var(--flame);
+  outline-offset: 2px;
+}
+.productName {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.productPurpose {
+  grid-column: 1 / -1;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* ---------- Proof / evidence cards ---------- */
+.proofCard {
+  height: 100%;
+  position: relative;
+}
+.proofCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: var(--radius-m) 0 0 var(--radius-m);
+  background: linear-gradient(var(--flame), transparent);
+  opacity: 0.85;
+}
+
+/* ---------- Collage (Africa-first) ---------- */
+.collage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+}
+.collageStack {
+  display: grid;
+  gap: 1rem;
+}
+.photo {
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  box-shadow: var(--shadow-2);
+  border: 1px solid var(--hairline);
+  background: var(--panel);
+}
+.photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photoTall img {
+  aspect-ratio: 3 / 4;
+}
+.photoWide img {
+  aspect-ratio: 3 / 2;
+}
+
+/* ---------- Services: challenge → delivery → outcome ---------- */
+.story {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  align-items: center;
+  padding: clamp(1.4rem, 3vw, 2.5rem);
+  border-radius: var(--radius-l);
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-1);
+}
+.storyReverse .storyMedia {
+  order: -1;
+}
+.storyMedia {
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  background: var(--panel);
+}
+.storyMedia img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+.storyTitle {
+  margin: 0.6rem 0 0.7rem;
+}
+.storyProp {
+  color: var(--ink-soft);
+  margin: 0;
+}
+.journey {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: grid;
+  gap: 0;
+}
+.journeyStep {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: 0.9rem;
+  padding: 0.95rem 0;
+  border-top: 1px solid var(--line-soft);
+}
+.journeyDot {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--panel);
+  color: var(--flame-strong);
+}
+.journeyStepOutcome .journeyDot {
+  background: var(--flame-tint);
+}
+.journeyStep p {
+  margin: 0.15rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+.journeyStep ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1.05rem;
+  color: var(--ink-soft);
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+
+/* ---------- Services: chooser ---------- */
+.chooser {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+.chooserLink {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.35rem 1rem;
+  align-items: center;
+  height: 100%;
+  min-height: 44px;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius-m);
+  border: 1px solid var(--hairline);
+  background: var(--card);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color var(--dur-2) var(--ease), transform var(--dur-3) var(--ease),
+    box-shadow var(--dur-3) var(--ease);
+}
+.chooserLink:hover {
+  border-color: rgba(244, 81, 30, 0.35);
+  box-shadow: var(--shadow-1);
+  transform: translateY(-2px);
+}
+.chooserLink:focus-visible {
+  outline: 2px solid var(--flame);
+  outline-offset: 2px;
+}
+.chooserQuote {
+  font-size: 0.98rem;
+  color: var(--ink);
+  line-height: 1.45;
+}
+.chooserRoute {
+  grid-column: 1;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--flame-strong);
+}
+.chooserArrow {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  color: var(--flame-strong);
+}
+
+/* ---------- Service detail: at a glance ---------- */
+.glance {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-radius: var(--radius-l);
+  border: 1px solid var(--hairline);
+  background: var(--card);
+  box-shadow: var(--shadow-1);
+  overflow: hidden;
+}
+.glanceCell {
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+}
+.glanceCell + .glanceCell {
+  border-left: 1px solid var(--line-soft);
+}
+.glanceCell p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.glanceCellOutcome {
+  background: var(--paper-2);
+}
+
+/* ---------- About: four-part model ---------- */
+.model {
+  counter-reset: model;
+}
+.modelItem {
+  height: 100%;
+}
+.modelItem h3::before {
+  counter-increment: model;
+  content: counter(model, decimal-leading-zero);
+  display: block;
+  font-size: 0.8rem;
+  color: var(--flame-strong);
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- Resources explorer ---------- */
+.toolbar {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.8rem;
+  max-width: 46rem;
+}
+.search {
+  position: relative;
+}
+.search input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 1rem 0.75rem 2.75rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--hairline-strong);
+  background: var(--card);
+  font: inherit;
+  font-size: 0.98rem;
+  color: var(--ink);
+  box-shadow: var(--shadow-1);
+  transition: border-color var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
+}
+.search input::placeholder {
+  color: var(--ink-faint);
+}
+.search input:focus-visible {
+  outline: 2px solid var(--flame);
+  outline-offset: 2px;
+  border-color: transparent;
+}
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-faint);
+  pointer-events: none;
+  display: inline-flex;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.chips :global(.chip) {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.count {
+  /* Inherits the chip's AA-safe text colour — no opacity fade. */
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  padding-left: 0.4rem;
+  border-left: 1px solid currentColor;
+  line-height: 1;
+}
+.resultLine {
+  margin: 0 0 1.4rem;
+  font-size: 0.9rem;
+  color: var(--ink-faint);
+}
+.featured {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: end;
+  padding: clamp(1.6rem, 4vw, 3rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  border-radius: var(--radius-l);
+  background: var(--navy-canvas);
+  color: var(--on-navy);
+  box-shadow: var(--shadow-2);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.featured::after {
+  content: "";
+  position: absolute;
+  inset: auto -10% -60% auto;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(rgba(244, 81, 30, 0.22), transparent 65%);
+  z-index: -1;
+}
+.featured h2 {
+  color: var(--white);
+  font-size: clamp(1.55rem, 3.2vw, 2.3rem);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  margin: 0.6rem 0 0.8rem;
+  text-wrap: balance;
+}
+.featured h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+.featured h2 a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--flame);
+  text-underline-offset: 0.15em;
+}
+.featured p {
+  margin: 0;
+  color: var(--on-navy);
+}
+.featuredKicker {
+  composes: kicker;
+  color: var(--flame);
+}
+.featuredMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+  color: var(--on-navy-soft);
+  margin-top: 1.1rem;
+}
+.featuredAside {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+.featuredAside p {
+  font-size: 0.92rem;
+  color: var(--on-navy-soft);
+}
+
+/* ---------- Article: in-this-piece list ---------- */
+.toc {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.1rem;
+}
+.toc a {
+  display: block;
+  padding: 0.45rem 0 0.45rem 0.8rem;
+  border-left: 2px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: border-color var(--dur-2) var(--ease), color var(--dur-2) var(--ease);
+}
+.toc a:hover,
+.toc a:focus-visible {
+  border-left-color: var(--flame);
+  color: var(--ink);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 62rem) {
+  .split,
+  .story,
+  .featured {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .storyReverse .storyMedia {
+    order: 0;
+  }
+  .cols4,
+  .challengeList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cols3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cols5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .featured {
+    align-items: start;
+  }
+}
+@media (max-width: 44rem) {
+  .cols2,
+  .cols3,
+  .cols4,
+  .cols5,
+  .challengeList,
+  .chooser,
+  .glance {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .glanceCell + .glanceCell {
+    border-left: 0;
+    border-top: 1px solid var(--line-soft);
+  }
+  .collage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .collageStack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .photoTall img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .challenge,
+  .productRow,
+  .chooserLink,
+  .toc a,
+  .search input {
+    transition: none;
+  }
+  .chooserLink:hover {
+    transform: none;
+  }
+}
+
+/* Long CTA labels may wrap on narrow phones instead of overflowing
+   (.btn is white-space: nowrap globally). Applied only to our CTAs. */
+.wrapBtn {
+  white-space: normal;
+  text-align: center;
+  justify-content: center;
+  line-height: 1.3;
+  max-width: 100%;
+}
