@@ -28,7 +28,7 @@ export const SITE = {
   // placeholder pasted into Vercel's env panel — falls back instead of
   // crashing `new URL("")` during static page-data collection.
   siteUrl: (() => {
-    const configured = (process.env.NEXT_PUBLIC_SITE_URL || "").trim().replace(/\\/+$/, "");
+    const configured = (process.env.NEXT_PUBLIC_SITE_URL || "").trim().replace(/\/+$/, "");
     // Normalize the former apex setting too: an existing Vercel env variable
     // must not keep emitting redirecting canonical/OG/sitemap URLs.
     if (!configured || configured === "https://flameconnect.tech") {
