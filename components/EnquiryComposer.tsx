@@ -48,7 +48,7 @@ function starterMessage(intent: Intent, product?: string, service?: string): str
   if (intent === "waitlist" && product) return `Please add me to the ${titleCase(product)} early-access list.`;
   if (intent === "access" && product) return `I would like to discuss access to ${titleCase(product)}.`;
   if (intent === "newsletter") return "Please keep me updated on Flame Connect news, resources and events.";
-  if (service) return `I would like to talk about your ${titleCase(service)} service.`;
+  if (service) return `I would like to talk about your ${SERVICE_TOPIC[service] ?? titleCase(service)} service.`;
   if (product) return `I would like to know more about ${titleCase(product)}.`;
   return "";
 }
@@ -93,7 +93,15 @@ export function EnquiryComposer({
     return true;
   }
 
-  const subject = `${INTENT_LABELS[intent]} — ${form.topic}${form.organization.trim() ? ` (${form.organization.trim()})` : ""}`;
+  const heading =
+    intent === "waitlist" && product === "flame-academy"
+      ? "Register interest in Flame Academy"
+      : intent === "waitlist" && product
+        ? `Join early access to ${titleCase(product)}`
+        : intent === "waitlist"
+          ? "Join early access"
+          : INTENT_LABELS[intent];
+  const subject = `${heading} — ${form.topic}${form.organization.trim() ? ` (${form.organization.trim()})` : ""}`;
   const body = [
     form.message.trim(),
     "",
@@ -126,7 +134,7 @@ export function EnquiryComposer({
   return (
     <form onSubmit={(e) => { e.preventDefault(); if (hasEmail) openEmail(); else openWhatsApp(); }} noValidate aria-describedby="enq-note">
       <div style={{ marginBottom: "1.4rem" }}>
-        <h2 className="display-3" style={{ fontSize: "1.5rem" }}>{INTENT_LABELS[intent]}</h2>
+        <h2 className="display-3" style={{ fontSize: "1.5rem" }}>{heading}</h2>
         <p className="small muted" style={{ marginTop: "0.4rem" }}>
           Write your enquiry here, then send it from your own email or WhatsApp — it opens
           prefilled. This website does not store or transmit what you type.

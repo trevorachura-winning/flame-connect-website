@@ -57,7 +57,7 @@
 /* ---------- Kicker / small labels ---------- */
 .kicker {
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -625,6 +625,26 @@
 }
 
 /* ---------- Responsive ---------- */
+/* Tablet: a 3-item grid drops to 2 columns — let the odd last item span the
+   row instead of leaving an orphan card. */
+@media (min-width: 44.01rem) and (max-width: 62rem) {
+  .cols3 > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+  .storyMedia img {
+    aspect-ratio: 16 / 9;
+  }
+}
+@media (pointer: coarse) {
+  .chips :global(.chip) {
+    min-height: 44px;
+  }
+  .toc a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}
 @media (max-width: 62rem) {
   .split,
   .story,
@@ -649,6 +669,10 @@
   }
 }
 @media (max-width: 44rem) {
+  .actions > :global(.btn) {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
   .cols2,
   .cols3,
   .cols4,

@@ -711,8 +711,17 @@
   }
   .glassCard {
     left: -0.4rem;
-    max-width: 60%;
-    padding: 0.8rem 0.9rem;
+    bottom: 0.9rem;
+    max-width: 58%;
+    padding: 0.7rem 0.85rem;
+  }
+  /* On phones the card keeps only its title so the photo stays visible. */
+  .glassCard span,
+  .glassCard .methodTicks {
+    display: none;
+  }
+  .glassCard b {
+    font-size: 0.85rem;
   }
   .chip {
     right: auto;
