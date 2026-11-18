@@ -30,7 +30,7 @@ function entries(group: Group): MegaNavLink[] {
 const GROUP_INFO: Record<Group, { heading: string; introduction: string; allHref: string }> = {
   Products: {
     heading: "Explore our products",
-    introduction: "Discover the Flame product family, including products in development and pilot.",
+    introduction: "Flame OS for business growth and Flame Academy for digital skills — both launching soon.",
     allHref: "/products",
   },
   Services: {
