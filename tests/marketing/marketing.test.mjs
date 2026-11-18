@@ -328,3 +328,20 @@ test("site-wide tech lines: orange on light, white on dark, still art for reduce
   const mw = fs.readFileSync(path.join(ROOT, "middleware.ts"), "utf8");
   assert.ok(/tech-lines\//.test(mw), "coming-soon page can load the lines");
 });
+
+test("tech pointer: custom arrow on fine pointers only, text fields keep the text cursor, reticle is decorative", () => {
+  const css = fs.readFileSync(path.join(ROOT, "styles/tech-pointer.css"), "utf8");
+  assert.ok(/@media \(hover: hover\) and \(pointer: fine\)/.test(css));
+  assert.ok(/url\("\/tech-pointer\/arrow\.svg"\) 3 2, auto/.test(css), "system cursor fallback");
+  assert.ok(/textarea,[\s\S]*cursor: text/.test(css));
+  for (const f of ["arrow", "link"]) assert.ok(fs.existsSync(path.join(ROOT, `public/tech-pointer/${f}.svg`)));
+  const tsx = fs.readFileSync(path.join(ROOT, "components/CursorHalo.tsx"), "utf8");
+  assert.ok(tsx.includes('aria-hidden="true"'));
+  const mod = fs.readFileSync(path.join(ROOT, "components/CursorHalo.module.css"), "utf8");
+  assert.ok(/pointer-events: none/.test(mod) && /prefers-reduced-motion: reduce[\s\S]*display: none/.test(mod));
+});
+
+test("circuit art: chips, vias and moving data packets in the animated art", () => {
+  const svg = fs.readFileSync(path.join(ROOT, "public/tech-lines/orange.svg"), "utf8");
+  for (const cls of ['class="c"', 'class="v"', 'class="pk"', 'class="pin"']) assert.ok(svg.includes(cls), cls);
+});
