@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flame Connect | Launching Friday 20 November</title>
+<meta name="description" content="Flame Connect — practical AI for African progress. Our new website launches Friday 20 November 2026 at 12:00 EAT.">
+<meta name="theme-color" content="#07111f">
+<link rel="canonical" href="https://www.flameconnect.tech/">
+<link rel="icon" href="/icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Flame Connect">
+<meta property="og:title" content="Flame Connect — launching Friday 20 November">
+<meta property="og:description" content="Practical AI for African progress. Digitizing Africa.">
+<meta property="og:image" content="https://www.flameconnect.tech/videos/ember-poster.jpg">
+<link rel="preload" href="/coming-soon/montserrat-700.woff" as="font" type="font/woff" crossorigin>
+<style>
+  @font-face { font-family: "Montserrat"; src: url("/coming-soon/montserrat-700.woff") format("woff"); font-weight: 700; font-display: swap; }
+  @font-face { font-family: "Poppins"; src: url("/coming-soon/poppins-400.woff") format("woff"); font-weight: 400; font-display: swap; }
+  @font-face { font-family: "Poppins"; src: url("/coming-soon/poppins-500.woff") format("woff"); font-weight: 500; font-display: swap; }
+
+  :root {
+    --flame: #f4511e;
+    --flame-soft: #ff8a5c;
+    --canvas: #07111f;
+    --canvas-deep: #03080e;
+    --text: #f5f7fb;
+    --muted: #aab6c8;
+    --line: rgba(255,255,255,.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    min-height: 100svh;
+    background: var(--canvas-deep);
+    color: var(--text);
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* Backdrop: ember film under a navy wash */
+  .backdrop { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+  .backdrop video, .backdrop img { width: 100%; height: 100%; object-fit: cover; opacity: .42; }
+  .backdrop::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(120% 80% at 50% 110%, rgba(244,81,30,.28) 0%, transparent 55%),
+      linear-gradient(180deg, rgba(7,17,31,.78) 0%, rgba(7,17,31,.62) 45%, rgba(3,8,14,.94) 100%);
+  }
+
+  header, main, footer { position: relative; z-index: 1; }
+  .wrap { width: min(1080px, 100% - 2.5rem); margin-inline: auto; }
+
+  header { padding: clamp(1.25rem, 3vw, 2rem) 0; }
+  header img { height: clamp(34px, 5vw, 44px); width: auto; display: block; }
+
+  main { flex: 1; display: grid; place-items: center; padding: 2rem 0 3rem; text-align: center; }
+
+  .kicker {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-size: .75rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--flame-soft);
+    padding: .5rem .95rem; border: 1px solid rgba(244,81,30,.35); border-radius: 999px;
+    background: rgba(244,81,30,.08);
+  }
+  .kicker i { width: 7px; height: 7px; border-radius: 50%; background: var(--flame); box-shadow: 0 0 0 0 rgba(244,81,30,.6); animation: pulse 2.4s ease-out infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(244,81,30,.55); } 70%,100% { box-shadow: 0 0 0 10px rgba(244,81,30,0); } }
+
+  h1 {
+    font-family: "Montserrat", system-ui, sans-serif; font-weight: 700;
+    font-size: clamp(2.3rem, 7vw, 4.6rem); line-height: 1.04; letter-spacing: -.025em;
+    margin: 1.4rem auto 1rem; max-width: 14ch;
+  }
+  h1 em { font-style: normal; color: var(--flame); }
+  .lede { color: var(--muted); font-size: clamp(1rem, 2.2vw, 1.15rem); line-height: 1.6; margin: 0 auto; max-width: 34rem; }
+
+  .countdown {
+    list-style: none; padding: 0; margin: clamp(2.2rem, 5vw, 3.2rem) auto 0;
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(.55rem, 2vw, 1rem);
+    width: min(640px, 100%);
+  }
+  .countdown li {
+    padding: clamp(1rem, 3vw, 1.6rem) .4rem clamp(.85rem, 2.4vw, 1.25rem);
+    border: 1px solid var(--line); border-radius: clamp(14px, 2.4vw, 22px);
+    background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 20px 40px -24px rgba(0,0,0,.7);
+  }
+  .countdown b {
+    display: block; font-family: "Montserrat", system-ui, sans-serif; font-weight: 700;
+    font-size: clamp(1.9rem, 7.5vw, 3.6rem); line-height: 1; letter-spacing: -.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .countdown span { display: block; margin-top: .55rem; font-size: clamp(.66rem, 1.6vw, .78rem); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .countdown li:last-child b { color: var(--flame); }
+
+  .when { margin-top: 1.5rem; color: var(--muted); font-size: .9rem; }
+  .when strong { color: var(--text); font-weight: 500; }
+
+  .live { display: none; margin-top: 2.4rem; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: clamp(1.4rem, 4vw, 2rem); }
+  body.is-live .countdown, body.is-live .when { display: none; }
+  body.is-live .live { display: block; }
+
+  footer { padding: 1.5rem 0 calc(1.5rem + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between; color: var(--muted); font-size: .82rem; }
+  footer strong { color: var(--text); font-weight: 500; }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+  @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+    .rise { opacity: 0; transform: translateY(14px); animation: rise .9s cubic-bezier(.2,.7,.2,1) forwards; }
+    .rise.d1 { animation-delay: .08s; } .rise.d2 { animation-delay: .18s; } .rise.d3 { animation-delay: .3s; } .rise.d4 { animation-delay: .42s; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+  }
+  @media (prefers-reduced-motion: reduce) { .kicker i { animation: none; } }
+</style>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <video id="ember" muted loop playsinline preload="none" poster="/videos/ember-poster.jpg">
+      <source src="/videos/ember-loop.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <header>
+    <div class="wrap">
+      <img src="/brand/flame-connect-wordmark-inverse.png" alt="Flame Connect" width="1024" height="354">
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <p class="kicker rise"><i aria-hidden="true"></i>Launching soon</p>
+      <h1 class="rise d1">Practical AI for <em>African progress.</em></h1>
+      <p class="lede rise d2">Our new website opens on Friday. Flame OS and Flame Academy are on the way.</p>
+
+      <ul class="countdown rise d3" aria-hidden="true">
+        <li><b data-u="d">00</b><span>Days</span></li>
+        <li><b data-u="h">00</b><span>Hours</span></li>
+        <li><b data-u="m">00</b><span>Minutes</span></li>
+        <li><b data-u="s">00</b><span>Seconds</span></li>
+      </ul>
+      <p class="sr-only" id="sr-countdown" aria-live="polite"></p>
+      <p class="when rise d4">Friday 20 November 2026 · <strong>12:00 EAT</strong> (Kampala)</p>
+      <p class="live" role="status">We are live. Opening the site…</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span><strong>Digitizing Africa.</strong></span>
+      <span>© 2026 Flame Connect · Kampala, Uganda</span>
+    </div>
+  </footer>
+
+<script>
+(function () {
+  // Launch moment: Friday 20 Nov 2026, 12:00 EAT (UTC+3) = 09:00 UTC.
+  // Keep in sync with LAUNCH_AT in middleware.ts.
+  var LAUNCH = Date.UTC(2026, 10, 20, 9, 0, 0);
+  var els = {};
+  document.querySelectorAll("[data-u]").forEach(function (el) { els[el.getAttribute("data-u")] = el; });
+  var sr = document.getElementById("sr-countdown");
+  var lastMinute = -1, timer;
+  function pad(n) { return n < 10 ? "0" + n : String(n); }
+  function tick() {
+    var left = Math.max(0, LAUNCH - Date.now());
+    var s = Math.floor(left / 1000);
+    var d = Math.floor(s / 86400); s -= d * 86400;
+    var h = Math.floor(s / 3600); s -= h * 3600;
+    var m = Math.floor(s / 60); s -= m * 60;
+    els.d.textContent = pad(d); els.h.textContent = pad(h); els.m.textContent = pad(m); els.s.textContent = pad(s);
+    var totalMin = Math.floor(left / 60000);
+    if (totalMin !== lastMinute) {
+      lastMinute = totalMin;
+      sr.textContent = "Launching in " + d + " days, " + h + " hours and " + m + " minutes.";
+    }
+    if (left === 0) {
+      clearInterval(timer);
+      document.body.classList.add("is-live");
+      setTimeout(function () { location.reload(); }, 2500 + Math.random() * 2500);
+    }
+  }
+  tick();
+  timer = setInterval(tick, 1000);
+
+  // Ember film: only with motion allowed and no data-saver.
+  var v = document.getElementById("ember");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var saveData = navigator.connection && navigator.connection.saveData;
+  if (!reduce && !saveData && v) {
+    v.preload = "auto";
+    var p = v.play(); if (p && p.catch) p.catch(function () {});
+  }
+})();
+</script>
+</body>
+</html>

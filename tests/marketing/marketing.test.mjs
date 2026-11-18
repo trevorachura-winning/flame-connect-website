@@ -295,3 +295,20 @@ test("launch: retired pages are gone and old links redirect sensibly", () => {
   // a catch-all /products/:slug redirect would shadow the real product pages
   assert.ok(!/source: "\/products\/:slug", destination/.test(cfg), "no catch-all product redirect");
 });
+
+test("pre-launch gate: production hosts only, opens Fri 20 Nov 12:00 EAT, page and middleware agree", () => {
+  const mw = fs.readFileSync(path.join(ROOT, "middleware.ts"), "utf8");
+  const page = fs.readFileSync(path.join(ROOT, "public/coming-soon/index.html"), "utf8");
+  const launch = "Date.UTC(2026, 10, 20, 9, 0, 0)";
+  assert.ok(mw.includes(launch), "middleware launch time");
+  assert.ok(page.includes(launch), "countdown launch time matches middleware");
+  assert.equal(Date.UTC(2026, 10, 20, 9, 0, 0), Date.parse("2026-11-20T12:00:00+03:00"));
+  assert.ok(/GATED_HOSTS = new Set\(\["www\.flameconnect\.tech", "flameconnect\.tech"\]\)/.test(mw), "previews stay ungated");
+  assert.ok(/coming-soon\//.test(mw) && /_next\//.test(mw), "gate lets its own assets through");
+  for (const asset of ["montserrat-700.woff", "poppins-400.woff", "poppins-500.woff"]) {
+    assert.ok(fs.existsSync(path.join(ROOT, "public/coming-soon", asset)), asset);
+  }
+  for (const ref of ["/brand/flame-connect-wordmark-inverse.png", "/videos/ember-loop.mp4", "/videos/ember-poster.jpg"]) {
+    assert.ok(fs.existsSync(path.join(ROOT, "public", ref)), ref);
+  }
+});
