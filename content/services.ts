@@ -22,30 +22,30 @@ export interface Service {
   seo: { title: string; description: string };
 }
 
+/**
+ * One method across the site (UI/UX audit, 19 Nov 2026): the same four steps
+ * as the home page (APPROACH_STAGES). The earlier five activities (diagnose,
+ * design, test, build capability, scale) now sit inside these four.
+ */
 export const ENGAGEMENT_STAGES = [
   {
-    stage: "1. Diagnose",
+    stage: "1. Assess",
     what: "Clarify the problem, where things stand now and the outcome you want.",
     outputs: "Discovery notes, audit, readiness view, challenge statement.",
   },
   {
-    stage: "2. Design",
-    what: "Agree the approach, the priorities and how success will be measured.",
-    outputs: "Roadmap, concept, service design, content or automation plan.",
-  },
-  {
-    stage: "3. Test",
-    what: "Pilot with real users, a team or one workflow.",
-    outputs: "Prototype, pilot, test content, feedback.",
-  },
-  {
-    stage: "4. Build capability",
-    what: "Hand over the knowledge and the practical ownership.",
+    stage: "2. Learn",
+    what: "Build the knowledge and confidence your team needs, and hand over ownership as we go.",
     outputs: "Training, playbooks, coaching, governance.",
   },
   {
-    stage: "5. Scale with evidence",
-    what: "Improve, connect and expand what is working.",
+    stage: "3. Improve",
+    what: "Agree the approach and priorities, then pilot the redesigned workflow with real users.",
+    outputs: "Roadmap, service or automation design, prototype, pilot, feedback.",
+  },
+  {
+    stage: "4. Implement",
+    what: "Put what works in place, connect it to how you operate and scale it with evidence.",
     outputs: "Implementation, dashboards, operating rhythm, impact review.",
   },
 ] as const;
