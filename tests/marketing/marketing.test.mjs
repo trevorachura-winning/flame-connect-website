@@ -46,6 +46,7 @@ const { filterArticles } = load("components/marketing/resourceSearch.ts");
 const STATIC = ["/", "/products", "/services", "/resources", "/about", "/trust", "/contact", "/privacy"];
 const ROUTES = new Set([
   ...STATIC,
+  ...PRODUCTS.map((p) => `/products/${p.slug}`),
   ...SERVICES.map((s) => `/services/${s.slug}`),
   ...ARTICLES.map((a) => `/resources/${a.slug}`),
 ]);
@@ -251,17 +252,27 @@ test("signature is the confirmed 'Digitizing Africa.'", () => {
 });
 
 /* ---------------- Launch line-up (Product Owner, 18 Nov 2026) ---------------- */
-test("launch: exactly one flagship product — Flame Sales, launching soon", () => {
+test("launch: two products — Flame OS and Flame Academy, both launching soon", () => {
   const { STATUS_LABEL } = load("content/products.ts");
-  assert.equal(PRODUCTS.length, 1);
-  const [p] = PRODUCTS;
-  assert.equal(p.slug, "flame-sales");
-  assert.equal(p.status, "development", "not shipped: must not claim live or pilot");
-  assert.equal(STATUS_LABEL[p.status], "Launching soon");
-  assert.equal(p.cta.kind, "waitlist");
-  assert.ok((p.features ?? []).length >= 3, "flagship lists its capabilities");
-  const text = strings(p).join(" ");
-  assert.ok(!/\b(available now|now live|pilot)\b/i.test(text), "no availability claims for an unshipped product");
+  assert.deepEqual([...PRODUCTS.map((p) => p.slug)], ["flame-os", "flame-academy"]);
+  for (const p of PRODUCTS) {
+    assert.equal(p.status, "development", `${p.slug}: not shipped, must not claim live or pilot`);
+    assert.equal(STATUS_LABEL[p.status], "Launching soon");
+    assert.equal(p.cta.kind, "waitlist");
+    assert.ok((p.features ?? []).length >= 3, `${p.slug}: lists its capabilities`);
+    assert.ok(p.tagline && p.image && p.category, `${p.slug}: tagline, image and category for the showcase`);
+    const text = strings(p).join(" ");
+    assert.ok(!/\b(available now|now live|pilot)\b/i.test(text), `${p.slug}: no availability claims`);
+  }
+  const academy = PRODUCTS.find((p) => p.slug === "flame-academy");
+  assert.ok(academy.features.some((f) => f.name === "Flame Clubs"), "Flame Academy includes Flame Clubs");
+});
+
+test("launch: the old name 'Flame Sales' is not shown anywhere on the site", () => {
+  for (const f of SOURCES) {
+    const code = fs.readFileSync(path.join(ROOT, f), "utf8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+    assert.ok(!/Flame Sales/.test(code), `${f}: still says Flame Sales`);
+  }
 });
 
 test("launch: no GitHub links and no internal notes on the public site", () => {
@@ -272,12 +283,15 @@ test("launch: no GitHub links and no internal notes on the public site", () => {
   }
 });
 
-test("launch: retired pages are gone and redirected", () => {
-  for (const dir of ["app/flame-os", "app/community", "app/products/[slug]"]) {
+test("launch: retired pages are gone and old links redirect sensibly", () => {
+  for (const dir of ["app/flame-os", "app/community"]) {
     assert.ok(!fs.existsSync(path.join(ROOT, dir)), `${dir} should be removed`);
   }
   const cfg = fs.readFileSync(path.join(ROOT, "next.config.mjs"), "utf8");
-  for (const src of ['"/flame-os"', '"/community"', '"/products/:slug"', '"/sign-in"']) {
-    assert.ok(cfg.includes(`source: ${src}`), `redirect for ${src}`);
-  }
+  assert.ok(/source: "\/flame-os", destination: "\/products\/flame-os"/.test(cfg));
+  assert.ok(/source: "\/community", destination: "\/products\/flame-academy"/.test(cfg));
+  assert.ok(/source: "\/sign-in"/.test(cfg));
+  assert.ok(/flame-sales\|flame-lens\|flame-reach\|flame-forge\|flame-impact\)", destination: "\/products\/flame-os"/.test(cfg));
+  // a catch-all /products/:slug redirect would shadow the real product pages
+  assert.ok(!/source: "\/products\/:slug", destination/.test(cfg), "no catch-all product redirect");
 });

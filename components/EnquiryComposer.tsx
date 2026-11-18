@@ -15,7 +15,8 @@ const TOPICS = [
   "Digital & Communications",
   "AI in Business",
   "Consulting & Thought Leadership",
-  "Flame Sales (early access & demos)",
+  "Flame OS (early access & demos)",
+  "Flame Academy (partnerships & clubs)",
   "Partnership",
   "Media or speaking",
   "Other",
@@ -23,8 +24,8 @@ const TOPICS = [
 
 const INTENT_TOPIC: Record<Intent, string> = {
   consultation: "Other",
-  access: "Flame Sales (early access & demos)",
-  waitlist: "Flame Sales (early access & demos)",
+  access: "Flame OS (early access & demos)",
+  waitlist: "Flame OS (early access & demos)",
   community: "Other",
   learning: "Other",
   partnership: "Partnership",
@@ -39,9 +40,11 @@ const SERVICE_TOPIC: Record<string, string> = {
   "consulting-thought-leadership": "Consulting & Thought Leadership",
 };
 
-const titleCase = (slug: string) => slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+const titleCase = (slug: string) =>
+  slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()).replace(/\bOs\b/, "OS");
 
 function starterMessage(intent: Intent, product?: string, service?: string): string {
+  if (intent === "waitlist" && product === "flame-academy") return "We would like to register our interest in Flame Academy for our learners.";
   if (intent === "waitlist" && product) return `Please add me to the ${titleCase(product)} early-access list.`;
   if (intent === "access" && product) return `I would like to discuss access to ${titleCase(product)}.`;
   if (intent === "newsletter") return "Please keep me updated on Flame Connect news, resources and events.";
@@ -62,7 +65,10 @@ export function EnquiryComposer({
   const [form, setForm] = useState({
     name: "",
     organization: "",
-    topic: (service && SERVICE_TOPIC[service]) || INTENT_TOPIC[intent] || "Other",
+    topic:
+      product === "flame-academy"
+        ? "Flame Academy (partnerships & clubs)"
+        : (service && SERVICE_TOPIC[service]) || INTENT_TOPIC[intent] || "Other",
     message: starterMessage(intent, product, service),
   });
   const [errors, setErrors] = useState<{ name?: string; message?: string }>({});

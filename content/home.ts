@@ -107,10 +107,10 @@ export const HOME_PATHWAYS = [
     primary: true,
   },
   {
-    title: "Get early access to Flame Sales",
-    copy: "Our CRM and marketing-automation platform for African businesses is launching soon. Be among the first to use it.",
+    title: "Get early access to our platforms",
+    copy: "Flame OS for business growth and Flame Academy for digital skills are launching soon. Be among the first.",
     href: "/products",
-    cta: "Meet Flame Sales",
+    cta: "Explore our products",
   },
   {
     title: "Read before you decide",
@@ -150,10 +150,10 @@ export const ABOUT_MODEL = [
     cta: "Explore services",
   },
   {
-    name: "Flame Sales",
-    copy: "Our CRM and marketing-automation platform for African businesses — launching soon.",
+    name: "Our platforms",
+    copy: "Flame OS, the growth operating system for businesses, and Flame Academy for digital skills — launching soon.",
     href: "/products",
-    cta: "Meet Flame Sales",
+    cta: "Explore our products",
   },
   {
     name: "Insights",

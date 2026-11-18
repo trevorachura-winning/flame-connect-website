@@ -26,7 +26,7 @@ export default function PrivacyPage() {
           <h1 className="display-2">Privacy notice</h1>
           <p className="lede">
             This notice explains how {SITE.name} collects, uses and protects personal information
-            when you visit our website, contact us or join the Flame Sales early-access list.
+            when you visit our website, contact us or join an early-access list for Flame OS or Flame Academy.
           </p>
           <p className="small muted" style={{ marginTop: "1rem" }}>
             Last updated: <time dateTime={LAST_UPDATED}>{updated}</time>
@@ -52,8 +52,8 @@ export default function PrivacyPage() {
               phone number, and the details of your enquiry.
             </li>
             <li>
-              <b>Early-access and update requests.</b> If you ask to join the Flame Sales
-              early-access list or receive updates, we keep your contact details and your request.
+              <b>Early-access and update requests.</b> If you ask to join an early-access
+              list for Flame OS or Flame Academy, or to receive updates, we keep your contact details and your request.
             </li>
             <li>
               <b>Technical information.</b> Like most websites, our hosting provider automatically
@@ -72,7 +72,7 @@ export default function PrivacyPage() {
           <ul>
             <li>To respond to enquiries and arrange consultations.</li>
             <li>To provide, scope and deliver the services you request from us.</li>
-            <li>To manage the Flame Sales early-access list and send updates you asked for.</li>
+            <li>To manage early-access lists for our platforms and send updates you asked for.</li>
             <li>To operate, secure and improve our website.</li>
             <li>To meet our legal and regulatory obligations.</li>
           </ul>

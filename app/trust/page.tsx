@@ -10,7 +10,7 @@ import { pageMetadata } from "../../lib/seo";
 export const metadata = pageMetadata({
   title: "Responsible AI",
   description:
-    "How Flame Connect designs AI with human oversight, clear safeguards, privacy and accessibility — the commitments behind our services and Flame Sales.",
+    "How Flame Connect designs AI with human oversight, clear safeguards, privacy and accessibility — the commitments behind our services and platforms.",
   path: "/trust",
 });
 
@@ -31,7 +31,7 @@ export default function TrustPage() {
             <p className="lede">
               Flame Connect designs AI and digital solutions with human oversight, appropriate
               safeguards and a focus on real-world usefulness. These are the commitments behind our
-              services and Flame Sales.
+              services and our platforms, Flame OS and Flame Academy.
             </p>
           </div>
           <div className="frame">
@@ -78,7 +78,7 @@ export default function TrustPage() {
                 <span className="card-icon"><Icon name="lock" size={20} /></span>
                 <h3 style={{ fontSize: "1.1rem" }}>Security</h3>
                 <ul className="tick-list" style={{ marginTop: "0.4rem" }}>
-                  <li><span className="small">Flame Sales is designed with organisation-scoped access control.</span></li>
+                  <li><span className="small">Our platforms are designed with organisation-scoped access control.</span></li>
                   <li><span className="small">Each organisation&rsquo;s data is kept separate.</span></li>
                   <li><span className="small">Separate development, testing and production environments.</span></li>
                 </ul>
@@ -113,7 +113,7 @@ export default function TrustPage() {
 
       <CTABand
         question="Have a question about how we use AI?"
-        copy="Ask us directly — about our services, Flame Sales or how we handle data."
+        copy="Ask us directly — about our services, our platforms or how we handle data."
         primary={{ label: "Talk to our team", href: "/contact?intent=other" }}
         secondary={{ label: "Read the privacy notice", href: "/privacy" }}
       />

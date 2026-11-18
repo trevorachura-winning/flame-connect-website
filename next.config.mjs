@@ -23,9 +23,12 @@ const nextConfig = {
       { source: "/sign-in", destination: "/products", permanent: false },
       // Launch line-up (Nov 2026): one flagship product. Retired product pages,
       // the Flame OS platform page and the community page point somewhere useful.
-      { source: "/products/:slug", destination: "/products", permanent: false },
-      { source: "/flame-os", destination: "/products", permanent: false },
-      { source: "/community", destination: "/contact?intent=community", permanent: false },
+      // Two products (Flame OS, Flame Academy). Former tool pages fold into
+      // Flame OS; the community/clubs idea now lives in Flame Academy.
+      { source: "/products/:slug(flame-sales|flame-lens|flame-reach|flame-forge|flame-impact)", destination: "/products/flame-os", permanent: false },
+      { source: "/products/flame-ready", destination: "/products", permanent: false },
+      { source: "/flame-os", destination: "/products/flame-os", permanent: false },
+      { source: "/community", destination: "/products/flame-academy", permanent: false },
     ];
   },
   async headers() {
