@@ -31,6 +31,7 @@
 :root {
   /* ---- Brand palette (unchanged — single source of truth) ---- */
   --flame: #f4511e;
+  --flame-blue: #153A8A;
   --navy-canvas: #07111f;
   --ink: #111827;
   --slate: #374151;
@@ -521,13 +522,13 @@ button {
   gap: 1.5rem;
 }
 .grid.cols-2 {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .grid.cols-3 {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .grid.cols-4 {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.25rem;
 }
 
@@ -1356,7 +1357,7 @@ a.chip-link.on {
 /* Proof strip */
 .proof-strip {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.25rem;
 }
 .proof-item {
@@ -1493,6 +1494,10 @@ a.chip-link.on {
   line-height: 1.5;
 }
 .os-label {
+  max-width: calc(100% - 2rem);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: center;
   position: absolute;
   z-index: 3;
   top: 1rem;
@@ -1509,12 +1514,11 @@ a.chip-link.on {
   padding: 0.38rem 0.85rem;
   border-radius: var(--radius-pill);
   border: 1px solid rgba(244, 81, 30, 0.35);
-  white-space: nowrap;
 }
 
 .os-cap-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.25rem;
 }
 .os-cap {
@@ -1639,6 +1643,7 @@ a.chip-link.on {
 /* Insight cards */
 .insight-card .meta {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.6rem;
   align-items: center;
   font-size: 0.77rem;
@@ -2019,13 +2024,16 @@ a.chip-link.on {
 }
 .footer .band-top {
   display: grid;
-  grid-template-columns: 1.3fr 2fr;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 2fr);
   gap: clamp(2.5rem, 5.5vw, 4.5rem);
   padding: clamp(3.5rem, 7vw, 5.25rem) 0 2.75rem;
 }
 .footer h2,
 .footer h3 {
   color: #fff;
+}
+.footer-brand {
+  min-width: 0;
 }
 .footer-brand p {
   font-size: 0.93rem;
@@ -2060,7 +2068,8 @@ a.chip-link.on {
 }
 .footer-cols {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  min-width: 0;
   gap: 1.75rem;
 }
 .footer-col h3 {
@@ -2155,6 +2164,13 @@ a.chip-link.on {
 .reveal.fade-only {
   transform: none;
 }
+/* Higher specificity is essential: directional variants otherwise override
+   .reveal.in and leave already-revealed content shifted sideways. */
+.reveal.in.from-left,
+.reveal.in.from-right,
+.reveal.in.from-scale {
+  transform: none;
+}
 
 /* Scroll parallax layer (JS writes --parallax-y) */
 .parallax {
@@ -2165,7 +2181,7 @@ a.chip-link.on {
 /* ---------- Utility ---------- */
 .split {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(2.5rem, 5.5vw, 4.5rem);
   align-items: center;
 }
@@ -2262,12 +2278,12 @@ a.chip-link.on {
 }
 .steps-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1.25rem;
 }
 .service-row {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   gap: 2.5rem;
   align-items: center;
 }
@@ -2290,7 +2306,7 @@ a.chip-link.on {
 
 @media (max-width: 62rem) {
   .grid.cols-4 {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .hero-grid,
   .page-hero-grid,
@@ -2316,7 +2332,7 @@ a.chip-link.on {
     grid-template-columns: 1fr;
   }
   .steps-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .service-row,
   .service-row > div {
@@ -2327,7 +2343,7 @@ a.chip-link.on {
     grid-template-columns: 1fr;
   }
   .footer-cols {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .page-hero-grid .frame {
     order: -1;
@@ -2400,6 +2416,11 @@ a.chip-link.on {
     opacity: 1;
     transform: none;
     filter: none;
+  }
+  .reveal.from-left,
+  .reveal.from-right,
+  .reveal.from-scale {
+    transform: none;
   }
   .parallax {
     transform: none !important;
