@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { deliverLead } from "../../../lib/lead-delivery";
 
 /**
  * Lead capture endpoint.
@@ -7,7 +8,7 @@ import { NextResponse } from "next/server";
  * - server-side validation with field-level errors
  * - honeypot spam trap (silent accept, never delivered)
  * - per-IP sliding-window rate limit
- * - delivery via LEAD_WEBHOOK_URL when configured; otherwise recorded server-side
+ * - success only after LEAD_WEBHOOK_URL acknowledges receipt (no log-only fallback)
  * - free-text message is NEVER logged in full / never sent to analytics
  */
 
@@ -102,6 +103,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
   }
 
+  // Reject JSON primitives/null before accessing body fields.
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
+    return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
+  }
+
   // Honeypot: silently accept but never deliver.
   if (typeof body.hp === "string" && body.hp.length > 0) {
     return NextResponse.json({ ok: true });
@@ -112,37 +118,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, fieldErrors }, { status: 422 });
   }
 
-  const webhook = process.env.LEAD_WEBHOOK_URL;
-  let delivered = false;
-  let deliveryError = false;
+  const delivery = await deliverLead(process.env.LEAD_WEBHOOK_URL, {
+    source: "flame-connect-website",
+    receivedAt: new Date().toISOString(),
+    ...clean,
+  });
 
-  if (webhook) {
-    try {
-      const res = await fetch(webhook, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ source: "flame-connect-website", receivedAt: new Date().toISOString(), ...clean }),
-        signal: AbortSignal.timeout(8000),
-      });
-      delivered = res.ok;
-      deliveryError = !res.ok;
-    } catch {
-      deliveryError = true;
-    }
-  }
-
-  if (!delivered) {
-    // Fallback: record metadata server-side only. Message content is deliberately
-    // NOT written to logs; operators see that a lead arrived, not the lead itself.
-    console.info(
-      `[lead] intent=${clean.intent} topic=${clean.topic} country=${clean.country} messageLength=${clean.message.length} delivered=${delivered}${webhook ? "" : " (no LEAD_WEBHOOK_URL configured)"}`
+  // Serverless logs cannot recover the message. Never show a "received" state
+  // unless a configured destination has actually acknowledged the enquiry.
+  if (!delivery.ok) {
+    console.warn(`[lead] delivery unavailable: ${delivery.reason}`);
+    return NextResponse.json(
+      { ok: false, error: "We couldn't send your enquiry right now. Please try again later." },
+      { status: delivery.reason === "not-configured" ? 503 : 502 }
     );
-  }
-
-  if (deliveryError) {
-    // Still OK to the user: the record is captured server-side; a broken webhook
-    // should not punish the person who filled the form.
-    console.warn("[lead] webhook delivery failed; lead captured server-side only");
   }
 
   return NextResponse.json({ ok: true });
