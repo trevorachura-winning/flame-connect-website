@@ -59,7 +59,7 @@
   header { padding: clamp(1.25rem, 3vw, 2rem) 0; }
   header img { height: clamp(34px, 5vw, 44px); width: auto; display: block; }
 
-  main { flex: 1; display: grid; place-items: center; padding: 2rem 0 3rem; text-align: center; }
+  main { flex: 1; display: grid; place-items: center; padding: 2rem 0 3rem; text-align: center; overflow: clip; }
 
   .kicker {
     display: inline-flex; align-items: center; gap: .6rem;
@@ -80,7 +80,7 @@
   .lede { color: var(--muted); font-size: clamp(1rem, 2.2vw, 1.15rem); line-height: 1.6; margin: 0 auto; max-width: 34rem; }
 
   .countdown {
-    list-style: none; padding: 0; margin: clamp(2.2rem, 5vw, 3.2rem) auto 0;
+    list-style: none; padding: 0; margin: 0 auto;
     display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(.55rem, 2vw, 1rem);
     width: min(640px, 100%);
   }
@@ -99,7 +99,30 @@
   .countdown span { display: block; margin-top: .55rem; font-size: clamp(.66rem, 1.6vw, .78rem); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
   .countdown li:last-child b { color: var(--flame); }
 
-  .when { margin-top: 1.5rem; color: var(--muted); font-size: .9rem; }
+
+  /* Glowing core chip: the countdown sits on a processor, data flows in */
+  .core { position: relative; width: min(640px, 88%); margin: clamp(2.6rem, 6vw, 3.8rem) auto 0; }
+  .core .countdown { margin: 0; position: relative; z-index: 1; }
+  .core-chip { position: absolute; z-index: 0; left: 50%; top: 50%; width: 340%; height: auto; transform: translate(-50%, -50%); pointer-events: none; overflow: visible; }
+  .cc-tr path { fill: none; stroke: rgba(255,255,255,.16); stroke-width: 1.1; vector-effect: non-scaling-stroke; }
+  .cc-pk path { fill: none; stroke: #ff8a5c; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 18 982; vector-effect: non-scaling-stroke; opacity: .95; }
+  .cc-pin rect { fill: rgba(244,81,30,.55); }
+  .cc-body { stroke: rgba(244,81,30,.55); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+  .cc-die { fill: rgba(244,81,30,.05); stroke: rgba(255,255,255,.12); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .cc-led { fill: #f4511e; }
+  .cc-glow { opacity: .75; }
+  .countdown li { background: linear-gradient(180deg, rgba(10,22,38,.72), rgba(10,22,38,.5)); }
+  @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+    .cc-pk path { animation: inflow 3s linear infinite; }
+    .cc-glow { animation: breathe 3.6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+    .cc-led { animation: led 1.8s ease-in-out infinite; }
+    @keyframes inflow { from { stroke-dashoffset: 1000; } to { stroke-dashoffset: 0; } }
+    @keyframes breathe { 0%,100% { opacity: .55; transform: scale(.96); } 50% { opacity: .95; transform: scale(1.04); } }
+    @keyframes led { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+  }
+  @media (prefers-reduced-motion: reduce) { .cc-pk path { stroke-dasharray: 18 182; } }
+
+  .when { margin-top: clamp(2.4rem, 6vw, 3.4rem); color: var(--muted); font-size: .9rem; }
   .when strong { color: var(--text); font-weight: 500; }
 
   .live { display: none; margin-top: 2.4rem; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: clamp(1.4rem, 4vw, 2rem); }
@@ -147,12 +170,15 @@
       <h1 class="rise d1">Practical AI for <em>African progress.</em></h1>
       <p class="lede rise d2">Our new website opens on Friday. Flame OS and Flame Academy are on the way.</p>
 
-      <ul class="countdown rise d3" aria-hidden="true">
+      <div class="core rise d3">
+        <svg class="core-chip" viewBox="0 0 1000 460" aria-hidden="true" focusable="false"><defs><radialGradient id="cg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ff7a45" stop-opacity=".9"/><stop offset=".45" stop-color="#f4511e" stop-opacity=".35"/><stop offset="1" stop-color="#f4511e" stop-opacity="0"/></radialGradient><linearGradient id="cb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#132238"/><stop offset="1" stop-color="#0a1626"/></linearGradient><radialGradient id="fade" cx="50%" cy="50%" r="55%"><stop offset=".35" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="fm"><rect width="1000" height="460" fill="url(#fade)"/></mask></defs><g mask="url(#fm)"><g class="cc-tr"><path d="M357.0 184.0 L357.0 153.5 L278.4 74.8 L278.4 -325.1"/><path d="M383.0 184.0 L383.0 156.5 L318.6 92.1 L318.6 -307.9"/><path d="M409.0 184.0 L409.0 159.5 L358.9 109.4 L358.9 -290.6"/><path d="M435.0 184.0 L435.0 162.5 L399.2 126.8 L399.2 -273.2"/><path d="M461.0 184.0 L461.0 165.5 L439.6 144.1 L439.6 -255.9"/><path d="M487.0 184.0 L487.0 168.5 L479.9 161.3 L479.9 -238.7"/><path d="M513.0 184.0 L513.0 168.5 L520.1 161.3 L520.1 -238.7"/><path d="M539.0 184.0 L539.0 165.5 L560.5 144.1 L560.5 -255.9"/><path d="M565.0 184.0 L565.0 162.5 L600.8 126.8 L600.8 -273.2"/><path d="M591.0 184.0 L591.0 159.5 L641.0 109.4 L641.0 -290.6"/><path d="M617.0 184.0 L617.0 156.5 L681.4 92.1 L681.4 -307.9"/><path d="M643.0 184.0 L643.0 153.5 L721.6 74.8 L721.6 -325.1"/><path d="M357.0 276.0 L357.0 306.5 L278.4 385.1 L278.4 785.1"/><path d="M383.0 276.0 L383.0 303.5 L318.6 367.9 L318.6 767.9"/><path d="M409.0 276.0 L409.0 300.5 L358.9 350.6 L358.9 750.5"/><path d="M435.0 276.0 L435.0 297.5 L399.2 333.2 L399.2 733.2"/><path d="M461.0 276.0 L461.0 294.5 L439.6 315.9 L439.6 716.0"/><path d="M487.0 276.0 L487.0 291.5 L479.9 298.6 L479.9 698.6"/><path d="M513.0 276.0 L513.0 291.5 L520.1 298.6 L520.1 698.6"/><path d="M539.0 276.0 L539.0 294.5 L560.5 315.9 L560.5 716.0"/><path d="M565.0 276.0 L565.0 297.5 L600.8 333.2 L600.8 733.2"/><path d="M591.0 276.0 L591.0 300.5 L641.0 350.6 L641.0 750.5"/><path d="M617.0 276.0 L617.0 303.5 L681.4 367.9 L681.4 767.9"/><path d="M643.0 276.0 L643.0 306.5 L721.6 385.1 L721.6 785.1"/><path d="M335.0 200.0 L313.0 200.0 L289.0 176.0 L-211.0 176.0"/><path d="M335.0 220.0 L317.0 220.0 L309.0 212.0 L-191.0 212.0"/><path d="M335.0 240.0 L317.0 240.0 L309.0 248.0 L-191.0 248.0"/><path d="M335.0 260.0 L313.0 260.0 L289.0 284.0 L-211.0 284.0"/><path d="M665.0 200.0 L687.0 200.0 L711.0 176.0 L1211.0 176.0"/><path d="M665.0 220.0 L683.0 220.0 L691.0 212.0 L1191.0 212.0"/><path d="M665.0 240.0 L683.0 240.0 L691.0 248.0 L1191.0 248.0"/><path d="M665.0 260.0 L687.0 260.0 L711.0 284.0 L1211.0 284.0"/></g><g class="cc-pk"><path d="M278.4 -325.1 L278.4 74.8 L357.0 153.5 L357.0 184.0" pathLength="1000" style="animation-delay:-0.00s;animation-duration:2.60s"/><path d="M358.9 -290.6 L358.9 109.4 L409.0 159.5 L409.0 184.0" pathLength="1000" style="animation-delay:-1.06s;animation-duration:3.34s"/><path d="M439.6 -255.9 L439.6 144.1 L461.0 165.5 L461.0 184.0" pathLength="1000" style="animation-delay:-2.12s;animation-duration:4.08s"/><path d="M520.1 -238.7 L520.1 161.3 L513.0 168.5 L513.0 184.0" pathLength="1000" style="animation-delay:-3.18s;animation-duration:3.02s"/><path d="M600.8 -273.2 L600.8 126.8 L565.0 162.5 L565.0 184.0" pathLength="1000" style="animation-delay:-1.04s;animation-duration:3.76s"/><path d="M681.4 -307.9 L681.4 92.1 L617.0 156.5 L617.0 184.0" pathLength="1000" style="animation-delay:-2.10s;animation-duration:2.70s"/><path d="M278.4 785.1 L278.4 385.1 L357.0 306.5 L357.0 276.0" pathLength="1000" style="animation-delay:-3.16s;animation-duration:3.44s"/><path d="M358.9 750.5 L358.9 350.6 L409.0 300.5 L409.0 276.0" pathLength="1000" style="animation-delay:-1.02s;animation-duration:4.18s"/><path d="M439.6 716.0 L439.6 315.9 L461.0 294.5 L461.0 276.0" pathLength="1000" style="animation-delay:-2.08s;animation-duration:3.12s"/><path d="M520.1 698.6 L520.1 298.6 L513.0 291.5 L513.0 276.0" pathLength="1000" style="animation-delay:-3.14s;animation-duration:3.86s"/><path d="M600.8 733.2 L600.8 333.2 L565.0 297.5 L565.0 276.0" pathLength="1000" style="animation-delay:-1.00s;animation-duration:2.80s"/><path d="M681.4 767.9 L681.4 367.9 L617.0 303.5 L617.0 276.0" pathLength="1000" style="animation-delay:-2.06s;animation-duration:3.54s"/><path d="M-211.0 176.0 L289.0 176.0 L313.0 200.0 L335.0 200.0" pathLength="1000" style="animation-delay:-3.12s;animation-duration:4.28s"/><path d="M-191.0 248.0 L309.0 248.0 L317.0 240.0 L335.0 240.0" pathLength="1000" style="animation-delay:-0.98s;animation-duration:3.22s"/><path d="M1211.0 176.0 L711.0 176.0 L687.0 200.0 L665.0 200.0" pathLength="1000" style="animation-delay:-2.04s;animation-duration:3.96s"/><path d="M1191.0 248.0 L691.0 248.0 L683.0 240.0 L665.0 240.0" pathLength="1000" style="animation-delay:-3.10s;animation-duration:2.90s"/></g></g><ellipse class="cc-glow" cx="500" cy="230" rx="290" ry="140" fill="url(#cg)"/><g class="cc-pin"><rect x="354.5" y="177.0" width="5" height="7" rx="1"/><rect x="354.5" y="276.0" width="5" height="7" rx="1"/><rect x="380.5" y="177.0" width="5" height="7" rx="1"/><rect x="380.5" y="276.0" width="5" height="7" rx="1"/><rect x="406.5" y="177.0" width="5" height="7" rx="1"/><rect x="406.5" y="276.0" width="5" height="7" rx="1"/><rect x="432.5" y="177.0" width="5" height="7" rx="1"/><rect x="432.5" y="276.0" width="5" height="7" rx="1"/><rect x="458.5" y="177.0" width="5" height="7" rx="1"/><rect x="458.5" y="276.0" width="5" height="7" rx="1"/><rect x="484.5" y="177.0" width="5" height="7" rx="1"/><rect x="484.5" y="276.0" width="5" height="7" rx="1"/><rect x="510.5" y="177.0" width="5" height="7" rx="1"/><rect x="510.5" y="276.0" width="5" height="7" rx="1"/><rect x="536.5" y="177.0" width="5" height="7" rx="1"/><rect x="536.5" y="276.0" width="5" height="7" rx="1"/><rect x="562.5" y="177.0" width="5" height="7" rx="1"/><rect x="562.5" y="276.0" width="5" height="7" rx="1"/><rect x="588.5" y="177.0" width="5" height="7" rx="1"/><rect x="588.5" y="276.0" width="5" height="7" rx="1"/><rect x="614.5" y="177.0" width="5" height="7" rx="1"/><rect x="614.5" y="276.0" width="5" height="7" rx="1"/><rect x="640.5" y="177.0" width="5" height="7" rx="1"/><rect x="640.5" y="276.0" width="5" height="7" rx="1"/><rect x="328.0" y="197.5" width="7" height="5" rx="1"/><rect x="665.0" y="197.5" width="7" height="5" rx="1"/><rect x="328.0" y="217.5" width="7" height="5" rx="1"/><rect x="665.0" y="217.5" width="7" height="5" rx="1"/><rect x="328.0" y="237.5" width="7" height="5" rx="1"/><rect x="665.0" y="237.5" width="7" height="5" rx="1"/><rect x="328.0" y="257.5" width="7" height="5" rx="1"/><rect x="665.0" y="257.5" width="7" height="5" rx="1"/></g><rect class="cc-body" x="335.0" y="184.0" width="330" height="92" rx="14" fill="url(#cb)"/><rect class="cc-die" x="353.0" y="198.0" width="294" height="64" rx="8"/><circle class="cc-led" cx="655.0" cy="193.0" r="3"/></svg>
+      <ul class="countdown" aria-hidden="true">
         <li><b data-u="d">00</b><span>Days</span></li>
         <li><b data-u="h">00</b><span>Hours</span></li>
         <li><b data-u="m">00</b><span>Minutes</span></li>
         <li><b data-u="s">00</b><span>Seconds</span></li>
       </ul>
+      </div>
       <p class="sr-only" id="sr-countdown" aria-live="polite"></p>
       <p class="when rise d4">Friday 20 November 2026 · <strong>12:00 EAT</strong> (Kampala)</p>
       <p class="live" role="status">We are live. Opening the site…</p>
