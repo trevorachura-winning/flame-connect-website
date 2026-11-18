@@ -44,6 +44,7 @@ const STATIC_ROUTES = new Set([
 ]);
 const ROUTES = new Set([
   ...STATIC_ROUTES,
+  ...PRODUCTS.map((p) => `/products/${p.slug}`),
   ...SERVICES.map((s) => `/services/${s.slug}`),
   ...ARTICLES.map((a) => `/resources/${a.slug}`),
 ]);

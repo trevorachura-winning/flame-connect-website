@@ -128,7 +128,7 @@ export const ARTICLES: Article[] = [
       "Workflows change after automation; plan to re-map after the first pilot, not before it.",
     ],
     relatedServiceSlug: "ai-in-business",
-    relatedProductSlug: "flame-sales",
+    relatedProductSlug: "flame-os",
     seo: {
       title: "Map one workflow before you automate anything — Flame Connect",
       description:
@@ -278,7 +278,7 @@ export const ARTICLES: Article[] = [
       "These are qualitative observations from a small early group, not survey statistics — we publish them as direction, not proof.",
       "What we observed in Kampala will not map perfectly onto every market; treat local testing as non-negotiable.",
     ],
-    relatedProductSlug: "flame-sales",
+    relatedProductSlug: "flame-os",
     seo: {
       title: "Field notes: what early testers changed in our products — Flame Connect",
       description:
@@ -315,7 +315,7 @@ export const ARTICLES: Article[] = [
       {
         heading: "Where software actually helps",
         paragraphs: [
-          "This is the design philosophy behind Flame Sales, and it is worth stating plainly: software should make a good rhythm easier to keep, not substitute for having one. Scoring that explains itself, reminders that surface the follow-up due today, debriefs that turn a lost deal into next month's better decision — these are valuable precisely because they serve discipline rather than replacing it.",
+          "This is the design philosophy behind Flame OS, and it is worth stating plainly: software should make a good rhythm easier to keep, not substitute for having one. Scoring that explains itself, reminders that surface the follow-up due today, debriefs that turn a lost deal into next month's better decision — these are valuable precisely because they serve discipline rather than replacing it.",
         ],
       },
     ],
@@ -326,9 +326,9 @@ export const ARTICLES: Article[] = [
     ],
     limits: [
       "Discipline-first is a philosophy, not a law — the right system still matters at scale.",
-      "Flame Sales is in pilot; we make no revenue claims for it yet, by design.",
+      "Flame OS is launching soon; we make no revenue claims for it yet, by design.",
     ],
-    relatedProductSlug: "flame-sales",
+    relatedProductSlug: "flame-os",
     seo: {
       title: "Sales discipline beats sales software — Flame Connect",
       description:

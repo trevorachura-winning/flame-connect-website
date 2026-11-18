@@ -46,7 +46,6 @@ const v = (vars: Record<string, string | number>) => vars as CSSProperties;
  */
 export default function HomePage() {
   const insights = sortedArticles().slice(0, 3);
-  const flagship = PRODUCTS[0];
   const marquee = [
     ...SERVICES.map((sv) => ({ text: sv.name, kind: "service" as const })),
     ...APPROACH_STAGES.map((st) => ({ text: st.key, kind: "method" as const })),
@@ -72,7 +71,7 @@ export default function HomePage() {
                 Book a discovery consultation <Icon name="arrow-right" size={18} />
               </Link>
               <Link href="/products" className={`btn btn-outline ${s.wrapBtn}`}>
-                Meet Flame Sales
+                Explore our products
               </Link>
             </div>
             <div className={`hero-points ${m.rise}`} style={v({ "--i": 6, "--d": "150ms" })}>
@@ -184,34 +183,57 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6 — Flagship product: Flame Sales (launching soon) */}
+      {/* 6 — Our platforms: Flame OS + Flame Academy (launching soon) */}
       <section className="section" aria-labelledby="tools-title">
-        <div className={`container ${s.split} ${s.splitTop}`}>
-          <InView>
-            <div className={m.rise} style={{ display: "flex", flexWrap: "wrap", gap: "0.7rem", alignItems: "center" }}>
-              <span className="eyebrow">Introducing Flame Sales</span>
-              <StatusBadge status={flagship.status} />
-            </div>
-            <h2 id="tools-title" className="display-2" style={{ margin: "0.85rem 0 1rem" }}>
-              <SplitText text="CRM and marketing automation, built for African businesses." accent="built for African businesses." />
+        <div className="container">
+          <InView className="section-head">
+            <span className={`eyebrow ${m.rise}`}>Our platforms · launching soon</span>
+            <h2 id="tools-title" className="display-2">
+              <SplitText text="Two platforms built for African progress." accent="African progress." />
             </h2>
-            <p className={`lede ${m.rise}`} style={v({ "--i": 6 })}>{flagship.body}</p>
-            <div className={`${s.actions} ${m.rise}`} style={v({ "--i": 7 })}>
-              <Link href="/contact?intent=waitlist&product=flame-sales" className={`btn btn-primary ${s.wrapBtn}`}>
-                {flagship.cta.label} <Icon name="arrow-right" size={18} />
-              </Link>
-              <Link href="/products" className={`btn btn-outline ${s.wrapBtn}`}>
-                Meet Flame Sales
-              </Link>
-            </div>
+            <p className={`lede ${m.rise}`} style={v({ "--i": 5 })}>
+              One helps businesses win and keep customers. The other helps young Africans build the
+              digital skills to lead what comes next.
+            </p>
           </InView>
           <SpotlightGroup className={s.cols2}>
-            {(flagship.features ?? []).map((f, i) => (
-              <InView key={f.name} className={m.rise} style={v({ "--i": i })}>
-                <article className={`card ${m.spot}`} data-spotlight="" style={{ height: "100%" }}>
-                  <span className="card-icon"><Icon name={f.icon} size={20} /></span>
-                  <h3 style={{ fontSize: "1.1rem" }}>{f.name}</h3>
-                  <p>{f.copy}</p>
+            {PRODUCTS.map((product, i) => (
+              <InView key={product.slug} className={m.rise} style={v({ "--i": i })}>
+                <article className={`card lift ${m.spot}`} data-spotlight="" style={{ height: "100%", padding: 0, overflow: "hidden" }}>
+                  {product.image && (
+                    <div className={m.zoom} style={{ aspectRatio: "16 / 9", overflow: "hidden", background: "var(--panel)" }}>
+                      <Image
+                        src={product.image.src}
+                        alt={product.image.alt}
+                        width={product.image.width}
+                        height={product.image.height}
+                        sizes="(max-width: 44rem) 92vw, 46vw"
+                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                      />
+                    </div>
+                  )}
+                  <div style={{ padding: "clamp(1.4rem, 2.6vw, 2rem)", display: "grid", gap: "0.7rem", flex: 1 }}>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem", alignItems: "center" }}>
+                      <span className="eyebrow">{product.category}</span>
+                      <StatusBadge status={product.status} />
+                    </div>
+                    <h3 style={{ fontSize: "clamp(1.5rem, 2.6vw, 1.9rem)", margin: 0 }}>{product.name}</h3>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: "var(--ink)", margin: 0 }}>{product.tagline}</p>
+                    <p style={{ margin: 0 }}>{product.purpose}</p>
+                    <div className="chip-row" style={{ marginTop: "0.3rem" }}>
+                      {(product.features ?? []).map((f) => (
+                        <span key={f.name} className="chip">{f.name}</span>
+                      ))}
+                    </div>
+                    <div className={s.actions} style={{ marginTop: "0.8rem" }}>
+                      <Link href={`/products/${product.slug}`} className={`btn btn-dark btn-sm ${s.wrapBtn}`}>
+                        Explore {product.name} <Icon name="arrow-right" size={16} />
+                      </Link>
+                      <Link href={`/contact?intent=waitlist&product=${product.slug}`} className={`btn btn-outline btn-sm ${s.wrapBtn}`}>
+                        {product.cta.label}
+                      </Link>
+                    </div>
+                  </div>
                 </article>
               </InView>
             ))}

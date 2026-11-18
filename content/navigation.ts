@@ -6,7 +6,7 @@ export interface NavItem {
 /** Launch navigation (Nov 2026): what a business buyer looks for first. */
 export const TOP_NAV: NavItem[] = [
   { label: "Services", href: "/services" },
-  { label: "Flame Sales", href: "/products" },
+  { label: "Products", href: "/products" },
   { label: "Resources", href: "/resources" },
   { label: "About", href: "/about" },
   { label: "Responsible AI", href: "/trust" },
@@ -23,10 +23,11 @@ export const FOOTER_NAV: { heading: string; items: NavItem[] }[] = [
     ],
   },
   {
-    heading: "Product",
+    heading: "Products",
     items: [
-      { label: "Flame Sales", href: "/products" },
-      { label: "Join early access", href: "/contact?intent=waitlist&product=flame-sales" },
+      { label: "Flame OS", href: "/products/flame-os" },
+      { label: "Flame Academy", href: "/products/flame-academy" },
+      { label: "Join early access", href: "/contact?intent=waitlist&product=flame-os" },
     ],
   },
   {

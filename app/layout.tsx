@@ -46,9 +46,9 @@ const RIBBON =
   process.env.NEXT_PUBLIC_RIBBON_DISABLED === "1"
     ? null
     : {
-        text: "Flame Sales — CRM & marketing automation for African businesses — is launching soon.",
-        href: "/contact?intent=waitlist&product=flame-sales",
-        linkText: "Join early access",
+        text: "Flame OS and Flame Academy are launching soon.",
+        href: "/products",
+        linkText: "Get early access",
       };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -114,8 +114,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   <>
                     <h3 style={{ marginTop: "0.6rem" }}>{relatedProduct.name}</h3>
                     <p>{relatedProduct.purpose}</p>
-                    <Link href="/products" className="text-link">
-                      Meet Flame Sales <Icon name="arrow-right" size={15} />
+                    <Link href={`/products/${relatedProduct.slug}`} className="text-link">
+                      Explore {relatedProduct.name} <Icon name="arrow-right" size={15} />
                     </Link>
                   </>
                 )}

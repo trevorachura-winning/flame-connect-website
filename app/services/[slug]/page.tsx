@@ -141,9 +141,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <section className="band motif section tight">
           <div className="container">
             <SectionHead
-              eyebrow="Our platform"
-              title="Flame Sales, set up for your team"
-              copy="Our CRM and marketing-automation platform can be rolled out as part of this service — configured around your workflow."
+              eyebrow="Our platforms"
+              title="Platforms that travel with this service"
+              copy="Our platforms can be rolled out as part of this service — configured around your organisation."
               light
             />
             <div className={s.cols3}>
@@ -154,7 +154,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                     <StatusBadge status={product.status} />
                   </div>
                   <p>{product.purpose}</p>
-                  <Link href="/products" className="text-link" style={{ color: "var(--flame)", marginTop: "0.7rem", display: "inline-flex" }}>
+                  <Link href={`/products/${product.slug}`} className="text-link" style={{ color: "var(--flame)", marginTop: "0.7rem", display: "inline-flex" }}>
                     Meet {product.name} <Icon name="arrow-right" size={15} />
                   </Link>
                 </article>

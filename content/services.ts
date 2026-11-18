@@ -127,7 +127,7 @@ export const SERVICES: Service[] = [
       src: "/images/digital-communications.jpg",
       alt: "African creative and marketing team reviewing campaign assets and social analytics together in a Kampala studio.",
     },
-    relatedProductSlugs: ["flame-sales"],
+    relatedProductSlugs: ["flame-os"],
     faqs: [
       {
         question: "Can you start with just an audit?",
@@ -195,7 +195,7 @@ export const SERVICES: Service[] = [
       src: "/images/ai-in-business.jpg",
       alt: "Facilitator mapping a workflow with sticky notes alongside an East African business team in a working session.",
     },
-    relatedProductSlugs: ["flame-sales"],
+    relatedProductSlugs: ["flame-os"],
     faqs: [
       {
         question: "We are not 'technical'. Is this for us?",
@@ -262,7 +262,7 @@ export const SERVICES: Service[] = [
       src: "/images/thought-leadership.jpg",
       alt: "African technology and business leaders in candid strategy discussion around a roundtable in Kampala.",
     },
-    relatedProductSlugs: [],
+    relatedProductSlugs: ["flame-academy"],
     faqs: [
       {
         question: "What makes your advice 'African-context' rather than generic?",
