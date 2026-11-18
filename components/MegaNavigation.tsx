@@ -204,7 +204,7 @@ export function MobileMegaNavigation({ onNavigate }: { onNavigate: () => void })
                 aria-label={`Show ${item.label.toLowerCase()} links`}
                 aria-expanded={expanded === item.label}
                 aria-controls={`flame-mobile-${item.label.toLowerCase()}`}
-                onClick={() => setExpanded(expanded === item.label ? null : item.label)}
+                onClick={() => setExpanded(isGroup(item.label) && expanded !== item.label ? item.label : null)}
               >
                 <span className={expanded === item.label ? styles.chevronOpen : styles.chevron} aria-hidden="true" />
               </button>
