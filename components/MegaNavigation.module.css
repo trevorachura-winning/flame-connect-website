@@ -228,6 +228,9 @@
   .desktopNav {
     display: none !important;
   }
+  .mobileTrigger {
+    display: inline-flex !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
