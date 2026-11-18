@@ -57,13 +57,13 @@ export default function AboutPage() {
           </div>
           <div className={`frame ${m.zoom}`}>
             <Image
-              src="/images/about-team.jpg"
-              alt="African technology strategist in a Kampala working environment, relaxed and confident."
-              width={1122}
-              height={1402}
+              src="/images/community-learning.jpg"
+              alt="African professionals learning and working together in a collaborative session."
+              width={1536}
+              height={1024}
               priority
               sizes="(max-width: 62rem) 92vw, 44vw"
-              style={{ aspectRatio: "4/5" }}
+              style={{ aspectRatio: "4/3", objectFit: "cover" }}
             />
           </div>
         </div>
