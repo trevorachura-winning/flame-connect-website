@@ -152,6 +152,22 @@ test("no backend: no API routes, server actions or fetch calls", () => {
   }
 });
 
+test("approved public Flame Connect contact channels are actionable", () => {
+  const { SITE } = load("lib/site.ts");
+  const links = load("lib/links.ts");
+  assert.equal(SITE.contactEmail, "flameconnect1@gmail.com");
+  assert.equal(SITE.contactWhatsApp, "256764018701");
+  assert.equal(SITE.contactPhone, null, "Do not invent a separate public phone number");
+  assert.match(
+    links.mailtoHref("Hello Flame Connect", "Can we talk?"),
+    /^mailto:flameconnect1@gmail\.com\?/
+  );
+  assert.equal(
+    links.whatsappHref("Hello Flame Connect"),
+    "https://wa.me/256764018701?text=Hello%20Flame%20Connect"
+  );
+});
+
 test("enquiry links: null until contact details are confirmed, correctly encoded when set", () => {
   const ctx = (email, wa) => {
     const site = load("lib/site.ts");
