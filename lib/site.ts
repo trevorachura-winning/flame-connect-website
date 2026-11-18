@@ -23,13 +23,13 @@ export const SITE = {
   shortDescription:
     "Flame Connect is an Africa-focused AI, digital and transformation company helping organizations and communities move from interest in technology to useful, measurable application.",
   homeLocationLine: "Uganda outward to Africa.",
-  // pending — Appendix C: official domains.
+  // Confirmed public domain: flameconnect.tech (Vercel registration verified 18 Nov 2026).
   // Note: `||`-style fallback (not `??`) so an EMPTY-STRING env var — e.g. a
   // placeholder pasted into Vercel's env panel — falls back instead of
   // crashing `new URL("")` during static page-data collection.
   siteUrl:
     (process.env.NEXT_PUBLIC_SITE_URL || "").trim().replace(/\/+$/, "") ||
-    "https://flameconnect.org",
+    "https://flameconnect.tech",
   // Public contact details confirmed by Product Owner (18 Nov 2026).
   // WhatsApp uses digits-only international format for wa.me links.
   // Do not infer a separate phone/voice line from the WhatsApp number.
