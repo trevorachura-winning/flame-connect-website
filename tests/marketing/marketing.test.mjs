@@ -72,7 +72,9 @@ test("new marketing copy passes claim discipline", () => {
 
 test("marketing page sources contain no banned phrases", () => {
   const files = ["app/page.tsx", "app/about/page.tsx", "app/services/page.tsx", "app/resources/page.tsx",
-    ...fs.readdirSync(path.join(ROOT, "components/marketing")).map((f) => `components/marketing/${f}`)];
+    ...fs.readdirSync(path.join(ROOT, "components/marketing"), { recursive: true })
+      .filter((f) => /\.(tsx?|mjs)$/.test(String(f)))
+      .map((f) => `components/marketing/${f}`)];
   for (const f of files) {
     const src = fs.readFileSync(path.join(ROOT, f), "utf8");
     for (const rule of BANNED) assert.ok(!rule.test(src), `${f}: banned phrase ${rule}`);
@@ -177,4 +179,58 @@ test("every product CTA stays on-site", () => {
     assert.ok(cta.href.startsWith("/contact?"), `${p.slug}: ${cta.href}`);
     assert.ok(!/sign in|log in|launch/i.test(p.cta.label), `${p.slug}: CTA label "${p.cta.label}"`);
   }
+});
+
+/* ---------------- Motion system (Nov 2026) ---------------- */
+const MOTION_CSS = fs.readFileSync(path.join(ROOT, "styles/marketing/motion.module.css"), "utf8");
+
+test("motion: hidden states only apply with scripting on and no reduced-motion preference", () => {
+  // Every rule that hides content (.wi transform / .rise opacity) must sit
+  // inside the scripting+no-preference guard, so no-JS and reduced-motion
+  // visitors always see everything.
+  const guard = "@media (scripting: enabled) and (prefers-reduced-motion: no-preference)";
+  assert.ok(MOTION_CSS.includes(guard));
+  const outside = MOTION_CSS.split(guard)[0];
+  assert.ok(!/\.rise\s*\{[^}]*opacity:\s*0/.test(outside), ".rise hidden outside guard");
+  assert.ok(!/\.wi\s*\{[^}]*translate/.test(outside), ".wi hidden outside guard");
+  assert.ok(/@media \(prefers-reduced-motion: reduce\)/.test(MOTION_CSS), "reduced-motion overrides present");
+});
+
+test("motion: every page using reveal classes has a trigger (InView or CSS hero intro)", () => {
+  const files = ["app/page.tsx", "app/about/page.tsx", "app/services/page.tsx", "components/marketing/ResourcesExplorer.tsx"];
+  for (const f of files) {
+    const src = fs.readFileSync(path.join(ROOT, f), "utf8");
+    if (/\.rise\b|<SplitText/.test(src)) {
+      assert.ok(/<InView|heroIntro/.test(src), `${f}: reveal classes without a trigger`);
+    }
+  }
+});
+
+test("motion: no animation libraries and no perpetual JS loops", () => {
+  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"));
+  const deps = Object.keys({ ...pkg.dependencies, ...pkg.devDependencies });
+  for (const lib of ["framer-motion", "motion", "gsap", "lenis", "locomotive-scroll", "aos"]) {
+    assert.ok(!deps.includes(lib), `unexpected animation dependency ${lib}`);
+  }
+  const dir = path.join(ROOT, "components/marketing/motion");
+  for (const f of fs.readdirSync(dir)) {
+    const src = fs.readFileSync(path.join(dir, f), "utf8");
+    assert.ok(!/setInterval\(/.test(src), `${f}: setInterval loop`);
+    if (/requestAnimationFrame/.test(src)) {
+      assert.ok(/cancelAnimationFrame/.test(src), `${f}: rAF without cleanup`);
+      assert.ok(/prefers-reduced-motion: reduce/.test(src), `${f}: rAF without reduced-motion opt-out`);
+    }
+    if (/addEventListener\("(scroll|pointermove)"/.test(src)) {
+      assert.ok(/passive: true/.test(src), `${f}: non-passive scroll/pointer listener`);
+      assert.ok(/removeEventListener/.test(src), `${f}: listener without cleanup`);
+    }
+    assert.ok(!/preventDefault\(\)|scrollTo\(|wheel/.test(src), `${f}: possible scroll hijacking`);
+  }
+  const loops = MOTION_CSS.match(/animation:[^;]*infinite[^;]*;/g) ?? [];
+  assert.deepEqual(loops, ["animation: marquee 48s linear infinite;"], "only the pausable marquee may loop");
+  assert.ok(/\.marquee:hover \.track,\s*\.marquee:focus-within \.track\s*\{\s*animation-play-state: paused/.test(MOTION_CSS), "marquee must pause on hover/focus");
+});
+
+test("signature is the confirmed 'Digitizing Africa.'", () => {
+  assert.equal(home.HOME_HERO.signature, "Digitizing Africa.");
 });

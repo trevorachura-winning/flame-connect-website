@@ -8,6 +8,13 @@ import { ServiceChooser } from "../../components/marketing/ServiceChooser";
 import { SERVICES, ENGAGEMENT_STAGES, SERVICE_CHOOSER } from "../../content/services";
 import { pageMetadata } from "../../lib/seo";
 import s from "../../styles/marketing/marketing.module.css";
+import m from "../../styles/marketing/motion.module.css";
+import type { CSSProperties } from "react";
+import { InView } from "../../components/marketing/motion/InView";
+import { SplitText } from "../../components/marketing/motion/SplitText";
+import { SpotlightGroup } from "../../components/marketing/motion/SpotlightGroup";
+
+const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 
 export const metadata = pageMetadata({
   title: "AI, Digital & Transformation Services",
@@ -18,18 +25,18 @@ export const metadata = pageMetadata({
 
 export default function ServicesPage() {
   return (
-    <>
+    <div className={m.scope}>
       <section className="page-hero motif" aria-labelledby="services-title">
-        <div className="container">
-          <span className="eyebrow">Services</span>
+        <div className={`container ${m.heroIntro}`}>
+          <span className={`eyebrow ${m.rise}`}>Services</span>
           <h1 id="services-title" className="display-1">
-            Strategy, communication and AI that move into real work.
+            <SplitText text="Strategy, communication and AI that move into real work." accent="real work." delayMs={80} />
           </h1>
-          <p className="lede">
+          <p className={`lede ${m.rise}`} style={v({ "--i": 6 })}>
             Three service lines, one engagement model. We start from the challenge in front of you,
             deliver in small tested steps and leave your team more capable — not more dependent.
           </p>
-          <div className="hero-actions">
+          <div className={`hero-actions ${m.rise}`} style={v({ "--i": 7 })}>
             <Link href="/contact?intent=consultation" className={`btn btn-primary ${s.wrapBtn}`}>
               Talk to us about your challenge <Icon name="arrow-right" size={18} />
             </Link>
@@ -41,53 +48,60 @@ export default function ServicesPage() {
       </section>
 
       <section className="section tight" aria-label="Service lines">
-        <div className="container" style={{ display: "grid", gap: "clamp(1.5rem, 3vw, 2.5rem)" }}>
-          {SERVICES.map((service, i) => (
-            <Reveal key={service.slug}>
-              <ServiceStory service={service} reverse={i % 2 === 1} />
-            </Reveal>
-          ))}
-        </div>
+        <SpotlightGroup className="container" >
+          <div style={{ display: "grid", gap: "clamp(1.5rem, 3vw, 2.5rem)" }}>
+            {SERVICES.map((service, i) => (
+              <Reveal key={service.slug}>
+                <ServiceStory service={service} reverse={i % 2 === 1} />
+              </Reveal>
+            ))}
+          </div>
+        </SpotlightGroup>
       </section>
 
       <section id="start-from-challenge" className="section paper2 tight" aria-labelledby="chooser-title">
         <div className="container">
-          <div className="section-head">
-            <span className="eyebrow">Start from your challenge</span>
-            <h2 id="chooser-title" className="display-2">Which of these sounds familiar?</h2>
-            <p className="lede">
+          <InView className="section-head">
+            <span className={`eyebrow ${m.rise}`}>Start from your challenge</span>
+            <h2 id="chooser-title" className="display-2">
+              <SplitText text="Which of these sounds familiar?" accent="sounds familiar?" />
+            </h2>
+            <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
               Pick the closest match. If none fit, describe the problem in a consultation — we will
               recommend a route, including when the honest answer is &ldquo;none of ours&rdquo;.
             </p>
-          </div>
+          </InView>
           <ServiceChooser items={SERVICE_CHOOSER} services={SERVICES} />
         </div>
       </section>
 
-      <section className="band motif section" aria-labelledby="engagement-title">
+      <section className={`band motif section ${m.bandRise}`} aria-labelledby="engagement-title">
         <div className="container">
-          <div className="section-head">
-            <span className="eyebrow light">How engagements run</span>
-            <h2 id="engagement-title" className="display-2">One engagement model, three service lines.</h2>
-            <p className="lede light">
+          <InView className="section-head">
+            <span className={`eyebrow light ${m.rise}`}>How engagements run</span>
+            <h2 id="engagement-title" className="display-2">
+              <SplitText text="One engagement model, three service lines." accent="three service lines." />
+            </h2>
+            <p className={`lede light ${m.rise}`} style={v({ "--i": 3 })}>
               Every engagement follows the same arc — diagnose before design, test before scale — so
               the work produces evidence, not just documents.
             </p>
-          </div>
-          <ol className={`${s.cols5} list-plain`}>
+          </InView>
+          <InView as="ol" className={`${s.cols5} list-plain`}>
             {ENGAGEMENT_STAGES.map((stage, i) => (
-              <Reveal as="li" key={stage.stage} delay={i * 0.06}>
+              <li key={stage.stage} className={m.rise} style={v({ "--i": i })}>
                 <div className="proof-item" style={{ height: "100%" }}>
-                  <b style={{ color: "var(--flame)" }}>{stage.stage}</b>
+                  <span className={s.bigNo} aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                  <b style={{ color: "var(--flame)" }}>{stage.stage.replace(/^\d+\.\s*/, "")}</b>
                   <p style={{ marginBottom: "0.6rem" }}>{stage.what}</p>
                   <p style={{ fontSize: "0.82rem", color: "var(--on-navy-soft)" }}>
                     <span className="sr-only">Typical outputs: </span>
                     {stage.outputs}
                   </p>
                 </div>
-              </Reveal>
+              </li>
             ))}
-          </ol>
+          </InView>
         </div>
       </section>
 
@@ -97,6 +111,6 @@ export default function ServicesPage() {
         primary={{ label: "Book a discovery consultation", href: "/contact?intent=consultation" }}
         secondary={{ label: "Read our playbooks", href: "/resources?category=Playbooks" }}
       />
-    </>
+    </div>
   );
 }

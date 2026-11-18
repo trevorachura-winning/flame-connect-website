@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Icon } from "../Icons";
 import type { Service } from "../../content/services";
 import s from "../../styles/marketing/marketing.module.css";
+import mo from "../../styles/marketing/motion.module.css";
 
 /**
  * One service line told as challenge → what we do → realistic outcome.
@@ -12,7 +13,8 @@ import s from "../../styles/marketing/marketing.module.css";
 export function ServiceStory({ service, reverse = false }: { service: Service; reverse?: boolean }) {
   return (
     <article
-      className={`${s.story}${reverse ? ` ${s.storyReverse}` : ""}`}
+      className={`${s.story}${reverse ? ` ${s.storyReverse}` : ""} ${mo.spot}`}
+      data-spotlight=""
       aria-labelledby={`svc-${service.slug}`}
     >
       <div>
@@ -54,7 +56,7 @@ export function ServiceStory({ service, reverse = false }: { service: Service; r
           </Link>
         </div>
       </div>
-      <div className={s.storyMedia}>
+      <div className={`${s.storyMedia} ${mo.zoom}`}>
         <Image
           src={service.image.src}
           alt={service.image.alt}

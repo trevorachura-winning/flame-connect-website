@@ -3,6 +3,7 @@ import { Icon, type IconName } from "../Icons";
 import { Reveal } from "../Reveal";
 import type { Service } from "../../content/services";
 import s from "../../styles/marketing/marketing.module.css";
+import mo from "../../styles/marketing/motion.module.css";
 
 const PILLAR_ICONS: Record<string, IconName> = {
   "digital-communications": "megaphone",
@@ -20,7 +21,7 @@ export function ServiceOutcomeCards({ services }: { services: readonly Service[]
     <div className={s.cols3}>
       {services.map((service, i) => (
         <Reveal key={service.slug} delay={i * 0.08}>
-          <article className={`card lift ${s.serviceCard}`}>
+          <article className={`card lift ${s.serviceCard} ${mo.spot}`} data-spotlight="">
             <span className="card-icon">
               <Icon name={PILLAR_ICONS[service.slug] ?? "spark"} size={22} />
             </span>

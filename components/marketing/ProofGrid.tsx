@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Icon } from "../Icons";
 import { Reveal } from "../Reveal";
 import s from "../../styles/marketing/marketing.module.css";
+import mo from "../../styles/marketing/motion.module.css";
 
 /** Evidence we can point to today — every card links to a real page. */
 export function ProofGrid({
@@ -13,7 +14,7 @@ export function ProofGrid({
     <div className={s.cols3}>
       {items.map((item, i) => (
         <Reveal key={item.title} delay={i * 0.07}>
-          <article className={`card ${s.proofCard}`}>
+          <article className={`card ${s.proofCard} ${mo.spot}`} data-spotlight="">
             <span className={s.kicker}>{item.label}</span>
             <h3>{item.title}</h3>
             <p>{item.copy}</p>

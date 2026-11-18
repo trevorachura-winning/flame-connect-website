@@ -7,6 +7,13 @@ import { Reveal } from "../../components/Reveal";
 import { OPERATING_PRINCIPLES, ABOUT_MODEL, APPROACH_STAGES } from "../../content/home";
 import { pageMetadata } from "../../lib/seo";
 import s from "../../styles/marketing/marketing.module.css";
+import m from "../../styles/marketing/motion.module.css";
+import type { CSSProperties } from "react";
+import { InView } from "../../components/marketing/motion/InView";
+import { SplitText } from "../../components/marketing/motion/SplitText";
+import { SpotlightGroup } from "../../components/marketing/motion/SpotlightGroup";
+
+const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 
 export const metadata = pageMetadata({
   title: "About Flame Connect",
@@ -26,20 +33,20 @@ const VALUES = [
 
 export default function AboutPage() {
   return (
-    <>
+    <div className={m.scope}>
       <section className="page-hero white">
         <div className="container page-hero-grid">
-          <div>
-            <span className="eyebrow">About Flame Connect · AI Centre of Change</span>
+          <div className={m.heroIntro}>
+            <span className={`eyebrow ${m.rise}`}>About Flame Connect · AI Centre of Change</span>
             <h1 className="display-1" style={{ fontSize: "clamp(2.3rem, 5.2vw, 3.9rem)" }}>
-              Technology should fit the people and places using it.
+              <SplitText text="Technology should fit the people and places using it." accent="places using it." delayMs={80} />
             </h1>
-            <p className="lede">
+            <p className={`lede ${m.rise}`} style={v({ "--i": 8 })}>
               Flame Connect was built around a simple belief: African businesses and communities
               should not be passive consumers of technological change. We should help shape it,
               apply it and create value from it on our own terms.
             </p>
-            <div className="hero-actions">
+            <div className={`hero-actions ${m.rise}`} style={v({ "--i": 9 })}>
               <a href="#our-model" className={`btn btn-dark ${s.wrapBtn}`}>
                 How the model works <Icon name="arrow-right" size={18} />
               </a>
@@ -48,7 +55,7 @@ export default function AboutPage() {
               </Link>
             </div>
           </div>
-          <div className="frame">
+          <div className={`frame ${m.zoom}`}>
             <Image
               src="/images/about-team.jpg"
               alt="African technology strategist in a Kampala working environment, relaxed and confident."
@@ -107,18 +114,21 @@ export default function AboutPage() {
       {/* The model — services, tools, community, thought leadership */}
       <section id="our-model" className="section paper2" aria-labelledby="model-title">
         <div className="container">
-          <div className="section-head">
-            <span className="eyebrow">Our model</span>
-            <h2 id="model-title" className="display-2">Four parts, one aim: change that lasts.</h2>
-            <p className="lede">
+          <InView className="section-head">
+            <span className={`eyebrow ${m.rise}`}>Our model</span>
+            <h2 id="model-title" className="display-2">
+              <SplitText text="Four parts, one aim: change that lasts." accent="change that lasts." />
+            </h2>
+            <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
               Software alone rarely changes how an organization works. We combine four connected
               parts so clarity, capability and tools arrive together.
             </p>
-          </div>
+          </InView>
+          <SpotlightGroup>
           <ol className={`${s.cols4} ${s.model} list-plain`}>
             {ABOUT_MODEL.map((part, i) => (
               <Reveal as="li" key={part.name} delay={i * 0.06}>
-                <article className={`card lift ${s.modelItem}`}>
+                <article className={`card lift ${s.modelItem} ${m.spot}`} data-spotlight="">
                   <h3>{part.name}</h3>
                   <p>{part.copy}</p>
                   <div className="card-foot">
@@ -130,6 +140,7 @@ export default function AboutPage() {
               </Reveal>
             ))}
           </ol>
+          </SpotlightGroup>
           <Reveal>
             <p className={s.turn}>
               Every engagement follows one method:{" "}
@@ -162,7 +173,7 @@ export default function AboutPage() {
       </section>
 
       {/* Long-term ambition */}
-      <section className="band motif section">
+      <section className={`band motif section ${m.bandRise}`}>
         <div className={`container ${s.split}`}>
           <Reveal>
             <span className="eyebrow light">Long-term ambition</span>
@@ -229,6 +240,6 @@ export default function AboutPage() {
         primary={{ label: "Partner with Flame", href: "/contact?intent=partnership" }}
         secondary={{ label: "See how we work", href: "/services" }}
       />
-    </>
+    </div>
   );
 }

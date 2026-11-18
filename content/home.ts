@@ -114,7 +114,44 @@ export const HOME_HERO = {
   lede:
     "Flame Connect helps organizations in Uganda and across Africa turn AI and digital ambition into work that actually changes — clearer communication, better decisions and workflows that hold up in real conditions.",
   points: ["Human-controlled AI", "Designed for mobile and low bandwidth", "Uganda-rooted, Africa-focused"],
+  /** Official master-logo signature (confirmed by the Product Owner, 18 Nov 2026). */
+  signature: "Digitizing Africa.",
 } as const;
+
+/**
+ * What a client leaves each method stage with — restated from the
+ * ENGAGEMENT_STAGES outputs in content/services.ts (Diagnose → Assess,
+ * Build capability → Learn, Design/Test → Improve, Scale → Implement).
+ */
+export const METHOD_OUTPUTS: Record<(typeof APPROACH_STAGES)[number]["key"], string> = {
+  Assess: "A readiness view and a clear challenge statement.",
+  Learn: "Training, playbooks and shared language for your team.",
+  Improve: "A redesigned workflow, tested in a focused pilot.",
+  Implement: "A working solution, a dashboard and an impact review.",
+};
+
+/** Homepage conversion pathways — every href is an existing on-site route. */
+export const HOME_PATHWAYS = [
+  {
+    title: "Talk through a challenge",
+    copy: "A discovery consultation to find the most useful next step — a service, a tool, a learning path or a focused pilot.",
+    href: "/contact?intent=consultation",
+    cta: "Book a discovery consultation",
+    primary: true,
+  },
+  {
+    title: "See the Flame tools",
+    copy: "The product family, each with its real status. Ask about access, a demo or the waitlist.",
+    href: "/products",
+    cta: "Explore our products",
+  },
+  {
+    title: "Read before you decide",
+    copy: "Field notes, playbooks and perspectives — each piece ends with actions and stated limits.",
+    href: "/resources",
+    cta: "Browse resources",
+  },
+] as const;
 
 /** "Why change stalls" — condensed from the problem lists in content/services.ts. */
 export const HOME_CHALLENGES = [

@@ -23,7 +23,12 @@ export function ProductGateway({ products }: { products: readonly Product[] }) {
             <Link href={`/products/${product.slug}`} className={s.productRow}>
               <span className={s.productName}>{product.name}</span>
               <StatusBadge status={product.status} />
-              <span className={s.productPurpose}>{product.purpose}</span>
+              <span className={s.productPurpose}>
+                {product.purpose}
+                <span className={s.productGo} aria-hidden="true">
+                  <Icon name="arrow-right" size={14} />
+                </span>
+              </span>
             </Link>
           </li>
         ))}
