@@ -6,6 +6,8 @@ import { InsightCard } from "../components/InsightCard";
 import { Icon } from "../components/Icons";
 import { Reveal } from "../components/Reveal";
 import { Parallax } from "../components/Parallax";
+import { AmbientTechLines } from "../components/AmbientTechLines";
+import ambient from "../components/AmbientTechLines.module.css";
 import { ChallengeList } from "../components/marketing/ChallengeList";
 import { ServiceOutcomeCards } from "../components/marketing/ServiceOutcomeCards";
 import { ProductGateway } from "../components/marketing/ProductGateway";
@@ -42,7 +44,8 @@ export default function HomePage() {
     <>
       {/* 1 — Hero */}
       <section className="hero hero-home motif" aria-labelledby="home-title">
-        <div className="container hero-grid">
+        <AmbientTechLines tone="light" />
+        <div className={`container hero-grid ${ambient.foreground}`}>
           <div>
             <Reveal delay={0.04} variant="fade">
               <span className="eyebrow">{HOME_HERO.eyebrow}</span>
@@ -134,7 +137,8 @@ export default function HomePage() {
 
       {/* 4 — Method */}
       <section className="band motif section approach" aria-labelledby="method-title">
-        <div className="container">
+        <AmbientTechLines />
+        <div className={`container ${ambient.foreground}`}>
           <div className="section-head">
             <span className="eyebrow light">How we work</span>
             <h2 id="method-title" className="display-2">Assess. Learn. Improve. Implement.</h2>
