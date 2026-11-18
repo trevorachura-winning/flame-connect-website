@@ -57,7 +57,18 @@
   .wrap { width: min(1080px, 100% - 2.5rem); margin-inline: auto; }
 
   header { padding: clamp(1.25rem, 3vw, 2rem) 0; }
-  header img { height: clamp(34px, 5vw, 44px); width: auto; display: block; }
+  /* Same owner-supplied mark + inverse wordmark used by BrandLogo.tsx
+     in the full website. Never redraw, recolour or distort the official assets. */
+  .brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(8px, 1.3vw, 12px);
+    max-width: 100%;
+    line-height: 0;
+  }
+  .brand-lockup img { display: block; width: auto; object-fit: contain; }
+  .brand-lockup .brand-mark { height: clamp(36px, 5vw, 44px); }
+  .brand-lockup .brand-wordmark { height: clamp(27px, 3.7vw, 33px); }
 
   main { flex: 1; display: grid; place-items: center; padding: 2rem 0 3rem; text-align: center; overflow: clip; }
 
@@ -160,7 +171,10 @@
 
   <header>
     <div class="wrap">
-      <img src="/brand/flame-connect-wordmark-inverse.png" alt="Flame Connect" width="1024" height="354">
+      <div class="brand-lockup" role="img" aria-label="Flame Connect">
+        <img class="brand-mark" src="/brand/flame-connect-mark.png" alt="" width="512" height="512">
+        <img class="brand-wordmark" src="/brand/flame-connect-wordmark-inverse.png" alt="" width="1024" height="354">
+      </div>
     </div>
   </header>
 
