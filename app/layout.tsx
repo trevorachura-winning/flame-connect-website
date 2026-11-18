@@ -7,6 +7,7 @@ import "@fontsource/poppins/700.css";
 import "./globals.css";
 import "../styles/touch-targets.css";
 import "../styles/tech-lines.css";
+import "../styles/tech-pointer.css";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { CursorHalo } from "../components/CursorHalo";

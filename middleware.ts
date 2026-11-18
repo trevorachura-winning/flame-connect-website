@@ -38,6 +38,6 @@ export function middleware(request: NextRequest) {
 export const config = {
   // Let the countdown page's own assets through; gate everything else.
   matcher: [
-    "/((?!_next/|coming-soon/|tech-lines/|brand/|videos/|icon\\.png|favicon\\.ico|robots\\.txt|sitemap\\.xml).*)",
+    "/((?!_next/|coming-soon/|tech-lines/|tech-pointer/|brand/|videos/|icon\\.png|favicon\\.ico|robots\\.txt|sitemap\\.xml).*)",
   ],
 };

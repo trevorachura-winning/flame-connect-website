@@ -1,0 +1,27 @@
+/*
+ * Tech pointer (Product Owner request, 19 Nov 2026): a custom angular arrow
+ * replaces the system cursor on mouse/trackpad devices. It turns orange over
+ * links and buttons. Text fields keep the text cursor; touch devices are
+ * untouched. The image cursor is native, so it never lags and stays
+ * accessible; the system cursor is the fallback.
+ */
+@media (hover: hover) and (pointer: fine) {
+  html {
+    cursor: url("/tech-pointer/arrow.svg") 3 2, auto;
+  }
+  a,
+  button,
+  summary,
+  label[for],
+  select,
+  [role="button"],
+  [role="tab"],
+  [role="menuitem"] {
+    cursor: url("/tech-pointer/link.svg") 3 2, pointer;
+  }
+  input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+  textarea,
+  [contenteditable="true"] {
+    cursor: text;
+  }
+}

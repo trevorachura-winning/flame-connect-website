@@ -1,45 +1,73 @@
-/* Decorative follower only. Default/native pointer remains functional. */
-.halo {
+/* Tech pointer reticle. Decorative only; the native (custom) cursor stays in charge. */
+.reticle {
   position: fixed;
   top: 0;
   left: 0;
-  width: 44px;
-  height: 44px;
+  width: 26px;
+  height: 26px;
   pointer-events: none;
   z-index: 10000;
   opacity: 0;
   transform: translate3d(-100px, -100px, 0);
   transition: opacity 180ms ease-out;
-  will-change: transform;
+  will-change: transform, width, height;
+  --c: #f4511e;
+  --arm: 7px;
 }
 
-.halo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(244, 81, 30, 0.7);
-  border-radius: 50%;
-  background: rgba(244, 81, 30, 0.05);
-  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 240ms ease, border-color 240ms ease;
-}
-
-.halo[data-visible="true"] {
+.reticle[data-visible="true"] {
   opacity: 1;
 }
-
-.halo[data-interactive="true"]::after {
-  transform: scale(1.4);
-  border-color: rgba(244, 81, 30, 0.85);
-  background: rgba(244, 81, 30, 0.1);
-}
-
-.halo[data-visible="true"][data-dim="true"] {
+.reticle[data-visible="true"][data-dim="true"] {
   opacity: 0.45;
 }
 
+.reticle i {
+  position: absolute;
+  width: var(--arm);
+  height: var(--arm);
+  border: 0 solid var(--c);
+  transition: width 220ms ease, height 220ms ease, border-color 220ms ease;
+}
+.tl { top: 0; left: 0; border-top-width: 1.6px !important; border-left-width: 1.6px !important; }
+.tr { top: 0; right: 0; border-top-width: 1.6px !important; border-right-width: 1.6px !important; }
+.bl { bottom: 0; left: 0; border-bottom-width: 1.6px !important; border-left-width: 1.6px !important; }
+.br { bottom: 0; right: 0; border-bottom-width: 1.6px !important; border-right-width: 1.6px !important; }
+
+/* centre node: visible while free-floating, gone when locked on a control */
+.dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  margin: -1.5px 0 0 -1.5px;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 0 3px rgba(244, 81, 30, 0.14);
+  transition: opacity 160ms ease;
+}
+
+.reticle[data-locked="true"] {
+  --arm: 10px;
+}
+.reticle[data-locked="true"] .dot {
+  opacity: 0;
+}
+.reticle[data-locked="true"] i {
+  animation: lock 1.6s ease-in-out infinite;
+}
+.reticle[data-pressed="true"] i {
+  border-color: #c43d0a;
+}
+
+@keyframes lock {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
 @media (pointer: coarse), (hover: none), (prefers-reduced-motion: reduce) {
-  .halo {
+  .reticle {
     display: none;
   }
 }
