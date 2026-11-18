@@ -141,9 +141,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <section className="band motif section tight">
           <div className="container">
             <SectionHead
-              eyebrow="Tools that travel with this service"
-              title="Products in this space"
-              copy="Our tools often arrive inside service engagements — scoped to your workflow, with status shown honestly."
+              eyebrow="Our platform"
+              title="Flame Sales, set up for your team"
+              copy="Our CRM and marketing-automation platform can be rolled out as part of this service — configured around your workflow."
               light
             />
             <div className={s.cols3}>
@@ -154,8 +154,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                     <StatusBadge status={product.status} />
                   </div>
                   <p>{product.purpose}</p>
-                  <Link href={`/products/${product.slug}`} className="text-link" style={{ color: "var(--flame)", marginTop: "0.7rem", display: "inline-flex" }}>
-                    View product <Icon name="arrow-right" size={15} />
+                  <Link href="/products" className="text-link" style={{ color: "var(--flame)", marginTop: "0.7rem", display: "inline-flex" }}>
+                    Meet {product.name} <Icon name="arrow-right" size={15} />
                   </Link>
                 </article>
               ))}
@@ -163,23 +163,6 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           </div>
         </section>
       )}
-
-      {/* 8 — Proof approach (no fabricated client claims) */}
-      <section className="section tight">
-        <div className="container">
-          <Reveal>
-            <div className="callout" style={{ borderLeftColor: "var(--navy)" }}>
-              <h3>Proof, promised properly</h3>
-              <p style={{ color: "var(--ink-soft)" }}>
-                We do not publish client names, logos or metrics without written approval and
-                verifiable evidence. As case studies clear that bar, they will appear in Resources —
-                with the problem, the constraints, what changed and what we learned. Until then, we
-                would rather show you our method than invent a highlight reel.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
       {/* 9 — FAQs */}
       <section className="section paper2 tight">

@@ -25,7 +25,7 @@ const BANNED_CLAIMS = [
 ];
 
 const STATIC_ROUTES = [
-  "/", "/products", "/services", "/flame-os", "/community", "/resources",
+  "/", "/products", "/services", "/resources",
   "/about", "/trust", "/contact", "/privacy",
 ];
 
@@ -85,7 +85,6 @@ function assertContent(): void {
   // Expected routes derived from content
   const derived = [
     ...STATIC_ROUTES,
-    ...PRODUCTS.map((p) => `/products/${p.slug}`),
     ...SERVICES.map((s) => `/services/${s.slug}`),
     ...ARTICLES.map((a) => `/resources/${a.slug}`),
   ];
@@ -106,7 +105,6 @@ export { PRODUCTS, SERVICES, ARTICLES, getProduct, getService, getArticle, sorte
 export const ALL_ROUTES: string[] = (() => {
   const routes = [
     ...STATIC_ROUTES,
-    ...PRODUCTS.map((p) => `/products/${p.slug}`),
     ...SERVICES.map((s) => `/services/${s.slug}`),
     ...ARTICLES.map((a) => `/resources/${a.slug}`),
   ];

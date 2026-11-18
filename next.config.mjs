@@ -19,7 +19,14 @@ const nextConfig = {
   // static-export mode, where /sign-in simply no longer exists).
   async redirects() {
     if (isExport) return [];
-    return [{ source: "/sign-in", destination: "/products", permanent: false }];
+    return [
+      { source: "/sign-in", destination: "/products", permanent: false },
+      // Launch line-up (Nov 2026): one flagship product. Retired product pages,
+      // the Flame OS platform page and the community page point somewhere useful.
+      { source: "/products/:slug", destination: "/products", permanent: false },
+      { source: "/flame-os", destination: "/products", permanent: false },
+      { source: "/community", destination: "/contact?intent=community", permanent: false },
+    ];
   },
   async headers() {
     if (isExport) return [];

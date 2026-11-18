@@ -73,7 +73,6 @@ export const ARTICLES: Article[] = [
       "These observations come from our own assessments and community sessions, not a continental survey.",
       "Readiness frameworks evolve; treat any score as a conversation starter, not a certification.",
     ],
-    relatedProductSlug: "flame-ready",
     relatedServiceSlug: "ai-in-business",
     seo: {
       title: "AI readiness is a people problem first — Flame Connect",
@@ -129,7 +128,7 @@ export const ARTICLES: Article[] = [
       "Workflows change after automation; plan to re-map after the first pilot, not before it.",
     ],
     relatedServiceSlug: "ai-in-business",
-    relatedProductSlug: "flame-forge",
+    relatedProductSlug: "flame-sales",
     seo: {
       title: "Map one workflow before you automate anything — Flame Connect",
       description:
@@ -252,7 +251,7 @@ export const ARTICLES: Article[] = [
       {
         heading: "Why we publish this",
         paragraphs: [
-          "We say community feedback shapes our tools, and that claim deserves receipts. These notes are qualitative — observations from early testing sessions and structured feedback from pilot teams — and they are published in that spirit: honest about what broke, specific about what changed.",
+          "We say community feedback shapes our tools, and that claim deserves receipts. These notes are qualitative — observations from early testing sessions and structured feedback from early testers — and they are published in that spirit: honest about what broke, specific about what changed.",
         ],
       },
       {
@@ -279,7 +278,7 @@ export const ARTICLES: Article[] = [
       "These are qualitative observations from a small early group, not survey statistics — we publish them as direction, not proof.",
       "What we observed in Kampala will not map perfectly onto every market; treat local testing as non-negotiable.",
     ],
-    relatedProductSlug: "flame-lens",
+    relatedProductSlug: "flame-sales",
     seo: {
       title: "Field notes: what early testers changed in our products — Flame Connect",
       description:

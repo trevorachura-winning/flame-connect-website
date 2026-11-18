@@ -39,12 +39,11 @@ const { SERVICES } = loadTs("content/services.ts");
 const { ARTICLES } = loadTs("content/articles.ts");
 
 const STATIC_ROUTES = new Set([
-  "/", "/products", "/services", "/flame-os", "/community", "/resources",
+  "/", "/products", "/services", "/resources",
   "/about", "/trust", "/contact", "/privacy",
 ]);
 const ROUTES = new Set([
   ...STATIC_ROUTES,
-  ...PRODUCTS.map((p) => `/products/${p.slug}`),
   ...SERVICES.map((s) => `/services/${s.slug}`),
   ...ARTICLES.map((a) => `/resources/${a.slug}`),
 ]);

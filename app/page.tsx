@@ -7,8 +7,7 @@ import { Icon } from "../components/Icons";
 import { Reveal } from "../components/Reveal";
 import { ChallengeList } from "../components/marketing/ChallengeList";
 import { ServiceOutcomeCards } from "../components/marketing/ServiceOutcomeCards";
-import { ProductGateway } from "../components/marketing/ProductGateway";
-import { ProofGrid } from "../components/marketing/ProofGrid";
+import { StatusBadge } from "../components/StatusBadge";
 import { InView } from "../components/marketing/motion/InView";
 import { SplitText } from "../components/marketing/motion/SplitText";
 import { HeroStage } from "../components/marketing/motion/HeroStage";
@@ -22,7 +21,6 @@ import {
   AFRICA_FIRST_POINTS,
   HOME_HERO,
   HOME_CHALLENGES,
-  HOME_PROOF_POINTS,
   HOME_PATHWAYS,
   METHOD_OUTPUTS,
 } from "../content/home";
@@ -48,10 +46,14 @@ const v = (vars: Record<string, string | number>) => vars as CSSProperties;
  */
 export default function HomePage() {
   const insights = sortedArticles().slice(0, 3);
+  const flagship = PRODUCTS[0];
   const marquee = [
     ...SERVICES.map((sv) => ({ text: sv.name, kind: "service" as const })),
     ...APPROACH_STAGES.map((st) => ({ text: st.key, kind: "method" as const })),
-    ...PRODUCTS.map((p) => ({ text: p.name, kind: "product" as const })),
+    ...PRODUCTS.flatMap((p) => [
+      { text: p.name, kind: "product" as const },
+      ...(p.features ?? []).map((f) => ({ text: f.name, kind: "product" as const })),
+    ]),
   ];
 
   return (
@@ -70,7 +72,7 @@ export default function HomePage() {
                 Book a discovery consultation <Icon name="arrow-right" size={18} />
               </Link>
               <Link href="/products" className={`btn btn-outline ${s.wrapBtn}`}>
-                Explore our products
+                Meet Flame Sales
               </Link>
             </div>
             <div className={`hero-points ${m.rise}`} style={v({ "--i": 6, "--d": "150ms" })}>
@@ -182,31 +184,38 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6 — Tools, honestly labelled */}
+      {/* 6 — Flagship product: Flame Sales (launching soon) */}
       <section className="section" aria-labelledby="tools-title">
         <div className={`container ${s.split} ${s.splitTop}`}>
           <InView>
-            <span className={`eyebrow ${m.rise}`}>Flame OS and the product family</span>
+            <div className={m.rise} style={{ display: "flex", flexWrap: "wrap", gap: "0.7rem", alignItems: "center" }}>
+              <span className="eyebrow">Introducing Flame Sales</span>
+              <StatusBadge status={flagship.status} />
+            </div>
             <h2 id="tools-title" className="display-2" style={{ margin: "0.85rem 0 1rem" }}>
-              <SplitText text="Tools built around real work — with their status in plain sight." accent="in plain sight." />
+              <SplitText text="CRM and marketing automation, built for African businesses." accent="built for African businesses." />
             </h2>
-            <p className={`lede ${m.rise}`} style={v({ "--i": 4 })}>
-              Flame OS is the shared platform layer behind a growing family of practical tools for
-              sales, insight, readiness, learning, automation, reach and impact. Most are still being
-              built; each one says so.
-            </p>
-            <div className={`${s.actions} ${m.rise}`} style={v({ "--i": 5 })}>
-              <Link href="/products" className={`btn btn-dark ${s.wrapBtn}`}>
-                Explore our products <Icon name="arrow-right" size={18} />
+            <p className={`lede ${m.rise}`} style={v({ "--i": 6 })}>{flagship.body}</p>
+            <div className={`${s.actions} ${m.rise}`} style={v({ "--i": 7 })}>
+              <Link href="/contact?intent=waitlist&product=flame-sales" className={`btn btn-primary ${s.wrapBtn}`}>
+                {flagship.cta.label} <Icon name="arrow-right" size={18} />
               </Link>
-              <Link href="/flame-os" className={`btn btn-outline ${s.wrapBtn}`}>
-                About Flame OS
+              <Link href="/products" className={`btn btn-outline ${s.wrapBtn}`}>
+                Meet Flame Sales
               </Link>
             </div>
           </InView>
-          <Reveal delay={0.1} variant="fade" blur={false}>
-            <ProductGateway products={PRODUCTS} />
-          </Reveal>
+          <SpotlightGroup className={s.cols2}>
+            {(flagship.features ?? []).map((f, i) => (
+              <InView key={f.name} className={m.rise} style={v({ "--i": i })}>
+                <article className={`card ${m.spot}`} data-spotlight="" style={{ height: "100%" }}>
+                  <span className="card-icon"><Icon name={f.icon} size={20} /></span>
+                  <h3 style={{ fontSize: "1.1rem" }}>{f.name}</h3>
+                  <p>{f.copy}</p>
+                </article>
+              </InView>
+            ))}
+          </SpotlightGroup>
         </div>
       </section>
 
@@ -267,28 +276,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8 — Evidence + latest thinking */}
-      <section className="section" aria-labelledby="evidence-title">
+      {/* 8 — Latest thinking */}
+      <section className="section" aria-labelledby="insights-title">
         <div className="container">
           <InView className="section-head">
-            <span className={`eyebrow ${m.rise}`}>Evidence before claims</span>
-            <h2 id="evidence-title" className="display-2">
-              <SplitText text="What you can check for yourself." accent="for yourself." />
+            <span className={`eyebrow ${m.rise}`}>Latest thinking</span>
+            <h2 id="insights-title" className="display-2">
+              <SplitText text="Ideas grounded in African practice." accent="African practice." />
             </h2>
             <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
-              We would rather show our method and our working notes than invent a highlight reel.
-              Here is what is public today.
+              Practical field notes, playbooks and perspectives on AI, digital communication and
+              business growth.
             </p>
-          </InView>
-          <SpotlightGroup>
-            <ProofGrid items={HOME_PROOF_POINTS} />
-          </SpotlightGroup>
-
-          <InView className="section-head" style={{ marginTop: "clamp(3.5rem, 7vw, 5.5rem)" }}>
-            <span className={`eyebrow ${m.rise}`}>Latest thinking</span>
-            <h2 className="display-3">
-              <SplitText text="Ideas grounded in African practice." />
-            </h2>
           </InView>
           <SpotlightGroup className={s.cols3}>
             {insights.map((article, i) => (
@@ -299,6 +298,11 @@ export default function HomePage() {
               </Reveal>
             ))}
           </SpotlightGroup>
+          <div className={s.center}>
+            <Link href="/resources" className={`btn btn-dark ${s.wrapBtn}`}>
+              Explore all resources <Icon name="arrow-right" size={18} />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -312,10 +316,6 @@ export default function HomePage() {
             </h2>
           </InView>
           <PathwayCards paths={HOME_PATHWAYS} />
-          <p className="small" style={{ marginTop: "1.4rem", color: "var(--ink-faint)" }}>
-            Want to test tools and shape what gets built next?{" "}
-            <Link href="/community#join" className="text-link">Join the Flame community</Link>
-          </p>
         </div>
       </section>
 

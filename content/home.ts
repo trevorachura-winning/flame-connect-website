@@ -28,40 +28,7 @@ export const AFRICA_FIRST_POINTS = [
   "Evidence before scale",
 ] as const;
 
-export const COMMUNITY_SURFACES = [
-  {
-    name: "Tools Lab",
-    purpose: "Try useful tools and give feedback while they improve.",
-    cta: "Explore the Tools Lab",
-    href: "/products",
-  },
-  {
-    name: "Playbooks",
-    purpose: "Practical guides for applying AI and digital methods to everyday work.",
-    cta: "Browse playbooks",
-    href: "/resources?category=Playbooks",
-  },
-  {
-    name: "Practice Lab",
-    purpose: "Hands-on sessions that turn ideas into repeatable capability.",
-    cta: "See practice formats",
-    href: "/community#practice",
-  },
-  {
-    name: "Flame Academy",
-    purpose: "Structured learning for professionals, teams and organizations.",
-    cta: "Explore Flame Academy",
-    href: "/products/flame-academy",
-  },
-] as const;
 
-export const COMMUNITY_PRINCIPLES = [
-  "Participation should create learning, not only audience growth.",
-  "Feedback from users should visibly influence tools and playbooks.",
-  "Use plain language and show prerequisites for learning activities.",
-  "Design community journeys to work on mobile and WhatsApp-friendly communication.",
-  "Do not claim a continent-wide community before participation data supports it.",
-] as const;
 
 export const OPERATING_PRINCIPLES = [
   {
@@ -140,10 +107,10 @@ export const HOME_PATHWAYS = [
     primary: true,
   },
   {
-    title: "See the Flame tools",
-    copy: "The product family, each with its real status. Ask about access, a demo or the waitlist.",
+    title: "Get early access to Flame Sales",
+    copy: "Our CRM and marketing-automation platform for African businesses is launching soon. Be among the first to use it.",
     href: "/products",
-    cta: "Explore our products",
+    cta: "Meet Flame Sales",
   },
   {
     title: "Read before you decide",
@@ -173,32 +140,8 @@ export const HOME_CHALLENGES = [
   },
 ] as const;
 
-/** Evidence we can show today — each item links to something that exists. */
-export const HOME_PROOF_POINTS = [
-  {
-    label: "Field notes",
-    title: "What early testers in Uganda changed",
-    copy: "Qualitative notes from testing sessions: what broke, what we changed and why — published in the open.",
-    href: "/resources/field-notes-what-early-testers-showed-us",
-    cta: "Read the field notes",
-  },
-  {
-    label: "Status board",
-    title: "Every product, honestly labelled",
-    copy: "Live, pilot or in development — one public board, one source of truth, no implied availability.",
-    href: "/trust",
-    cta: "See product status",
-  },
-  {
-    label: "Case studies",
-    title: "Published only with approval",
-    copy: "Client names, logos and metrics appear only with written approval and verifiable evidence. Not before.",
-    href: "/resources",
-    cta: "How we write evidence",
-  },
-] as const;
 
-/** About — the four-part model already described in the About story. */
+/** About — how the work fits together (launch line-up, Nov 2026). */
 export const ABOUT_MODEL = [
   {
     name: "Services",
@@ -207,20 +150,14 @@ export const ABOUT_MODEL = [
     cta: "Explore services",
   },
   {
-    name: "Practical tools",
-    copy: "The Flame product family, built on a shared platform layer — each tool shows its status openly.",
+    name: "Flame Sales",
+    copy: "Our CRM and marketing-automation platform for African businesses — launching soon.",
     href: "/products",
-    cta: "See the tools",
+    cta: "Meet Flame Sales",
   },
   {
-    name: "Community",
-    copy: "Practitioners, businesses and learners testing tools, sharing playbooks and building skills together.",
-    href: "/community",
-    cta: "Meet the community",
-  },
-  {
-    name: "Thought leadership",
-    copy: "Field notes, playbooks and research on AI and digital change in African contexts, with limits stated.",
+    name: "Insights",
+    copy: "Field notes, playbooks and perspectives on AI and digital change in African contexts.",
     href: "/resources",
     cta: "Read resources",
   },
