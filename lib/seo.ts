@@ -11,7 +11,11 @@ export function pageMetadata(input: {
   const url = `${SITE.siteUrl}${input.path}`;
   const image = input.image ?? "/opengraph-image.png";
   return {
-    title: input.title,
+    // The root title template already adds the brand to ordinary page titles.
+    // Avoid appending it twice to titles that explicitly contain Flame Connect.
+    title: input.title.startsWith(`${SITE.name} |`) || input.title.endsWith(`| ${SITE.name}`)
+      ? { absolute: input.title }
+      : input.title,
     description: input.description,
     alternates: { canonical: url },
     openGraph: {
