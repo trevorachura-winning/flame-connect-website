@@ -15,6 +15,8 @@ import { SpotlightGroup } from "../components/marketing/motion/SpotlightGroup";
 import { MethodRail } from "../components/marketing/motion/MethodRail";
 import { Marquee } from "../components/marketing/motion/Marquee";
 import { PathwayCards } from "../components/marketing/motion/PathwayCards";
+import { AmbientTechLines } from "../components/AmbientTechLines";
+import ambient from "../components/AmbientTechLines.module.css";
 import { PRODUCTS, SERVICES, sortedArticles } from "../lib/content";
 import {
   APPROACH_STAGES,
@@ -59,7 +61,8 @@ export default function HomePage() {
     <div className={m.scope}>
       {/* 1 — Hero */}
       <section className="hero hero-home motif" aria-labelledby="home-title">
-        <div className={`container ${s.split}`}>
+        <AmbientTechLines tone="light" />
+        <div className={`container ${s.split} ${ambient.foreground}`}>
           <div className={m.heroIntro}>
             <span className={`eyebrow ${m.rise}`} style={v({ "--i": 0 })}>{HOME_HERO.eyebrow}</span>
             <h1 id="home-title" className="display-1" style={{ marginTop: "1rem" }}>
@@ -165,7 +168,8 @@ export default function HomePage() {
 
       {/* 5 — Method: scroll-linked numbered rail */}
       <section className={`band motif section ${m.bandRise}`} aria-labelledby="method-title">
-        <div className="container">
+        <AmbientTechLines />
+        <div className={`container ${ambient.foreground}`}>
           <InView className="section-head center">
             <span className={`eyebrow light ${m.rise}`}>How we work</span>
             <h2 id="method-title" className="display-2">
