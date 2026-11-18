@@ -312,3 +312,19 @@ test("pre-launch gate: production hosts only, opens Fri 20 Nov 12:00 EAT, page a
     assert.ok(fs.existsSync(path.join(ROOT, "public", ref)), ref);
   }
 });
+
+test("site-wide tech lines: orange on light, white on dark, still art for reduced motion", () => {
+  const css = fs.readFileSync(path.join(ROOT, "styles/tech-lines.css"), "utf8");
+  const layout = fs.readFileSync(path.join(ROOT, "app/layout.tsx"), "utf8");
+  assert.ok(layout.includes('import "../styles/tech-lines.css"'), "loaded site-wide");
+  assert.ok(/--tl-light: url\("\/tech-lines\/orange\.svg"\)/.test(css));
+  assert.ok(/--tl-dark: url\("\/tech-lines\/white\.svg"\)/.test(css));
+  assert.ok(/prefers-reduced-motion: reduce[\s\S]*orange-static\.svg[\s\S]*white-static\.svg/.test(css));
+  for (const f of ["orange", "orange-static", "white", "white-static"]) {
+    const svg = fs.readFileSync(path.join(ROOT, `public/tech-lines/${f}.svg`), "utf8");
+    assert.ok(svg.startsWith("<svg"), f);
+    assert.equal(/@keyframes/.test(svg), !f.endsWith("static"), `${f} animation`);
+  }
+  const mw = fs.readFileSync(path.join(ROOT, "middleware.ts"), "utf8");
+  assert.ok(/tech-lines\//.test(mw), "coming-soon page can load the lines");
+});

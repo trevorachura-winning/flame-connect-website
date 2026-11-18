@@ -45,8 +45,9 @@
   /* Backdrop: ember film under a navy wash */
   .backdrop { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
   .backdrop video, .backdrop img { width: 100%; height: 100%; object-fit: cover; opacity: .42; }
+  .backdrop .lines img { position: absolute; inset: 0; z-index: 2; opacity: .9; }
   .backdrop::after {
-    content: ""; position: absolute; inset: 0;
+    content: ""; position: absolute; inset: 0; z-index: 1;
     background:
       radial-gradient(120% 80% at 50% 110%, rgba(244,81,30,.28) 0%, transparent 55%),
       linear-gradient(180deg, rgba(7,17,31,.78) 0%, rgba(7,17,31,.62) 45%, rgba(3,8,14,.94) 100%);
@@ -124,6 +125,10 @@
     <video id="ember" muted loop playsinline preload="none" poster="/videos/ember-poster.jpg">
       <source src="/videos/ember-loop.mp4" type="video/mp4">
     </video>
+    <picture class="lines">
+      <source srcset="/tech-lines/white-static.svg" media="(prefers-reduced-motion: reduce)">
+      <img src="/tech-lines/white.svg" alt="">
+    </picture>
   </div>
 
   <header>
