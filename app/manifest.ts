@@ -9,8 +9,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Flame Connect — Digitizing Africa.",
     start_url: "/",
     display: "browser",
-    background_color: "#FBF7F0",
-    theme_color: "#071B52",
+    background_color: "#07111F",
+    theme_color: "#07111F",
     icons: [{ src: "/icon.png", sizes: "512x512", type: "image/png" }],
   };
 }
