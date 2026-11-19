@@ -8,7 +8,8 @@
 
 .stage {
   position: relative;
-  height: clamp(26rem, 58vw, 40rem);
+  /* Room for the active photo (5:7), its lift and the plinth below it. */
+  height: calc(var(--slide-w) * 1.4 * 1.04 + 4.5rem);
   perspective: 1400px;
   perspective-origin: 50% 40%;
   transform-style: preserve-3d;
@@ -236,11 +237,14 @@
 
 @media (max-width: 40rem) {
   .root {
-    --step: 38vw;
-    --slide-w: 56vw;
+    --step: 30vw;
+    --slide-w: 50vw;
   }
   .slide:not([data-active]) .plinth {
     opacity: 0;
+  }
+  .stage {
+    border-radius: 1.25rem;
   }
 }
 
