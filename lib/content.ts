@@ -1,7 +1,7 @@
 import { PRODUCTS, getProduct } from "../content/products";
 import { SERVICES, getService } from "../content/services";
 import { ARTICLES, getArticle, sortedArticles, ARTICLE_CATEGORIES } from "../content/articles";
-import { TEAM } from "../content/team";
+import { TEAM, TEAM_IS_PREVIEW } from "../content/team";
 import path from "node:path";
 import fs from "node:fs";
 
@@ -84,13 +84,15 @@ function assertContent(): void {
     if (!person.name.trim() || !person.role.trim() || !person.bio.trim()) {
       problems.push(`Incomplete team profile: ${person.slug}`);
     }
-    if (!person.publicationApproved) {
+    // Draft team members are allowed only while the entire page remains noindex.
+    if (!person.publicationApproved && !TEAM_IS_PREVIEW) {
       problems.push(`Team publication approval missing: ${person.slug}`);
     }
     if (!new RegExp("^/team/[a-z0-9-]+[.]webp$").test(person.photo)) {
       problems.push(`Team photo must be a named WebP in public/team/: ${person.slug}`);
-    } else if (!fs.existsSync(path.join(process.cwd(), "public", person.photo.slice(1)))) {
-      problems.push(`Team photo missing: ${person.photo}`);
+    } else if (person.publicationApproved &&
+               !fs.existsSync(path.join(process.cwd(), "public", person.photo.slice(1)))) {
+      problems.push(`Approved team photo missing: ${person.photo}`);
     }
   }
 
