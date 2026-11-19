@@ -17,12 +17,21 @@ import { NextResponse, type NextRequest } from "next/server";
 export const LAUNCH_AT = Date.UTC(2026, 10, 20, 9, 0, 0); // Fri 20 Nov 2026, 12:00 EAT
 
 const GATED_HOSTS = new Set(["www.flameconnect.tech", "flameconnect.tech"]);
+const STAGING_HOSTS = new Set(["staging.flameconnect.tech"]);
 const COMING_SOON = "/coming-soon/index.html";
 
 export function middleware(request: NextRequest) {
-  if (Date.now() >= LAUNCH_AT) return NextResponse.next();
-
   const host = (request.headers.get("host") || "").toLowerCase().split(":")[0];
+
+  // staging.flameconnect.tech is the public review copy (git branch "staging").
+  // Keep it out of search results so it never competes with www.
+  if (STAGING_HOSTS.has(host)) {
+    const res = NextResponse.next();
+    res.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+    return res;
+  }
+
+  if (Date.now() >= LAUNCH_AT) return NextResponse.next();
   if (!GATED_HOSTS.has(host)) return NextResponse.next();
 
   const url = request.nextUrl.clone();
