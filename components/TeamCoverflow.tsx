@@ -254,7 +254,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
               <section className={styles.credentials} aria-label="Skills and certifications">
                 <h3 className={styles.sideHeading}>Skills &amp; certifications</h3>
                 <ul className={styles.credentialList}>
-                  {current.credentials.map((credential) => (
+                  {(current.credentials ?? []).map((credential) => (
                     <li className={styles.credentialItem} key={`${credential.name}-${credential.issuer}`}>
                       <span className={styles.credentialType}>{credential.category}</span>
                       <span className={styles.credentialName}>{credential.name}</span>

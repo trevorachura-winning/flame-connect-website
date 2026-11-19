@@ -162,7 +162,7 @@ test("Trevor Achura leads the team with an approved portrait and authentic AI CE
   assert.doesNotMatch(trevor.bio, /\blaw\b|LLB|Bachelor of Laws/i);
   const component = read("components/TeamCoverflow.tsx");
   assert.match(component, /Skills &amp; certifications/);
-  assert.match(component, /current\.credentials\.map/);
+  assert.match(component, /\(current\.credentials \?\? \[\]\)\.map/);
   assert.ok(existsSync("public/team/trevor-achura.webp"));
 });
 
