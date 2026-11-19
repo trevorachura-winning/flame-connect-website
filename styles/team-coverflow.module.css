@@ -230,6 +230,68 @@
   font-size: 1.02rem;
   line-height: 1.7;
 }
+/* A restrained, native disclosure keeps longer CV details outside the hero. */
+.more {
+  max-width: 37rem;
+  margin: 1.65rem auto 0;
+  border: 1px solid rgba(7, 17, 31, 0.1);
+  border-radius: 1.1rem;
+  background: #fff;
+  box-shadow: 0 18px 46px -32px rgba(7, 17, 31, 0.3);
+  text-align: left;
+  overflow: hidden;
+}
+
+.more summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  min-height: 52px;
+  padding: 1rem 1.3rem;
+  color: #07111f;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.more summary::-webkit-details-marker { display: none; }
+.more summary:focus-visible { outline: 3px solid #f4511e; outline-offset: -3px; }
+.more[open] summary { border-bottom: 1px solid rgba(7, 17, 31, 0.08); }
+.moreIndicator {
+  width: 11px;
+  height: 11px;
+  flex: 0 0 11px;
+  border-right: 2px solid #f4511e;
+  border-bottom: 2px solid #f4511e;
+  transform: rotate(45deg);
+  transition: transform 220ms ease;
+}
+.more[open] .moreIndicator { transform: rotate(225deg); }
+.focusList { margin: 0; padding: 0.35rem 1.3rem 0.4rem; }
+.focusItem {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.85rem 0;
+}
+.focusItem + .focusItem { border-top: 1px solid rgba(7,17,31,0.08); }
+.focusItem dt { color: #07111f; font-weight: 650; font-size: 0.9rem; }
+.focusItem dd { margin: 0; color: #4b5563; line-height: 1.55; font-size: 0.88rem; }
+.qualification {
+  margin: 0;
+  padding: 1rem 1.3rem 1.2rem;
+  border-top: 1px solid rgba(7,17,31,0.08);
+  color: #4b5563;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.qualification strong { color: #07111f; margin-right: 0.4rem; }
+@media (prefers-reduced-motion: reduce) {
+  .moreIndicator { transition: none; }
+}
+
 @keyframes bioIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: none; }
