@@ -4,16 +4,15 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties, type Keyb
 import type { TeamMember } from "../content/team";
 import { teamCoverflowOffset, teamAutoplayEnabled } from "../lib/team-coverflow";
 import { Icon } from "./Icons";
-import { mailtoHref } from "../lib/links";
 import styles from "../styles/team-coverflow.module.css";
 
-const AUTOPLAY_MS = 3000;
+const AUTOPLAY_MS = 5000;
 
 /**
  * 3D cover-flow of the team. The active person is brought forward in colour on
  * a lit plinth; neighbours fan out in perspective, in greyscale. Swipe, drag,
  * arrow keys, the dots or a click on a neighbour all move it. It advances
- * every 3 s and carries on after any interaction; off for reduced motion.
+ * every 5 s and carries on after any interaction; off for reduced motion.
  */
 export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   const n = team.length;
@@ -50,8 +49,8 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
     return () => mq.removeEventListener("change", set);
   }, []);
 
-  // Moves to the next person every 3 s, always. Any click, swipe or key
-  // press shows that person and restarts the 3 s count from there, so the
+  // Moves to the next person every 5 s, always. Any click, swipe or key
+  // press shows that person and restarts the 5 s count from there, so the
   // carousel keeps going after someone interacts. Off for reduced motion.
   useEffect(() => {
     if (!teamAutoplayEnabled(n, reduced)) return;
@@ -210,9 +209,6 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
         </ol>
       )}
 
-      {!current && n > 1 && (
-        <p className={styles.pickHint}>Tap a person to see their profile.</p>
-      )}
       {current && (
       <details className={styles.profileDrop} key={current.slug} ref={profileRef} open>
         <summary>
@@ -255,13 +251,6 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
             </nav>
           )}
           <p className={styles.bioText}>{current.bio}</p>
-          {mailtoHref(`CV request: ${current.name}`, `Hello Flame Connect,\n\nPlease could you share ${current.name}'s full CV?\n\nName:\nOrganisation:\nReason:\n`) && (
-            <p className={styles.cvRequest}>
-              <a href={mailtoHref(`CV request: ${current.name}`, `Hello Flame Connect,\n\nPlease could you share ${current.name}'s full CV?\n\nName:\nOrganisation:\nReason:\n`) ?? undefined} className="text-link">
-                Request full CV <Icon name="arrow-right" size={14} />
-              </a>
-            </p>
-          )}
         </div>
 
         {((current.focusAreas?.length ?? 0) > 0 || (current.credentials?.length ?? 0) > 0 || (current.skills?.length ?? 0) > 0 || !!current.qualification) && (

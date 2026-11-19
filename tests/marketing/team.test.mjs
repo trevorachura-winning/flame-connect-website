@@ -88,7 +88,7 @@ test("two-person geometry never duplicates cards and keeps the neighbour on one 
   const component = read("components/TeamCoverflow.tsx");
   // Product Owner (19 Nov 2026): no arrow or Play buttons. It moves on its own
   // every 3 s until someone interacts; dots stay for direct choice.
-  assert.match(component, /AUTOPLAY_MS = 3000/);
+  assert.match(component, /AUTOPLAY_MS = 5000/);
   assert.doesNotMatch(component, /Previous person|Next person|aria-pressed/);
   assert.match(component, /aria-label="Team members"/);
 });
@@ -209,11 +209,11 @@ test("profile card stays hidden until someone picks a person; photos keep moving
   const component = read("components/TeamCoverflow.tsx");
   assert.match(component, /useState<number \| null>\(null\)/, "no person selected on load");
   assert.match(component, /\{current && \(/, "profile only renders after a pick");
-  assert.match(component, /Tap a person to see their profile\./);
-  assert.match(component, /AUTOPLAY_MS = 3000/);
+  assert.doesNotMatch(component, /Tap a person/);
+  assert.match(component, /AUTOPLAY_MS = 5000/);
 });
 
-test("no team member publishes education; CVs are offered on request", () => {
+test("no team member publishes education or a CV request link", () => {
   for (const person of TEAM) assert.equal(person.qualification, undefined, person.name);
-  assert.match(read("components/TeamCoverflow.tsx"), /Request full CV/);
+  assert.doesNotMatch(read("components/TeamCoverflow.tsx"), /Request full CV/);
 });
