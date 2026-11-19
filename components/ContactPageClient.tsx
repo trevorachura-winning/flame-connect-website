@@ -62,6 +62,14 @@ export function ContactPageClient() {
                   "Our public email and WhatsApp line are being finalised and will be published here before launch."
                 )}
               </p>
+              {(SITE.social.instagram || SITE.social.linkedin) && (
+                <p style={{ marginTop: "0.6rem" }}>
+                  Follow us on{" "}
+                  {SITE.social.instagram && <a href={SITE.social.instagram} target="_blank" rel="noopener">Instagram</a>}
+                  {SITE.social.instagram && SITE.social.linkedin && " and "}
+                  {SITE.social.linkedin && <a href={SITE.social.linkedin} target="_blank" rel="noopener">LinkedIn</a>}.
+                </p>
+              )}
               <p style={{ marginTop: "0.6rem", display: "flex", gap: "0.5rem", alignItems: "center" }}>
                 <Icon name="map-pin" size={16} /> {SITE.officeLocation}
               </p>

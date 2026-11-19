@@ -43,9 +43,11 @@ export const SITE = {
   contactPhone: null as string | null,
   contactWhatsApp: "256764018701" as string | null,
   officeLocation: "Kampala, Uganda", // publicly stated headquarters language
-  // Approved accounts only. Empty until marketing confirms handles (Appendix C).
+  // Approved accounts only. Instagram and LinkedIn confirmed by the Product
+  // Owner (19 Nov 2026).
   social: {
-    linkedin: null as string | null,
+    instagram: "https://www.instagram.com/flame__connect/" as string | null,
+    linkedin: "https://www.linkedin.com/company/flameconnect-africa/" as string | null,
     x: null as string | null,
     youtube: null as string | null,
     // Product Owner (18 Nov 2026): no GitHub link on the public website.
