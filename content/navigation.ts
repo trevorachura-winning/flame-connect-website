@@ -37,6 +37,7 @@ export const FOOTER_NAV: { heading: string; items: NavItem[] }[] = [
     heading: "Company",
     items: [
       { label: "About", href: "/about" },
+      ...(!TEAM_IS_PREVIEW ? [{ label: "Team", href: "/team" }] : []),
       { label: "Insights", href: "/insights" },
       { label: "Responsible AI", href: "/trust" },
       { label: "Privacy notice", href: "/privacy" },
