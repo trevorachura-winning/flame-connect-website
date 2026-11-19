@@ -24,22 +24,23 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   const suppressClick = useRef(false);
   const [dragX, setDragX] = useState(0);
 
-  // The photos move on their own; the profile only follows a person someone
-  // actually chose (click, tap, swipe or key), so it never changes mid-read.
-  // No profile shows until someone picks a person; then theirs opens.
-  const [selected, setSelected] = useState<number | null>(null);
-  const profileRef = useRef<HTMLDetailsElement>(null);
+  // Clicking a person rotates them to the centre. Their profile opens only
+  // from the arrow on the centre name bar, dropping down below the ring, and
+  // follows whoever is in the centre. The slideshow pauses while it is open.
+  const [open, setOpen] = useState(false);
+  const panelRef = useRef<HTMLElement>(null);
+  const wrap = useCallback((i: number) => ((i % n) + n) % n, [n]);
   const go = useCallback((i: number) => {
     if (n < 2) return;
-    const idx = ((i % n) + n) % n;
-    setActive(idx);
-    setSelected(idx);
-  }, [n]);
+    setActive(wrap(i));
+  }, [n, wrap]);
+  const toggleProfile = useCallback(() => setOpen((o) => !o), []);
 
   useEffect(() => {
-    if (selected === null) return;
-    profileRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }, [selected]);
+    if (!open) return;
+    const t = window.setTimeout(() => panelRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }), 120);
+    return () => window.clearTimeout(t);
+  }, [open]);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -53,7 +54,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   // press shows that person and restarts the 5 s count from there, so the
   // carousel keeps going after someone interacts. Off for reduced motion.
   useEffect(() => {
-    if (!teamAutoplayEnabled(n, reduced)) return;
+    if (!teamAutoplayEnabled(n, reduced) || open) return;
     const t = window.setTimeout(function next() {
       // Wait while a finger or mouse is mid-drag, or the tab is hidden.
       if (drag.current || document.visibilityState !== "visible") {
@@ -64,11 +65,12 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
     }, AUTOPLAY_MS);
     tick.current = t;
     return () => window.clearTimeout(tick.current);
-  }, [active, reduced, n]);
+  }, [active, reduced, n, open]);
 
   const onKey = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "ArrowRight") { e.preventDefault(); go(active + 1); }
     if (e.key === "ArrowLeft") { e.preventDefault(); go(active - 1); }
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleProfile(); }
   };
 
   /** Active portrait leans towards a mouse pointer, with a light sheen across it. */
@@ -122,7 +124,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   };
 
   if (n === 0) return null;
-  const current = selected === null ? null : team[selected];
+  const current = open ? team[active] : null;
 
   return (
     <div
@@ -141,7 +143,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
         onPointerUp={onUp}
         onPointerCancel={onUp}
         onPointerLeave={() => { onUp(); untilt(); }}
-        aria-label={n > 1 ? "Use the left and right arrow keys to move between people" : `${team[0].name}, ${team[0].role}`}
+        aria-label={n > 1 ? "Team photos. Left and right arrow keys move between people; Enter opens the profile of the person in the centre." : `${team[0].name}, ${team[0].role}. Press Enter to open the profile.`}
         style={{ "--drag": `${dragX}px` } as CSSProperties}
         data-dragging={dragX !== 0 || undefined}
         data-two-person={n === 2 || undefined}
@@ -175,7 +177,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
               aria-hidden={d !== 0}
               style={{ "--d": d, "--ad": ad, zIndex: 20 - ad, visibility: visible ? "visible" : "hidden" } as CSSProperties}
               onClick={() => {
-                if (d !== 0 && !suppressClick.current) { go(i); }
+                if (d !== 0 && !suppressClick.current) go(i);
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -186,6 +188,19 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
               <div className={styles.plinth}>
                 <strong>{m.name}</strong>
                 <span className={styles.plinthRole}>{m.role}</span>
+                {d === 0 && (
+                  <button
+                    type="button"
+                    className={styles.plinthToggle}
+                    aria-expanded={open}
+                    aria-controls="team-profile"
+                    aria-label={open ? `Hide ${m.name}'s profile` : `Show ${m.name}'s profile`}
+                    onClick={(e) => { e.stopPropagation(); toggleProfile(); }}
+                    onPointerDown={(e) => e.stopPropagation()}
+                  >
+                    <span className={styles.plinthChevron} aria-hidden="true" />
+                  </button>
+                )}
               </div>
             </div>
           );
@@ -210,16 +225,17 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
       )}
 
       {current && (
-      <details className={styles.profileDrop} key={current.slug} ref={profileRef} open>
-        <summary>
+      <section id="team-profile" ref={panelRef} className={styles.panel} key={current.slug} aria-labelledby="team-profile-name">
+        <header className={styles.sheetHead}>
+          <span className={styles.grabber} aria-hidden="true" />
           <span className={styles.dropName}>
-            <strong>{current.name}</strong>
+            <strong id="team-profile-name">{current.name}</strong>
             <span>{current.role}</span>
           </span>
-          <span className={styles.dropCue}>
-            View profile <span className={styles.dropChevron} aria-hidden="true" />
-          </span>
-        </summary>
+          <button type="button" className={styles.closeBtn} onClick={() => setOpen(false)} aria-label="Close profile">
+            <span className={styles.plinthChevron} data-up="" aria-hidden="true" />
+          </button>
+        </header>
       <article className={styles.profile}>
         <div className={styles.profileMain}>
           <p className={styles.role}>{current.role}</p>
@@ -307,7 +323,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
           </div>
         )}
       </article>
-      </details>
+      </section>
       )}
     </div>
   );
