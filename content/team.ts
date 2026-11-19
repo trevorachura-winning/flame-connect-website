@@ -43,6 +43,22 @@ export const TEAM: TeamMember[] = [
     qualification: "Bachelor of Performing Arts in Drama and Film, Makerere University",
     publicationApproved: false,
   },
+  {
+    slug: "aaron-mwesigwa-mwebaze",
+    name: "Aaron Mwesigwa Mwebaze",
+    role: "Managing Partner & Chief Marketing Officer",
+    bio: "Aaron leads marketing, communications and strategic research at Flame Connect. His background in international relations and development policy, including experience in Uganda’s foreign service, informs his approach to partnerships and how organisations communicate change. He is pursuing a master’s degree in International Development as a TICA scholar.",
+    photo: "/team/aaron-mwesigwa.webp",
+    linkedin: "https://www.linkedin.com/in/mwebaze-aaron-6089a1224",
+    focusAreas: [
+      { title: "Marketing and communications", description: "Brand positioning, strategic communication and marketing direction for Flame Connect." },
+      { title: "Development policy and research", description: "Research and policy analysis informing projects and ideas on African development." },
+      { title: "Strategic partnerships", description: "Identifying and shaping relationships across organisations, institutions and development partners." },
+      { title: "Stakeholder engagement", description: "Bringing diplomatic communication, consultation and coordination into cross-sector work." },
+    ],
+    qualification: "Degree in Governance and International Relations, Uganda Christian University. Currently pursuing an MA in International Development at Mae Fah Luang University as a TICA scholar.",
+    publicationApproved: false,
+  },
 ];
 
 export const TEAM_IS_PREVIEW =
