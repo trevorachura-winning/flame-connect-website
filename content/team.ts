@@ -2,7 +2,7 @@
  * Approved Flame Connect team profiles for /team.
  *
  * Education is not published (Product Owner, 19 Nov 2026): show skills and
- * competences from each person's CV; full CVs are shared on request.
+ * competences from each person's CV; full CVs are shared privately on request.
  *
  * Every published person requires:
  *  - a verified name, role and two or three specific sentences from the person;
