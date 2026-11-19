@@ -397,3 +397,10 @@ test("AI readiness assessment: 12 questions across 6 areas, scoring and levels",
   const privacy = fs.readFileSync(path.join(ROOT, "app/privacy/page.tsx"), "utf8");
   assert.ok(privacy.includes("FormSubmit"), "privacy notice names the form processor");
 });
+
+test("staging host is kept out of search results", () => {
+  const mw = fs.readFileSync(path.join(ROOT, "middleware.ts"), "utf8");
+  assert.ok(mw.includes('"staging.flameconnect.tech"'), "staging host listed");
+  assert.ok(mw.indexOf("STAGING_HOSTS.has(host)") < mw.indexOf("Date.now() >= LAUNCH_AT) return"), "noindex applies after launch too");
+  assert.match(mw, /X-Robots-Tag", "noindex, nofollow, noarchive"/);
+});
