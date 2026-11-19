@@ -1,6 +1,9 @@
 /**
  * Approved Flame Connect team profiles for /team.
  *
+ * Education is not published (Product Owner, 19 Nov 2026): show skills and
+ * competences from each person's CV; full CVs are shared on request.
+ *
  * Every published person requires:
  *  - a verified name, role and two or three specific sentences from the person;
  *  - a real transparent portrait (WebP, roughly 900 x 1260 px) in public/team/;
@@ -74,14 +77,20 @@ export const TEAM: TeamMember[] = [
       { title: "Digital content", description: "Short form campaigns, reels and podcast production." },
       { title: "Post production", description: "Editing, colour grading and sound finishing." },
     ],
-    qualification: "Bachelor of Performing Arts in Drama and Film, Makerere University",
+    // Skills and competences from Moses's CV. Education kept private by request.
+    skills: [
+      { group: "Creative direction", items: ["Art direction", "Visual concept development", "Brand and campaign creative"] },
+      { group: "Film and production", items: ["Film direction", "Cinematography", "Lighting", "Multi-camera production"] },
+      { group: "Digital content", items: ["Short-form campaigns", "Reels", "Podcast production"] },
+      { group: "Post-production", items: ["Video editing", "Colour grading", "Sound finishing"] },
+    ],
     publicationApproved: true,
   },
   {
     slug: "aaron-mwesigwa-mwebaze",
     name: "Aaron Mwesigwa Mwebaze",
     role: "Managing Partner & Chief Marketing Officer",
-    bio: "Aaron leads marketing, communications and strategic research at Flame Connect. His background in international relations and development policy, including experience in Uganda’s foreign service, informs his approach to partnerships and how organisations communicate change. He is pursuing a master’s degree in International Development as a TICA scholar.",
+    bio: "Aaron leads marketing, communications and strategic research at Flame Connect. His background in international relations and development policy, including experience in Uganda’s foreign service, informs his approach to partnerships and how organisations communicate change.",
     photo: "/team/aaron-mwesigwa.webp",
     linkedin: "https://www.linkedin.com/in/mwebaze-aaron-6089a1224",
     focusAreas: [
@@ -90,7 +99,13 @@ export const TEAM: TeamMember[] = [
       { title: "Strategic partnerships", description: "Identifying and shaping relationships across organisations, institutions and development partners." },
       { title: "Stakeholder engagement", description: "Bringing diplomatic communication, consultation and coordination into cross-sector work." },
     ],
-    qualification: "Degree in Governance and International Relations, Uganda Christian University. Currently pursuing an MA in International Development at Mae Fah Luang University as a TICA scholar.",
+    // Skills and competences from Aaron's CV. Education kept private by request.
+    skills: [
+      { group: "Marketing and communications", items: ["Brand positioning", "Strategic communication", "Marketing direction"] },
+      { group: "Research and policy", items: ["Development policy analysis", "Strategic research", "African development"] },
+      { group: "Partnerships", items: ["Partnership development", "Institutional relations", "Development partner engagement"] },
+      { group: "Stakeholder engagement", items: ["Diplomatic communication", "Consultation", "Cross-sector coordination"] },
+    ],
     publicationApproved: true,
   },
 ];

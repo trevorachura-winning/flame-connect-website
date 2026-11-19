@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties, type Keyb
 import type { TeamMember } from "../content/team";
 import { teamCoverflowOffset, teamAutoplayEnabled } from "../lib/team-coverflow";
 import { Icon } from "./Icons";
+import { mailtoHref } from "../lib/links";
 import styles from "../styles/team-coverflow.module.css";
 
 const AUTOPLAY_MS = 3000;
@@ -26,13 +27,20 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
 
   // The photos move on their own; the profile only follows a person someone
   // actually chose (click, tap, swipe or key), so it never changes mid-read.
-  const [selected, setSelected] = useState(0);
+  // No profile shows until someone picks a person; then theirs opens.
+  const [selected, setSelected] = useState<number | null>(null);
+  const profileRef = useRef<HTMLDetailsElement>(null);
   const go = useCallback((i: number) => {
     if (n < 2) return;
     const idx = ((i % n) + n) % n;
     setActive(idx);
     setSelected(idx);
   }, [n]);
+
+  useEffect(() => {
+    if (selected === null) return;
+    profileRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [selected]);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -115,7 +123,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   };
 
   if (n === 0) return null;
-  const current = team[selected];
+  const current = selected === null ? null : team[selected];
 
   return (
     <div
@@ -134,7 +142,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
         onPointerUp={onUp}
         onPointerCancel={onUp}
         onPointerLeave={() => { onUp(); untilt(); }}
-        aria-label={n > 1 ? "Use the left and right arrow keys to move between people" : `${current.name}, ${current.role}`}
+        aria-label={n > 1 ? "Use the left and right arrow keys to move between people" : `${team[0].name}, ${team[0].role}`}
         style={{ "--drag": `${dragX}px` } as CSSProperties}
         data-dragging={dragX !== 0 || undefined}
         data-two-person={n === 2 || undefined}
@@ -202,7 +210,11 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
         </ol>
       )}
 
-      <details className={styles.profileDrop} key={current.slug}>
+      {!current && n > 1 && (
+        <p className={styles.pickHint}>Tap a person to see their profile.</p>
+      )}
+      {current && (
+      <details className={styles.profileDrop} key={current.slug} ref={profileRef} open>
         <summary>
           <span className={styles.dropName}>
             <strong>{current.name}</strong>
@@ -243,6 +255,13 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
             </nav>
           )}
           <p className={styles.bioText}>{current.bio}</p>
+          {mailtoHref(`CV request: ${current.name}`, `Hello Flame Connect,\n\nPlease could you share ${current.name}'s full CV?\n\nName:\nOrganisation:\nReason:\n`) && (
+            <p className={styles.cvRequest}>
+              <a href={mailtoHref(`CV request: ${current.name}`, `Hello Flame Connect,\n\nPlease could you share ${current.name}'s full CV?\n\nName:\nOrganisation:\nReason:\n`) ?? undefined} className="text-link">
+                Request full CV <Icon name="arrow-right" size={14} />
+              </a>
+            </p>
+          )}
         </div>
 
         {((current.focusAreas?.length ?? 0) > 0 || (current.credentials?.length ?? 0) > 0 || (current.skills?.length ?? 0) > 0 || !!current.qualification) && (
@@ -300,6 +319,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
         )}
       </article>
       </details>
+      )}
     </div>
   );
 }

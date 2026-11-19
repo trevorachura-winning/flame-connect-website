@@ -729,3 +729,20 @@
 .profileDrop .profileMain > nav {
   margin-top: 0;
 }
+
+.pickHint {
+  margin: 1.4rem auto 0;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--ink-soft, #4b5563);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .profileDrop {
+    animation: bioIn 600ms var(--ease-out) both;
+  }
+}
+
+.cvRequest {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
