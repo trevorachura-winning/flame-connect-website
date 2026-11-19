@@ -22,7 +22,7 @@ function entries(group: Group): MegaNavLink[] {
   if (group === "About") {
     return [
       { label: "About Flame Connect", href: "/about", description: "An AI Centre of Change, built in Uganda for the way Africa works." },
-      { label: "Our story", href: "/our-story", description: "From a graphics desk in 2019 to a technology company." },
+      { label: "Our story", href: "/our-story", description: "From a design desk in 2019 to a technology company." },
       { label: "Our team", href: "/team", description: "The people behind the change." },
     ];
   }
