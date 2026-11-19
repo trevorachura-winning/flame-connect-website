@@ -22,6 +22,8 @@ export interface TeamMember {
   /** Specific responsibilities shown in the optional detail drawer. */
   focusAreas?: { title: string; description: string }[];
   qualification?: string;
+  /** Skill sets grouped by discipline, from the person's own résumé. */
+  skills?: { group: string; items: string[] }[];
   /** Named credentials shown in the bio disclosure, with issuer and completion year. */
   credentials?: { name: string; issuer: string; year: string; category: "Certification" | "Training" | "Course" }[];
   /** Set true only after the person approves publication of their profile. */
@@ -46,8 +48,15 @@ export const TEAM: TeamMember[] = [
     ],
     credentials: [
       { name: "AI+ Sales", issuer: "AI CERTS", year: "2026", category: "Certification" },
-      { name: "Graphics & Web Design training certificate", issuer: "Crayon Concepts", year: "2021–2022", category: "Training" },
-      { name: "Google Digital Marketing Course", issuer: "Google", year: "2020", category: "Course" },
+      { name: "Graphics & Web Design", issuer: "Crayon Concepts", year: "2021–2022", category: "Certification" },
+      { name: "Google Digital Marketing", issuer: "Google", year: "2020", category: "Certification" },
+    ],
+    // From Trevor's résumé (portfolio content, Nov 2026).
+    skills: [
+      { group: "AI and automation", items: ["AI in business", "Business process automation", "Intelligent workflows", "Process mapping", "AppSheet low-code"] },
+      { group: "Software and platforms", items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Vercel", "WordPress", "API integrations"] },
+      { group: "Design and media", items: ["Adobe Creative Suite", "Graphic design", "Multimedia content", "Canva", "CapCut"] },
+      { group: "Marketing and growth", items: ["SEO and SEM", "Google Analytics", "Google Ads", "Meta Business Suite", "Content strategy", "Email marketing", "CRM"] },
     ],
     publicationApproved: true,
   },

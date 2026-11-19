@@ -541,3 +541,35 @@
     transform: translateY(-0.6rem) scale(1.1);
   }
 }
+
+/* Skill sets: grouped chips under the certifications. */
+.skills {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+.skillGroup {
+  margin: 0 0 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #536174;
+}
+.skillChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.skillChips li {
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: #f6f8fc;
+  border: 1px solid rgba(7, 17, 31, 0.07);
+  color: #07111f;
+  font-size: 0.8rem;
+  font-weight: 500;
+}

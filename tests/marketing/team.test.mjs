@@ -156,12 +156,12 @@ test("Trevor Achura leads the team with an approved portrait and authentic AI CE
     ["AI+ Sales", "AI CERTS", "2026"]
   );
   assert.equal(trevor.credentials[0].category, "Certification");
-  assert.ok(trevor.credentials.some((credential) => credential.category === "Training"));
+  assert.ok(trevor.credentials.every((credential) => credential.category === "Certification"), "Owner: all three are certifications");
+  assert.ok(trevor.skills?.length >= 3, "Skill sets from the résumé are shown");
   assert.doesNotMatch(JSON.stringify(trevor.credentials), /Diploma/i, "Owner: describe it as a training certificate, not a diploma");
-  assert.ok(trevor.credentials.some((credential) => credential.category === "Course"));
   assert.doesNotMatch(trevor.bio, /\blaw\b|LLB|Bachelor of Laws/i);
   const component = read("components/TeamCoverflow.tsx");
-  assert.match(component, /Certifications &amp; training/);
+  assert.match(component, /Skills &amp; certifications/);
   assert.match(component, /current\.credentials\.map/);
   assert.ok(existsSync("public/team/trevor-achura.webp"));
 });
