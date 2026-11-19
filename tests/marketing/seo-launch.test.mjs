@@ -62,8 +62,8 @@ test("article OG includes its actual publication date and not invented modified 
   });
   assert.equal(result.openGraph.type, "article");
   assert.equal(result.openGraph.publishedTime, "2026-09-01");
-  assert.doesNotMatch(read("app/sitemap.ts"), /lastModified:\\s*(now|new Date\\()/);
-  assert.match(read("app/resources/[slug]/page.tsx"), /publishedTime:\\s*article\\.date/);
+  assert.doesNotMatch(read("app/sitemap.ts"), /lastModified:\s*(now|new Date\()/);
+  assert.match(read("app/resources/[slug]/page.tsx"), /publishedTime:\s*article\.date/);
 });
 
 test("organization and website graph reuse official logo and same organization ID", () => {
@@ -82,19 +82,19 @@ test("coming soon alone is temporarily noindex and launch gate remains unchanged
   const gate = read("middleware.ts");
   const announcement = read("public/coming-soon/index.html");
   const root = read("app/layout.tsx");
-  assert.match(gate, /Date\\.UTC\\(2026, 10, 20, 9, 0, 0\\)/);
-  assert.match(announcement, /Date\\.UTC\\(2026, 10, 20, 9, 0, 0\\)/);
+  assert.match(gate, /Date\.UTC\(2026, 10, 20, 9, 0, 0\)/);
+  assert.match(announcement, /Date\.UTC\(2026, 10, 20, 9, 0, 0\)/);
   assert.match(gate, /X-Robots-Tag", "noindex, noarchive"/);
-  assert.match(gate, /if \\(Date\\.now\\(\\) >= LAUNCH_AT\\) return NextResponse\\.next\\(\\)/);
+  assert.match(gate, /if \(Date\.now\(\) >= LAUNCH_AT\) return NextResponse\.next\(\)/);
   assert.match(announcement, /name="robots" content="noindex,follow"/);
-  assert.match(root, /robots: \\{ index: true, follow: true \\}/);
+  assert.match(root, /robots: \{ index: true, follow: true \}/);
 });
 
 test("sitemap lists canonical content URLs without fictitious build-time dates", () => {
   const sitemap = read("app/sitemap.ts");
-  assert.match(sitemap, /ALL_ROUTES\\.map/);
-  assert.match(sitemap, /SITE\\.siteUrl/);
-  assert.doesNotMatch(sitemap, /new Date\\(\\)/);
-  assert.doesNotMatch(sitemap, /lastModified:\\s*now/);
-  assert.match(read("app/robots.ts"), /SITE\\.siteUrl.*sitemap\\.xml/);
+  assert.match(sitemap, /ALL_ROUTES\.map/);
+  assert.match(sitemap, /SITE\.siteUrl/);
+  assert.doesNotMatch(sitemap, /new Date\(\)/);
+  assert.doesNotMatch(sitemap, /lastModified:\s*now/);
+  assert.match(read("app/robots.ts"), /SITE\.siteUrl.*sitemap\.xml/);
 });
