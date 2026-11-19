@@ -2,9 +2,9 @@ import { AssessmentClient } from "../../components/AssessmentClient";
 import { pageMetadata } from "../../lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Free AI readiness assessment",
+  title: "Free AI readiness assessment for African businesses",
   description:
-    "Twelve quick questions across strategy, data, technology, people, processes and governance. Get your AI readiness score and three practical next steps in about five minutes.",
+    "Twelve questions on strategy, data, technology, people, process and governance. Get your AI readiness score and three practical next steps in about five minutes.",
   path: "/assessment",
 });
 

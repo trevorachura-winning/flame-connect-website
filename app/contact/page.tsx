@@ -3,9 +3,9 @@ import { ContactPageClient } from "../../components/ContactPageClient";
 import { pageMetadata } from "../../lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Contact us: tell us what you are trying to improve",
+  title: "Contact Flame Connect in Kampala, Uganda",
   description:
-    "Tell us the problem you want to solve. It might be a clearer online presence, an AI adoption plan, a practical automation, a custom tool, a learning programme or a research partner.",
+    "Book a consultation or tell us the problem you want to solve: an AI adoption plan, a practical automation, a stronger online presence or a learning programme.",
   path: "/contact",
 });
 

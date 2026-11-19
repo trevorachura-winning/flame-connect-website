@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { TOP_NAV, FOOTER_NAV, type NavItem } from "../content/navigation";
+import { TOP_NAV, type NavItem } from "../content/navigation";
 import { PRODUCTS, STATUS_LABEL } from "../content/products";
+import { SERVICES } from "../content/services";
 import styles from "./MegaNavigation.module.css";
 
 type Group = "Products" | "Services";
@@ -14,29 +15,42 @@ function isGroup(label: string): label is Group {
   return label === "Products" || label === "Services";
 }
 
-type MegaNavLink = NavItem & { status?: string };
+type MegaNavLink = NavItem & { status?: string; description?: string };
 
+/** Dropdown entries come from the content registries, so copy never drifts. */
 function entries(group: Group): MegaNavLink[] {
   if (group === "Products") {
     return PRODUCTS.map((product) => ({
       label: product.name,
       href: `/products/${product.slug}`,
       status: STATUS_LABEL[product.status],
+      description: product.tagline,
     }));
   }
-  return FOOTER_NAV.find((section) => section.heading === group)?.items ?? [];
+  return SERVICES.map((service) => ({
+    label: service.name,
+    href: `/services/${service.slug}`,
+    description: service.proposition,
+  }));
 }
 
-const GROUP_INFO: Record<Group, { heading: string; introduction: string; allHref: string }> = {
+const GROUP_INFO: Record<
+  Group,
+  { heading: string; introduction: string; allHref: string; allLabel: string; foot: { text: string; label: string; href: string } }
+> = {
   Products: {
-    heading: "Explore our products",
+    heading: "Our platforms",
     introduction: "Flame OS for business growth and Flame Academy for digital skills. Both are launching soon.",
     allHref: "/products",
+    allLabel: "All products",
+    foot: { text: "Be first to try them.", label: "Join early access", href: "/contact?intent=waitlist&product=flame-os" },
   },
   Services: {
-    heading: "How we can help",
+    heading: "Three service lines",
     introduction: "Practical support for digital communications, business AI and leadership.",
     allHref: "/services",
+    allLabel: "All services",
+    foot: { text: "Not sure where to start?", label: "Take the free AI readiness assessment", href: "/assessment" },
   },
 };
 
@@ -110,7 +124,6 @@ export function DesktopMegaNavigation() {
         const visible = open === group;
         const menuId = `flame-nav-${group.toLowerCase()}`;
         const links = entries(group);
-        const split = Math.ceil(links.length / 2);
         const info = GROUP_INFO[group];
 
         return (
@@ -144,37 +157,46 @@ export function DesktopMegaNavigation() {
               <div id={menuId} className={styles.megaPanel}>
                 <div className={styles.panelHeader}>
                   <div>
-                    <span className={styles.eyebrow}>Flame Connect</span>
                     <strong>{info.heading}</strong>
                     <p>{info.introduction}</p>
                   </div>
                   <Link href={info.allHref} className={styles.panelAll} onClick={() => setOpen(null)}>
-                    View all {group.toLowerCase()} <span aria-hidden="true">↗</span>
+                    {info.allLabel} <span aria-hidden="true">→</span>
                   </Link>
                 </div>
-                <div className={styles.panelColumns}>
-                  {[links.slice(0, split), links.slice(split)].map((column, i) => (
-                    <div className={styles.panelColumn} key={i}>
-                      {column.map((link) => (
-                        <Link
-                          className={styles.panelLink}
-                          href={link.href}
-                          key={link.href}
-                          onClick={() => setOpen(null)}
-                          aria-current={active(link.href) ? "page" : undefined}
-                        >
-                          <span className={styles.linkLabel}>{link.label}{link.status && <small className={styles.productStatus}>{link.status}</small>}</span>
-                          <span aria-hidden="true">↗</span>
-                        </Link>
-                      ))}
-                    </div>
+                <ul className={styles.panelList} role="list">
+                  {links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        className={styles.panelLink}
+                        href={link.href}
+                        onClick={() => setOpen(null)}
+                        aria-current={active(link.href) ? "page" : undefined}
+                      >
+                        <span className={styles.linkLabel}>
+                          <span className={styles.linkTitle}>
+                            {link.label}
+                            {link.status && <small className={styles.productStatus}>{link.status}</small>}
+                          </span>
+                          {link.description && <span className={styles.linkDesc}>{link.description}</span>}
+                        </span>
+                        <span className={styles.linkArrow} aria-hidden="true">→</span>
+                      </Link>
+                    </li>
                   ))}
-                </div>
+                </ul>
                 <div className={styles.panelFoot}>
-                  <span>Practical AI for African progress.</span>
-                  <Link href="/contact?intent=consultation" onClick={() => setOpen(null)}>
-                    Discuss your challenge <span aria-hidden="true">↗</span>
-                  </Link>
+                  <span>{info.foot.text}</span>
+                  <span className={styles.footLinks}>
+                    <Link href={info.foot.href} onClick={() => setOpen(null)}>
+                      {info.foot.label} <span aria-hidden="true">→</span>
+                    </Link>
+                    {group === "Services" && (
+                      <Link href="/contact?intent=consultation" onClick={() => setOpen(null)}>
+                        Book a consultation <span aria-hidden="true">→</span>
+                      </Link>
+                    )}
+                  </span>
                 </div>
               </div>
             )}
@@ -241,13 +263,10 @@ export function MobileMegaNavigation({ onNavigate }: { onNavigate: () => void })
             onClick={onNavigate}
             aria-current={active(item.href) ? "page" : undefined}
           >
-            {item.label} <span aria-hidden="true">↗</span>
+            {item.label}
           </Link>
         )
       )}
-      <Link href="/contact" onClick={onNavigate}>
-        Contact <span aria-hidden="true">↗</span>
-      </Link>
     </nav>
   );
 }

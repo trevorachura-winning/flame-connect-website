@@ -118,6 +118,9 @@ export function Header({
           <DesktopMegaNavigation />
 
           <div className="header-actions">
+            <Link href="/assessment" className="btn btn-outline btn-sm header-assess">
+              Free AI assessment
+            </Link>
             <Link href={ctaHref} className="btn btn-primary btn-sm">
               <span className="header-cta-text">Book a consultation</span>
               <span aria-hidden="true" className="only-compact">Talk to us</span>
@@ -167,6 +170,9 @@ export function Header({
         <div className="drawer-cta">
           <Link href={ctaHref} className="btn btn-primary">
             Book a consultation
+          </Link>
+          <Link href="/assessment" className="btn btn-outline">
+            Take the free AI assessment
           </Link>
           <Link className="drawer-signin" href="/products">
             Explore our products

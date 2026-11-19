@@ -10,6 +10,7 @@ export const TOP_NAV: NavItem[] = [
   { label: "Insights", href: "/insights" },
   { label: "About", href: "/about" },
   { label: "Responsible AI", href: "/trust" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const FOOTER_NAV: { heading: string; items: NavItem[] }[] = [

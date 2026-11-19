@@ -448,67 +448,6 @@ export const ARTICLES: Article[] = [
         "African-language AI from teams like Sunbird AI and Lelapa AI is becoming usable. Here is where it can help customer service first, and how to test it safely.",
     },
   },
-  {
-    slug: "questions-before-you-buy-an-ai-tool",
-    title: "Ten questions to ask before you buy an AI tool",
-    summary:
-      "A short checklist for leaders weighing an AI product, so the decision rests on your work, your data and your risks, not the demo.",
-    category: "Playbooks",
-    date: "2026-11-05",
-    readingTime: "5 min read",
-    author: EDITORIAL,
-    sections: [
-      {
-        heading: "Why a checklist helps",
-        paragraphs: [
-          "AI demos are designed to impress. They use clean data, simple questions and a presenter who knows exactly what to type. Your reality will be messier. A few direct questions, asked before you sign, protect your budget and your customers.",
-        ],
-      },
-      {
-        heading: "Questions about the work",
-        paragraphs: ["Start with the problem, not the product."],
-        list: [
-          "Which specific workflow will this change, and who owns it?",
-          "How will we measure whether it helped, and what is our baseline today?",
-          "What happens when the tool is wrong, and who catches it?",
-        ],
-      },
-      {
-        heading: "Questions about data and risk",
-        paragraphs: ["Then ask what the tool needs from you, and what it does with it."],
-        list: [
-          "What data does it need, and where is that data stored and processed?",
-          "Is our data used to train the vendor's models, and can we opt out?",
-          "How does it fit our obligations under the data protection laws that apply to us?",
-          "Can we export our data and leave if it does not work out?",
-        ],
-      },
-      {
-        heading: "Questions about cost and support",
-        paragraphs: ["Finally, check what it really costs to run."],
-        list: [
-          "What is the full cost at our expected volume, including usage-based charges?",
-          "Does it work reliably on the connectivity and devices our team actually has?",
-          "Who supports us locally, and in which time zone?",
-        ],
-      },
-    ],
-    actions: [
-      "Send these questions to the vendor in writing before the next demo.",
-      "Ask for a trial on your own data, not the vendor's sample data.",
-      "Involve the person who will use the tool every day in the decision.",
-    ],
-    limits: [
-      "This checklist is a starting point. Large or regulated purchases also need legal, security and procurement review.",
-      "Data protection obligations differ by country and sector. Take local legal advice where it matters.",
-    ],
-    relatedServiceSlug: "consulting-thought-leadership",
-    seo: {
-      title: "Ten questions to ask before you buy an AI tool",
-      description:
-        "A practical checklist for African business leaders choosing an AI product: workflow fit, data protection, real costs, connectivity and local support.",
-    },
-  },
 ];
 
 export const ARTICLE_CATEGORIES: ArticleCategory[] = [

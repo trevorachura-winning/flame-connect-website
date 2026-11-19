@@ -17,9 +17,9 @@ import { SpotlightGroup } from "../../components/marketing/motion/SpotlightGroup
 const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 
 export const metadata = pageMetadata({
-  title: "AI, Digital & Transformation Services",
+  title: "AI Consulting, Digital & Transformation Services in Uganda",
   description:
-    "Digital & Communications, AI in Business and Consulting & Thought Leadership. Each one starts from a real business challenge and works towards a realistic, measurable result.",
+    "Three service lines for African organisations: Digital & Communications, AI in Business, and Consulting & Thought Leadership. Each starts from a real business challenge.",
   path: "/services",
 });
 

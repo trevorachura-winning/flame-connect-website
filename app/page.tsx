@@ -34,7 +34,7 @@ import m from "../styles/marketing/motion.module.css";
 export const metadata = pageMetadata({
   title: "Flame Connect | Practical AI for African progress",
   description:
-    "Flame Connect is an AI Centre of Change in Kampala, Uganda. We offer practical AI, digital communications and transformation support for African organisations. Digitizing Africa.",
+    "AI Centre of Change in Kampala, Uganda. Practical AI consulting, automation and digital communications for African organisations. Digitizing Africa.",
   path: "/",
 });
 
@@ -75,6 +75,11 @@ export default function HomePage() {
                 Explore our products
               </Link>
             </div>
+            <p className={`hero-assess ${m.rise}`} style={v({ "--i": 5, "--d": "150ms" })}>
+              <Link href="/assessment" className="text-link">
+                Or take the free AI readiness assessment <Icon name="arrow-right" size={16} />
+              </Link>
+            </p>
             <div className={`hero-points ${m.rise}`} style={v({ "--i": 6, "--d": "150ms" })}>
               {HOME_HERO.points.map((point) => (
                 <span key={point}>

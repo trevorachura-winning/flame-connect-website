@@ -50,9 +50,9 @@ const RIBBON =
   process.env.NEXT_PUBLIC_RIBBON_DISABLED === "1"
     ? null
     : {
-        text: "Flame OS and Flame Academy are launching soon.",
-        href: "/products",
-        linkText: "Get early access",
+        text: "New: a free AI readiness assessment. Your score and three next steps in about five minutes.",
+        href: "/assessment",
+        linkText: "Take the assessment",
       };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

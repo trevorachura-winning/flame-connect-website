@@ -2292,7 +2292,7 @@ a.chip-link.on {
 }
 
 /* ---------- Responsive ---------- */
-@media (min-width: 62rem) {
+@media (min-width: 64rem) {
   .main-nav {
     display: flex;
   }
@@ -2432,4 +2432,19 @@ a.chip-link.on {
   .hero-home::before {
     animation: none;
   }
+}
+
+/* Free AI assessment: secondary header action on wide screens only, plus a
+   quiet text link under the home hero buttons. */
+.header-assess {
+  display: none;
+}
+@media (min-width: 80rem) {
+  .header-assess {
+    display: inline-flex;
+  }
+}
+.hero-assess {
+  margin-top: 0.9rem;
+  font-size: 0.95rem;
 }

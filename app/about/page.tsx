@@ -16,7 +16,7 @@ import { SpotlightGroup } from "../../components/marketing/motion/SpotlightGroup
 const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 
 export const metadata = pageMetadata({
-  title: "About Flame Connect",
+  title: "About Flame Connect, an AI Centre of Change in Kampala",
   description:
     "Flame Connect is an AI Centre of Change built in Uganda for the way Africa works. We bring expert services, our own platforms and practical insight together in one model.",
   path: "/about",
