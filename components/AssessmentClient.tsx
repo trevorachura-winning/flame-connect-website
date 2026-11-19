@@ -79,7 +79,12 @@ function useCountUp(target: number | null) {
       if (t < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    // Background tabs pause animation frames: make sure the real score lands.
+    const done = window.setTimeout(() => setValue(target), dur + 150);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(done);
+    };
   }, [target]);
   return value;
 }
