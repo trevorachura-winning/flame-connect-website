@@ -332,6 +332,44 @@
   font-size: 0.8rem;
   line-height: 1.45;
 }
+
+/* Restrained brand-aligned social icons. Both links have >=44px targets. */
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 1.35rem auto 0;
+}
+.socialLinks a {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(7, 17, 31, 0.14);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #07111f;
+  background: #fff;
+  box-shadow: 0 8px 28px -22px rgba(7, 17, 31, 0.5);
+  transition: transform 180ms ease, border-color 180ms ease,
+    color 180ms ease, background-color 180ms ease;
+}
+.socialLinks a:hover {
+  transform: translateY(-2px);
+  border-color: #f4511e;
+  color: #fff;
+  background: #07111f;
+}
+.socialLinks a:focus-visible {
+  outline: 3px solid #f4511e;
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .socialLinks a { transition: none; }
+  .socialLinks a:hover { transform: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .moreIndicator { transition: none; }
 }
