@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "../lib/site";
 import { ALL_ROUTES } from "../lib/content";
+import { TEAM_IS_PREVIEW } from "../content/team";
 
 export const dynamic = "force-static";
 
