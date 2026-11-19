@@ -8,17 +8,24 @@ import { PRODUCTS, STATUS_LABEL } from "../content/products";
 import { SERVICES } from "../content/services";
 import styles from "./MegaNavigation.module.css";
 
-type Group = "Products" | "Services";
+type Group = "Products" | "Services" | "About";
 type OpenGroup = Group | null;
 
 function isGroup(label: string): label is Group {
-  return label === "Products" || label === "Services";
+  return label === "Products" || label === "Services" || label === "About";
 }
 
 type MegaNavLink = NavItem & { status?: string; description?: string };
 
 /** Dropdown entries come from the content registries, so copy never drifts. */
 function entries(group: Group): MegaNavLink[] {
+  if (group === "About") {
+    return [
+      { label: "About Flame Connect", href: "/about", description: "An AI Centre of Change, built in Uganda for the way Africa works." },
+      { label: "Our story", href: "/our-story", description: "From a graphics desk in 2019 to a technology company." },
+      { label: "Our team", href: "/team", description: "The people behind the change." },
+    ];
+  }
   if (group === "Products") {
     return PRODUCTS.map((product) => ({
       label: product.name,
@@ -45,6 +52,13 @@ const GROUP_INFO: Record<
     allLabel: "All products",
     foot: { text: "Be first to try them.", label: "Join early access", href: "/contact?intent=waitlist&product=flame-os" },
   },
+  About: {
+    heading: "Who we are",
+    introduction: "Curious people, learning out loud, building technology for Uganda and then Africa.",
+    allHref: "/about",
+    allLabel: "About us",
+    foot: { text: "Want to build with us?", label: "Talk to us", href: "/contact" },
+  },
   Services: {
     heading: "Three service lines",
     introduction: "Practical support for digital communications, business AI and leadership.",
@@ -65,6 +79,7 @@ export function DesktopMegaNavigation() {
   const triggers = useRef<Record<Group, HTMLButtonElement | null>>({
     Products: null,
     Services: null,
+    About: null,
   });
 
   useEffect(() => setOpen(null), [pathname]);

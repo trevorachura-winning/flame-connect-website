@@ -87,13 +87,16 @@ export default function AboutPage() {
                 Organisations need clarity, people need skills and solutions need to fit the
                 environment in which they will be used.
               </p>
-              {!TEAM_IS_PREVIEW && (
-                <p style={{ marginTop: "1.2rem" }}>
+              <p style={{ marginTop: "1.2rem", display: "flex", gap: "1.2rem", flexWrap: "wrap" }}>
+                <Link href="/our-story" className="text-link">
+                  Read our story <Icon name="arrow-right" size={16} />
+                </Link>
+                {!TEAM_IS_PREVIEW && (
                   <Link href="/team" className="text-link">
                     Meet the team <Icon name="arrow-right" size={16} />
                   </Link>
-                </p>
-              )}
+                )}
+              </p>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
