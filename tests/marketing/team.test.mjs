@@ -134,3 +134,28 @@ test("both supplied cut-outs are committed, real WebP images", () => {
     assert.equal(header.toString("ascii", 8, 12), "WEBP", member.name);
   }
 });
+
+
+test("Trevor Achura leads the team with an approved portrait and authentic AI CERTS credential", () => {
+  const trevor = TEAM.find((member) => member.slug === "trevor-achura");
+  assert.ok(trevor, "Founder profile must be present");
+  assert.equal(TEAM[0].slug, "trevor-achura", "Founder's portrait should be the first coverflow slide");
+  assert.equal(trevor.name, "Trevor Achura");
+  assert.equal(trevor.role, "Founder & Managing Director");
+  assert.equal(trevor.photo, "/team/trevor-achura.webp");
+  assert.equal(trevor.publicationApproved, true, "The owner approved his portrait and revised copy");
+  assert.equal(trevor.focusAreas.length, 4);
+  assert.ok(trevor.credentials?.length >= 1);
+  assert.deepEqual(
+    Array.from(trevor.credentials[0] && [trevor.credentials[0].name, trevor.credentials[0].issuer, trevor.credentials[0].year]),
+    ["AI+ Sales", "AI CERTS", "2026"]
+  );
+  assert.equal(trevor.credentials[0].category, "Certification");
+  assert.ok(trevor.credentials.some((credential) => credential.category === "Diploma"));
+  assert.ok(trevor.credentials.some((credential) => credential.category === "Course"));
+  assert.doesNotMatch(trevor.bio, /\\blaw\\b|LLB|Bachelor of Laws/i);
+  const component = read("components/TeamCoverflow.tsx");
+  assert.match(component, /Certifications &amp; training/);
+  assert.match(component, /current\\.credentials\\.map/);
+  assert.ok(existsSync("public/team/trevor-achura.webp"));
+});
