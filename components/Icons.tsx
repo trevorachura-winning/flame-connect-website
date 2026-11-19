@@ -4,7 +4,7 @@ export type IconName =
   | "arrow-right" | "arrow-up-right" | "check" | "plus" | "menu" | "x"
   | "external" | "shield" | "spark" | "gauge" | "workflow" | "megaphone"
   | "compass" | "users" | "book" | "chart" | "flask" | "lock" | "eye"
-  | "globe" | "linkedin" | "github" | "xsocial" | "mail" | "map-pin"
+  | "globe" | "linkedin" | "instagram" | "github" | "xsocial" | "mail" | "map-pin"
   | "handshake" | "graduation" | "target" | "layers";
 
 const PATHS: Record<IconName, ReactElement> = {
@@ -29,6 +29,7 @@ const PATHS: Record<IconName, ReactElement> = {
   eye: <><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" /><circle cx="12" cy="12" r="2.6" /></>,
   globe: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3c2.8 2.6 4 5.7 4 9s-1.2 6.4-4 9c-2.8-2.6-4-5.7-4-9s1.2-6.4 4-9Z" /></>,
   linkedin: <><rect x="3.5" y="9" width="3.6" height="11" rx="0.6" /><circle cx="5.3" cy="5.4" r="2" /><path d="M10.5 9h3.4v1.8c.6-1.1 1.9-2 3.7-2 2.7 0 3.9 1.7 3.9 4.8V20h-3.6v-5.7c0-1.6-.6-2.6-1.9-2.6-1.4 0-2 1-2 2.6V20h-3.5V9Z" /></>,
+  instagram: <><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.3" cy="6.7" r="0.9" fill="currentColor" stroke="none" /></>,
   github: <path d="M12 3a9 9 0 0 0-2.85 17.55c.45.08.62-.2.62-.44v-1.7c-2.5.55-3-1.07-3-1.07-.41-1.04-1-1.32-1-1.32-.82-.55.06-.54.06-.54.9.06 1.38.93 1.38.93.8 1.38 2.11.98 2.62.75.08-.58.31-.98.57-1.2-2-.23-4.1-1-4.1-4.45 0-.98.35-1.79.93-2.42-.1-.23-.4-1.15.08-2.4 0 0 .76-.24 2.48.92a8.6 8.6 0 0 1 4.52 0c1.72-1.16 2.48-.92 2.48-.92.48 1.25.18 2.17.09 2.4.58.63.92 1.44.92 2.42 0 3.46-2.1 4.22-4.11 4.44.32.28.6.83.6 1.68v2.49c0 .24.17.53.63.44A9 9 0 0 0 12 3Z" />,
   xsocial: <path d="M4 4l7.2 9.3L4.5 20h2.3l5.5-5.5L16.6 20H20l-7.4-9.6L18.9 4h-2.3l-4.8 5L7.4 4H4Z" />,
   mail: <><rect x="3" y="5.5" width="18" height="13" rx="1.8" /><path d="m4 7 8 6 8-6" /></>,

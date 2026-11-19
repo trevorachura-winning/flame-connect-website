@@ -194,6 +194,10 @@
   .wa-close { position: absolute; top: .7rem; right: .7rem; width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent; color: rgba(255,255,255,.7); font-size: 1.4rem; cursor: pointer; }
   .wa-close:hover { background: rgba(255,255,255,.08); color: #fff; }
   @media (prefers-reduced-motion: reduce) { .wa-dialog::backdrop { backdrop-filter: none; } }
+  .cs-social { display: flex; justify-content: center; gap: .6rem; margin-top: .9rem; }
+  .cs-social a { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.85); transition: background-color .2s ease, border-color .2s ease, color .2s ease; }
+  .cs-social a:hover { background: #f4511e; border-color: #f4511e; color: #07111f; }
+  .cs-social a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
   .contact-context { margin: 1.1rem auto 0; color: var(--muted); font-size: .78rem; }
   @media (max-width: 420px) {
     .prelaunch-actions { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 320px; }
@@ -326,6 +330,10 @@
         <a href="mailto:flameconnect1@gmail.com?subject=Flame%20Connect%20pre-launch%20enquiry">Email us</a>
       </nav>
       <p class="contact-context rise d4">We are here if you would like to talk before launch.</p>
+      <nav class="cs-social rise d4" aria-label="Follow Flame Connect">
+        <a href="https://www.instagram.com/flame__connect/" target="_blank" rel="noopener" aria-label="Flame Connect on Instagram (opens in a new tab)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.9" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://www.linkedin.com/company/flameconnect-africa/" target="_blank" rel="noopener" aria-label="Flame Connect on LinkedIn (opens in a new tab)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="9" width="3.6" height="11" rx="0.6"/><circle cx="5.3" cy="5.4" r="2"/><path d="M10.5 9h3.4v1.8c.6-1.1 1.9-2 3.7-2 2.7 0 3.9 1.7 3.9 4.8V20h-3.6v-5.7c0-1.6-.6-2.6-1.9-2.6-1.4 0-2 1-2 2.6V20h-3.5V9Z"/></svg></a>
+      </nav>
       <p class="live" role="status">We are live. Opening the site…</p>
     </div>
   </main>

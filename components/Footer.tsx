@@ -28,8 +28,11 @@ export function Footer() {
                 <Icon name="map-pin" size={16} /> {SITE.officeLocation} · {SITE.homeLocationLine}
               </span>
               <div className="footer-social" style={{ marginTop: "0.4rem" }}>
+                {SITE.social.instagram && (
+                  <a href={SITE.social.instagram} target="_blank" rel="noopener" aria-label="Flame Connect on Instagram (opens in a new tab)"><Icon name="instagram" size={18} /></a>
+                )}
                 {SITE.social.linkedin && (
-                  <a href={SITE.social.linkedin} aria-label="LinkedIn"><Icon name="linkedin" size={18} /></a>
+                  <a href={SITE.social.linkedin} target="_blank" rel="noopener" aria-label="Flame Connect on LinkedIn (opens in a new tab)"><Icon name="linkedin" size={18} /></a>
                 )}
                 {SITE.social.x && (
                   <a href={SITE.social.x} aria-label="X (Twitter)"><Icon name="xsocial" size={18} /></a>
