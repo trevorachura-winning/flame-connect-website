@@ -64,8 +64,11 @@ test("page remains noindex and unlinked until two approved profiles exist", () =
   assert.match(sitemap, /route !== "\/team" \|\| !TEAM_IS_PREVIEW/);
   assert.match(navigation, /!\s*TEAM_IS_PREVIEW[\s\S]*?label: "Team"/);
   assert.match(about, /!TEAM_IS_PREVIEW &&/);
-  if (TEAM.length < 2) assert.equal(TEAM_IS_PREVIEW, true);
-  else assert.equal(TEAM_IS_PREVIEW, false);
+  if (TEAM.length < 2 || TEAM.some((person) => !person.publicationApproved)) {
+    assert.equal(TEAM_IS_PREVIEW, true, "Unapproved team profiles must remain noindex");
+  } else {
+    assert.equal(TEAM_IS_PREVIEW, false, "Approved team may be indexed");
+  }
 });
 
 test("team is a recognised route in content, link and marketing registries", () => {
@@ -107,4 +110,27 @@ test("Moses Owena is staged as Art Director with verified responsibilities", () 
   const component = read("components/TeamCoverflow.tsx");
   assert.match(component, /<details className=\{styles.more\}>/);
   assert.match(component, /<summary>/);
+});
+
+
+test("Aaron Mwesigwa Mwebaze has his user-assigned marketing leadership and verified policy background", () => {
+  const aaron = TEAM.find((person) => person.slug === "aaron-mwesigwa-mwebaze");
+  assert.ok(aaron, "Aaron must be present in the two-person preview");
+  assert.equal(aaron.role, "Managing Partner & Chief Marketing Officer");
+  assert.equal(aaron.publicationApproved, false);
+  assert.equal(aaron.photo, "/team/aaron-mwesigwa.webp");
+  assert.match(aaron.bio, /Uganda’s foreign service/);
+  assert.match(aaron.qualification, /Mae Fah Luang University/);
+  assert.equal(aaron.focusAreas.length, 4);
+  assert.match(aaron.linkedin, /^https:\/\/www\.linkedin\.com\/in\//);
+});
+
+test("both supplied cut-outs are committed, real WebP images", () => {
+  for (const member of TEAM) {
+    const file = "public" + member.photo;
+    assert.ok(existsSync(file), "Portrait missing: " + file);
+    const header = readFileSync(file).subarray(0, 12);
+    assert.equal(header.toString("ascii", 0, 4), "RIFF", member.name);
+    assert.equal(header.toString("ascii", 8, 12), "WEBP", member.name);
+  }
 });
