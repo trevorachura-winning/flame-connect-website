@@ -92,17 +92,18 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
     >
       <div
         className={styles.stage}
-        tabIndex={0}
+        tabIndex={n > 1 ? 0 : -1}
         onKeyDown={onKey}
         onPointerDown={onDown}
         onPointerMove={onMove}
         onPointerUp={onUp}
         onPointerCancel={onUp}
         onPointerLeave={onUp}
-        aria-label="Use the left and right arrow keys to move between people"
+        aria-label={n > 1 ? "Use the left and right arrow keys to move between people" : `${current.name}, ${current.role}`}
         style={{ "--drag": `${dragX}px` } as CSSProperties}
         data-dragging={dragX !== 0 || undefined}
         data-two-person={n === 2 || undefined}
+        data-single={n === 1 || undefined}
       >
         <div className={styles.glow} aria-hidden="true" />
         {team.map((m, i) => {
@@ -131,7 +132,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
         })}
       </div>
 
-      <div className={styles.controls}>
+      {n > 1 && <div className={styles.controls}>
         <button type="button" className={styles.arrow} onClick={() => { setPlaying(false); go(active - 1); }} aria-label="Previous person">
           <Icon name="arrow-right" size={18} style={{ transform: "scaleX(-1)" }} />
         </button>
@@ -157,12 +158,33 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
             {playing ? "Pause" : "Play"}
           </button>
         )}
-      </div>
+      </div>}
 
       <div className={styles.bio} aria-live="polite" key={current.slug}>
         <h2>{current.name}</h2>
         <p className={styles.role}>{current.role}</p>
         <p className={styles.bioText}>{current.bio}</p>
+        {current.focusAreas && current.focusAreas.length > 0 && (
+          <details className={styles.more}>
+            <summary>
+              <span>What {current.name.split(" ")[0]} leads</span>
+              <span className={styles.moreIndicator} aria-hidden="true" />
+            </summary>
+            <dl className={styles.focusList}>
+              {current.focusAreas.map((focus) => (
+                <div className={styles.focusItem} key={focus.title}>
+                  <dt>{focus.title}</dt>
+                  <dd>{focus.description}</dd>
+                </div>
+              ))}
+            </dl>
+            {current.qualification && (
+              <p className={styles.qualification}>
+                <strong>Education</strong> {current.qualification}
+              </p>
+            )}
+          </details>
+        )}
         {current.linkedin && (
           <a href={current.linkedin} target="_blank" rel="noopener" className="text-link">
             {current.name} on LinkedIn <span aria-hidden="true">↗</span>
