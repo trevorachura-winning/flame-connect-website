@@ -46,16 +46,15 @@ export const TEAM: TeamMember[] = [
       { title: "Software and product development", description: "Digital platforms, enterprise applications and business systems." },
       { title: "Digital transformation", description: "Helping organisations adopt useful technology that strengthens operations." },
     ],
-    qualification: "Software Engineering, Victoria University",
     credentials: [
       { name: "AI+ Sales", issuer: "AI CERTS", year: "2026", category: "Certification" },
-      { name: "Graphics & Web Design", issuer: "Crayon Concepts", year: "2021–2022", category: "Certification" },
+      { name: "Graphics, Video & Web Design", issuer: "Crayon Concepts", year: "2021–2022", category: "Certification" },
       { name: "Google Digital Marketing", issuer: "Google", year: "2020", category: "Certification" },
     ],
     // From Trevor's résumé (portfolio content, Nov 2026).
     skills: [
-      { group: "AI and automation", items: ["AI in business", "Machine learning", "Business process automation", "Intelligent workflows", "Process mapping", "AppSheet low-code"] },
-      { group: "Software and platforms", items: ["Python", "Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Vercel", "WordPress", "API integrations"] },
+      { group: "AI and automation", items: ["AI in business", "Machine learning", "Python", "Business process automation", "Intelligent workflows", "Process mapping", "AppSheet low-code"] },
+      { group: "Software and product", items: ["Front-end development", "Back-end development", "Dashboard ideation", "API integrations"] },
       { group: "Design and media", items: ["Adobe Creative Suite", "Graphic design", "Multimedia content", "Canva", "CapCut"] },
       { group: "Marketing and growth", items: ["SEO and SEM", "Google Analytics", "Google Ads", "Meta Business Suite", "Content strategy", "Email marketing", "CRM"] },
     ],
