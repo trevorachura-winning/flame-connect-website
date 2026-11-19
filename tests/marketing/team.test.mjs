@@ -209,6 +209,9 @@ test("profile card stays hidden until someone picks a person; photos keep moving
   const component = read("components/TeamCoverflow.tsx");
   assert.match(component, /useState<number \| null>\(null\)/, "no person selected on load");
   assert.match(component, /\{current && \(/, "profile only renders after a pick");
+  assert.match(component, /<dialog/, "profile opens as a pop-up card");
+  assert.match(component, /aria-label="Close profile"/);
+  assert.match(component, /selected !== null\) return;/, "slideshow pauses while a profile is open");
   assert.doesNotMatch(component, /Tap a person/);
   assert.match(component, /AUTOPLAY_MS = 5000/);
 });
