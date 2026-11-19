@@ -72,7 +72,7 @@
   .brand-lockup .brand-mark { height: clamp(36px, 5vw, 44px); }
   .brand-lockup .brand-wordmark { height: clamp(27px, 3.7vw, 33px); }
 
-  main { flex: 1; display: grid; place-items: center; padding: 2rem 0 3rem; text-align: center; overflow: clip; }
+  main { flex: 1; display: grid; place-items: center; padding: 2rem 0 3rem; text-align: center; overflow: clip; min-height: calc(100svh - 104px); }
 
   .kicker {
     display: inline-flex; align-items: center; gap: .6rem;
@@ -196,6 +196,67 @@
   body.is-live .countdown, body.is-live .when, body.is-live .prelaunch-actions, body.is-live .contact-context { display: none; }
   body.is-live .live { display: block; }
 
+
+  /* ---- Showcase: services and upcoming products (auto slideshow) ---- */
+  .showcase { position: relative; z-index: 1; padding: clamp(3rem, 8vw, 6rem) 0 clamp(3.5rem, 8vw, 6rem); }
+  .show-head { text-align: center; margin-bottom: clamp(1.8rem, 4vw, 2.8rem); }
+  .show-head h2 { font-family: "Montserrat", system-ui, sans-serif; font-weight: 700; font-size: clamp(1.8rem, 4.4vw, 2.8rem); line-height: 1.1; letter-spacing: -.02em; margin: .9rem 0 .6rem; }
+  .kicker-pill { display:inline-flex; font-size:.75rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--flame-soft); padding:.5rem .95rem; border:1px solid rgba(244,81,30,.35); border-radius:999px; background:rgba(244,81,30,.08); }
+  .show-head p { color: var(--muted); margin: 0 auto; max-width: 36rem; }
+  .stage { position: relative; display: grid; border: 1px solid var(--line); border-radius: clamp(18px, 3vw, 28px); overflow: hidden;
+    background: linear-gradient(180deg, rgba(13,27,48,.92), rgba(7,17,31,.92)); box-shadow: 0 40px 80px -40px rgba(0,0,0,.8); }
+  .slide { grid-area: 1 / 1; display: grid; grid-template-columns: 1.05fr 1fr; min-height: clamp(420px, 46vw, 520px);
+    opacity: 0; visibility: hidden; transition: opacity .9s ease, visibility 0s linear .9s; }
+  .slide.is-active { opacity: 1; visibility: visible; transition: opacity .9s ease, visibility 0s; }
+  .slide-media { position: relative; overflow: hidden; background: #0d1b30; }
+  .slide-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.02); }
+  .slide-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7,17,31,0) 55%, rgba(7,17,31,.85) 100%); }
+  .slide-body { padding: clamp(1.6rem, 4vw, 3.2rem); display: flex; flex-direction: column; justify-content: center; gap: 1rem; text-align: left; }
+  .tag { align-self: flex-start; font-size: .72rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; padding: .4rem .8rem; border-radius: 999px; }
+  .tag.service { color: var(--flame-soft); border: 1px solid rgba(244,81,30,.4); background: rgba(244,81,30,.08); }
+  .tag.soon { color: #07111f; background: var(--flame-soft); }
+  .slide-body h3 { font-family: "Montserrat", system-ui, sans-serif; font-weight: 700; font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.12; letter-spacing: -.02em; margin: 0; }
+  .slide-body .lead-line { font-family: "Montserrat", system-ui, sans-serif; font-weight: 700; color: var(--flame-soft); margin: 0; }
+  .slide-body p { margin: 0; color: var(--muted); line-height: 1.6; }
+  .points { list-style: none; margin: .2rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .points li { font-size: .85rem; color: var(--text); border: 1px solid var(--line); background: rgba(255,255,255,.04); border-radius: 999px; padding: .35rem .8rem; }
+  .slide-cta { align-self: flex-start; margin-top: .4rem; display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: 0 1.2rem;
+    border-radius: 999px; background: #ce3f0c; color: #fff; text-decoration: none; font-weight: 500; font-size: .95rem; }
+  .slide-cta:hover { background: #a53408; }
+  .slide-cta.ghost { background: transparent; border: 1px solid rgba(255,255,255,.28); }
+  .slide-cta.ghost:hover { background: rgba(255,255,255,.08); }
+
+  .show-controls { display: flex; align-items: center; justify-content: center; gap: .6rem; margin-top: 1.2rem; }
+  .bars { display: flex; gap: .4rem; }
+  .bar { position: relative; width: clamp(32px, 7vw, 56px); height: 44px; background: none; border: 0; padding: 0; cursor: pointer; }
+  .bar::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px; border-radius: 4px; background: rgba(255,255,255,.18); }
+  .bar i { position: absolute; left: 0; top: 50%; height: 4px; margin-top: -2px; width: 0; border-radius: 4px; background: var(--flame); }
+  .bar.done i { width: 100%; }
+  .bar.is-active i { animation: fill var(--dur, 6s) linear forwards; }
+  .stage[data-paused="true"] ~ .show-controls .bar.is-active i,
+  .show-controls[data-paused="true"] .bar.is-active i { animation-play-state: paused; }
+  @keyframes fill { from { width: 0; } to { width: 100%; } }
+  .ctrl { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.04); color: var(--text);
+    display: grid; place-items: center; cursor: pointer; font: inherit; }
+  .ctrl:hover { background: rgba(255,255,255,.1); }
+  .ctrl:focus-visible, .bar:focus-visible, .slide-cta:focus-visible { outline: 2px solid var(--flame-soft); outline-offset: 3px; }
+  .ctrl svg { width: 18px; height: 18px; }
+
+  @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+    .slide.is-active .slide-media img { animation: kenburns 7s ease-out forwards; }
+    .slide.is-active .slide-body > * { animation: riseIn .8s cubic-bezier(.2,.7,.2,1) both; }
+    .slide.is-active .slide-body > *:nth-child(2) { animation-delay: .08s; }
+    .slide.is-active .slide-body > *:nth-child(3) { animation-delay: .16s; }
+    .slide.is-active .slide-body > *:nth-child(4) { animation-delay: .24s; }
+    .slide.is-active .slide-body > *:nth-child(5) { animation-delay: .32s; }
+    @keyframes kenburns { from { transform: scale(1.12); } to { transform: scale(1.02); } }
+    @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } }
+  }
+  @media (max-width: 760px) {
+    .slide { grid-template-columns: 1fr; grid-template-rows: 220px auto; min-height: 0; }
+    .slide-media::after { background: linear-gradient(180deg, rgba(7,17,31,0) 50%, rgba(7,17,31,.9) 100%); }
+  }
+
   footer { padding: 1.5rem 0 calc(1.5rem + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
   footer .wrap { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between; color: var(--muted); font-size: .82rem; }
   footer strong { color: var(--text); font-weight: 500; }
@@ -260,6 +321,79 @@
     </div>
   </main>
 
+  <section class="showcase" aria-labelledby="show-title">
+    <div class="wrap">
+      <div class="show-head">
+        <span class="kicker-pill">What we do</span>
+        <h2 id="show-title">Three services today. Two platforms on the way.</h2>
+        <p>Here is what opens on Friday.</p>
+      </div>
+      <div class="stage" id="stage" aria-roledescription="carousel" aria-label="Flame Connect services and upcoming products">
+      <article class="slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 5: Digital &amp; Communications">
+        <div class="slide-media"><img src="/coming-soon/show/digital.webp" alt="An African creative team reviewing campaign assets together in a Kampala studio." width="1100" height="733"></div>
+        <div class="slide-body">
+          <span class="tag service">Service</span>
+          <h3>Digital &amp; Communications</h3>
+          <p class="lead-line">Communication people understand, trust and act on.</p>
+          <p>Brand, content and campaigns that bring in enquiries, not just impressions.</p>
+          <ul class="points"><li>Brand strategy</li><li>Campaigns</li><li>Content</li><li>Analytics</li></ul>
+          <a class="slide-cta ghost" href="https://wa.me/256764018701?text=Hello%20Flame%20Connect%2C%20I%20would%20like%20to%20talk%20about%20your%20Digital%20%26%20Communications%20service." target="_blank" rel="noopener noreferrer">Talk to us about this <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+      <article class="slide" role="group" aria-roledescription="slide" aria-label="2 of 5: AI in Business" aria-hidden="true">
+        <div class="slide-media"><img src="/coming-soon/show/ai.webp" alt="A facilitator mapping a workflow with sticky notes alongside a business team." width="1100" height="733" loading="lazy"></div>
+        <div class="slide-body">
+          <span class="tag service">Service</span>
+          <h3>AI in Business</h3>
+          <p class="lead-line">AI where it removes friction and improves decisions.</p>
+          <p>From interest in AI to using it day to day, safely and with people in control.</p>
+          <ul class="points"><li>Readiness</li><li>Automation</li><li>Custom AI tools</li><li>Responsible AI</li></ul>
+          <a class="slide-cta ghost" href="https://wa.me/256764018701?text=Hello%20Flame%20Connect%2C%20I%20would%20like%20to%20talk%20about%20your%20AI%20in%20Business%20service." target="_blank" rel="noopener noreferrer">Talk to us about this <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+      <article class="slide" role="group" aria-roledescription="slide" aria-label="3 of 5: Consulting &amp; Thought Leadership" aria-hidden="true">
+        <div class="slide-media"><img src="/coming-soon/show/consulting.webp" alt="African business leaders in a strategy discussion in Kampala." width="1100" height="733" loading="lazy"></div>
+        <div class="slide-body">
+          <span class="tag service">Service</span>
+          <h3>Consulting &amp; Thought Leadership</h3>
+          <p class="lead-line">Better choices about technology and growth.</p>
+          <p>Strategy, research and workshops that turn uncertainty into a clear direction.</p>
+          <ul class="points"><li>Strategy</li><li>Workshops</li><li>Research</li><li>Programme design</li></ul>
+          <a class="slide-cta ghost" href="https://wa.me/256764018701?text=Hello%20Flame%20Connect%2C%20I%20would%20like%20to%20talk%20about%20your%20Consulting%20%26%20Thought%20Leadership%20service." target="_blank" rel="noopener noreferrer">Talk to us about this <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+      <article class="slide" role="group" aria-roledescription="slide" aria-label="4 of 5: Flame OS" aria-hidden="true">
+        <div class="slide-media"><img src="/coming-soon/show/flame-os.webp" alt="Two professionals reviewing customer follow-ups on a tablet outside a small business." width="1100" height="733" loading="lazy"></div>
+        <div class="slide-body">
+          <span class="tag soon">Launching soon</span>
+          <h3>Flame OS</h3>
+          <p class="lead-line">The growth operating system for African businesses.</p>
+          <p>CRM, campaigns, automations and insight in one simple platform, built for teams who work from their phones.</p>
+          <ul class="points"><li>Contacts &amp; pipeline</li><li>Campaigns</li><li>Automations</li><li>Insights</li></ul>
+          <a class="slide-cta " href="https://wa.me/256764018701?text=Hello%20Flame%20Connect%2C%20please%20add%20me%20to%20the%20Flame%20OS%20early-access%20list." target="_blank" rel="noopener noreferrer">Join early access <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+      <article class="slide" role="group" aria-roledescription="slide" aria-label="5 of 5: Flame Academy" aria-hidden="true">
+        <div class="slide-media"><img src="/coming-soon/show/flame-academy.webp" alt="Young African learners and a facilitator working together on digital skills." width="1100" height="733" loading="lazy"></div>
+        <div class="slide-body">
+          <span class="tag soon">Launching soon</span>
+          <h3>Flame Academy</h3>
+          <p class="lead-line">Digital skills for Africa’s next generation.</p>
+          <p>Learning paths, Flame Clubs and real projects that help schools and programmes teach digital and AI skills.</p>
+          <ul class="points"><li>Learning paths</li><li>Flame Clubs</li><li>Facilitator tools</li><li>Certificates</li></ul>
+          <a class="slide-cta " href="https://wa.me/256764018701?text=Hello%20Flame%20Connect%2C%20we%20would%20like%20to%20register%20our%20interest%20in%20Flame%20Academy." target="_blank" rel="noopener noreferrer">Register interest <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+      </div>
+      <div class="show-controls" id="controls">
+        <button class="ctrl" id="prev" type="button" aria-label="Previous slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <div class="bars"><button class="bar is-active" type="button" aria-label="Show slide 1: Digital &amp; Communications"><i></i></button><button class="bar" type="button" aria-label="Show slide 2: AI in Business"><i></i></button><button class="bar" type="button" aria-label="Show slide 3: Consulting &amp; Thought Leadership"><i></i></button><button class="bar" type="button" aria-label="Show slide 4: Flame OS"><i></i></button><button class="bar" type="button" aria-label="Show slide 5: Flame Academy"><i></i></button></div>
+        <button class="ctrl" id="next" type="button" aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+        <button class="ctrl" id="pause" type="button" aria-label="Pause slideshow" aria-pressed="false"><svg id="pause-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+      </div>
+    </div>
+  </section>
+
   <footer>
     <div class="wrap">
       <span><strong>Digitizing Africa.</strong></span>
@@ -306,6 +440,75 @@
     v.preload = "auto";
     var p = v.play(); if (p && p.catch) p.catch(function () {});
   }
+})();
+</script>
+
+<script>
+(function () {
+  // Showcase slideshow: advances every 6s, pauses on hover, focus or the
+  // pause button; manual only for people who turn off motion.
+  var slides = [].slice.call(document.querySelectorAll(".slide"));
+  var bars = [].slice.call(document.querySelectorAll(".bar"));
+  var controls = document.getElementById("controls");
+  var stage = document.getElementById("stage");
+  var pauseBtn = document.getElementById("pause");
+  if (!slides.length) return;
+  var DUR = 6000, i = 0, timer = null, hovering = false, userPaused = false;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) userPaused = true;
+  controls.style.setProperty("--dur", DUR / 1000 + "s");
+  bars.forEach(function (b) { b.style.setProperty("--dur", DUR / 1000 + "s"); });
+
+  function show(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach(function (s, k) {
+      var on = k === i;
+      s.classList.toggle("is-active", on);
+      if (on) s.removeAttribute("aria-hidden"); else s.setAttribute("aria-hidden", "true");
+      s.querySelectorAll("a").forEach(function (a) { a.tabIndex = on ? 0 : -1; });
+    });
+    bars.forEach(function (b, k) {
+      b.classList.remove("is-active");
+      b.classList.toggle("done", k < i);
+      if (k === i) { void b.offsetWidth; b.classList.add("is-active"); }
+    });
+    schedule();
+  }
+  function running() { return !userPaused && !hovering && document.visibilityState === "visible"; }
+  function schedule() {
+    clearTimeout(timer);
+    controls.setAttribute("data-paused", running() ? "false" : "true");
+    if (running()) timer = setTimeout(function () { show(i + 1); }, DUR);
+  }
+  function setPaused(p) {
+    userPaused = p;
+    pauseBtn.setAttribute("aria-pressed", p ? "true" : "false");
+    pauseBtn.setAttribute("aria-label", p ? "Play slideshow" : "Pause slideshow");
+    document.getElementById("pause-ico").innerHTML = p
+      ? '<path d="M8 5v14l11-7z"/>'
+      : '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>';
+    if (!p) show(i); else schedule();
+  }
+  document.getElementById("prev").addEventListener("click", function () { show(i - 1); });
+  document.getElementById("next").addEventListener("click", function () { show(i + 1); });
+  pauseBtn.addEventListener("click", function () { setPaused(!userPaused); });
+  bars.forEach(function (b, k) { b.addEventListener("click", function () { show(k); }); });
+  [stage, controls].forEach(function (el) {
+    el.addEventListener("mouseenter", function () { hovering = true; schedule(); });
+    el.addEventListener("mouseleave", function () { hovering = false; show(i); });
+    el.addEventListener("focusin", function () { hovering = true; schedule(); });
+    el.addEventListener("focusout", function () { hovering = false; schedule(); });
+  });
+  // swipe on phones
+  var x0 = null;
+  stage.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener("touchend", function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+  document.addEventListener("visibilitychange", schedule);
+  if (reduce) setPaused(true); else show(0);
 })();
 </script>
 </body>
