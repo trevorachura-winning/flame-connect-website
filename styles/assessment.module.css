@@ -79,3 +79,61 @@
   .barLabel { grid-column: 1 / -1; }
   .nav > * { flex: 1 1 100%; justify-content: center; }
 }
+
+/* ---------- Results reveal (signature motion) ----------
+   The ring fills and the score counts up together; each area bar fills in
+   turn; the three areas behind the next steps glow orange; the steps rise
+   in after them. Everything is static under reduced motion. */
+@property --p {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+.bars li[data-weak] .barLabel {
+  color: var(--flame-strong, #c9400f);
+  font-weight: 600;
+}
+.bars li[data-weak] .barLabel::after {
+  content: " · focus";
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--flame-strong, #c9400f);
+}
+.bars li[data-weak] .barTrack {
+  box-shadow: 0 0 0 2px rgba(244, 81, 30, 0.18);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .score {
+    animation: ringFill 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .barTrack span {
+    transform-origin: 0 50%;
+    animation: barFill 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(0.5s + var(--i, 0) * 0.12s);
+  }
+  .bars li[data-weak] .barTrack {
+    animation: weakGlow 1.6s ease-out both;
+    animation-delay: calc(1.3s + var(--i, 0) * 0.12s);
+  }
+  .steps li {
+    animation: stepIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(1.6s + var(--i, 0) * 0.15s);
+  }
+}
+@keyframes ringFill {
+  from { --p: 0; }
+}
+@keyframes barFill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes weakGlow {
+  0% { box-shadow: 0 0 0 0 rgba(244, 81, 30, 0); }
+  35% { box-shadow: 0 0 0 4px rgba(244, 81, 30, 0.35), 0 0 18px rgba(244, 81, 30, 0.35); }
+  100% { box-shadow: 0 0 0 2px rgba(244, 81, 30, 0.18); }
+}
+@keyframes stepIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
