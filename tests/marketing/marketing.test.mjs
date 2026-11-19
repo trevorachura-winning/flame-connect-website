@@ -404,3 +404,17 @@ test("staging host is kept out of search results", () => {
   assert.ok(mw.indexOf("STAGING_HOSTS.has(host)") < mw.indexOf("Date.now() >= LAUNCH_AT) return"), "noindex applies after launch too");
   assert.match(mw, /X-Robots-Tag", "noindex, nofollow, noarchive"/);
 });
+
+test("contact form sends straight to the inbox through FormSubmit, WhatsApp stays", () => {
+  const src = fs.readFileSync(path.join(ROOT, "components/EnquiryComposer.tsx"), "utf8");
+  const sub = fs.readFileSync(path.join(ROOT, "lib/assessment-submit.ts"), "utf8");
+  assert.ok(/export function submitEnquiry/.test(sub), "enquiry sender exists");
+  assert.ok(/await submitEnquiry\(/.test(src), "form submits");
+  assert.ok(/type="submit"[\s\S]{0,200}Send enquiry/.test(src), "primary button is a real submit");
+  assert.ok(/id="enq-email"/.test(src) && /type="email"/.test(src), "reply email is collected");
+  assert.ok(/enq-website/.test(src), "honeypot field against spam");
+  assert.ok(/status === "failed"/.test(src), "failure falls back to own email");
+  assert.ok(!/does not store or send anything/.test(src), "no outdated 'nothing is sent' copy");
+  const privacy = fs.readFileSync(path.join(ROOT, "app/privacy/page.tsx"), "utf8");
+  assert.ok(/<b>Contact form\.<\/b>/.test(privacy), "privacy notice covers the contact form");
+});
