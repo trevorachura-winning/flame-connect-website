@@ -2,6 +2,8 @@ import { TeamCoverflow } from "../../components/TeamCoverflow";
 import { CTABand } from "../../components/CTABand";
 import { TEAM, TEAM_IS_PREVIEW } from "../../content/team";
 import { pageMetadata } from "../../lib/seo";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 
 const base = pageMetadata({
   title: "Meet the Flame Connect team",
@@ -14,6 +16,11 @@ const base = pageMetadata({
 export const metadata = TEAM_IS_PREVIEW ? { ...base, robots: { index: false, follow: false } } : base;
 
 export default function TeamPage() {
+  // Never render a broken portrait while a profile asset is awaiting upload.
+  // Once the original cut-out file arrives, the coverflow appears automatically.
+  const renderable = TEAM.filter((member) =>
+    existsSync(join(process.cwd(), "public", member.photo.slice(1)))
+  );
   return (
     <>
       <section className="page-hero white">
@@ -36,11 +43,11 @@ export default function TeamPage() {
       </section>
       <section className="section tight">
         <div className="container">
-          {TEAM.length > 0 ? (
-            <TeamCoverflow team={TEAM} />
+          {renderable.length > 0 ? (
+            <TeamCoverflow team={renderable} />
           ) : (
             <p role="status" className="lede" style={{ maxWidth: "38rem", margin: "2rem auto", textAlign: "center" }}>
-              We are preparing individual introductions with our team. Their stories and portraits will appear here once approved.
+              Moses Owena’s Art Director profile is prepared. His portrait is being added to the Team page preview before publication approval.
             </p>
           )}
         </div>
