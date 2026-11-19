@@ -345,3 +345,17 @@ test("circuit art: chips, vias and moving data packets in the animated art", () 
   const svg = fs.readFileSync(path.join(ROOT, "public/tech-lines/orange.svg"), "utf8");
   for (const cls of ['class="c"', 'class="v"', 'class="pk"', 'class="pin"']) assert.ok(svg.includes(cls), cls);
 });
+
+test("enquiry: real links for email and WhatsApp, plus Gmail and Outlook fallbacks", () => {
+  const links = load("lib/links.ts");
+  const g = links.gmailComposeHref("Book a consultation: AI in Business", "Hello\nName: A & B");
+  assert.ok(/^https:\/\/mail\.google\.com\/mail\/\?view=cm&fs=1&to=[^&]+%40/.test(g), g);
+  assert.ok(!g.includes("+"), "spaces must be %20");
+  assert.ok(decodeURIComponent(g).includes("Name: A & B"));
+  const o = links.outlookComposeHref("Hi", "Body");
+  assert.ok(/^https:\/\/outlook\.office\.com\/mail\/deeplink\/compose\?to=[^&]+%40/.test(o), o);
+  const src = fs.readFileSync(path.join(ROOT, "components/EnquiryComposer.tsx"), "utf8");
+  assert.ok(/<a href=\{emailHref/.test(src), "email is a real link");
+  assert.ok(/href=\{waHref/.test(src) && /target="_blank"/.test(src), "WhatsApp is a real link");
+  assert.ok(!/window\.open\(/.test(src), "no scripted pop-ups (blocked in in-app browsers)");
+});

@@ -42,3 +42,21 @@ export function whatsappHref(text: string): string | null {
   if (!digits) return null;
   return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
 }
+
+/**
+ * Web-mail fallbacks for visitors with no email app (common on laptops that
+ * use Gmail or Outlook in the browser, where a mailto: link does nothing).
+ */
+export function gmailComposeHref(subject: string, body: string): string | null {
+  if (!SITE.contactEmail) return null;
+  const q = new URLSearchParams({ view: "cm", fs: "1", to: SITE.contactEmail, su: subject, body })
+    .toString()
+    .replace(/\+/g, "%20");
+  return `https://mail.google.com/mail/?${q}`;
+}
+
+export function outlookComposeHref(subject: string, body: string): string | null {
+  if (!SITE.contactEmail) return null;
+  const q = new URLSearchParams({ to: SITE.contactEmail, subject, body }).toString().replace(/\+/g, "%20");
+  return `https://outlook.office.com/mail/deeplink/compose?${q}`;
+}

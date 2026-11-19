@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import { Icon } from "./Icons";
 import { SITE, type Intent, INTENT_LABELS } from "../lib/site";
-import { mailtoHref, whatsappHref } from "../lib/links";
+import { gmailComposeHref, mailtoHref, outlookComposeHref, whatsappHref } from "../lib/links";
 
 /**
  * Website-only enquiry composer. Nothing is sent to a server: the visitor
@@ -73,6 +73,7 @@ export function EnquiryComposer({
   });
   const [errors, setErrors] = useState<{ name?: string; message?: string }>({});
   const [opened, setOpened] = useState<null | "email" | "whatsapp">(null);
+  const [copied, setCopied] = useState(false);
 
   const hasEmail = Boolean(SITE.contactEmail);
   const hasWhatsApp = Boolean(SITE.contactWhatsApp);
@@ -115,24 +116,53 @@ export function EnquiryComposer({
     .filter((line): line is string => line !== null)
     .join("\n");
 
-  function openEmail() {
-    if (!validate()) return;
-    const href = mailtoHref(subject, body);
-    if (!href) return;
+  // Real links (not scripted window.open / location changes) so the phone or
+  // computer hands them to the right app, including inside in-app browsers
+  // (WhatsApp, Instagram, LinkedIn) that block scripted pop-ups.
+  const emailHref = mailtoHref(subject, body);
+  const gmailHref = gmailComposeHref(subject, body);
+  const outlookHref = outlookComposeHref(subject, body);
+  const waHref = whatsappHref(`${subject}\n\n${body}`);
+
+  function onEmail(e: MouseEvent<HTMLAnchorElement>) {
+    if (!validate()) { e.preventDefault(); return; }
     setOpened("email");
-    window.location.href = href;
   }
 
-  function openWhatsApp() {
-    if (!validate()) return;
-    const href = whatsappHref(`${subject}\n\n${body}`);
-    if (!href) return;
+  function onWhatsApp(e: MouseEvent<HTMLAnchorElement>) {
+    if (!validate()) { e.preventDefault(); return; }
     setOpened("whatsapp");
-    window.open(href, "_blank", "noopener,noreferrer");
+  }
+
+  async function copyMessage() {
+    const text = `To: ${SITE.contactEmail ?? ""}\nSubject: ${subject}\n\n${body}`;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+    }
+    setCopied(true);
   }
 
   return (
-    <form onSubmit={(e) => { e.preventDefault(); if (hasEmail) openEmail(); else openWhatsApp(); }} noValidate aria-describedby="enq-note">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (!validate()) return;
+        const href = emailHref ?? waHref;
+        if (href) {
+          setOpened(emailHref ? "email" : "whatsapp");
+          window.location.href = href;
+        }
+      }}
+      noValidate
+      aria-describedby="enq-note"
+    >
       <div style={{ marginBottom: "1.4rem" }}>
         <h2 className="display-3" style={{ fontSize: "1.5rem" }}>{heading}</h2>
         <p className="small muted" style={{ marginTop: "0.4rem" }}>
@@ -172,14 +202,20 @@ export function EnquiryComposer({
       {channelsReady ? (
         <div className="hero-actions" style={{ marginTop: "1.4rem" }}>
           {hasEmail && (
-            <button type="button" className="btn btn-primary" onClick={openEmail}>
+            <a href={emailHref ?? undefined} className="btn btn-primary" onClick={onEmail}>
               Send by email <Icon name="mail" size={18} />
-            </button>
+            </a>
           )}
           {hasWhatsApp && (
-            <button type="button" className={hasEmail ? "btn btn-outline" : "btn btn-primary"} onClick={openWhatsApp}>
+            <a
+              href={waHref ?? undefined}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={hasEmail ? "btn btn-outline" : "btn btn-primary"}
+              onClick={onWhatsApp}
+            >
               Continue on WhatsApp <Icon name="arrow-up-right" size={18} />
-            </button>
+            </a>
           )}
         </div>
       ) : (
@@ -194,11 +230,36 @@ export function EnquiryComposer({
 
       <p id="enq-note" className="small muted" style={{ marginTop: "1rem" }} aria-live="polite">
         {opened === "email"
-          ? "Your email app should now be open with your message ready. Press send there. If nothing opened, copy your message and email us directly."
+          ? "Your email app should now be open with your message ready. Press send there."
           : opened === "whatsapp"
             ? "WhatsApp should now be open in a new tab with your message ready. Press send there."
             : "Please do not include passwords, confidential client information or sensitive personal data."}
       </p>
+
+      {opened === "email" && (
+        <div className="contact-note" style={{ marginTop: "1rem" }}>
+          <h3 style={{ fontSize: "1rem" }}>Nothing opened?</h3>
+          <p className="small" style={{ marginBottom: "0.8rem" }}>
+            If you use email in your browser, open your message there instead, or copy it and send it
+            to <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>.
+          </p>
+          <div className="hero-actions" style={{ marginTop: 0 }}>
+            {gmailHref && (
+              <a href={gmailHref} target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-sm">
+                Open in Gmail
+              </a>
+            )}
+            {outlookHref && (
+              <a href={outlookHref} target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-sm">
+                Open in Outlook
+              </a>
+            )}
+            <button type="button" className="btn btn-outline btn-sm" onClick={copyMessage}>
+              {copied ? "Copied" : "Copy message"}
+            </button>
+          </div>
+        </div>
+      )}
     </form>
   );
 }
