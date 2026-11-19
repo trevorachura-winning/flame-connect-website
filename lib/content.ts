@@ -1,6 +1,7 @@
 import { PRODUCTS, getProduct } from "../content/products";
 import { SERVICES, getService } from "../content/services";
 import { ARTICLES, getArticle, sortedArticles, ARTICLE_CATEGORIES } from "../content/articles";
+import { TEAM } from "../content/team";
 import path from "node:path";
 import fs from "node:fs";
 
@@ -72,6 +73,24 @@ function assertContent(): void {
   for (const text of everything) {
     for (const rule of BANNED_CLAIMS) {
       if (rule.test(text)) problems.push(`Banned claim phrase ${rule} found in: "${text.slice(0, 90)}…"`);
+    }
+  }
+
+  // Published team entries must be real, approved people with their own files.
+  const teamSlugs = new Set<string>();
+  for (const person of TEAM) {
+    if (teamSlugs.has(person.slug)) problems.push(`Duplicate team slug: ${person.slug}`);
+    teamSlugs.add(person.slug);
+    if (!person.name.trim() || !person.role.trim() || !person.bio.trim()) {
+      problems.push(`Incomplete team profile: ${person.slug}`);
+    }
+    if (!person.publicationApproved) {
+      problems.push(`Team publication approval missing: ${person.slug}`);
+    }
+    if (!/^\\/team\\/[a-z0-9-]+\\.webp$/.test(person.photo)) {
+      problems.push(`Team photo must be a named WebP in public/team/: ${person.slug}`);
+    } else if (!fs.existsSync(path.join(process.cwd(), "public", person.photo.slice(1)))) {
+      problems.push(`Team photo missing: ${person.photo}`);
     }
   }
 
