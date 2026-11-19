@@ -33,7 +33,7 @@ export default function ServicesPage() {
             <SplitText text="Strategy, communication and AI that move into real work." accent="work." delayMs={80} />
           </h1>
           <p className={`lede ${m.rise}`} style={v({ "--i": 6 })}>
-            Three services, one way of working. We start from the challenge in front of you,
+            Three service lines, one way of working. We start from the challenge in front of you,
             deliver in small, tested steps and leave your team more capable and less dependent on us.
           </p>
           <div className={`hero-actions ${m.rise}`} style={v({ "--i": 7 })}>
