@@ -18,6 +18,7 @@ export interface TeamMember {
   bio: string;
   photo: string;
   linkedin?: string;
+  instagram?: string;
   /** Specific responsibilities shown in the optional detail drawer. */
   focusAreas?: { title: string; description: string }[];
   qualification?: string;
@@ -36,6 +37,7 @@ export const TEAM: TeamMember[] = [
     role: "Founder & Managing Director",
     bio: "Trevor leads Flame Connect's vision to make AI and digital technology practical for African businesses. His expertise spans enterprise AI, business automation, software development and digital transformation. Through his work on recruitment platforms, learning management systems and digital business solutions, he combines strategic thinking with technical execution to solve real organisational problems.",
     photo: "/team/trevor-achura.webp",
+    linkedin: "https://www.linkedin.com/in/trevor-jeremiah-achura-457b6743b",
     focusAreas: [
       { title: "Business strategy and leadership", description: "Company vision, strategic direction, growth and execution." },
       { title: "AI and automation", description: "Practical AI adoption, intelligent workflows and business process improvement." },
@@ -55,6 +57,8 @@ export const TEAM: TeamMember[] = [
     role: "Art Director",
     bio: "Moses leads art direction and visual storytelling at Flame Connect, drawing on his experience in film direction, cinematography and creative content production. He develops visual concepts from the first idea through filming and post production, helping brands communicate with clarity and character.",
     photo: "/team/moses-owena.webp",
+    linkedin: "https://www.linkedin.com/in/moses-owena-791bbb202",
+    instagram: "https://www.instagram.com/moses_owena/",
     focusAreas: [
       { title: "Art direction", description: "Visual concepts and creative direction for brands and campaigns." },
       { title: "Film and cinematography", description: "Commercial films, documentaries, lighting and multi camera production." },
