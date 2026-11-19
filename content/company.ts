@@ -7,16 +7,7 @@ export const MISSION = "We help African businesses use AI and technology to work
 export const VISION = "A digital Africa where every business grows with technology.";
 
 export const CORE_VALUES = [
-  {
-    title: "People",
-    copy: "We start with people. Technology should fit the businesses, communities and team it serves, never the other way round.",
-  },
-  {
-    title: "Collaboration",
-    copy: "We grow by sharing what we know, with our clients, our partners and each other.",
-  },
-  {
-    title: "Impact",
-    copy: "We judge our work by what it changes for a business or a community, not by how clever it looks.",
-  },
+  { title: "People", copy: "We start with people, so technology fits them and not the other way round." },
+  { title: "Collaboration", copy: "We grow by sharing what we know with our clients, our partners and each other." },
+  { title: "Innovation", copy: "We stay curious, try new ideas early and turn the ones that work into practical tools." },
 ] as const;

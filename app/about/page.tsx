@@ -191,13 +191,13 @@ export default function AboutPage() {
       {/* Values */}
       <section className="section tight">
         <div className="container">
-          <SectionHead eyebrow="Our core values" title="People. Collaboration. Impact." />
+          <SectionHead eyebrow="Our core values" title="People. Collaboration. Innovation." />
           <ul className={`${s.cols3} list-plain`}>
             {CORE_VALUES.map((value, i) => (
               <Reveal as="li" key={value.title} delay={i * 0.06}>
                 <div className="card" style={{ height: "100%" }}>
                   <span className="card-icon">
-                    <Icon name={i === 0 ? "users" : i === 1 ? "handshake" : "target"} size={20} />
+                    <Icon name={i === 0 ? "users" : i === 1 ? "handshake" : "spark"} size={20} />
                   </span>
                   <h3 style={{ fontSize: "1.25rem" }}>{value.title}</h3>
                   <p>{value.copy}</p>
