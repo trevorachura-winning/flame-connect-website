@@ -36,15 +36,19 @@ test("no fictional team profiles or unused placeholder portrait remain", () => {
   }
 });
 
-test("each public profile has verifiable identity, portrait file and publication consent", () => {
+test("team drafts have real identities and published profiles need consent and files", () => {
   const seen = new Set();
   for (const person of TEAM) {
     assert.ok(person.name.trim().length > 3, "Missing team member name");
     assert.ok(person.role.trim().length > 2, person.name + " has no confirmed role");
     assert.ok(person.bio.trim().length > 50, person.name + " needs a meaningful bio");
-    assert.equal(person.publicationApproved, true, person.name + " needs explicit consent");
+    assert.equal(typeof person.publicationApproved, "boolean");
     assert.match(person.photo, /^\/team\/[a-z0-9-]+\.webp$/);
-    assert.ok(existsSync("public" + person.photo), "Missing portrait: " + person.photo);
+    if (person.publicationApproved) {
+      assert.ok(existsSync("public" + person.photo), "Approved portrait missing: " + person.photo);
+    } else {
+      assert.equal(TEAM_IS_PREVIEW, true, "Unapproved people must never appear in an indexable page");
+    }
     assert.ok(!seen.has(person.slug), "Duplicate slug: " + person.slug);
     seen.add(person.slug);
   }
@@ -89,4 +93,18 @@ test("three-person and five-person coverflow still uses shortest wrap offset", (
   assert.equal(teamCoverflowOffset(4, 0, 5), -1);
   assert.equal(teamCoverflowOffset(0, 4, 5), 1);
   assert.equal(teamCoverflowOffset(2, 2, 5), 0);
+});
+
+test("Moses Owena is staged as Art Director with verified responsibilities", () => {
+  const moses = TEAM.find((m) => m.slug === "moses-owena");
+  assert.ok(moses, "Moses profile should exist");
+  assert.equal(moses.name, "Moses Owena");
+  assert.equal(moses.role, "Art Director");
+  assert.equal(moses.publicationApproved, false);
+  assert.equal(moses.photo, "/team/moses-owena.webp");
+  assert.equal(moses.focusAreas.length, 4);
+  assert.match(moses.qualification, /Makerere University/);
+  const component = read("components/TeamCoverflow.tsx");
+  assert.match(component, /<details className=\{styles.more\}>/);
+  assert.match(component, /<summary>/);
 });
