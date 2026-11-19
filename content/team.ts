@@ -23,7 +23,7 @@ export interface TeamMember {
   focusAreas?: { title: string; description: string }[];
   qualification?: string;
   /** Named credentials shown in the bio disclosure, with issuer and completion year. */
-  credentials?: { name: string; issuer: string; year: string; category: "Certification" | "Diploma" | "Course" }[];
+  credentials?: { name: string; issuer: string; year: string; category: "Certification" | "Training" | "Course" }[];
   /** Set true only after the person approves publication of their profile. */
   publicationApproved: boolean;
 }
@@ -46,7 +46,7 @@ export const TEAM: TeamMember[] = [
     ],
     credentials: [
       { name: "AI+ Sales", issuer: "AI CERTS", year: "2026", category: "Certification" },
-      { name: "Diploma in Graphics & Web Design", issuer: "Crayon Concepts", year: "2021–2022", category: "Diploma" },
+      { name: "Graphics & Web Design training certificate", issuer: "Crayon Concepts", year: "2021–2022", category: "Training" },
       { name: "Google Digital Marketing Course", issuer: "Google", year: "2020", category: "Course" },
     ],
     publicationApproved: true,

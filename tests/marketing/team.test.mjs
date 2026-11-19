@@ -156,7 +156,8 @@ test("Trevor Achura leads the team with an approved portrait and authentic AI CE
     ["AI+ Sales", "AI CERTS", "2026"]
   );
   assert.equal(trevor.credentials[0].category, "Certification");
-  assert.ok(trevor.credentials.some((credential) => credential.category === "Diploma"));
+  assert.ok(trevor.credentials.some((credential) => credential.category === "Training"));
+  assert.doesNotMatch(JSON.stringify(trevor.credentials), /Diploma/i, "Owner: describe it as a training certificate, not a diploma");
   assert.ok(trevor.credentials.some((credential) => credential.category === "Course"));
   assert.doesNotMatch(trevor.bio, /\blaw\b|LLB|Bachelor of Laws/i);
   const component = read("components/TeamCoverflow.tsx");
