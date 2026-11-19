@@ -55,7 +55,7 @@ export const TEAM: TeamMember[] = [
     skills: [
       { group: "AI and automation", items: ["AI in business", "Machine learning", "Python", "Business process automation", "Intelligent workflows", "Process mapping", "AppSheet low-code"] },
       { group: "Software and product", items: ["Front-end development", "Back-end development", "Dashboard ideation", "API integrations"] },
-      { group: "Design and media", items: ["Adobe Creative Suite", "Graphic design", "Multimedia content", "Canva", "CapCut"] },
+      { group: "Design and media", items: ["Multimedia design", "Adobe Creative Suite", "Canva", "CapCut"] },
       { group: "Marketing and growth", items: ["SEO and SEM", "Google Analytics", "Google Ads", "Meta Business Suite", "Content strategy", "Email marketing", "CRM"] },
     ],
     publicationApproved: true,
