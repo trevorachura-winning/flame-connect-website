@@ -43,7 +43,7 @@ const { PRODUCTS } = load("content/products.ts");
 const { ARTICLES, ARTICLE_CATEGORIES } = load("content/articles.ts");
 const { filterArticles } = load("components/marketing/resourceSearch.ts");
 
-const STATIC = ["/", "/products", "/services", "/insights", "/about", "/trust", "/contact", "/privacy", "/assessment"];
+const STATIC = ["/", "/products", "/services", "/insights", "/about", "/trust", "/contact", "/privacy", "/assessment", "/team", "/our-story"];
 const ROUTES = new Set([
   ...STATIC,
   ...PRODUCTS.map((p) => `/products/${p.slug}`),

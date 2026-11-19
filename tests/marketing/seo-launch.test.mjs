@@ -92,7 +92,7 @@ test("coming soon alone is temporarily noindex and launch gate remains unchanged
 
 test("sitemap lists canonical content URLs without fictitious build-time dates", () => {
   const sitemap = read("app/sitemap.ts");
-  assert.match(sitemap, /ALL_ROUTES\.map/);
+  assert.ok(sitemap.includes("ALL_ROUTES") && sitemap.includes(".map("), "sitemap must map canonical routes, optionally filtering unpublished pages");
   assert.match(sitemap, /SITE\.siteUrl/);
   assert.doesNotMatch(sitemap, /new Date\(\)/);
   assert.doesNotMatch(sitemap, /lastModified:\s*now/);

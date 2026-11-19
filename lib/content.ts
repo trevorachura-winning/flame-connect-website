@@ -1,6 +1,7 @@
 import { PRODUCTS, getProduct } from "../content/products";
 import { SERVICES, getService } from "../content/services";
 import { ARTICLES, getArticle, sortedArticles, ARTICLE_CATEGORIES } from "../content/articles";
+import { TEAM, TEAM_IS_PREVIEW } from "../content/team";
 import path from "node:path";
 import fs from "node:fs";
 
@@ -26,7 +27,7 @@ const BANNED_CLAIMS = [
 
 const STATIC_ROUTES = [
   "/", "/products", "/services", "/insights",
-  "/about", "/trust", "/contact", "/privacy", "/assessment",
+  "/about", "/trust", "/contact", "/privacy", "/assessment", "/team", "/our-story",
 ];
 
 function collectStrings(value: unknown, into: string[] = []): string[] {
@@ -72,6 +73,26 @@ function assertContent(): void {
   for (const text of everything) {
     for (const rule of BANNED_CLAIMS) {
       if (rule.test(text)) problems.push(`Banned claim phrase ${rule} found in: "${text.slice(0, 90)}…"`);
+    }
+  }
+
+  // Published team entries must be real, approved people with their own files.
+  const teamSlugs = new Set<string>();
+  for (const person of TEAM) {
+    if (teamSlugs.has(person.slug)) problems.push(`Duplicate team slug: ${person.slug}`);
+    teamSlugs.add(person.slug);
+    if (!person.name.trim() || !person.role.trim() || !person.bio.trim()) {
+      problems.push(`Incomplete team profile: ${person.slug}`);
+    }
+    // Draft team members are allowed only while the entire page remains noindex.
+    if (!person.publicationApproved && !TEAM_IS_PREVIEW) {
+      problems.push(`Team publication approval missing: ${person.slug}`);
+    }
+    if (!new RegExp("^/team/[a-z0-9-]+[.]webp$").test(person.photo)) {
+      problems.push(`Team photo must be a named WebP in public/team/: ${person.slug}`);
+    } else if (person.publicationApproved &&
+               !fs.existsSync(path.join(process.cwd(), "public", person.photo.slice(1)))) {
+      problems.push(`Approved team photo missing: ${person.photo}`);
     }
   }
 
