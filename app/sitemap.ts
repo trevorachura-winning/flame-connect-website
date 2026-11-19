@@ -5,11 +5,9 @@ import { ALL_ROUTES } from "../lib/content";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  // lastModified must be a verified content update, never the build timestamp.
+  // Until editorial updatedAt values are tracked, omit potentially false dates.
   return ALL_ROUTES.map((route) => ({
     url: `${SITE.siteUrl}${route}`,
-    lastModified: now,
-    changeFrequency: route === "/" ? "weekly" : "monthly",
-    priority: route === "/" ? 1 : route.split("/").length <= 2 ? 0.8 : 0.6,
   }));
 }
