@@ -51,6 +51,11 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               <Link href={`/contact?intent=consultation&service=${service.slug}`} className="btn btn-primary">
                 Book a consultation <Icon name="arrow-right" size={17} />
               </Link>
+              {service.slug === "ai-in-business" && (
+                <Link href="/assessment" className="btn btn-outline">
+                  Take the free AI readiness assessment
+                </Link>
+              )}
             </div>
           </div>
           <div className="frame">

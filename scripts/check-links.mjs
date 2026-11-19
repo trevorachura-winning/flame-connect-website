@@ -40,7 +40,7 @@ const { ARTICLES } = loadTs("content/articles.ts");
 
 const STATIC_ROUTES = new Set([
   "/", "/products", "/services", "/resources",
-  "/about", "/trust", "/contact", "/privacy",
+  "/about", "/trust", "/contact", "/privacy", "/assessment",
 ]);
 const ROUTES = new Set([
   ...STATIC_ROUTES,

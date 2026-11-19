@@ -73,6 +73,7 @@ export function Footer() {
                   </li>
                 )}
                 <li><Link href="/contact?intent=consultation">Book a consultation</Link></li>
+                <li><Link href="/assessment">Free AI readiness assessment</Link></li>
                 <li><span style={{ color: "var(--on-navy-soft)", fontSize: "0.9rem" }}>{SITE.officeLocation}</span></li>
               </ul>
             </div>
