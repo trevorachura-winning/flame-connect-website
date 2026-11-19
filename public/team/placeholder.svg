@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 700" role="img" aria-label="Photo to come">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9d3e3"/><stop offset="1" stop-color="#8d9ab0"/></linearGradient></defs>
-  <circle cx="250" cy="250" r="105" fill="url(#g)"/>
-  <path d="M60 700c0-150 85-262 190-262s190 112 190 262Z" fill="url(#g)"/>
-</svg>
