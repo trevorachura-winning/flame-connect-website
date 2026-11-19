@@ -212,6 +212,11 @@ export default function HomePage() {
           <SpotlightGroup>
             <ServiceOutcomeCards services={SERVICES} />
           </SpotlightGroup>
+          <div className={s.center}>
+            <Link href="/assessment" className={`btn btn-dark ${s.wrapBtn}`}>
+              Not sure where to start? Take the free AI readiness assessment <Icon name="arrow-right" size={18} />
+            </Link>
+          </div>
         </div>
       </section>
 

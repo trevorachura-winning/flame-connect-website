@@ -56,6 +56,14 @@ export default function PrivacyPage() {
               list for Flame OS or Flame Academy, or to receive updates, we keep your contact details and your request.
             </li>
             <li>
+              <b>AI readiness assessment.</b> If you complete our free{" "}
+              <Link href="/assessment">AI readiness assessment</Link>, we receive your answers, your
+              score, the contact details you enter (your name and email, and optionally your
+              organisation, role, phone number, sector and organisation size) and whether you would
+              like us to contact you. The form is sent to our inbox through FormSubmit, a form
+              delivery service.
+            </li>
+            <li>
               <b>Technical information.</b> Like most websites, our hosting provider automatically
               processes basic technical data, such as your IP address, browser type, device and the pages
               you request, to deliver the site securely and reliably.
@@ -64,13 +72,15 @@ export default function PrivacyPage() {
           <p>
             Our website has no user accounts and does not store the messages you write in the
             enquiry composer: your message is only sent when you press send in your own email or
-            WhatsApp app. We do not knowingly collect sensitive personal data, and we ask you not
+            WhatsApp app. The AI readiness assessment is the only form on our website that sends
+            information to us directly. We do not knowingly collect sensitive personal data, and we ask you not
             to send passwords, financial details or confidential third-party information.
           </p>
 
           <h2>3. How we use your information</h2>
           <ul>
             <li>To respond to enquiries and arrange consultations.</li>
+            <li>To follow up on an AI readiness assessment you completed, if you asked us to.</li>
             <li>To provide, scope and deliver the services you request from us.</li>
             <li>To manage early-access lists for our platforms and send updates you asked for.</li>
             <li>To operate, secure and improve our website.</li>
@@ -89,7 +99,8 @@ export default function PrivacyPage() {
           <h2>5. Sharing your information</h2>
           <p>
             We do not sell personal information. We share it only with trusted service providers
-            who help us operate, such as website hosting, email and messaging services, and
+            who help us operate, such as website hosting, email and messaging services and our form
+            delivery service (FormSubmit, for the AI readiness assessment), and
             only as far as those services need; with professional advisers where necessary; or
             where required by law. When you contact us by WhatsApp or email, those services also
             process your messages under their own privacy terms.

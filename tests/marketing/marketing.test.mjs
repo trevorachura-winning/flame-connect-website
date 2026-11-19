@@ -43,7 +43,7 @@ const { PRODUCTS } = load("content/products.ts");
 const { ARTICLES, ARTICLE_CATEGORIES } = load("content/articles.ts");
 const { filterArticles } = load("components/marketing/resourceSearch.ts");
 
-const STATIC = ["/", "/products", "/services", "/resources", "/about", "/trust", "/contact", "/privacy"];
+const STATIC = ["/", "/products", "/services", "/resources", "/about", "/trust", "/contact", "/privacy", "/assessment"];
 const ROUTES = new Set([
   ...STATIC,
   ...PRODUCTS.map((p) => `/products/${p.slug}`),
@@ -144,10 +144,15 @@ test("no sign-in, login or platform-app links anywhere in the site", () => {
 });
 
 test("no backend: no API routes, server actions or fetch calls", () => {
+  const sub = fs.readFileSync(path.join(ROOT, "lib/assessment-submit.ts"), "utf8");
+  assert.ok(/https:\/\/formsubmit\.co\/ajax\//.test(sub), "assessment posts only to FormSubmit");
+  assert.equal((sub.match(/\bfetch\(/g) || []).length, 1);
   assert.ok(!fs.existsSync(path.join(ROOT, "app/api")), "app/api must not exist");
   for (const f of SOURCES) {
     const src = fs.readFileSync(path.join(ROOT, f), "utf8");
-    assert.ok(!/\bfetch\(/.test(src), `${f}: fetch() call`);
+    // One approved exception (Product Owner, 19 Nov 2026): the AI readiness
+    // assessment posts to FormSubmit from lib/assessment-submit.ts.
+    if (f !== "lib/assessment-submit.ts") assert.ok(!/\bfetch\(/.test(src), `${f}: fetch() call`);
     assert.ok(!/^\s*["']use server["']/m.test(src), `${f}: server action`);
   }
 });
@@ -371,4 +376,24 @@ test("coming soon: showcase slideshow of the three services and two products, pa
   assert.ok(/id="pause"/.test(page), "WCAG 2.2.2: auto-moving content can be paused");
   assert.ok(/prefers-reduced-motion: reduce\)"\)\.matches/.test(page), "no autoplay for reduced motion");
   assert.ok(!/window\.open\(/.test(page), "CTAs are real links");
+});
+
+test("AI readiness assessment: 12 questions across 6 areas, scoring and levels", () => {
+  const A = load("content/assessment.ts");
+  assert.equal(A.QUESTIONS.length, 12);
+  assert.equal(A.PILLARS.length, 6);
+  for (const p of A.PILLARS) assert.equal(A.QUESTIONS.filter((q) => q.pillar === p.key).length, 2, p.key);
+  const all = (n) => Object.fromEntries(A.QUESTIONS.map((q) => [q.id, n]));
+  assert.equal(A.scoreAssessment(all(1)).score, 0);
+  assert.equal(A.scoreAssessment(all(4)).score, 100);
+  assert.equal(A.scoreAssessment(all(1)).level.name, "Getting started");
+  assert.equal(A.scoreAssessment(all(4)).level.name, "Ready to scale");
+  const mixed = { ...all(4), q3: 1, q4: 1, q11: 1, q12: 2 };
+  const r = A.scoreAssessment(mixed);
+  assert.equal(r.nextSteps.length, 3);
+  assert.equal(r.nextSteps[0].pillar, "Data", "weakest area first");
+  const page = fs.readFileSync(path.join(ROOT, "app/assessment/page.tsx"), "utf8");
+  assert.ok(page.includes("AssessmentClient"));
+  const privacy = fs.readFileSync(path.join(ROOT, "app/privacy/page.tsx"), "utf8");
+  assert.ok(privacy.includes("FormSubmit"), "privacy notice names the form processor");
 });
