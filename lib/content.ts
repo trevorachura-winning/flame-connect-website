@@ -25,7 +25,7 @@ const BANNED_CLAIMS = [
 ];
 
 const STATIC_ROUTES = [
-  "/", "/products", "/services", "/resources",
+  "/", "/products", "/services", "/insights",
   "/about", "/trust", "/contact", "/privacy", "/assessment",
 ];
 
@@ -87,7 +87,7 @@ function assertContent(): void {
     ...STATIC_ROUTES,
     ...PRODUCTS.map((p) => `/products/${p.slug}`),
     ...SERVICES.map((s) => `/services/${s.slug}`),
-    ...ARTICLES.map((a) => `/resources/${a.slug}`),
+    ...ARTICLES.map((a) => `/insights/${a.slug}`),
   ];
   const dupes = derived.filter((r, i) => derived.indexOf(r) !== i);
   if (dupes.length) problems.push(`Duplicate routes derived: ${dupes.join(", ")}`);
@@ -108,7 +108,7 @@ export const ALL_ROUTES: string[] = (() => {
     ...STATIC_ROUTES,
     ...PRODUCTS.map((p) => `/products/${p.slug}`),
     ...SERVICES.map((s) => `/services/${s.slug}`),
-    ...ARTICLES.map((a) => `/resources/${a.slug}`),
+    ...ARTICLES.map((a) => `/insights/${a.slug}`),
   ];
   return routes;
 })();

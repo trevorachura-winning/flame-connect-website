@@ -115,8 +115,8 @@ export const HOME_PATHWAYS = [
   {
     title: "Read before you decide",
     copy: "Field notes, playbooks and perspectives. Each piece ends with practical actions and is clear about its limits.",
-    href: "/resources",
-    cta: "Browse resources",
+    href: "/insights",
+    cta: "Browse insights",
   },
 ] as const;
 
@@ -158,8 +158,8 @@ export const ABOUT_MODEL = [
   {
     name: "Insights",
     copy: "Field notes, playbooks and perspectives on AI and digital change in African contexts.",
-    href: "/resources",
-    cta: "Read resources",
+    href: "/insights",
+    cta: "Read insights",
   },
 ] as const;
 

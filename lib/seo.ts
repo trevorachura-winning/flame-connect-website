@@ -120,7 +120,7 @@ export function articleJsonLd(a: {
         height: 512,
       },
     },
-    mainEntityOfPage: `${SITE.siteUrl}/resources/${a.slug}`,
+    mainEntityOfPage: `${SITE.siteUrl}/insights/${a.slug}`,
   };
 }
 

@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return pageMetadata({
     title: article.seo.title,
     description: article.seo.description,
-    path: `/resources/${article.slug}`,
+    path: `/insights/${article.slug}`,
     type: "article",
     publishedTime: article.date,
   });
@@ -40,7 +40,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     <>
       <section className="page-hero white" style={{ paddingBottom: "1.5rem" }}>
         <div className="container" style={{ maxWidth: "56rem" }}>
-          <Breadcrumbs items={[{ name: "Resources", href: "/resources" }, { name: article.category, href: `/resources?category=${encodeURIComponent(article.category)}` }]} />
+          <Breadcrumbs items={[{ name: "Insights", href: "/insights" }, { name: article.category, href: `/insights?category=${encodeURIComponent(article.category)}` }]} />
           <span className="eyebrow">{article.category}</span>
           <h1 className="display-2" style={{ marginTop: "0.8rem" }}>{article.title}</h1>
           <p className="lede" style={{ marginTop: "0.9rem" }}>{article.summary}</p>
@@ -146,7 +146,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <div className="container">
           <div className="section-head">
             <span className="eyebrow">Keep reading</span>
-            <h2 className="display-3">More from Resources</h2>
+            <h2 className="display-3">More insights</h2>
           </div>
           <div className={s.cols2}>
             {more.map((a) => (
@@ -156,7 +156,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   <span aria-hidden="true">·</span>
                   <span>{a.readingTime}</span>
                 </div>
-                <h3><Link href={`/resources/${a.slug}`}>{a.title}</Link></h3>
+                <h3><Link href={`/insights/${a.slug}`}>{a.title}</Link></h3>
                 <p>{a.summary}</p>
               </article>
             ))}

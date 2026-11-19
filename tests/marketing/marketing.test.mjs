@@ -43,12 +43,12 @@ const { PRODUCTS } = load("content/products.ts");
 const { ARTICLES, ARTICLE_CATEGORIES } = load("content/articles.ts");
 const { filterArticles } = load("components/marketing/resourceSearch.ts");
 
-const STATIC = ["/", "/products", "/services", "/resources", "/about", "/trust", "/contact", "/privacy", "/assessment"];
+const STATIC = ["/", "/products", "/services", "/insights", "/about", "/trust", "/contact", "/privacy", "/assessment"];
 const ROUTES = new Set([
   ...STATIC,
   ...PRODUCTS.map((p) => `/products/${p.slug}`),
   ...SERVICES.map((s) => `/services/${s.slug}`),
-  ...ARTICLES.map((a) => `/resources/${a.slug}`),
+  ...ARTICLES.map((a) => `/insights/${a.slug}`),
 ]);
 const routeOf = (href) => href.split(/[?#]/)[0] || "/";
 
@@ -71,7 +71,7 @@ test("new marketing copy passes claim discipline", () => {
 });
 
 test("marketing page sources contain no banned phrases", () => {
-  const files = ["app/page.tsx", "app/about/page.tsx", "app/services/page.tsx", "app/resources/page.tsx",
+  const files = ["app/page.tsx", "app/about/page.tsx", "app/services/page.tsx", "app/insights/page.tsx",
     ...fs.readdirSync(path.join(ROOT, "components/marketing"), { recursive: true })
       .filter((f) => /\.(tsx?|mjs)$/.test(String(f)))
       .map((f) => `components/marketing/${f}`)];
@@ -87,7 +87,7 @@ test("every marketing content href resolves to a route", () => {
 });
 
 test("literal hrefs in marketing pages resolve", () => {
-  const files = ["app/page.tsx", "app/about/page.tsx", "app/services/page.tsx", "app/resources/page.tsx", "app/services/[slug]/page.tsx", "app/resources/[slug]/page.tsx"];
+  const files = ["app/page.tsx", "app/about/page.tsx", "app/services/page.tsx", "app/insights/page.tsx", "app/services/[slug]/page.tsx", "app/insights/[slug]/page.tsx"];
   for (const f of files) {
     const src = fs.readFileSync(path.join(ROOT, f), "utf8");
     for (const m of src.matchAll(/href="(\/[^"]*)"/g)) assert.ok(ROUTES.has(routeOf(m[1])), `${f}: ${m[1]}`);

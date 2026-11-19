@@ -15,11 +15,11 @@ export function InsightCard({ article }: { article: Article }) {
         <span>{article.readingTime}</span>
       </div>
       <h3>
-        <Link href={`/resources/${article.slug}`}>{article.title}</Link>
+        <Link href={`/insights/${article.slug}`}>{article.title}</Link>
       </h3>
       <p>{article.summary}</p>
       <div className="card-foot">
-        <Link href={`/resources/${article.slug}`} className="text-link">
+        <Link href={`/insights/${article.slug}`} className="text-link">
           Read <Icon name="arrow-right" size={16} />
         </Link>
       </div>

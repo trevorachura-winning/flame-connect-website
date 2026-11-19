@@ -29,6 +29,9 @@ const nextConfig = {
       { source: "/products/flame-ready", destination: "/products", permanent: false },
       { source: "/flame-os", destination: "/products/flame-os", permanent: false },
       { source: "/community", destination: "/products/flame-academy", permanent: false },
+      // Nov 2026: Resources became Insights. Keep old links and rankings.
+      { source: "/resources", destination: "/insights", permanent: true },
+      { source: "/resources/:slug", destination: "/insights/:slug", permanent: true },
     ];
   },
   async headers() {

@@ -1,0 +1,138 @@
+/* Insights hub: jump links, AI at work in Africa, In the conversation. */
+.jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.4rem;
+}
+.jump a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding: 0.4rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color var(--dur-2, 0.2s) ease, color var(--dur-2, 0.2s) ease;
+}
+.jump a:hover,
+.jump a:focus-visible {
+  border-color: var(--flame);
+  color: var(--flame-strong, #c9400f);
+}
+
+.head {
+  max-width: 46rem;
+  margin-bottom: 2rem;
+}
+.head p {
+  color: var(--ink-soft);
+  margin-top: 0.75rem;
+  line-height: 1.65;
+}
+.note {
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+  margin-top: 0.75rem;
+}
+
+.cases {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+}
+.case {
+  composes: card from global;
+}
+.caseMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.caseMeta b {
+  color: var(--flame-strong, #c9400f);
+  font-weight: 700;
+}
+.lesson {
+  border-left: 3px solid var(--flame);
+  padding-left: 0.85rem;
+  font-size: 0.93rem;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.lesson b {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.2rem;
+}
+.sources {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.sources a {
+  color: var(--ink-soft);
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+.reading {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.reading li {
+  display: grid;
+  gap: 0.35rem 2rem;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 48rem) {
+  .reading li {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+.reading h3 {
+  font-size: 1.08rem;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+}
+.reading h3 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.reading h3 a:hover,
+.reading h3 a:focus-visible {
+  color: var(--flame-strong, #c9400f);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pub {
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+  margin-top: 0.3rem;
+}
+.reading p {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}

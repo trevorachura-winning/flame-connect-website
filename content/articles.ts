@@ -1,4 +1,4 @@
-export type ArticleCategory = "Insights" | "Playbooks" | "Research" | "Field notes";
+export type ArticleCategory = "Perspectives" | "Playbooks" | "Research" | "Field notes";
 
 export interface ArticleSection {
   heading: string;
@@ -33,7 +33,7 @@ export const ARTICLES: Article[] = [
     title: "AI readiness is a people problem first",
     summary:
       "Technology is rarely what holds organisations back with AI. Unclear priorities, unmapped workflows and unspoken fears do. That is where readiness work should start.",
-    category: "Insights",
+    category: "Perspectives",
     date: "2026-09-01",
     readingTime: "6 min read",
     author: EDITORIAL,
@@ -192,7 +192,7 @@ export const ARTICLES: Article[] = [
     title: "‘Human in the loop’ is a design decision",
     summary:
       "Every AI product claims human oversight. Far fewer say where it happens, how it is enforced and what happens when it gets in the way. Here is what the principle looks like when you build it.",
-    category: "Insights",
+    category: "Perspectives",
     date: "2026-07-28",
     readingTime: "6 min read",
     author: EDITORIAL,
@@ -335,10 +335,184 @@ export const ARTICLES: Article[] = [
         "A follow-up routine, honest pipeline stages and daily focus lists bring in revenue more reliably than platforms. Here is what software should actually do.",
     },
   },
+
+  {
+    slug: "thirty-day-ai-pilot-plan",
+    title: "Playbook: a 30-day AI pilot your team can actually finish",
+    summary:
+      "Most AI pilots stall because they are too big, too vague or owned by nobody. Here is a four-week plan built around one workflow, one owner and one number.",
+    category: "Playbooks",
+    date: "2026-11-17",
+    readingTime: "7 min read",
+    author: EDITORIAL,
+    sections: [
+      {
+        heading: "Why pilots stall",
+        paragraphs: [
+          "A pilot is a small, time-boxed test of whether AI improves one piece of real work. It is not a strategy, a platform purchase or a demonstration for the board. When it tries to be all of those things, it rarely ends. It simply fades.",
+          "The pattern we see most often is a pilot with five goals, three departments and no single person accountable for the result. Four weeks later the team has a tool account, a few impressive screenshots and no decision. A good pilot ends with a clear yes, no or not yet.",
+        ],
+      },
+      {
+        heading: "Week one: choose the work and the number",
+        paragraphs: [
+          "Pick one workflow that happens often, follows a recognisable pattern and costs your team real time. Answering routine customer questions, drafting proposals, summarising reports or sorting incoming documents are common starting points.",
+          "Then choose one number that would tell you the pilot worked. Hours saved per week, response time, error rate or the share of drafts that need heavy rewriting all work. Measure it for a week before any AI touches the work, so you have an honest baseline.",
+        ],
+        list: [
+          "Name one owner who has the authority to change how the work is done.",
+          "Write the workflow down, exceptions included, before choosing a tool.",
+          "Agree what data the tool may and may not see.",
+        ],
+      },
+      {
+        heading: "Weeks two and three: run it alongside the real work",
+        paragraphs: [
+          "Run the AI-assisted version next to the current process, not instead of it. Keep a person reviewing every output that reaches a customer or a decision. Ask the people doing the work to log what helped, what they had to fix and what made them uneasy.",
+          "Expect the first week to be slower. Teams are learning to write instructions, check outputs and spot errors. Judge the second week, not the first.",
+        ],
+      },
+      {
+        heading: "Week four: decide",
+        paragraphs: [
+          "Compare your number against the baseline and read the team log. Then make one of three decisions. Scale it, with the review steps that made it safe. Change it, because the idea is right but the workflow or tool is wrong. Or stop it, and write down what you learned so the next pilot starts smarter.",
+          "Stopping is a valid result. A pilot that ends in a clear no has saved you from a far more expensive rollout.",
+        ],
+      },
+    ],
+    actions: [
+      "Choose one workflow and one owner this week.",
+      "Measure your baseline for five working days before introducing any tool.",
+      "Book the week-four decision meeting now, so the pilot has an end date.",
+    ],
+    limits: [
+      "Four weeks suits frequent, repeatable work. Processes that run monthly or quarterly need a longer window.",
+      "This plan covers the operational test. Contracts, data protection and security reviews may need more time in regulated sectors.",
+    ],
+    relatedServiceSlug: "ai-in-business",
+    seo: {
+      title: "A 30-day AI pilot plan for African businesses",
+      description:
+        "A practical four-week AI pilot plan for small and growing businesses: one workflow, one owner, one number and a clear decision at the end.",
+    },
+  },
+  {
+    slug: "ai-in-african-languages-customer-service",
+    title: "Your customers do not all speak English. Your AI should not assume they do.",
+    summary:
+      "African-language AI is moving from research labs into usable tools. For businesses serving customers in Luganda, Swahili or isiZulu, that changes what good customer service can look like.",
+    category: "Perspectives",
+    date: "2026-11-12",
+    readingTime: "6 min read",
+    author: EDITORIAL,
+    sections: [
+      {
+        heading: "The gap most AI tools leave",
+        paragraphs: [
+          "Most mainstream AI tools work best in English and a handful of other widely used languages. For a business in Kampala, Nairobi or Johannesburg, that leaves a large share of customers served less well, or not at all, by the tools on the market.",
+          "That gap is starting to close. Research groups and companies on the continent are building models for African languages, and some now offer them as products that businesses can use.",
+        ],
+      },
+      {
+        heading: "What is changing",
+        paragraphs: [
+          "In Uganda, Sunbird AI has published Sunflower, a family of language models covering 31 Ugandan languages. In South Africa, Lelapa AI offers Vulavula, a service for transcription, translation and language analysis in South African languages. You can read more about both in our collection of AI at work across Africa on this page.",
+          "These are early tools, and quality varies by language and task. But they mean a question asked in Luganda or isiZulu no longer has to be a dead end for an automated system.",
+        ],
+      },
+      {
+        heading: "Where it can help first",
+        paragraphs: [
+          "Start where language is already a bottleneck and a person can still review the result. Good candidates include transcribing and summarising voice notes from customers, translating frequently asked questions, and helping staff understand messages written in a language they read less fluently.",
+        ],
+        list: [
+          "List the languages your customers actually use, by channel.",
+          "Find the conversations where language slows you down or loses customers.",
+          "Test any tool with native speakers on your own real examples before going live.",
+        ],
+      },
+    ],
+    actions: [
+      "Audit one month of customer messages and note which languages appear.",
+      "Pick one high-volume question and test how a local language tool handles it.",
+      "Keep a fluent person reviewing outputs until accuracy is proven on your own data.",
+    ],
+    limits: [
+      "We describe these tools from their public documentation and publications. We have not independently benchmarked them.",
+      "Accuracy differs between languages, dialects and topics. Never assume a result in one language holds for another.",
+    ],
+    relatedServiceSlug: "ai-in-business",
+    seo: {
+      title: "AI in African languages for customer service",
+      description:
+        "African-language AI from teams like Sunbird AI and Lelapa AI is becoming usable. Here is where it can help customer service first, and how to test it safely.",
+    },
+  },
+  {
+    slug: "questions-before-you-buy-an-ai-tool",
+    title: "Ten questions to ask before you buy an AI tool",
+    summary:
+      "A short checklist for leaders weighing an AI product, so the decision rests on your work, your data and your risks, not the demo.",
+    category: "Playbooks",
+    date: "2026-11-05",
+    readingTime: "5 min read",
+    author: EDITORIAL,
+    sections: [
+      {
+        heading: "Why a checklist helps",
+        paragraphs: [
+          "AI demos are designed to impress. They use clean data, simple questions and a presenter who knows exactly what to type. Your reality will be messier. A few direct questions, asked before you sign, protect your budget and your customers.",
+        ],
+      },
+      {
+        heading: "Questions about the work",
+        paragraphs: ["Start with the problem, not the product."],
+        list: [
+          "Which specific workflow will this change, and who owns it?",
+          "How will we measure whether it helped, and what is our baseline today?",
+          "What happens when the tool is wrong, and who catches it?",
+        ],
+      },
+      {
+        heading: "Questions about data and risk",
+        paragraphs: ["Then ask what the tool needs from you, and what it does with it."],
+        list: [
+          "What data does it need, and where is that data stored and processed?",
+          "Is our data used to train the vendor's models, and can we opt out?",
+          "How does it fit our obligations under the data protection laws that apply to us?",
+          "Can we export our data and leave if it does not work out?",
+        ],
+      },
+      {
+        heading: "Questions about cost and support",
+        paragraphs: ["Finally, check what it really costs to run."],
+        list: [
+          "What is the full cost at our expected volume, including usage-based charges?",
+          "Does it work reliably on the connectivity and devices our team actually has?",
+          "Who supports us locally, and in which time zone?",
+        ],
+      },
+    ],
+    actions: [
+      "Send these questions to the vendor in writing before the next demo.",
+      "Ask for a trial on your own data, not the vendor's sample data.",
+      "Involve the person who will use the tool every day in the decision.",
+    ],
+    limits: [
+      "This checklist is a starting point. Large or regulated purchases also need legal, security and procurement review.",
+      "Data protection obligations differ by country and sector. Take local legal advice where it matters.",
+    ],
+    relatedServiceSlug: "consulting-thought-leadership",
+    seo: {
+      title: "Ten questions to ask before you buy an AI tool",
+      description:
+        "A practical checklist for African business leaders choosing an AI product: workflow fit, data protection, real costs, connectivity and local support.",
+    },
+  },
 ];
 
 export const ARTICLE_CATEGORIES: ArticleCategory[] = [
-  "Insights",
+  "Perspectives",
   "Playbooks",
   "Research",
   "Field notes",

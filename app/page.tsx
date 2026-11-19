@@ -353,8 +353,8 @@ export default function HomePage() {
             ))}
           </SpotlightGroup>
           <div className={s.center}>
-            <Link href="/resources" className={`btn btn-dark ${s.wrapBtn}`}>
-              Explore all resources <Icon name="arrow-right" size={18} />
+            <Link href="/insights" className={`btn btn-dark ${s.wrapBtn}`}>
+              Explore all insights <Icon name="arrow-right" size={18} />
             </Link>
           </div>
         </div>

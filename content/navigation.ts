@@ -7,7 +7,7 @@ export interface NavItem {
 export const TOP_NAV: NavItem[] = [
   { label: "Services", href: "/services" },
   { label: "Products", href: "/products" },
-  { label: "Resources", href: "/resources" },
+  { label: "Insights", href: "/insights" },
   { label: "About", href: "/about" },
   { label: "Responsible AI", href: "/trust" },
 ];
@@ -34,7 +34,7 @@ export const FOOTER_NAV: { heading: string; items: NavItem[] }[] = [
     heading: "Company",
     items: [
       { label: "About", href: "/about" },
-      { label: "Resources", href: "/resources" },
+      { label: "Insights", href: "/insights" },
       { label: "Responsible AI", href: "/trust" },
       { label: "Privacy notice", href: "/privacy" },
       { label: "Contact", href: "/contact" },

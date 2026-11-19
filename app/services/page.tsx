@@ -109,7 +109,7 @@ export default function ServicesPage() {
         question="Not sure which service line fits?"
         copy="You do not need to know yet. Describe the problem and the result you want, and we will recommend a route in a discovery consultation."
         primary={{ label: "Book a discovery consultation", href: "/contact?intent=consultation" }}
-        secondary={{ label: "Read our playbooks", href: "/resources?category=Playbooks" }}
+        secondary={{ label: "Read our playbooks", href: "/insights?category=Playbooks" }}
       />
     </div>
   );
