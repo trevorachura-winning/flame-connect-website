@@ -359,3 +359,16 @@ test("enquiry: real links for email and WhatsApp, plus Gmail and Outlook fallbac
   assert.ok(/href=\{waHref/.test(src) && /target="_blank"/.test(src), "WhatsApp is a real link");
   assert.ok(!/window\.open\(/.test(src), "no scripted pop-ups (blocked in in-app browsers)");
 });
+
+test("coming soon: showcase slideshow of the three services and two products, pausable", () => {
+  const page = fs.readFileSync(path.join(ROOT, "public/coming-soon/index.html"), "utf8");
+  for (const name of ["Digital &amp; Communications", "AI in Business", "Consulting &amp; Thought Leadership", "Flame OS", "Flame Academy"]) {
+    assert.ok(page.includes(`<h3>${name}</h3>`), name);
+  }
+  for (const f of ["digital", "ai", "consulting", "flame-os", "flame-academy"]) {
+    assert.ok(fs.existsSync(path.join(ROOT, `public/coming-soon/show/${f}.webp`)), f);
+  }
+  assert.ok(/id="pause"/.test(page), "WCAG 2.2.2: auto-moving content can be paused");
+  assert.ok(/prefers-reduced-motion: reduce\)"\)\.matches/.test(page), "no autoplay for reduced motion");
+  assert.ok(!/window\.open\(/.test(page), "CTAs are real links");
+});
