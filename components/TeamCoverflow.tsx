@@ -2,18 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from "react";
 import type { TeamMember } from "../content/team";
+import { teamCoverflowOffset, teamAutoplayEnabled } from "../lib/team-coverflow";
 import { Icon } from "./Icons";
 import styles from "../styles/team-coverflow.module.css";
 
 const AUTOPLAY_MS = 5000;
-
-/** Shortest signed distance from the active index, so the ring wraps both ways. */
-function offset(i: number, active: number, n: number) {
-  let d = i - active;
-  if (d > n / 2) d -= n;
-  if (d < -n / 2) d += n;
-  return d;
-}
 
 /**
  * 3D cover-flow of the team. The active person is brought forward in colour on
@@ -47,7 +40,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   }, []);
 
   useEffect(() => {
-    if (!playing || hovering || reduced || n < 3) return;
+    if (!playing || hovering || !teamAutoplayEnabled(n, reduced)) return;
     const t = window.setInterval(() => {
       if (document.visibilityState === "visible") setActive((a) => (a + 1) % n);
     }, AUTOPLAY_MS);
@@ -113,9 +106,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
       >
         <div className={styles.glow} aria-hidden="true" />
         {team.map((m, i) => {
-          // With two people there is one neighbour, not a left/right ring.
-          // Keep that neighbour consistently on the right to avoid wrap jitter.
-          const d = n === 2 ? (i === active ? 0 : 1) : offset(i, active, n);
+          const d = teamCoverflowOffset(i, active, n);
           const ad = Math.abs(d);
           const visible = ad <= 2;
           return (
