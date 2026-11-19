@@ -13,6 +13,7 @@ import { SplitText } from "../components/marketing/motion/SplitText";
 import { HeroStage } from "../components/marketing/motion/HeroStage";
 import { SpotlightGroup } from "../components/marketing/motion/SpotlightGroup";
 import { MethodRail } from "../components/marketing/motion/MethodRail";
+import { Compass } from "../components/marketing/Compass";
 import ambient from "../components/AmbientTechLines.module.css";
 import { PRODUCTS, SERVICES, sortedArticles } from "../lib/content";
 import {
@@ -128,6 +129,9 @@ export default function HomePage() {
           </HeroStage>
         </div>
       </section>
+
+      {/* Who we are: mission, vision and core values, before the story */}
+      <Compass />
 
       {/* 02 — The people: three scenes from our field notes */}
       <section className="section" aria-labelledby="people-title">
