@@ -716,3 +716,16 @@
   box-shadow: none;
   background: transparent;
 }
+/* The bar already shows name and role; keep them for screen readers only. */
+.profileDrop .profileMain > .role,
+.profileDrop .profileMain > h2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.profileDrop .profileMain > nav {
+  margin-top: 0;
+}
