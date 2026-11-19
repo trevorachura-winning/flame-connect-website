@@ -15,7 +15,7 @@ export function Footer() {
           <div className="footer-brand">
             <span className="brand">
               <span className="brand-lockup">
-                <BrandLogo height={40} tone="dark" />
+                <BrandLogo height={88} tone="dark" tagline />
               </span>
             </span>
             <p>{SITE.shortDescription}</p>

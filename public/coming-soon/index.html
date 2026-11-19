@@ -59,20 +59,13 @@
   .wrap { width: min(1080px, 100% - 2.5rem); margin-inline: auto; }
 
   header { padding: clamp(1.25rem, 3vw, 2rem) 0; }
-  /* Same owner-supplied mark + inverse wordmark used by BrandLogo.tsx
-     in the full website. Never redraw, recolour or distort the official assets. */
-  .brand-lockup {
-    display: inline-flex;
-    align-items: center;
-    gap: clamp(8px, 1.3vw, 12px);
-    max-width: 100%;
-    line-height: 0;
-  }
-  .brand-lockup img { display: block; width: auto; object-fit: contain; }
-  .brand-lockup .brand-mark { height: clamp(36px, 5vw, 44px); }
-  .brand-lockup .brand-wordmark { height: clamp(27px, 3.7vw, 33px); }
+  /* The official logo supplied by the brand owner (19 Nov 2026), dark-surface
+     version, shown large and centred so its "Digitizing Africa" tagline reads.
+     Same files as BrandLogo.tsx on the full website. Never redraw or recolour. */
+  header .wrap { display: flex; justify-content: center; }
+  .brand-logo { display: block; height: clamp(84px, 11vw, 128px); width: auto; max-width: 100%; object-fit: contain; }
 
-  main { flex: 1; display: grid; place-items: center; padding: 2rem 0 3rem; text-align: center; overflow: clip; min-height: calc(100svh - 104px); }
+  main { flex: 1; display: grid; place-items: center; padding: 2rem 0 3rem; text-align: center; overflow: clip; min-height: calc(100svh - 190px); }
 
   .kicker {
     display: inline-flex; align-items: center; gap: .6rem;
@@ -288,10 +281,7 @@
 
   <header>
     <div class="wrap">
-      <div class="brand-lockup" role="img" aria-label="Flame Connect">
-        <img class="brand-mark" src="/brand/flame-connect-mark.png" alt="" width="512" height="512">
-        <img class="brand-wordmark" src="/brand/flame-connect-wordmark-inverse.png" alt="" width="1024" height="354">
-      </div>
+      <img class="brand-logo" src="/brand/flame-connect-logo-tagline-inverse.png" alt="Flame Connect. Digitizing Africa" width="1341" height="528">
     </div>
   </header>
 

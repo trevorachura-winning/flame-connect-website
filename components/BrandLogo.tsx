@@ -1,77 +1,65 @@
 import Image from "next/image";
 
 /**
- * Flame Connect brand lockup — built from the OFFICIAL logo artwork supplied
- * by the brand owner (Sept 2026): the flame-leaf mark and the FLAME CONNECT
- * wordmark with its navy circuit flourish.
+ * Flame Connect logo: the OFFICIAL lockup supplied by the brand owner
+ * (19 Nov 2026): the flame-leaf mark, the FLAME CONNECT wordmark with its
+ * navy circuit flourish and the "Digitizing Africa" tagline.
  *
- * Source files (alpha-matted PNGs, single source of truth):
- *   public/brand/flame-connect-mark.png              — mark only, square
- *   public/brand/flame-connect-wordmark.png          — wordmark, navy circuit (light surfaces)
- *   public/brand/flame-connect-wordmark-inverse.png  — wordmark, light circuit (dark surfaces)
+ * Source files (transparent PNGs cut from the supplied artwork, single source
+ * of truth; never redraw or recolour beyond the inverse below):
+ *   public/brand/flame-connect-logo.png                   lockup, light surfaces
+ *   public/brand/flame-connect-logo-inverse.png           lockup, dark surfaces
+ *   public/brand/flame-connect-logo-tagline.png           lockup + tagline, light surfaces
+ *   public/brand/flame-connect-logo-tagline-inverse.png   lockup + tagline, dark surfaces
+ *   public/brand/flame-connect-mark.png                   mark only, square
  *
- * Brand rules honoured: supplied full-colour treatment only, proportions
- * preserved, clear space via layout, no recoloured or alternate treatments
- * (the inverse wordmark only lightens the circuit ink, since navy reads 1:1
- * on the navy footer). next/image serves size-appropriate optimized variants.
+ * The inverse files only turn the navy circuit and tagline to near-white so
+ * they read on navy; the orange is unchanged. The tagline version is for
+ * sizes where its text stays readable (about 80px tall and up); smaller
+ * placements such as the sticky header use the lockup without it.
  */
+const RATIO = 1341 / 528;
+
 export function BrandLogo({
-  height = 44,
+  height = 40,
   variant = "full",
   tone = "light",
+  tagline = false,
   priority = false,
 }: {
-  /** Rendered lockup height in px (mark height; wordmark scales with it). */
+  /** Rendered logo height in px. */
   height?: number;
   /** full = mark + wordmark; mark = flame-leaf mark only. */
   variant?: "full" | "mark";
-  /** light = on white/light surfaces; dark = on navy surfaces (light circuit wordmark). */
+  /** light = on white/light surfaces; dark = on navy surfaces. */
   tone?: "light" | "dark";
+  /** Include the "Digitizing Africa" tagline (use at about 80px tall and up). */
+  tagline?: boolean;
   /** Eagerly load (above-the-fold placements like the sticky header). */
   priority?: boolean;
 }) {
-  const mark = (
-    <Image
-      src="/brand/flame-connect-mark.png"
-      alt={variant === "mark" ? "Flame Connect" : ""}
-      width={512}
-      height={512}
-      priority={priority}
-      style={{ display: "block", height: `${height}px`, width: "auto" }}
-    />
-  );
+  if (variant === "mark") {
+    return (
+      <Image
+        src="/brand/flame-connect-mark.png"
+        alt="Flame Connect"
+        width={512}
+        height={512}
+        priority={priority}
+        style={{ display: "block", height: `${height}px`, width: "auto" }}
+      />
+    );
+  }
 
-  if (variant === "mark") return mark;
-
-  const wordHeight = Math.round(height * 0.74);
-  const wordmark = (
-    <Image
-      src={
-        tone === "dark"
-          ? "/brand/flame-connect-wordmark-inverse.png"
-          : "/brand/flame-connect-wordmark.png"
-      }
-      alt=""
-      width={1024}
-      height={354}
-      priority={priority}
-      style={{ display: "block", height: `${wordHeight}px`, width: "auto" }}
-    />
-  );
-
+  const file = `/brand/flame-connect-logo${tagline ? "-tagline" : ""}${tone === "dark" ? "-inverse" : ""}.png`;
   return (
-    <span
-      role="img"
-      aria-label="Flame Connect"
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: `${Math.max(8, Math.round(height * 0.22))}px`,
-        lineHeight: 0,
-      }}
-    >
-      {mark}
-      {wordmark}
-    </span>
+    <Image
+      src={file}
+      alt={tagline ? "Flame Connect. Digitizing Africa" : "Flame Connect"}
+      width={1341}
+      height={528}
+      priority={priority}
+      style={{ display: "block", height: `${height}px`, width: `${Math.round(height * RATIO)}px`, maxWidth: "100%", objectFit: "contain" }}
+    />
   );
 }

@@ -313,7 +313,7 @@ test("pre-launch gate: production hosts only, opens Fri 20 Nov 12:00 EAT, page a
   for (const asset of ["montserrat-700.woff", "poppins-400.woff", "poppins-500.woff"]) {
     assert.ok(fs.existsSync(path.join(ROOT, "public/coming-soon", asset)), asset);
   }
-  for (const ref of ["/brand/flame-connect-wordmark-inverse.png", "/videos/ember-loop.mp4", "/videos/ember-poster.jpg"]) {
+  for (const ref of ["/brand/flame-connect-logo-tagline-inverse.png", "/videos/ember-loop.mp4", "/videos/ember-poster.jpg"]) {
     assert.ok(fs.existsSync(path.join(ROOT, "public", ref)), ref);
   }
 });
