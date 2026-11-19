@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Icon } from "../../Icons";
 import m from "../../../styles/marketing/motion.module.css";
 
-/** Three clear conversion routes: consultation (primary), products, resources. */
+/** Three clear conversion routes: consultation (primary), products, insights. */
 export function PathwayCards({
   paths,
 }: {

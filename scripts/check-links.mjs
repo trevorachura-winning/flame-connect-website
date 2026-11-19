@@ -39,16 +39,16 @@ const { SERVICES } = loadTs("content/services.ts");
 const { ARTICLES } = loadTs("content/articles.ts");
 
 const STATIC_ROUTES = new Set([
-  "/", "/products", "/services", "/resources",
+  "/", "/products", "/services", "/insights",
   "/about", "/trust", "/contact", "/privacy", "/assessment",
 ]);
 const ROUTES = new Set([
   ...STATIC_ROUTES,
   ...PRODUCTS.map((p) => `/products/${p.slug}`),
   ...SERVICES.map((s) => `/services/${s.slug}`),
-  ...ARTICLES.map((a) => `/resources/${a.slug}`),
+  ...ARTICLES.map((a) => `/insights/${a.slug}`),
 ]);
-const CONTENT_PREFIXES = ["/products/", "/services/", "/resources/"];
+const CONTENT_PREFIXES = ["/products/", "/services/", "/insights/"];
 const ALLOWED_EXTERNAL = [
   "https://github.com/trevorachura-winning/flame-connect-salesos-ai",
 ];

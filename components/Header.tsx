@@ -9,10 +9,8 @@ import { BrandLogo } from "./BrandLogo";
 import { Icon } from "./Icons";
 
 export function Header({
-  ctaHref,
   ribbon,
 }: {
-  ctaHref: string;
   ribbon?: { text: string; href: string; linkText: string } | null;
 }) {
   const pathname = usePathname();
@@ -118,9 +116,12 @@ export function Header({
           <DesktopMegaNavigation />
 
           <div className="header-actions">
-            <Link href={ctaHref} className="btn btn-primary btn-sm">
-              <span className="header-cta-text">Book a consultation</span>
-              <span aria-hidden="true" className="only-compact">Talk to us</span>
+            <Link href="/contact" className="btn btn-outline btn-sm header-talk">
+              Talk to us
+            </Link>
+            <Link href="/assessment" className="btn btn-primary btn-sm">
+              <span className="header-cta-text">Free AI assessment</span>
+              <span className="only-compact">AI assessment</span>
             </Link>
             <button
               ref={menuBtnRef}
@@ -165,11 +166,14 @@ export function Header({
         <MobileMegaNavigation onNavigate={() => setDrawerOpen(false)} />
 
         <div className="drawer-cta">
-          <Link href={ctaHref} className="btn btn-primary">
-            Book a consultation
+          <Link href="/assessment" className="btn btn-primary">
+            Take the free AI assessment
           </Link>
-          <Link className="drawer-signin" href="/products">
-            Explore our products
+          <Link href="/contact" className="btn btn-outline">
+            Talk to us
+          </Link>
+          <Link className="drawer-signin" href="/services">
+            Explore our service lines
           </Link>
         </div>
       </div>

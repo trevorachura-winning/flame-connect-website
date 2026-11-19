@@ -34,7 +34,7 @@ import m from "../styles/marketing/motion.module.css";
 export const metadata = pageMetadata({
   title: "Flame Connect | Practical AI for African progress",
   description:
-    "Flame Connect is an AI Centre of Change in Kampala, Uganda. We offer practical AI, digital communications and transformation support for African organisations. Digitizing Africa.",
+    "AI Centre of Change in Kampala, Uganda. Practical AI consulting, automation and digital communications for African organisations. Digitizing Africa.",
   path: "/",
 });
 
@@ -68,13 +68,19 @@ export default function HomePage() {
               {HOME_PROVERB_OPEN.meaning} {HOME_HERO.lede}
             </p>
             <div className={`hero-actions ${m.rise}`} style={v({ "--i": 5, "--d": "150ms" })}>
-              <Link href="/contact?intent=consultation" className={`btn btn-primary ${s.wrapBtn}`}>
-                Book a discovery consultation <Icon name="arrow-right" size={18} />
+              <Link href="/assessment" className={`btn btn-primary ${s.wrapBtn}`}>
+                Take the free AI assessment <Icon name="arrow-right" size={18} />
               </Link>
-              <Link href="/products" className={`btn btn-outline ${s.wrapBtn}`}>
-                Explore our products
+              <Link href="/services" className={`btn btn-outline ${s.wrapBtn}`}>
+                Explore our service lines
               </Link>
             </div>
+            <p className={`hero-assess ${m.rise}`} style={v({ "--i": 5, "--d": "150ms" })}>
+              Not an AI question?{" "}
+              <Link href="/contact" className="text-link">
+                Talk to us <Icon name="arrow-right" size={16} />
+              </Link>
+            </p>
             <div className={`hero-points ${m.rise}`} style={v({ "--i": 6, "--d": "150ms" })}>
               {HOME_HERO.points.map((point) => (
                 <span key={point}>
@@ -353,8 +359,8 @@ export default function HomePage() {
             ))}
           </SpotlightGroup>
           <div className={s.center}>
-            <Link href="/resources" className={`btn btn-dark ${s.wrapBtn}`}>
-              Explore all resources <Icon name="arrow-right" size={18} />
+            <Link href="/insights" className={`btn btn-dark ${s.wrapBtn}`}>
+              Explore all insights <Icon name="arrow-right" size={18} />
             </Link>
           </div>
         </div>

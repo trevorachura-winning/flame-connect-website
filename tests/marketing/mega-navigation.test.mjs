@@ -33,8 +33,11 @@ test("mobile drawer manages focus and both menu controls have large targets", ()
 test("website-only sign-in and backend are not reintroduced", () => {
   assert.doesNotMatch(nav, /["']\/(sign-in|login|signin)(?:["'?]|$)/);
   assert.doesNotMatch(header, />\s*Sign in\s*</i);
-  assert.match(header, /Book a consultation/);
-  assert.match(header, /href=\{ctaHref\}/);
+  // Nov 2026 Product Owner decision: the free AI assessment is the primary
+  // header action; "Talk to us" covers non-AI enquiries. Booking a
+  // consultation follows the assessment results and lives in the Services menu.
+  assert.match(header, /href="\/assessment"/);
+  assert.match(header, /Talk to us/);
   assert.match(nav, /href="\/contact\?intent=consultation"/);
   assert.match(nav, /onPointerDown/);
   assert.match(nav, /aria-current/);

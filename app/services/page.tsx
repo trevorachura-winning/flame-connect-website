@@ -17,9 +17,9 @@ import { SpotlightGroup } from "../../components/marketing/motion/SpotlightGroup
 const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 
 export const metadata = pageMetadata({
-  title: "AI, Digital & Transformation Services",
+  title: "AI Consulting, Digital & Transformation Services in Uganda",
   description:
-    "Digital & Communications, AI in Business and Consulting & Thought Leadership. Each one starts from a real business challenge and works towards a realistic, measurable result.",
+    "Three service lines for African organisations: Digital & Communications, AI in Business, and Consulting & Thought Leadership. Each starts from a real business challenge.",
   path: "/services",
 });
 
@@ -109,7 +109,7 @@ export default function ServicesPage() {
         question="Not sure which service line fits?"
         copy="You do not need to know yet. Describe the problem and the result you want, and we will recommend a route in a discovery consultation."
         primary={{ label: "Book a discovery consultation", href: "/contact?intent=consultation" }}
-        secondary={{ label: "Read our playbooks", href: "/resources?category=Playbooks" }}
+        secondary={{ label: "Read our playbooks", href: "/insights?category=Playbooks" }}
       />
     </div>
   );

@@ -57,7 +57,7 @@
   z-index: 110;
   top: 100%;
   left: 50%;
-  width: min(775px, calc(100vw - 3rem));
+  width: min(560px, calc(100vw - 3rem));
   max-height: min(72vh, 570px);
   overflow-y: auto;
   transform: translateX(-50%);
@@ -224,7 +224,7 @@
   }
 }
 
-@media (max-width: 75rem) {
+@media (max-width: 63.99rem) {
   .desktopNav {
     display: none !important;
   }
@@ -251,3 +251,65 @@
 .mobileNested a { min-height: 44px; }
 /* The panel stays scrollable and prevents the header from expanding the page. */
 .megaPanel { overscroll-behavior: contain; }
+
+/* Single-column list: each entry has a title, optional status and a one-line
+   description from the content registry. Internal links use →, never ↗. */
+.panelList {
+  list-style: none;
+  margin: 0;
+  padding: 0.75rem 0;
+  display: grid;
+  gap: 0.2rem;
+}
+.linkTitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.6rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.linkDesc {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+.megaPanel .panelLink .linkArrow {
+  flex: none;
+  color: var(--flame-strong);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 190ms var(--ease), transform 190ms var(--ease);
+}
+.megaPanel .panelLink:hover .linkArrow,
+.megaPanel .panelLink:focus-visible .linkArrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+.megaPanel .panelFoot a {
+  font-size: 0.85rem;
+}
+
+/* Compact laptops (1024 to 1279px): keep the full menu, tighten spacing. */
+@media (min-width: 64rem) and (max-width: 79.99rem) {
+  .desktopNav :global(a) {
+    padding-left: 0.55rem !important;
+    padding-right: 0.55rem !important;
+    font-size: 0.86rem !important;
+  }
+  .topGroup > a {
+    padding-right: 0.1rem !important;
+  }
+  .disclosure {
+    margin-right: 0;
+  }
+}
+.footLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .megaPanel .panelLink .linkArrow { transition: none; }
+}

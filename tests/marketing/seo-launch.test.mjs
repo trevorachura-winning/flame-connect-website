@@ -56,14 +56,14 @@ test("article OG includes its actual publication date and not invented modified 
   const result = seo().pageMetadata({
     title: "AI readiness is a people problem first",
     description: "A practical guide.",
-    path: "/resources/ai-readiness-is-a-people-problem-first",
+    path: "/insights/ai-readiness-is-a-people-problem-first",
     type: "article",
     publishedTime: "2026-09-01",
   });
   assert.equal(result.openGraph.type, "article");
   assert.equal(result.openGraph.publishedTime, "2026-09-01");
   assert.doesNotMatch(read("app/sitemap.ts"), /lastModified:\s*(now|new Date\()/);
-  assert.match(read("app/resources/[slug]/page.tsx"), /publishedTime:\s*article\.date/);
+  assert.match(read("app/insights/[slug]/page.tsx"), /publishedTime:\s*article\.date/);
 });
 
 test("organization and website graph reuse official logo and same organization ID", () => {

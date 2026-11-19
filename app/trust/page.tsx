@@ -8,7 +8,7 @@ import { RESPONSIBLE_AI_COMMITMENTS } from "../../content/home";
 import { pageMetadata } from "../../lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Responsible AI",
+  title: "Responsible AI: human oversight, privacy and safeguards",
   description:
     "How Flame Connect designs AI with human oversight, clear safeguards, privacy and accessibility. These are the commitments behind our services and platforms.",
   path: "/trust",
