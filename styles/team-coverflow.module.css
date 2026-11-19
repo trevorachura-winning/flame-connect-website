@@ -3,7 +3,17 @@
   --step: clamp(5.5rem, 17vw, 15rem);
   --slide-w: clamp(11rem, 30vw, 21rem);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Damped spring (about 5% overshoot). Browsers without linear() use --ease-out. */
+  --spring: var(--ease-out);
+  --tx: 0;
+  --ty: 0;
   position: relative;
+}
+
+@supports (transition-timing-function: linear(0, 1)) {
+  .root {
+    --spring: linear(0.000, 0.043, 0.149, 0.286, 0.433, 0.574, 0.701, 0.807, 0.892, 0.955, 1.001, 1.030, 1.046, 1.053, 1.054, 1.050, 1.043, 1.035, 1.027, 1.020, 1.013, 1.008, 1.004, 1.001, 0.999, 0.998, 0.997, 0.997, 0.997, 0.997, 1.000);
+  }
 }
 
 .stage {
@@ -63,9 +73,9 @@
     scale(calc(1 - var(--ad) * 0.1));
   opacity: calc(1 - var(--ad) * 0.18);
   transition:
-    transform 900ms var(--ease-out),
-    opacity 700ms var(--ease-out),
-    filter 700ms var(--ease-out);
+    transform 950ms var(--spring),
+    opacity 600ms var(--ease-out),
+    filter 450ms var(--ease-out);
   filter: grayscale(1) brightness(0.92);
   cursor: pointer;
 }
@@ -85,8 +95,73 @@
   -webkit-mask-image: linear-gradient(180deg, #000 82%, transparent);
   mask-image: linear-gradient(180deg, #000 82%, transparent);
 }
+.portrait {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+}
 .slide[data-active] .photo {
-  transform: translateY(-0.6rem) scale(1.1);
+  transform: translateY(-0.6rem) scale(1.1) rotateY(calc(var(--tx) * 7deg)) rotateX(calc(var(--ty) * -4deg));
+  transition: transform 500ms var(--ease-out);
+}
+/* Light that follows the pointer, clipped to the person's silhouette. */
+.sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform: translateY(-0.6rem) scale(1.1) rotateY(calc(var(--tx) * 7deg)) rotateX(calc(var(--ty) * -4deg));
+  transition: transform 500ms var(--ease-out), opacity 400ms ease;
+  background: radial-gradient(38% 30% at var(--mx, 50%) var(--my, 30%), rgba(255, 255, 255, 0.4), transparent 70%);
+  mix-blend-mode: soft-light;
+  -webkit-mask-image: var(--mask);
+  mask-image: var(--mask);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: 50% 100%;
+  mask-position: 50% 100%;
+  opacity: 0;
+}
+.stage:hover .sheen {
+  opacity: 1;
+}
+
+/* Circuit traces and the current pulse that lights the active plinth. */
+.circuit {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.traces path,
+.traces circle {
+  fill: none;
+  stroke: rgba(244, 81, 30, 0.22);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+.traces circle {
+  fill: rgba(244, 81, 30, 0.22);
+}
+.pulses path {
+  fill: none;
+  stroke: #f4511e;
+  stroke-width: 3;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 14 100;
+  stroke-dashoffset: 14;
+  opacity: 0;
+  filter: drop-shadow(0 0 6px rgba(244, 81, 30, 0.9));
+  animation: current 780ms cubic-bezier(0.45, 0, 0.2, 1) 120ms both;
+}
+@keyframes current {
+  0% { stroke-dashoffset: 14; opacity: 0; }
+  10% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { stroke-dashoffset: -100; opacity: 0; }
 }
 
 /* Name plinth: angled with the slide; the active one is a lit navy card. */
@@ -118,6 +193,7 @@
   color: rgba(255, 255, 255, 0.72);
 }
 .slide[data-active] .plinth {
+  animation: plinthLit 900ms var(--ease-out) 780ms both;
   background: #07111f;
   padding: 1rem 1.2rem 1.15rem;
   box-shadow: 0 0 0 1px rgba(244, 81, 30, 0.35), 0 26px 60px -20px rgba(244, 81, 30, 0.45);
@@ -128,7 +204,28 @@
 .slide[data-active] .plinth span {
   color: #ff936b;
 }
+/* The active role types itself in after the current arrives. */
+.slide[data-active] .plinthRole {
+  animation: typeIn 520ms steps(26, end) 820ms both;
+}
+.slide[data-active] .plinth strong {
+  animation: nameUp 520ms var(--ease-out) 700ms both;
+}
+@keyframes plinthLit {
+  0% { box-shadow: 0 0 0 1px rgba(244, 81, 30, 0.35), 0 26px 60px -20px rgba(244, 81, 30, 0.45); }
+  30% { box-shadow: 0 0 0 2px rgba(244, 81, 30, 0.9), 0 0 38px 2px rgba(244, 81, 30, 0.55); }
+  100% { box-shadow: 0 0 0 1px rgba(244, 81, 30, 0.35), 0 26px 60px -20px rgba(244, 81, 30, 0.45); }
+}
+@keyframes typeIn {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes nameUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
 .slide[data-active] .plinth::after {
+  animation: underlineIn 500ms var(--ease-out) 900ms both;
   content: "";
   display: block;
   width: 2.5rem;
@@ -413,5 +510,34 @@
   .profile,
   .focusItem {
     animation: none;
+  }
+}
+
+@keyframes underlineIn {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+/* Profile role types in too. */
+.profile .role {
+  animation: typeIn 560ms steps(30, end) 150ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    --spring: var(--ease-out);
+  }
+  .pulses,
+  .sheen {
+    display: none;
+  }
+  .slide[data-active] .plinth,
+  .slide[data-active] .plinthRole,
+  .slide[data-active] .plinth strong,
+  .slide[data-active] .plinth::after,
+  .profile .role {
+    animation: none;
+  }
+  .slide[data-active] .photo {
+    transform: translateY(-0.6rem) scale(1.1);
   }
 }

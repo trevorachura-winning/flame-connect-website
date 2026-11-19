@@ -22,7 +22,8 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   const [playing, setPlaying] = useState(n >= 3);
   const [hovering, setHovering] = useState(false);
   const [reduced, setReduced] = useState(false);
-  const drag = useRef<{ x: number; dx: number; moved: boolean } | null>(null);
+  const drag = useRef<{ x: number; dx: number; moved: boolean; t: number; lastX: number; lastT: number; v: number } | null>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const suppressClick = useRef(false);
   const [dragX, setDragX] = useState(0);
 
@@ -52,12 +53,36 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
     if (e.key === "ArrowLeft") { e.preventDefault(); setPlaying(false); go(active - 1); }
   };
 
+  /** Active portrait leans towards a mouse pointer, with a light sheen across it. */
+  const tilt = (e: PointerEvent<HTMLDivElement>) => {
+    const el = stageRef.current;
+    if (!el || e.pointerType !== "mouse" || reduced) return;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width;
+    const y = (e.clientY - r.top) / r.height;
+    el.style.setProperty("--tx", (x * 2 - 1).toFixed(3));
+    el.style.setProperty("--ty", (y * 2 - 1).toFixed(3));
+    el.style.setProperty("--mx", `${(x * 100).toFixed(1)}%`);
+    el.style.setProperty("--my", `${(y * 100).toFixed(1)}%`);
+  };
+  const untilt = () => {
+    const el = stageRef.current;
+    if (!el) return;
+    el.style.setProperty("--tx", "0");
+    el.style.setProperty("--ty", "0");
+  };
+
   const onDown = (e: PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === "mouse" && e.button !== 0) return;
-    drag.current = { x: e.clientX, dx: 0, moved: false };
+    drag.current = { x: e.clientX, dx: 0, moved: false, t: e.timeStamp, lastX: e.clientX, lastT: e.timeStamp, v: 0 };
   };
   const onMove = (e: PointerEvent<HTMLDivElement>) => {
+    tilt(e);
     if (!drag.current) return;
+    const dt = Math.max(1, e.timeStamp - drag.current.lastT);
+    drag.current.v = (e.clientX - drag.current.lastX) / dt; // px per ms
+    drag.current.lastX = e.clientX;
+    drag.current.lastT = e.timeStamp;
     const dx = e.clientX - drag.current.x;
     drag.current.dx = dx;
     if (Math.abs(dx) > 6) drag.current.moved = true;
@@ -65,7 +90,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   };
   const onUp = () => {
     if (!drag.current) return;
-    const { dx, moved } = drag.current;
+    const { dx, moved, v } = drag.current;
     drag.current = null;
     setDragX(0);
     // Prevent the synthetic click after a swipe from also selecting a card.
@@ -73,7 +98,9 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
       suppressClick.current = true;
       window.setTimeout(() => { suppressClick.current = false; }, 0);
     }
-    if (Math.abs(dx) > 50) { setPlaying(false); go(active + (dx < 0 ? 1 : -1)); }
+    // A long drag or a quick flick both move one person.
+    const flick = Math.abs(v) > 0.45 && Math.abs(dx) > 14;
+    if (Math.abs(dx) > 50 || flick) { setPlaying(false); go(active + ((flick ? v : dx) < 0 ? 1 : -1)); }
   };
 
   if (n === 0) return null;
@@ -91,6 +118,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
       onBlur={() => setHovering(false)}
     >
       <div
+        ref={stageRef}
         className={styles.stage}
         tabIndex={n > 1 ? 0 : -1}
         onKeyDown={onKey}
@@ -98,7 +126,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
         onPointerMove={onMove}
         onPointerUp={onUp}
         onPointerCancel={onUp}
-        onPointerLeave={onUp}
+        onPointerLeave={() => { onUp(); untilt(); }}
         aria-label={n > 1 ? "Use the left and right arrow keys to move between people" : `${current.name}, ${current.role}`}
         style={{ "--drag": `${dragX}px` } as CSSProperties}
         data-dragging={dragX !== 0 || undefined}
@@ -106,6 +134,21 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
         data-single={n === 1 || undefined}
       >
         <div className={styles.glow} aria-hidden="true" />
+        {/* Signature: current runs along the circuit traces into the active plinth. */}
+        <svg className={styles.circuit} viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">
+          <g className={styles.traces}>
+            <path d="M0 455 H230 L300 525 H430" />
+            <path d="M1000 455 H770 L700 525 H570" />
+            <path d="M0 330 H120 L170 380 H240" />
+            <path d="M1000 330 H880 L830 380 H760" />
+            <circle cx="240" cy="380" r="4" />
+            <circle cx="760" cy="380" r="4" />
+          </g>
+          <g className={styles.pulses} key={active}>
+            <path d="M0 455 H230 L300 525 H430" pathLength={100} />
+            <path d="M1000 455 H770 L700 525 H570" pathLength={100} />
+          </g>
+        </svg>
         {team.map((m, i) => {
           const d = teamCoverflowOffset(i, active, n);
           const ad = Math.abs(d);
@@ -122,10 +165,13 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className={styles.photo} src={m.photo} alt="" draggable={false} loading={ad <= 1 ? "eager" : "lazy"} />
+              <div className={styles.portrait}>
+                <img className={styles.photo} src={m.photo} alt="" draggable={false} loading={ad <= 1 ? "eager" : "lazy"} />
+                {d === 0 && <span className={styles.sheen} style={{ "--mask": `url(${m.photo})` } as CSSProperties} aria-hidden="true" />}
+              </div>
               <div className={styles.plinth}>
                 <strong>{m.name}</strong>
-                <span>{m.role}</span>
+                <span className={styles.plinthRole}>{m.role}</span>
               </div>
             </div>
           );
