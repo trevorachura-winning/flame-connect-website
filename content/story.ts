@@ -65,7 +65,7 @@ export const CHAPTERS: StoryChapter[] = [
     when: "2024 to 2025",
     title: "The team grows",
     body: [
-      "Moses and Trevor crossed paths again, this time for work. Okot Ronny Raphile joined us, now our COO and Managing Partner.",
+      "Moses and Trevor crossed paths again, this time for work. Okot Ronny Raphile joined us and is now our COO.",
       "Mentors guided us, and curiosity kept us asking a bigger question: what if we built technology, not just used it? That is when the technology idea began, and we said out loud that we needed a team.",
     ],
     learnt: "A vision becomes real when people commit to it together.",
