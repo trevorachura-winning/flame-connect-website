@@ -25,13 +25,18 @@ function offset(i: number, active: number, n: number) {
 export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   const n = team.length;
   const [active, setActive] = useState(0);
-  const [playing, setPlaying] = useState(true);
+  // Autoplay adds little value and can make a two-person cycle feel jumpy.
+  const [playing, setPlaying] = useState(n >= 3);
   const [hovering, setHovering] = useState(false);
   const [reduced, setReduced] = useState(false);
-  const drag = useRef<{ x: number; moved: boolean } | null>(null);
+  const drag = useRef<{ x: number; dx: number; moved: boolean } | null>(null);
+  const suppressClick = useRef(false);
   const [dragX, setDragX] = useState(0);
 
-  const go = useCallback((i: number) => setActive(((i % n) + n) % n), [n]);
+  const go = useCallback((i: number) => {
+    if (n < 2) return;
+    setActive(((i % n) + n) % n);
+  }, [n]);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -42,7 +47,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   }, []);
 
   useEffect(() => {
-    if (!playing || hovering || reduced || n < 2) return;
+    if (!playing || hovering || reduced || n < 3) return;
     const t = window.setInterval(() => {
       if (document.visibilityState === "visible") setActive((a) => (a + 1) % n);
     }, AUTOPLAY_MS);
@@ -56,19 +61,25 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
 
   const onDown = (e: PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === "mouse" && e.button !== 0) return;
-    drag.current = { x: e.clientX, moved: false };
+    drag.current = { x: e.clientX, dx: 0, moved: false };
   };
   const onMove = (e: PointerEvent<HTMLDivElement>) => {
     if (!drag.current) return;
     const dx = e.clientX - drag.current.x;
+    drag.current.dx = dx;
     if (Math.abs(dx) > 6) drag.current.moved = true;
     setDragX(dx);
   };
   const onUp = () => {
     if (!drag.current) return;
-    const dx = dragX;
+    const { dx, moved } = drag.current;
     drag.current = null;
     setDragX(0);
+    // Prevent the synthetic click after a swipe from also selecting a card.
+    if (moved) {
+      suppressClick.current = true;
+      window.setTimeout(() => { suppressClick.current = false; }, 0);
+    }
     if (Math.abs(dx) > 50) { setPlaying(false); go(active + (dx < 0 ? 1 : -1)); }
   };
 
@@ -98,10 +109,13 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
         aria-label="Use the left and right arrow keys to move between people"
         style={{ "--drag": `${dragX}px` } as CSSProperties}
         data-dragging={dragX !== 0 || undefined}
+        data-two-person={n === 2 || undefined}
       >
         <div className={styles.glow} aria-hidden="true" />
         {team.map((m, i) => {
-          const d = offset(i, active, n);
+          // With two people there is one neighbour, not a left/right ring.
+          // Keep that neighbour consistently on the right to avoid wrap jitter.
+          const d = n === 2 ? (i === active ? 0 : 1) : offset(i, active, n);
           const ad = Math.abs(d);
           const visible = ad <= 2;
           return (
@@ -112,7 +126,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
               aria-hidden={d !== 0}
               style={{ "--d": d, "--ad": ad, zIndex: 20 - ad, visibility: visible ? "visible" : "hidden" } as CSSProperties}
               onClick={() => {
-                if (d !== 0 && !drag.current?.moved) { setPlaying(false); go(i); }
+                if (d !== 0 && !suppressClick.current) { setPlaying(false); go(i); }
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -130,7 +144,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
         <button type="button" className={styles.arrow} onClick={() => { setPlaying(false); go(active - 1); }} aria-label="Previous person">
           <Icon name="arrow-right" size={18} style={{ transform: "scaleX(-1)" }} />
         </button>
-        <ol className={styles.names} aria-label="Team members">
+        {n >= 3 && <ol className={styles.names} aria-label="Team members">
           {team.map((m, i) => (
             <li key={m.slug}>
               <button
@@ -143,11 +157,11 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
               </button>
             </li>
           ))}
-        </ol>
+        </ol>}
         <button type="button" className={styles.arrow} onClick={() => { setPlaying(false); go(active + 1); }} aria-label="Next person">
           <Icon name="arrow-right" size={18} />
         </button>
-        {!reduced && n > 1 && (
+        {!reduced && n >= 3 && (
           <button type="button" className={styles.pause} onClick={() => setPlaying((p) => !p)} aria-pressed={!playing}>
             {playing ? "Pause" : "Play"}
           </button>
