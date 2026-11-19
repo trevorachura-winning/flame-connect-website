@@ -146,9 +146,9 @@ export const SERVICES: Service[] = [
       },
     ],
     seo: {
-      title: "Digital & Communications",
+      title: "Digital Communications & Branding in Uganda",
       description:
-        "Brand strategy, campaigns, content and digital presence built around clarity and measurable audience response in African markets.",
+        "Brand strategy, digital campaigns and clear communication for businesses in Uganda and across Africa. Turn audience attention into action.",
     },
   },
   {
@@ -214,9 +214,9 @@ export const SERVICES: Service[] = [
       },
     ],
     seo: {
-      title: "AI in Business",
+      title: "AI Consulting & Automation in Uganda",
       description:
-        "AI readiness, workflow automation, custom tools and responsible adoption for African businesses, with results you can measure.",
+        "Practical AI readiness, workflow automation and custom business tools in Uganda and across Africa, with responsible adoption and human oversight.",
     },
   },
   {
@@ -281,9 +281,9 @@ export const SERVICES: Service[] = [
       },
     ],
     seo: {
-      title: "Consulting & Thought Leadership",
+      title: "Strategy & Leadership Consulting in Uganda",
       description:
-        "Strategy, research, leadership workshops and transformation roadmaps for digital and AI change in African contexts.",
+        "Strategy, research, leadership workshops and transformation roadmaps for organisations in Uganda and across Africa navigating digital and AI change.",
     },
   },
 ];

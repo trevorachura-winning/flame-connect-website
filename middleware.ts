@@ -31,7 +31,8 @@ export function middleware(request: NextRequest) {
   const res = NextResponse.rewrite(url);
   // Never let a CDN or browser keep the gate past launch.
   res.headers.set("Cache-Control", "no-store, max-age=0");
-  res.headers.set("X-Robots-Tag", "noarchive");
+  // Temporary only: after LAUNCH_AT the response bypasses this rewrite/noindex.
+  res.headers.set("X-Robots-Tag", "noindex, noarchive");
   return res;
 }
 

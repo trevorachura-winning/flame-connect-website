@@ -7,30 +7,38 @@ export function pageMetadata(input: {
   path: string;
   image?: string;
   type?: "website" | "article";
+  publishedTime?: string;
 }): Metadata {
   const url = `${SITE.siteUrl}${input.path}`;
   const image = input.image ?? "/opengraph-image.png";
+  const openGraphBase = {
+    title: input.title,
+    description: input.description,
+    url,
+    siteName: SITE.name,
+    images: [{ url: image, alt: "Flame Connect. Digitizing Africa." }],
+    locale: "en" as const,
+  };
   return {
     // The root title template already adds the brand to ordinary page titles.
     // Avoid appending it twice to titles that explicitly contain Flame Connect.
-    title: input.title.startsWith(`${SITE.name} |`) || input.title.endsWith(`| ${SITE.name}`)
+    title: input.title.startsWith(`${SITE.name} |`) || input.title.endsWith(SITE.name)
       ? { absolute: input.title }
       : input.title,
     description: input.description,
     alternates: { canonical: url },
-    openGraph: {
-      title: input.title,
-      description: input.description,
-      url,
-      siteName: SITE.name,
-      type: input.type ?? "website",
-      images: [{ url: image }],
-      locale: "en",
-    },
+    openGraph: input.type === "article"
+      ? {
+          ...openGraphBase,
+          type: "article" as const,
+          ...(input.publishedTime ? { publishedTime: input.publishedTime } : {}),
+        }
+      : { ...openGraphBase, type: "website" as const },
     twitter: {
       card: "summary_large_image",
       title: input.title,
       description: input.description,
+      images: [image],
     },
   };
 }
@@ -40,11 +48,17 @@ export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${SITE.siteUrl}/#organization`,
     name: SITE.name,
     ...(SITE.legalName ? { legalName: SITE.legalName } : {}),
     description: SITE.shortDescription,
     url: SITE.siteUrl,
-    logo: `${SITE.siteUrl}/icon.png`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE.siteUrl}/brand/flame-connect-mark.png`,
+      width: 512,
+      height: 512,
+    },
     email: SITE.contactEmail ?? undefined,
     address: {
       "@type": "PostalAddress",
@@ -60,10 +74,11 @@ export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${SITE.siteUrl}/#website`,
     name: SITE.name,
     url: SITE.siteUrl,
     description: SITE.shortDescription,
-    publisher: { "@type": "Organization", name: SITE.name },
+    publisher: { "@id": `${SITE.siteUrl}/#organization` },
   };
 }
 
@@ -98,7 +113,12 @@ export function articleJsonLd(a: {
     publisher: {
       "@type": "Organization",
       name: SITE.name,
-      logo: { "@type": "ImageObject", url: `${SITE.siteUrl}/icon.png` },
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE.siteUrl}/brand/flame-connect-mark.png`,
+        width: 512,
+        height: 512,
+      },
     },
     mainEntityOfPage: `${SITE.siteUrl}/resources/${a.slug}`,
   };
