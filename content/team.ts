@@ -21,13 +21,34 @@ export interface TeamMember {
   /** Specific responsibilities shown in the optional detail drawer. */
   focusAreas?: { title: string; description: string }[];
   qualification?: string;
+  /** Named credentials shown in the bio disclosure, with issuer and completion year. */
+  credentials?: { name: string; issuer: string; year: string; category: "Certification" | "Diploma" | "Course" }[];
   /** Set true only after the person approves publication of their profile. */
   publicationApproved: boolean;
 }
 
-// Draft profile prepared from Moses's CV and the Product Owner's role assignment.
-// Keep publicationApproved false until Moses confirms the portrait and biography.
+// Trevor approved his own portrait and revised biography. Moses and Aaron remain
+// unapproved drafts until they each confirm their public portrait and profile.
 export const TEAM: TeamMember[] = [
+  {
+    slug: "trevor-achura",
+    name: "Trevor Achura",
+    role: "Founder & Managing Director",
+    bio: "Trevor leads Flame Connect's vision to make AI and digital technology practical for African businesses. His expertise spans enterprise AI, business automation, software development and digital transformation. Through his work on recruitment platforms, learning management systems and digital business solutions, he combines strategic thinking with technical execution to solve real organisational problems.",
+    photo: "/team/trevor-achura.webp",
+    focusAreas: [
+      { title: "Business strategy and leadership", description: "Company vision, strategic direction, growth and execution." },
+      { title: "AI and automation", description: "Practical AI adoption, intelligent workflows and business process improvement." },
+      { title: "Software and product development", description: "Digital platforms, enterprise applications and business systems." },
+      { title: "Digital transformation", description: "Helping organisations adopt useful technology that strengthens operations." },
+    ],
+    credentials: [
+      { name: "AI+ Sales", issuer: "AI CERTS", year: "2026", category: "Certification" },
+      { name: "Diploma in Graphics & Web Design", issuer: "Crayon Concepts", year: "2021–2022", category: "Diploma" },
+      { name: "Google Digital Marketing Course", issuer: "Google", year: "2020", category: "Course" },
+    ],
+    publicationApproved: true,
+  },
   {
     slug: "moses-owena",
     name: "Moses Owena",
