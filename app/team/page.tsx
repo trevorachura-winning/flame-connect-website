@@ -28,14 +28,20 @@ export default function TeamPage() {
           </p>
           {TEAM_IS_PREVIEW && (
             <p className="pending-tag" style={{ marginTop: "1rem", display: "inline-block" }}>
-              Preview: names, roles and photos are placeholders until the team is confirmed.
+              Team profiles will appear here when the people and their portraits are approved for publication.
             </p>
           )}
         </div>
       </section>
       <section className="section tight">
         <div className="container">
-          <TeamCoverflow team={TEAM} />
+          {TEAM.length > 0 ? (
+            <TeamCoverflow team={TEAM} />
+          ) : (
+            <p role="status" className="lede" style={{ maxWidth: "38rem", margin: "2rem auto", textAlign: "center" }}>
+              We are preparing individual introductions with our team. Their stories and portraits will appear here once approved.
+            </p>
+          )}
         </div>
       </section>
       <CTABand
