@@ -6,6 +6,7 @@ import { Icon } from "../../components/Icons";
 import { Reveal } from "../../components/Reveal";
 import { OPERATING_PRINCIPLES, ABOUT_MODEL, APPROACH_STAGES } from "../../content/home";
 import { pageMetadata } from "../../lib/seo";
+import { TEAM_IS_PREVIEW } from "../../content/team";
 import s from "../../styles/marketing/marketing.module.css";
 import m from "../../styles/marketing/motion.module.css";
 import type { CSSProperties } from "react";
@@ -86,6 +87,13 @@ export default function AboutPage() {
                 Organisations need clarity, people need skills and solutions need to fit the
                 environment in which they will be used.
               </p>
+              {!TEAM_IS_PREVIEW && (
+                <p style={{ marginTop: "1.2rem" }}>
+                  <Link href="/team" className="text-link">
+                    Meet the team <Icon name="arrow-right" size={16} />
+                  </Link>
+                </p>
+              )}
             </div>
           </Reveal>
           <Reveal delay={0.1}>
