@@ -53,8 +53,8 @@ export const TEAM: TeamMember[] = [
     ],
     // From Trevor's résumé (portfolio content, Nov 2026).
     skills: [
-      { group: "AI and automation", items: ["AI in business", "Business process automation", "Intelligent workflows", "Process mapping", "AppSheet low-code"] },
-      { group: "Software and platforms", items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Vercel", "WordPress", "API integrations"] },
+      { group: "AI and automation", items: ["AI in business", "Machine learning", "Business process automation", "Intelligent workflows", "Process mapping", "AppSheet low-code"] },
+      { group: "Software and platforms", items: ["Python", "Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Vercel", "WordPress", "API integrations"] },
       { group: "Design and media", items: ["Adobe Creative Suite", "Graphic design", "Multimedia content", "Canva", "CapCut"] },
       { group: "Marketing and growth", items: ["SEO and SEM", "Google Analytics", "Google Ads", "Meta Business Suite", "Content strategy", "Email marketing", "CRM"] },
     ],
