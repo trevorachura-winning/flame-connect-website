@@ -16,8 +16,8 @@ const base = pageMetadata({
 export const metadata = TEAM_IS_PREVIEW ? { ...base, robots: { index: false, follow: false } } : base;
 
 export default function TeamPage() {
-  // Never render a broken portrait while a profile asset is awaiting upload.
-  // Once the original cut-out file arrives, the coverflow appears automatically.
+  // Hide any uncommitted image until it exists in the branch. With both
+  // portraits present the two-person coverflow renders in preview mode.
   const renderable = TEAM.filter((member) =>
     existsSync(join(process.cwd(), "public", member.photo.slice(1)))
   );
@@ -47,7 +47,7 @@ export default function TeamPage() {
             <TeamCoverflow team={renderable} />
           ) : (
             <p role="status" className="lede" style={{ maxWidth: "38rem", margin: "2rem auto", textAlign: "center" }}>
-              Moses Owena’s Art Director profile is prepared. His portrait is being added to the Team page preview before publication approval.
+              Our team introductions are being prepared. Portraits and biographies will be published after review and approval.
             </p>
           )}
         </div>
