@@ -2475,6 +2475,8 @@ a.chip-link.on {
   letter-spacing: -0.015em;
   color: var(--navy-deep, #07111f) !important;
   font-weight: 600;
+}
+
 /* Signature: a pulse of current runs once around the main call to action
    after the hero settles, and again on hover. Enhancement only. */
 @property --current-angle {
