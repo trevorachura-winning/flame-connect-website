@@ -1,13 +1,15 @@
 /**
- * Flame Connect team, shown on /team in the cover-flow carousel.
+ * Approved Flame Connect team profiles for /team.
  *
- * Real people only. Names, roles, bios and photos must come from the Product
- * Owner and each person must agree to be shown. While `placeholder` entries
- * remain, /team is noindex, unlinked from the menus and shows a preview note.
+ * Every published person requires:
+ *  - a verified name, role and two or three specific sentences from the person;
+ *  - a real transparent portrait (WebP, roughly 900 x 1260 px) in public/team/;
+ *  - explicit permission to publish that portrait and biography.
  *
- * Photos: portrait cut-outs on a transparent background (PNG or WebP),
- * about 900 x 1260px, head and shoulders to waist, facing the camera.
- * Put them in /public/team/ and set `photo` to "/team/<file>".
+ * Do not fill this registry with invented identities or placeholders.
+ * /team remains an unlinked, noindex preview until at least two approved
+ * profiles have been provided. Links and sitemap inclusion activate only
+ * when TEAM_IS_PREVIEW becomes false.
  */
 export interface TeamMember {
   slug: string;
@@ -16,17 +18,13 @@ export interface TeamMember {
   bio: string;
   photo: string;
   linkedin?: string;
-  placeholder?: boolean;
+  /** Set true only after the person approves publication of their profile. */
+  publicationApproved: boolean;
 }
 
-const P = "/team/placeholder.svg";
+// Awaiting the Product Owner's approved people, portraits and consent.
+// Removing placeholders is intentional. Never substitute stock or generated faces.
+export const TEAM: TeamMember[] = [];
 
-export const TEAM: TeamMember[] = [
-  { slug: "member-1", name: "Team member", role: "Founder", bio: "Bio to come. Two or three warm, specific sentences about what this person does and what they care about.", photo: P, placeholder: true },
-  { slug: "member-2", name: "Team member", role: "Role to confirm", bio: "Bio to come.", photo: P, placeholder: true },
-  { slug: "member-3", name: "Team member", role: "Role to confirm", bio: "Bio to come.", photo: P, placeholder: true },
-  { slug: "member-4", name: "Team member", role: "Role to confirm", bio: "Bio to come.", photo: P, placeholder: true },
-  { slug: "member-5", name: "Team member", role: "Role to confirm", bio: "Bio to come.", photo: P, placeholder: true },
-];
-
-export const TEAM_IS_PREVIEW = TEAM.some((m) => m.placeholder);
+export const TEAM_IS_PREVIEW =
+  TEAM.length < 2 || TEAM.some((member) => !member.publicationApproved);
