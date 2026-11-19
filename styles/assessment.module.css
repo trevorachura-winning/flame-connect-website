@@ -94,11 +94,19 @@
   font-weight: 600;
 }
 .bars li[data-weak] .barLabel::after {
-  content: " · focus";
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  content: "Focus";
+  display: inline-block;
+  margin-left: 0.45rem;
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(244, 81, 30, 0.12);
   color: var(--flame-strong, #c9400f);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: 0.1em;
 }
 .bars li[data-weak] .barTrack {
   box-shadow: 0 0 0 2px rgba(244, 81, 30, 0.18);
