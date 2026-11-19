@@ -573,3 +573,69 @@
   font-size: 0.8rem;
   font-weight: 500;
 }
+
+/* Résumé-style sections: hairline-ruled, aligned rows, no boxes or chips. */
+.cvSection {
+  border-top: 1px solid rgba(7, 17, 31, 0.1);
+  padding-top: 1rem;
+}
+.cvHeading {
+  margin: 0 0 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--flame-strong, #c9400f);
+}
+.cvList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+.cvRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.15rem 1rem;
+  margin: 0;
+}
+.cvTitle {
+  color: #07111f;
+  font-weight: 600;
+  font-size: 0.93rem;
+  line-height: 1.45;
+}
+.cvMeta {
+  color: #536174;
+  font-size: 0.84rem;
+  white-space: nowrap;
+}
+.skillTable {
+  margin: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+.skillTable > div {
+  display: grid;
+  gap: 0.2rem 1.25rem;
+}
+@media (min-width: 36rem) {
+  .skillTable > div {
+    grid-template-columns: 10.5rem minmax(0, 1fr);
+  }
+}
+.skillTable dt {
+  color: #07111f;
+  font-weight: 600;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+.skillTable dd {
+  margin: 0;
+  color: #4b5563;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
