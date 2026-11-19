@@ -111,7 +111,7 @@ export function Header({
         <div className="container header-inner">
           <Link href="/" className="brand" aria-label="Flame Connect home">
             <span className="brand-lockup">
-              <BrandLogo height={34} priority />
+              <BrandLogo height={44} priority />
             </span>
           </Link>
 
@@ -147,7 +147,7 @@ export function Header({
         <div className="drawer-head">
           <span className="brand">
             <span className="brand-lockup">
-              <BrandLogo height={30} />
+              <BrandLogo height={38} />
             </span>
           </span>
           <button
