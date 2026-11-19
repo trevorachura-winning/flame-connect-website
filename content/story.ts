@@ -18,14 +18,14 @@ export const STORY_INTRO = {
     "Flame Connect began in 2019 with one designer and a lot of curiosity. Every skill we have today started as a question we were brave enough to ask. This is how we grew.",
 };
 
-export const TOOLKIT = ["Graphics", "Canva", "Video", "CapCut", "Web design", "Marketing", "AI", "Our platforms"];
+export const TOOLKIT = ["Graphic design", "Video production", "Web design", "Marketing", "AI in our work", "Our platforms"];
 
 export const CHAPTERS: StoryChapter[] = [
   {
     when: "2019",
     title: "It started with design",
     body: [
-      "Flame began as a small graphics business. Trevor worked as a freelance graphic designer, helping people and small businesses look the part, one project at a time.",
+      "Flame began as a small graphics business. Trevor worked as a freelance graphic designer, using professional tools like Adobe Creative Cloud to help people and small businesses look the part, one project at a time.",
       "Along the way he earned a diploma in graphics and web design, and the work kept coming.",
     ],
     learnt: "Good design builds trust before a word is read.",
@@ -33,12 +33,12 @@ export const CHAPTERS: StoryChapter[] = [
   },
   {
     when: "Up to 2022",
-    title: "Canva, our first taste of AI",
+    title: "Curious about AI, early",
     body: [
-      "For years Canva was our everyday tool. Its smart features were our first real experience of what AI could do for creative work: faster drafts, cleaner layouts and more time for ideas.",
-      "We did not call it an AI journey then. Looking back, that is exactly where it started.",
+      "Our craft was built on professional tools. What caught our attention was something new: the first AI features appearing in creative tools like Canva, promising faster drafts, cleaner layouts and more time for ideas.",
+      "The idea was young and surrounded by misconceptions. Many saw AI as a shortcut or a threat. We saw something worth learning, so we decided to run with it.",
     ],
-    learnt: "The right tool frees people to do their best thinking.",
+    learnt: "Be early, be honest about what a new tool can and cannot do.",
     art: "canva",
   },
   {
@@ -55,7 +55,7 @@ export const CHAPTERS: StoryChapter[] = [
     when: "2023",
     title: "From stills to stories",
     body: [
-      "At the end of 2022 we picked up a camera. Video gigs turned into real jobs, and editing in CapCut showed us another side of AI: tools that save hours so people can focus on the story.",
+      "At the end of 2022 we picked up a camera. Video gigs turned into real jobs. Alongside professional editing software, we explored the AI features in tools like CapCut, which save hours so people can focus on the story.",
       "Then came web design. By 2023 we were working as a marketing agency, and the vision had grown. We knew we could do more.",
     ],
     learnt: "Every new medium is a new way to help a client be understood.",
