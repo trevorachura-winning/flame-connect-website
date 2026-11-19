@@ -58,7 +58,7 @@ function summaryText(result: Result, answers: Answers, d: Details) {
     d.size && `Size: ${d.size}`,
     `Contact me about my results: ${d.contactMe ? "Yes" : "No"}`,
   ];
-  return lines.filter((l) => l !== "" && l !== undefined && l !== false).join("\n");
+  return lines.filter((l): l is string => typeof l === "string" && l !== "").join("\n");
 }
 
 export function AssessmentClient() {
