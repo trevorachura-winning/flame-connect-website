@@ -161,7 +161,10 @@ test("Trevor Achura leads the team with an approved portrait and authentic AI CE
   assert.doesNotMatch(JSON.stringify(trevor.credentials), /Diploma/i, "Owner: describe it as a training certificate, not a diploma");
   assert.doesNotMatch(trevor.bio, /\blaw\b|LLB|Bachelor of Laws/i);
   const component = read("components/TeamCoverflow.tsx");
-  assert.match(component, /Skills &amp; certifications/);
+  assert.match(component, />Certifications</);
+  assert.match(component, />Skills</);
+  assert.match(component, />Education</);
+  assert.equal(trevor.qualification, "Software Engineering, Victoria University");
   assert.match(component, /\(current\.credentials \?\? \[\]\)\.map/);
   assert.ok(existsSync("public/team/trevor-achura.webp"));
 });

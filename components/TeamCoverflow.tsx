@@ -227,15 +227,9 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
             </nav>
           )}
           <p className={styles.bioText}>{current.bio}</p>
-          {current.qualification && (
-            <p className={styles.qualification}>
-              <strong>Education</strong>
-              {current.qualification}
-            </p>
-          )}
         </div>
 
-        {((current.focusAreas?.length ?? 0) > 0 || (current.credentials?.length ?? 0) > 0 || (current.skills?.length ?? 0) > 0) && (
+        {((current.focusAreas?.length ?? 0) > 0 || (current.credentials?.length ?? 0) > 0 || (current.skills?.length ?? 0) > 0 || !!current.qualification) && (
           <div className={styles.profileSide}>
             {current.focusAreas && current.focusAreas.length > 0 && (
               <section aria-label={`What ${current.name.split(" ")[0]} leads`}>
@@ -250,32 +244,40 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
                 </dl>
               </section>
             )}
-            {((current.credentials?.length ?? 0) > 0 || (current.skills?.length ?? 0) > 0) && (
-              <section className={styles.credentials} aria-label="Skills and certifications">
-                <h3 className={styles.sideHeading}>Skills &amp; certifications</h3>
-                <ul className={styles.credentialList}>
+            {current.qualification && (
+              <section className={styles.cvSection} aria-label="Education">
+                <h3 className={styles.cvHeading}>Education</h3>
+                <p className={styles.cvRow}>
+                  <span className={styles.cvTitle}>{current.qualification}</span>
+                </p>
+              </section>
+            )}
+            {(current.credentials?.length ?? 0) > 0 && (
+              <section className={styles.cvSection} aria-label="Certifications">
+                <h3 className={styles.cvHeading}>Certifications</h3>
+                <ul className={styles.cvList}>
                   {(current.credentials ?? []).map((credential) => (
-                    <li className={styles.credentialItem} key={`${credential.name}-${credential.issuer}`}>
-                      <span className={styles.credentialType}>{credential.category}</span>
-                      <span className={styles.credentialName}>{credential.name}</span>
-                      <span className={styles.credentialIssuer}>{credential.issuer} · {credential.year}</span>
+                    <li className={styles.cvRow} key={`${credential.name}-${credential.issuer}`}>
+                      <span className={styles.cvTitle}>{credential.name}</span>
+                      <span className={styles.cvMeta}>
+                        {credential.issuer} · {credential.year}
+                      </span>
                     </li>
                   ))}
                 </ul>
-                {current.skills && current.skills.length > 0 && (
-                  <div className={styles.skills}>
-                    {current.skills.map((set) => (
-                      <div key={set.group} className={styles.skillSet}>
-                        <p className={styles.skillGroup}>{set.group}</p>
-                        <ul className={styles.skillChips}>
-                          {set.items.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                )}
+              </section>
+            )}
+            {(current.skills?.length ?? 0) > 0 && (
+              <section className={styles.cvSection} aria-label="Skills">
+                <h3 className={styles.cvHeading}>Skills</h3>
+                <dl className={styles.skillTable}>
+                  {(current.skills ?? []).map((set) => (
+                    <div key={set.group}>
+                      <dt>{set.group}</dt>
+                      <dd>{set.items.join(" · ")}</dd>
+                    </div>
+                  ))}
+                </dl>
               </section>
             )}
           </div>

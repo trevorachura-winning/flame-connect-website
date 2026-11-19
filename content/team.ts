@@ -46,6 +46,7 @@ export const TEAM: TeamMember[] = [
       { title: "Software and product development", description: "Digital platforms, enterprise applications and business systems." },
       { title: "Digital transformation", description: "Helping organisations adopt useful technology that strengthens operations." },
     ],
+    qualification: "Software Engineering, Victoria University",
     credentials: [
       { name: "AI+ Sales", issuer: "AI CERTS", year: "2026", category: "Certification" },
       { name: "Graphics & Web Design", issuer: "Crayon Concepts", year: "2021–2022", category: "Certification" },
