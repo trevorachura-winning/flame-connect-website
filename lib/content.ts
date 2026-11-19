@@ -87,7 +87,7 @@ function assertContent(): void {
     if (!person.publicationApproved) {
       problems.push(`Team publication approval missing: ${person.slug}`);
     }
-    if (!/^\\/team\\/[a-z0-9-]+\\.webp$/.test(person.photo)) {
+    if (!new RegExp("^/team/[a-z0-9-]+[.]webp$").test(person.photo)) {
       problems.push(`Team photo must be a named WebP in public/team/: ${person.slug}`);
     } else if (!fs.existsSync(path.join(process.cwd(), "public", person.photo.slice(1)))) {
       problems.push(`Team photo missing: ${person.photo}`);
