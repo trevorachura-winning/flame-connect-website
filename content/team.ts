@@ -28,8 +28,8 @@ export interface TeamMember {
   publicationApproved: boolean;
 }
 
-// Trevor approved his own portrait and revised biography. Moses and Aaron remain
-// unapproved drafts until they each confirm their public portrait and profile.
+// All three approved their portrait, title and biography (Trevor, then Moses
+// and Aaron on 19 Nov 2026).
 export const TEAM: TeamMember[] = [
   {
     slug: "trevor-achura",
@@ -66,7 +66,7 @@ export const TEAM: TeamMember[] = [
       { title: "Post production", description: "Editing, colour grading and sound finishing." },
     ],
     qualification: "Bachelor of Performing Arts in Drama and Film, Makerere University",
-    publicationApproved: false,
+    publicationApproved: true,
   },
   {
     slug: "aaron-mwesigwa-mwebaze",
@@ -82,7 +82,7 @@ export const TEAM: TeamMember[] = [
       { title: "Stakeholder engagement", description: "Bringing diplomatic communication, consultation and coordination into cross-sector work." },
     ],
     qualification: "Degree in Governance and International Relations, Uganda Christian University. Currently pursuing an MA in International Development at Mae Fah Luang University as a TICA scholar.",
-    publicationApproved: false,
+    publicationApproved: true,
   },
 ];
 

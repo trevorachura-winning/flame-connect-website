@@ -86,8 +86,11 @@ test("two-person geometry never duplicates cards and keeps the neighbour on one 
   assert.equal(teamAutoplayEnabled(3, true), false);
   assert.equal(teamAutoplayEnabled(3, false), true);
   const component = read("components/TeamCoverflow.tsx");
-  assert.match(component, /n >= 3 && <ol/);
-  assert.match(component, /!reduced && n >= 3/);
+  // Product Owner (19 Nov 2026): no arrow or Play buttons. It moves on its own
+  // every 3 s until someone interacts; dots stay for direct choice.
+  assert.match(component, /AUTOPLAY_MS = 3000/);
+  assert.doesNotMatch(component, /Previous person|Next person|aria-pressed/);
+  assert.match(component, /aria-label="Team members"/);
 });
 
 test("three-person and five-person coverflow still uses shortest wrap offset", () => {
@@ -103,7 +106,7 @@ test("Moses Owena is staged as Art Director with verified responsibilities", () 
   assert.ok(moses, "Moses profile should exist");
   assert.equal(moses.name, "Moses Owena");
   assert.equal(moses.role, "Art Director");
-  assert.equal(moses.publicationApproved, false);
+  assert.equal(moses.publicationApproved, true);
   assert.equal(moses.photo, "/team/moses-owena.webp");
   assert.equal(moses.focusAreas.length, 4);
   assert.match(moses.qualification, /Makerere University/);
@@ -119,7 +122,7 @@ test("Aaron Mwesigwa Mwebaze has his user-assigned marketing leadership and veri
   const aaron = TEAM.find((person) => person.slug === "aaron-mwesigwa-mwebaze");
   assert.ok(aaron, "Aaron must be present in the two-person preview");
   assert.equal(aaron.role, "Managing Partner & Chief Marketing Officer");
-  assert.equal(aaron.publicationApproved, false);
+  assert.equal(aaron.publicationApproved, true);
   assert.equal(aaron.photo, "/team/aaron-mwesigwa.webp");
   assert.match(aaron.bio, /Uganda’s foreign service/);
   assert.match(aaron.qualification, /Mae Fah Luang University/);

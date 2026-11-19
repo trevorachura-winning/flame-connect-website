@@ -6,7 +6,7 @@ import { teamCoverflowOffset, teamAutoplayEnabled } from "../lib/team-coverflow"
 import { Icon } from "./Icons";
 import styles from "../styles/team-coverflow.module.css";
 
-const AUTOPLAY_MS = 5000;
+const AUTOPLAY_MS = 3000;
 
 /**
  * 3D cover-flow of the team. The active person is brought forward in colour on
@@ -18,8 +18,9 @@ const AUTOPLAY_MS = 5000;
 export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   const n = team.length;
   const [active, setActive] = useState(0);
-  // Autoplay adds little value and can make a two-person cycle feel jumpy.
-  const [playing, setPlaying] = useState(n >= 3);
+  // Moves on its own every 3 s until someone clicks, swipes or uses the keys;
+  // any of those stops it for good. Hover and focus pause it.
+  const [playing, setPlaying] = useState(n >= 2);
   const [hovering, setHovering] = useState(false);
   const [reduced, setReduced] = useState(false);
   const drag = useRef<{ x: number; dx: number; moved: boolean; t: number; lastX: number; lastT: number; v: number } | null>(null);
@@ -178,11 +179,8 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
         })}
       </div>
 
-      {n > 1 && <div className={styles.controls}>
-        <button type="button" className={styles.arrow} onClick={() => { setPlaying(false); go(active - 1); }} aria-label="Previous person">
-          <Icon name="arrow-right" size={18} style={{ transform: "scaleX(-1)" }} />
-        </button>
-        {n >= 3 && <ol className={styles.names} aria-label="Team members">
+      {n > 1 && (
+        <ol className={`${styles.controls} ${styles.names}`} aria-label="Team members">
           {team.map((m, i) => (
             <li key={m.slug}>
               <button
@@ -195,16 +193,8 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
               </button>
             </li>
           ))}
-        </ol>}
-        <button type="button" className={styles.arrow} onClick={() => { setPlaying(false); go(active + 1); }} aria-label="Next person">
-          <Icon name="arrow-right" size={18} />
-        </button>
-        {!reduced && n >= 3 && (
-          <button type="button" className={styles.pause} onClick={() => setPlaying((p) => !p)} aria-pressed={!playing}>
-            {playing ? "Pause" : "Play"}
-          </button>
-        )}
-      </div>}
+        </ol>
+      )}
 
       <article className={styles.profile} aria-live="polite" key={current.slug}>
         <div className={styles.profileMain}>
