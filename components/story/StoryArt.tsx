@@ -31,8 +31,8 @@ const SCENES: Record<Art, ReactElement> = {
   design: (
     <g>
       {L("M40 112 C 80 40, 150 150, 200 58", true, 3)}
-      <rect x="35" y="107" width="10" height="10" rx="2" className={st.node} />
-      <rect x="195" y="53" width="10" height="10" rx="2" className={st.node} />
+      <rect x="35" y="107" width="10" height="10" rx="2" className={st.anchor} />
+      <rect x="195" y="53" width="10" height="10" rx="2" className={st.anchor} />
       {L("M80 72 L 118 92")}
       {L("M150 118 L 176 96")}
       <circle cx="80" cy="72" r="4" className={st.dot} />

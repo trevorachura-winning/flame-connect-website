@@ -192,8 +192,7 @@
 .dot {
   fill: #f4511e;
 }
-.art .node,
-.art rect.node {
+.anchor {
   fill: #fff;
   stroke: #153a8a;
   stroke-width: 2;
