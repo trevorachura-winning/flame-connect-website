@@ -11,20 +11,16 @@ const AUTOPLAY_MS = 3000;
 /**
  * 3D cover-flow of the team. The active person is brought forward in colour on
  * a lit plinth; neighbours fan out in perspective, in greyscale. Swipe, drag,
- * arrow keys, the name list or a click on a neighbour all move it. Autoplay
- * pauses on hover, focus, a hidden tab or the pause button, and is off for
- * reduced motion.
+ * arrow keys, the dots or a click on a neighbour all move it. It advances
+ * every 3 s and carries on after any interaction; off for reduced motion.
  */
 export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   const n = team.length;
   const [active, setActive] = useState(0);
-  // Moves on its own every 3 s until someone clicks, swipes or uses the keys;
-  // any of those stops it for good. Hover and focus pause it.
-  const [playing, setPlaying] = useState(n >= 2);
-  const [hovering, setHovering] = useState(false);
   const [reduced, setReduced] = useState(false);
   const drag = useRef<{ x: number; dx: number; moved: boolean; t: number; lastX: number; lastT: number; v: number } | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const tick = useRef<number>(0);
   const suppressClick = useRef(false);
   const [dragX, setDragX] = useState(0);
 
@@ -41,17 +37,26 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
     return () => mq.removeEventListener("change", set);
   }, []);
 
+  // Moves to the next person every 3 s, always. Any click, swipe or key
+  // press shows that person and restarts the 3 s count from there, so the
+  // carousel keeps going after someone interacts. Off for reduced motion.
   useEffect(() => {
-    if (!playing || hovering || !teamAutoplayEnabled(n, reduced)) return;
-    const t = window.setInterval(() => {
-      if (document.visibilityState === "visible") setActive((a) => (a + 1) % n);
+    if (!teamAutoplayEnabled(n, reduced)) return;
+    const t = window.setTimeout(function next() {
+      // Wait while a finger or mouse is mid-drag, or the tab is hidden.
+      if (drag.current || document.visibilityState !== "visible") {
+        tick.current = window.setTimeout(next, 600);
+        return;
+      }
+      setActive((a) => (a + 1) % n);
     }, AUTOPLAY_MS);
-    return () => window.clearInterval(t);
-  }, [playing, hovering, reduced, n]);
+    tick.current = t;
+    return () => window.clearTimeout(tick.current);
+  }, [active, reduced, n]);
 
   const onKey = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "ArrowRight") { e.preventDefault(); setPlaying(false); go(active + 1); }
-    if (e.key === "ArrowLeft") { e.preventDefault(); setPlaying(false); go(active - 1); }
+    if (e.key === "ArrowRight") { e.preventDefault(); go(active + 1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); go(active - 1); }
   };
 
   /** Active portrait leans towards a mouse pointer, with a light sheen across it. */
@@ -101,7 +106,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
     }
     // A long drag or a quick flick both move one person.
     const flick = Math.abs(v) > 0.45 && Math.abs(dx) > 14;
-    if (Math.abs(dx) > 50 || flick) { setPlaying(false); go(active + ((flick ? v : dx) < 0 ? 1 : -1)); }
+    if (Math.abs(dx) > 50 || flick) { go(active + ((flick ? v : dx) < 0 ? 1 : -1)); }
   };
 
   if (n === 0) return null;
@@ -113,10 +118,6 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
       role="region"
       aria-roledescription="carousel"
       aria-label="The Flame Connect team"
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-      onFocus={() => setHovering(true)}
-      onBlur={() => setHovering(false)}
     >
       <div
         ref={stageRef}
@@ -162,7 +163,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
               aria-hidden={d !== 0}
               style={{ "--d": d, "--ad": ad, zIndex: 20 - ad, visibility: visible ? "visible" : "hidden" } as CSSProperties}
               onClick={() => {
-                if (d !== 0 && !suppressClick.current) { setPlaying(false); go(i); }
+                if (d !== 0 && !suppressClick.current) { go(i); }
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -187,7 +188,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
                 type="button"
                 aria-current={i === active || undefined}
                 aria-label={`${m.name}, ${m.role}`}
-                onClick={() => { setPlaying(false); go(i); }}
+                onClick={() => { go(i); }}
               >
                 <span className={styles.dot} aria-hidden="true" />
               </button>
