@@ -164,7 +164,7 @@ test("Trevor Achura leads the team with an approved portrait and authentic AI CE
   assert.match(component, />Certifications</);
   assert.match(component, />Skills</);
   assert.match(component, />Education</);
-  assert.equal(trevor.qualification, "Software Engineering, Victoria University");
+  assert.equal(trevor.qualification, undefined, "Owner: no education section on his profile");
   assert.match(component, /\(current\.credentials \?\? \[\]\)\.map/);
   assert.ok(existsSync("public/team/trevor-achura.webp"));
 });
