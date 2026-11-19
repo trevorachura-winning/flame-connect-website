@@ -160,32 +160,63 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
         )}
       </div>}
 
-      <div className={styles.bio} aria-live="polite" key={current.slug}>
-        <h2>{current.name}</h2>
-        <p className={styles.role}>{current.role}</p>
-        <p className={styles.bioText}>{current.bio}</p>
-        {current.focusAreas && current.focusAreas.length > 0 && (
-          <details className={styles.more}>
-            <summary>
-              <span>What {current.name.split(" ")[0]} leads</span>
-              <span className={styles.moreIndicator} aria-hidden="true" />
-            </summary>
-            <dl className={styles.focusList}>
-              {current.focusAreas.map((focus) => (
-                <div className={styles.focusItem} key={focus.title}>
-                  <dt>{focus.title}</dt>
-                  <dd>{focus.description}</dd>
-                </div>
-              ))}
-            </dl>
-            {current.qualification && (
-              <p className={styles.qualification}>
-                <strong>Education</strong> {current.qualification}
-              </p>
+      <article className={styles.profile} aria-live="polite" key={current.slug}>
+        <div className={styles.profileMain}>
+          <p className={styles.role}>{current.role}</p>
+          <h2>{current.name}</h2>
+          {(current.linkedin || current.instagram) && (
+            <nav className={styles.socialLinks} aria-label={`${current.name} social profiles`}>
+              {current.linkedin && (
+                <a
+                  href={current.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${current.name} on LinkedIn (opens in a new tab)`}
+                  title="LinkedIn"
+                >
+                  <Icon name="linkedin" size={19} />
+                </a>
+              )}
+              {current.instagram && (
+                <a
+                  href={current.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${current.name} on Instagram (opens in a new tab)`}
+                  title="Instagram"
+                >
+                  <Icon name="instagram" size={19} />
+                </a>
+              )}
+            </nav>
+          )}
+          <p className={styles.bioText}>{current.bio}</p>
+          {current.qualification && (
+            <p className={styles.qualification}>
+              <strong>Education</strong>
+              {current.qualification}
+            </p>
+          )}
+        </div>
+
+        {((current.focusAreas?.length ?? 0) > 0 || (current.credentials?.length ?? 0) > 0) && (
+          <div className={styles.profileSide}>
+            {current.focusAreas && current.focusAreas.length > 0 && (
+              <section aria-label={`What ${current.name.split(" ")[0]} leads`}>
+                <h3 className={styles.sideHeading}>What {current.name.split(" ")[0]} leads</h3>
+                <dl className={styles.focusList}>
+                  {current.focusAreas.map((focus, i) => (
+                    <div className={styles.focusItem} key={focus.title} style={{ "--i": i } as CSSProperties}>
+                      <dt>{focus.title}</dt>
+                      <dd>{focus.description}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </section>
             )}
             {current.credentials && current.credentials.length > 0 && (
               <section className={styles.credentials} aria-label="Certifications and training">
-                <h3>Certifications &amp; training</h3>
+                <h3 className={styles.sideHeading}>Certifications &amp; training</h3>
                 <ul className={styles.credentialList}>
                   {current.credentials.map((credential) => (
                     <li className={styles.credentialItem} key={`${credential.name}-${credential.issuer}`}>
@@ -197,35 +228,9 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
                 </ul>
               </section>
             )}
-          </details>
+          </div>
         )}
-        {(current.linkedin || current.instagram) && (
-          <nav className={styles.socialLinks} aria-label={`${current.name} social profiles`}>
-            {current.linkedin && (
-              <a
-                href={current.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${current.name} on LinkedIn (opens in a new tab)`}
-                title="LinkedIn"
-              >
-                <Icon name="linkedin" size={21} />
-              </a>
-            )}
-            {current.instagram && (
-              <a
-                href={current.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${current.name} on Instagram (opens in a new tab)`}
-                title="Instagram"
-              >
-                <Icon name="instagram" size={21} />
-              </a>
-            )}
-          </nav>
-        )}
-      </div>
+      </article>
     </div>
   );
 }

@@ -108,8 +108,10 @@ test("Moses Owena is staged as Art Director with verified responsibilities", () 
   assert.equal(moses.focusAreas.length, 4);
   assert.match(moses.qualification, /Makerere University/);
   const component = read("components/TeamCoverflow.tsx");
-  assert.match(component, /<details className=\{styles.more\}>/);
-  assert.match(component, /<summary>/);
+  // Nov 2026 polish: focus areas and credentials sit in an always-visible
+  // profile panel beside the bio instead of a collapsed disclosure.
+  assert.match(component, /className=\{styles.profileSide\}/);
+  assert.match(component, /current\.focusAreas\.map/);
 });
 
 

@@ -205,142 +205,153 @@
   cursor: pointer;
 }
 
-.bio {
-  max-width: 40rem;
-  margin: 2rem auto 0;
-  text-align: center;
+/* Profile panel: name, role, social links and bio on the left; what they
+   lead and their credentials on the right. Stacks on smaller screens. */
+.profile {
+  display: grid;
+  gap: 2rem 3.5rem;
+  max-width: 68rem;
+  margin: 2.5rem auto 0;
+  padding: clamp(1.5rem, 3.5vw, 2.75rem);
+  border: 1px solid rgba(7, 17, 31, 0.08);
+  border-radius: 1.75rem;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 30px 70px -45px rgba(7, 17, 31, 0.35);
+  text-align: left;
   animation: bioIn 700ms var(--ease-out) both;
 }
-.bio h2 {
+@media (min-width: 64rem) {
+  .profile {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: start;
+  }
+}
+.profileMain h2 {
+  margin-top: 0.35rem;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
-  letter-spacing: -0.03em;
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  letter-spacing: -0.035em;
+  line-height: 1.08;
 }
 .role {
-  margin-top: 0.3rem;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--flame-strong, #c9400f);
 }
 .bioText {
-  margin: 1rem auto;
-  color: var(--ink-soft);
+  margin-top: 1.1rem;
+  color: var(--ink-soft, #4b5563);
   font-size: 1.02rem;
-  line-height: 1.7;
+  line-height: 1.75;
 }
-/* A restrained, native disclosure keeps longer CV details outside the hero. */
-.more {
-  max-width: 37rem;
-  margin: 1.65rem auto 0;
-  border: 1px solid rgba(7, 17, 31, 0.1);
-  border-radius: 1.1rem;
-  background: #fff;
-  box-shadow: 0 18px 46px -32px rgba(7, 17, 31, 0.3);
-  text-align: left;
-  overflow: hidden;
-}
-
-.more summary {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  min-height: 52px;
-  padding: 1rem 1.3rem;
-  color: #07111f;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  list-style: none;
-}
-
-.more summary::-webkit-details-marker { display: none; }
-.more summary:focus-visible { outline: 3px solid #f4511e; outline-offset: -3px; }
-.more[open] summary { border-bottom: 1px solid rgba(7, 17, 31, 0.08); }
-.moreIndicator {
-  width: 11px;
-  height: 11px;
-  flex: 0 0 11px;
-  border-right: 2px solid #f4511e;
-  border-bottom: 2px solid #f4511e;
-  transform: rotate(45deg);
-  transition: transform 220ms ease;
-}
-.more[open] .moreIndicator { transform: rotate(225deg); }
-.focusList { margin: 0; padding: 0.35rem 1.3rem 0.4rem; }
-.focusItem {
-  display: grid;
-  gap: 0.3rem;
-  padding: 0.85rem 0;
-}
-.focusItem + .focusItem { border-top: 1px solid rgba(7,17,31,0.08); }
-.focusItem dt { color: #07111f; font-weight: 650; font-size: 0.9rem; }
-.focusItem dd { margin: 0; color: #4b5563; line-height: 1.55; font-size: 0.88rem; }
 .qualification {
-  margin: 0;
-  padding: 1rem 1.3rem 1.2rem;
-  border-top: 1px solid rgba(7,17,31,0.08);
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(7, 17, 31, 0.08);
   color: #4b5563;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   line-height: 1.6;
 }
-.qualification strong { color: #07111f; margin-right: 0.4rem; }
-.credentials {
-  padding: 1.15rem 1.3rem 1.3rem;
-  border-top: 1px solid rgba(7, 17, 31, 0.08);
+.qualification strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: #07111f;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
-.credentials h3 {
+
+.profileSide {
+  display: grid;
+  gap: 1.75rem;
+}
+.sideHeading {
   margin: 0 0 0.85rem;
   color: #07111f;
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   letter-spacing: -0.01em;
 }
-.credentialList {
+.focusList {
   display: grid;
-  gap: 0.65rem;
+  gap: 0.7rem;
+  margin: 0;
+}
+@media (min-width: 36rem) {
+  .focusList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.focusItem {
+  padding: 0.95rem 1rem 1rem;
+  border-radius: 1rem;
+  background: #f6f8fc;
+  border: 1px solid rgba(7, 17, 31, 0.06);
+  border-top: 3px solid var(--flame, #f4511e);
+  animation: bioIn 600ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 70ms + 120ms);
+}
+.focusItem dt {
+  color: #07111f;
+  font-weight: 650;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+.focusItem dd {
+  margin: 0.3rem 0 0;
+  color: #4b5563;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+.credentials {
+  padding: 0;
+}
+.credentialList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .credentialItem {
+  flex: 1 1 12rem;
   display: grid;
   gap: 0.18rem;
-  padding: 0.85rem 0.95rem;
+  padding: 0.8rem 0.95rem;
   border: 1px solid rgba(7, 17, 31, 0.07);
-  border-radius: 0.8rem;
-  background: #f7f9fc;
+  border-radius: 0.85rem;
+  background: #fff;
 }
 .credentialType {
   width: fit-content;
   color: #a83616;
-  font-size: 0.69rem;
+  font-size: 0.66rem;
   font-weight: 750;
   letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 .credentialName {
   color: #07111f;
-  font-size: 0.91rem;
+  font-size: 0.9rem;
   font-weight: 700;
 }
 .credentialIssuer {
   color: #536174;
-  font-size: 0.8rem;
+  font-size: 0.79rem;
   line-height: 1.45;
 }
-
 /* Restrained brand-aligned social icons. Both links have >=44px targets. */
 .socialLinks {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.65rem;
-  margin: 1.35rem auto 0;
+  margin: 1rem 0 0;
 }
 .socialLinks a {
   width: 48px;
@@ -399,7 +410,8 @@
   .dot {
     transition: none;
   }
-  .bio {
+  .profile,
+  .focusItem {
     animation: none;
   }
 }
