@@ -23,8 +23,9 @@ export default function TeamPage() {
             The people behind the change.
           </h1>
           <p className="lede" style={{ marginTop: "1rem", marginInline: "auto" }}>
-            Strategists, builders and storytellers working from Kampala to help African organisations put AI and
-            digital tools to work.
+            {TEAM_IS_PREVIEW
+              ? "We are preparing to introduce the people working on Flame Connect."
+              : "The people working from Kampala to help African organisations put AI and digital tools to work."}
           </p>
           {TEAM_IS_PREVIEW && (
             <p className="pending-tag" style={{ marginTop: "1rem", display: "inline-block" }}>
