@@ -176,7 +176,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 04 — The journey: one method, walked with three services */}
+      {/* 04 — The journey: one method, walked with three service lines */}
       <section className={`band section ${m.bandRise}`} aria-labelledby="method-title">
         <div className={`container ${ambient.foreground}`}>
           <InView className="section-head center">
@@ -202,11 +202,11 @@ export default function HomePage() {
           <InView className="section-head">
             <span className={`eyebrow ${m.rise}`}>Who walks it with you</span>
             <h2 id="services-title" className="display-2">
-              <SplitText text="Three services, one path." />
+              <SplitText text="Three service lines, one path." />
             </h2>
             <p className={`lede ${m.rise}`} style={v({ "--i": 3 })}>
-              Each one starts with a small, low-risk first step and builds your team&rsquo;s own
-              skills as it goes.
+              Each line brings together related services. Every one starts with a small, low-risk
+              first step and builds your team&rsquo;s own skills as it goes.
             </p>
           </InView>
           <SpotlightGroup>
