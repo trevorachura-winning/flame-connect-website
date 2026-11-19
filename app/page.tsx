@@ -69,7 +69,7 @@ export default function HomePage() {
               {HOME_PROVERB_OPEN.meaning} {HOME_HERO.lede}
             </p>
             <div className={`hero-actions ${m.rise}`} style={v({ "--i": 5, "--d": "150ms" })}>
-              <Link href="/assessment" className={`btn btn-primary ${s.wrapBtn}`}>
+              <Link href="/assessment" className={`btn btn-primary btn-current ${s.wrapBtn}`}>
                 Take the free AI assessment <Icon name="arrow-right" size={18} />
               </Link>
               <Link href="/services" className={`btn btn-outline ${s.wrapBtn}`}>

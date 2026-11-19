@@ -21,7 +21,7 @@ export function ServiceOutcomeCards({ services }: { services: readonly Service[]
     <div className={s.cols3}>
       {services.map((service, i) => (
         <Reveal key={service.slug} delay={i * 0.08}>
-          <article className={`card lift ${s.serviceCard} ${mo.spot}`} data-spotlight="">
+          <article className={`card lift card-pulse ${s.serviceCard} ${mo.spot}`} data-spotlight="">
             <span className="card-icon">
               <Icon name={PILLAR_ICONS[service.slug] ?? "spark"} size={22} />
             </span>

@@ -61,6 +61,34 @@ function summaryText(result: Result, answers: Answers, d: Details) {
   return lines.filter((l): l is string => typeof l === "string" && l !== "").join("\n");
 }
 
+/** Counts up to `target` once, easing out. Instant under reduced motion. */
+function useCountUp(target: number | null) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (target === null) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setValue(target);
+      return;
+    }
+    let raf = 0;
+    const start = performance.now();
+    const dur = 1400;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / dur);
+      setValue(Math.round(target * (1 - Math.pow(1 - t, 3))));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    // Background tabs pause animation frames: make sure the real score lands.
+    const done = window.setTimeout(() => setValue(target), dur + 150);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(done);
+    };
+  }, [target]);
+  return value;
+}
+
 export function AssessmentClient() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
@@ -69,6 +97,8 @@ export function AssessmentClient() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState<null | boolean>(null);
   const [result, setResult] = useState<Result | null>(null);
+  const shownScore = useCountUp(step > STEPS && result ? result.score : null);
+  const weakest = new Set(result?.nextSteps.map((n) => n.pillar) ?? []);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const first = useRef(true);
 
@@ -289,7 +319,7 @@ export function AssessmentClient() {
           </h2>
           <div className={styles.scoreRow}>
             <div className={styles.score} role="img" aria-label={`Overall score ${result.score} out of 100`} style={{ ["--p" as string]: `${result.score}` }}>
-              <b>{result.score}</b>
+              <b aria-hidden="true">{shownScore}</b>
               <span>out of 100</span>
             </div>
             <p className={styles.summary}>{result.level.summary}</p>
@@ -297,8 +327,8 @@ export function AssessmentClient() {
 
           <h3 className={styles.subTitle}>By area</h3>
           <ul className={styles.bars}>
-            {result.pillars.map((p) => (
-              <li key={p.key}>
+            {result.pillars.map((p, i) => (
+              <li key={p.key} data-weak={weakest.has(p.name) || undefined} style={{ ["--i" as string]: i }}>
                 <span className={styles.barLabel}>{p.name}</span>
                 <span className={styles.barTrack} aria-hidden="true">
                   <span style={{ width: `${Math.max(p.score, 3)}%` }} />
@@ -310,8 +340,8 @@ export function AssessmentClient() {
 
           <h3 className={styles.subTitle}>Your three next steps</h3>
           <ol className={styles.steps}>
-            {result.nextSteps.map((s) => (
-              <li key={s.pillar}>
+            {result.nextSteps.map((s, i) => (
+              <li key={s.pillar} style={{ ["--i" as string]: i }}>
                 <b>{s.pillar}.</b> {s.text}
               </li>
             ))}

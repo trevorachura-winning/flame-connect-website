@@ -2475,4 +2475,83 @@ a.chip-link.on {
   letter-spacing: -0.015em;
   color: var(--navy-deep, #07111f) !important;
   font-weight: 600;
+/* Signature: a pulse of current runs once around the main call to action
+   after the hero settles, and again on hover. Enhancement only. */
+@property --current-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.btn-current {
+  position: relative;
+  isolation: isolate;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn-current::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    padding: 2px;
+    background: conic-gradient(from var(--current-angle), transparent 0deg, transparent 290deg, #ffd2c2 330deg, #fff 350deg, transparent 360deg);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    opacity: 0;
+    pointer-events: none;
+    animation: currentLap 1.4s cubic-bezier(0.45, 0, 0.25, 1) 1.5s 1 both;
+  }
+  .btn-current:hover::before,
+  .btn-current:focus-visible::before {
+    animation: currentLap 1.1s cubic-bezier(0.45, 0, 0.25, 1) 0s 1 both;
+  }
+  .btn-current::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: -1;
+    pointer-events: none;
+    animation: currentGlow 1.4s ease-out 2.6s 1 both;
+  }
+}
+@keyframes currentLap {
+  0% { --current-angle: 0deg; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { --current-angle: 360deg; opacity: 0; }
+}
+@keyframes currentGlow {
+  0% { box-shadow: 0 0 0 0 rgba(244, 81, 30, 0.55); }
+  100% { box-shadow: 0 0 0 14px rgba(244, 81, 30, 0); }
+}
+
+/* Signature: on hover a service card's chip lights up and sends current
+   along the link to its arrow. */
+.card-pulse .card-icon {
+  transition: box-shadow 0.35s ease, background-color 0.35s ease, color 0.35s ease;
+}
+.card-pulse .text-link {
+  background-image: linear-gradient(90deg, rgba(244, 81, 30, 0.15), var(--flame, #f4511e));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition: background-size 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.12s;
+}
+.card-pulse .text-link .ic {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card-pulse:hover .card-icon,
+  .card-pulse:focus-within .card-icon {
+    box-shadow: 0 0 0 4px rgba(244, 81, 30, 0.16), 0 0 22px rgba(244, 81, 30, 0.35);
+  }
+  .card-pulse:hover .text-link,
+  .card-pulse:focus-within .text-link {
+    background-size: 100% 2px;
+  }
+  .card-pulse:hover .text-link .ic,
+  .card-pulse:focus-within .text-link .ic {
+    transform: translateX(5px);
+  }
 }

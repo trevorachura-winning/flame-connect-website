@@ -35,6 +35,11 @@
 }
 .accent {
   color: var(--flame-strong);
+  /* Signature: the accent words underline themselves once, like a trace. */
+  background-image: linear-gradient(90deg, var(--flame, #f4511e), rgba(244, 81, 30, 0.35));
+  background-repeat: no-repeat;
+  background-position: 0 92%;
+  background-size: 100% 0.07em;
 }
 :global(.band) .accent,
 .onDark .accent {
@@ -740,4 +745,26 @@
   .stepNode {
     transition: none;
   }
+}
+
+/* ---------- Signature: accent underline draws on entry ---------- */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .accent {
+    background-size: 0% 0.07em;
+    transition: background-size 0.7s var(--m-ease, ease-out);
+    transition-delay: calc(var(--d, 0ms) + var(--i, 0) * 55ms + 650ms);
+  }
+  [data-inview="true"] .accent {
+    background-size: 100% 0.07em;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .heroIntro .accent {
+    animation: wordUp 0.95s var(--m-ease, ease-out) both, underlineDraw 0.7s var(--m-ease, ease-out) both;
+    animation-delay: calc(var(--d, 0ms) + var(--i, 0) * 60ms), calc(var(--d, 0ms) + var(--i, 0) * 60ms + 700ms);
+  }
+}
+@keyframes underlineDraw {
+  from { background-size: 0% 0.07em; }
+  to { background-size: 100% 0.07em; }
 }
