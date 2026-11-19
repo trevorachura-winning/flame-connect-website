@@ -199,11 +199,31 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
             )}
           </details>
         )}
-        {current.linkedin && (
-          <a href={current.linkedin} target="_blank" rel="noopener" className="text-link">
-            {current.name} on LinkedIn <span aria-hidden="true">↗</span>
-            <span className="sr-only"> (opens in a new tab)</span>
-          </a>
+        {(current.linkedin || current.instagram) && (
+          <nav className={styles.socialLinks} aria-label={`${current.name} social profiles`}>
+            {current.linkedin && (
+              <a
+                href={current.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${current.name} on LinkedIn (opens in a new tab)`}
+                title="LinkedIn"
+              >
+                <Icon name="linkedin" size={21} />
+              </a>
+            )}
+            {current.instagram && (
+              <a
+                href={current.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${current.name} on Instagram (opens in a new tab)`}
+                title="Instagram"
+              >
+                <Icon name="instagram" size={21} />
+              </a>
+            )}
+          </nav>
         )}
       </div>
     </div>
