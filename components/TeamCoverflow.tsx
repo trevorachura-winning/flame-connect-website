@@ -24,9 +24,14 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   const suppressClick = useRef(false);
   const [dragX, setDragX] = useState(0);
 
+  // The photos move on their own; the profile only follows a person someone
+  // actually chose (click, tap, swipe or key), so it never changes mid-read.
+  const [selected, setSelected] = useState(0);
   const go = useCallback((i: number) => {
     if (n < 2) return;
-    setActive(((i % n) + n) % n);
+    const idx = ((i % n) + n) % n;
+    setActive(idx);
+    setSelected(idx);
   }, [n]);
 
   useEffect(() => {
@@ -110,7 +115,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
   };
 
   if (n === 0) return null;
-  const current = team[active];
+  const current = team[selected];
 
   return (
     <div
@@ -197,7 +202,17 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
         </ol>
       )}
 
-      <article className={styles.profile} aria-live="polite" key={current.slug}>
+      <details className={styles.profileDrop} key={current.slug}>
+        <summary>
+          <span className={styles.dropName}>
+            <strong>{current.name}</strong>
+            <span>{current.role}</span>
+          </span>
+          <span className={styles.dropCue}>
+            View profile <span className={styles.dropChevron} aria-hidden="true" />
+          </span>
+        </summary>
+      <article className={styles.profile}>
         <div className={styles.profileMain}>
           <p className={styles.role}>{current.role}</p>
           <h2>{current.name}</h2>
@@ -284,6 +299,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
           </div>
         )}
       </article>
+      </details>
     </div>
   );
 }

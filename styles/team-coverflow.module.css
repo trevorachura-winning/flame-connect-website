@@ -639,3 +639,80 @@
   font-size: 0.88rem;
   line-height: 1.55;
 }
+
+/* Profile as a dropdown: a slim bar with the chosen person's name and role;
+   click to open their full profile. */
+.profileDrop {
+  max-width: 68rem;
+  margin: 2rem auto 0;
+  border: 1px solid rgba(7, 17, 31, 0.08);
+  border-radius: 1.4rem;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 24px 60px -45px rgba(7, 17, 31, 0.35);
+  overflow: hidden;
+}
+.profileDrop > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.25rem;
+  padding: 1rem clamp(1.25rem, 3vw, 2rem);
+  cursor: pointer;
+}
+.profileDrop > summary::-webkit-details-marker {
+  display: none;
+}
+.profileDrop > summary:focus-visible {
+  outline: 3px solid var(--flame-strong, #c9400f);
+  outline-offset: -3px;
+}
+.dropName {
+  display: grid;
+  gap: 0.1rem;
+}
+.dropName strong {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  color: #07111f;
+}
+.dropName span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--flame-strong, #c9400f);
+}
+.dropCue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #07111f;
+  white-space: nowrap;
+}
+.dropChevron {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 300ms var(--ease-out);
+}
+.profileDrop[open] .dropChevron {
+  transform: translateY(2px) rotate(225deg);
+}
+.profileDrop[open] > summary {
+  border-bottom: 1px solid rgba(7, 17, 31, 0.08);
+}
+.profileDrop > .profile {
+  margin: 0;
+  max-width: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
