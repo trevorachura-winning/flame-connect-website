@@ -82,20 +82,7 @@ export const CHAPTERS: StoryChapter[] = [
   },
 ];
 
-export const VALUES = [
-  {
-    title: "Curiosity",
-    copy: "Every skill we have started as a question. We still learn in public, and we still try new tools before we recommend them.",
-  },
-  {
-    title: "Collaboration",
-    copy: "We grew because people shared what they knew. We work the same way with clients, partners and the businesses in our ecosystem.",
-  },
-  {
-    title: "Impact",
-    copy: "Technology only matters when it changes something real for a business or a community. That is how we judge our work.",
-  },
-];
+export { CORE_VALUES as VALUES } from "./company";
 
 export const MENTORS_NOTE =
   "We owe a great deal to the mentors who gave us their time and honest advice along the way. We hope to do the same for the next generation of African builders.";

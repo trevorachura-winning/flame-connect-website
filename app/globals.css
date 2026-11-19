@@ -2465,3 +2465,12 @@ a.chip-link.on {
     font-size: 0.82rem;
   }
 }
+
+/* One-sentence mission and vision: set large so they are easy to remember. */
+.mission-line {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  color: var(--navy-deep, #07111f);
+}

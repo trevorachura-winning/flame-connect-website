@@ -6,6 +6,7 @@ import { Icon } from "../../components/Icons";
 import { Reveal } from "../../components/Reveal";
 import { OPERATING_PRINCIPLES, ABOUT_MODEL, APPROACH_STAGES } from "../../content/home";
 import { pageMetadata } from "../../lib/seo";
+import { CORE_VALUES, MISSION, VISION } from "../../content/company";
 import { TEAM_IS_PREVIEW } from "../../content/team";
 import s from "../../styles/marketing/marketing.module.css";
 import m from "../../styles/marketing/motion.module.css";
@@ -22,15 +23,6 @@ export const metadata = pageMetadata({
     "Flame Connect is an AI Centre of Change built in Uganda for the way Africa works. We bring expert services, our own platforms and practical insight together in one model.",
   path: "/about",
 });
-
-const VALUES = [
-  "Build what is useful.",
-  "Explain what is true.",
-  "Design with people, not around them.",
-  "Make access part of the product.",
-  "Share what we learn.",
-  "Measure what changes.",
-];
 
 export default function AboutPage() {
   return (
@@ -104,18 +96,12 @@ export default function AboutPage() {
               <div className="card">
                 <span className="card-icon"><Icon name="target" size={20} /></span>
                 <h3 style={{ fontSize: "1.1rem" }}>Mission</h3>
-                <p>
-                  To build practical AI tools, skills and communities that help people make better
-                  decisions, strengthen everyday work and create measurable outcomes.
-                </p>
+                <p className="mission-line">{MISSION}</p>
               </div>
               <div className="card">
                 <span className="card-icon"><Icon name="eye" size={20} /></span>
                 <h3 style={{ fontSize: "1.1rem" }}>Vision</h3>
-                <p>
-                  An Africa where businesses and communities actively shape how AI is used, build
-                  relevant capability and share in the value it creates.
-                </p>
+                <p className="mission-line">{VISION}</p>
               </div>
             </div>
           </Reveal>
@@ -205,13 +191,16 @@ export default function AboutPage() {
       {/* Values */}
       <section className="section tight">
         <div className="container">
-          <SectionHead eyebrow="Values in behaviour" title="What you can hold us to" />
+          <SectionHead eyebrow="Our core values" title="People. Collaboration. Impact." />
           <ul className={`${s.cols3} list-plain`}>
-            {VALUES.map((value, i) => (
-              <Reveal as="li" key={value} delay={(i % 3) * 0.05}>
-                <div className="card" style={{ flexDirection: "row", alignItems: "center", gap: "0.8rem", padding: "1.2rem 1.3rem", height: "100%" }}>
-                  <Icon name="check" size={18} />
-                  <span style={{ fontWeight: 600, color: "var(--navy-deep)", fontFamily: "var(--font-display)" }}>{value}</span>
+            {CORE_VALUES.map((value, i) => (
+              <Reveal as="li" key={value.title} delay={i * 0.06}>
+                <div className="card" style={{ height: "100%" }}>
+                  <span className="card-icon">
+                    <Icon name={i === 0 ? "users" : i === 1 ? "handshake" : "target"} size={20} />
+                  </span>
+                  <h3 style={{ fontSize: "1.25rem" }}>{value.title}</h3>
+                  <p>{value.copy}</p>
                 </div>
               </Reveal>
             ))}

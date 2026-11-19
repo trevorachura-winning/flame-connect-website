@@ -86,14 +86,14 @@ export default function OurStoryPage() {
           <InView className="section-head">
             <span className={`eyebrow ${m.rise}`}>What carried us</span>
             <h2 id="values-title" className="display-2">
-              <SplitText text="Curiosity, collaboration and impact." accent="impact." />
+              <SplitText text="People, collaboration and impact." accent="impact." />
             </h2>
           </InView>
           <InView className={st.values}>
             {VALUES.map((val, i) => (
               <article key={val.title} className={st.value} style={v({ "--i": i })}>
                 <span className={st.valueIcon} aria-hidden="true">
-                  <Icon name={i === 0 ? "spark" : i === 1 ? "handshake" : "target"} size={22} />
+                  <Icon name={i === 0 ? "users" : i === 1 ? "handshake" : "target"} size={22} />
                 </span>
                 <h3>{val.title}</h3>
                 <p>{val.copy}</p>

@@ -185,7 +185,11 @@ export function DesktopMegaNavigation() {
                       <Link
                         className={styles.panelLink}
                         href={link.href}
-                        onClick={() => setOpen(null)}
+                        onClick={() => {
+                          setOpen(null);
+                          // Same page (e.g. About while on About): go back to the top.
+                          if (pathname === link.href) window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
                         aria-current={active(link.href) ? "page" : undefined}
                       >
                         <span className={styles.linkLabel}>
@@ -262,7 +266,10 @@ export function MobileMegaNavigation({ onNavigate }: { onNavigate: () => void })
                   <Link
                     key={link.href}
                     href={link.href}
-                    onClick={onNavigate}
+                    onClick={() => {
+                      onNavigate();
+                      if (pathname === link.href) window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
                     aria-current={active(link.href) ? "page" : undefined}
                   >
                     {link.label}{link.status && <small className={styles.mobileStatus}>{link.status}</small>}
