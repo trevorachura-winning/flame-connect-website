@@ -36,7 +36,7 @@ export default function TeamPage() {
           </p>
           {TEAM_IS_PREVIEW && (
             <p className="pending-tag" style={{ marginTop: "1rem", display: "inline-block" }}>
-              Team profiles will appear here when the people and their portraits are approved for publication.
+              Preview only. Team portraits and biographies are being reviewed before public publication.
             </p>
           )}
         </div>
