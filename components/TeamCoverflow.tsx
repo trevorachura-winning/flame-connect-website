@@ -235,7 +235,7 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
           )}
         </div>
 
-        {((current.focusAreas?.length ?? 0) > 0 || (current.credentials?.length ?? 0) > 0) && (
+        {((current.focusAreas?.length ?? 0) > 0 || (current.credentials?.length ?? 0) > 0 || (current.skills?.length ?? 0) > 0) && (
           <div className={styles.profileSide}>
             {current.focusAreas && current.focusAreas.length > 0 && (
               <section aria-label={`What ${current.name.split(" ")[0]} leads`}>
@@ -250,9 +250,9 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
                 </dl>
               </section>
             )}
-            {current.credentials && current.credentials.length > 0 && (
-              <section className={styles.credentials} aria-label="Certifications and training">
-                <h3 className={styles.sideHeading}>Certifications &amp; training</h3>
+            {((current.credentials?.length ?? 0) > 0 || (current.skills?.length ?? 0) > 0) && (
+              <section className={styles.credentials} aria-label="Skills and certifications">
+                <h3 className={styles.sideHeading}>Skills &amp; certifications</h3>
                 <ul className={styles.credentialList}>
                   {current.credentials.map((credential) => (
                     <li className={styles.credentialItem} key={`${credential.name}-${credential.issuer}`}>
@@ -262,6 +262,20 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
                     </li>
                   ))}
                 </ul>
+                {current.skills && current.skills.length > 0 && (
+                  <div className={styles.skills}>
+                    {current.skills.map((set) => (
+                      <div key={set.group} className={styles.skillSet}>
+                        <p className={styles.skillGroup}>{set.group}</p>
+                        <ul className={styles.skillChips}>
+                          {set.items.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </section>
             )}
           </div>
