@@ -232,7 +232,7 @@
   .bar::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px; border-radius: 4px; background: rgba(255,255,255,.18); }
   .bar i { position: absolute; left: 0; top: 50%; height: 4px; margin-top: -2px; width: 0; border-radius: 4px; background: var(--flame); }
   .bar.done i { width: 100%; }
-  .bar.is-active i { animation: fill var(--dur, 6s) linear forwards; }
+  .bar.is-active i { animation: fill var(--dur, 4s) linear forwards; }
   .stage[data-paused="true"] ~ .show-controls .bar.is-active i,
   .show-controls[data-paused="true"] .bar.is-active i { animation-play-state: paused; }
   @keyframes fill { from { width: 0; } to { width: 100%; } }
@@ -243,7 +243,7 @@
   .ctrl svg { width: 18px; height: 18px; }
 
   @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-    .slide.is-active .slide-media img { animation: kenburns 7s ease-out forwards; }
+    .slide.is-active .slide-media img { animation: kenburns 5s ease-out forwards; }
     .slide.is-active .slide-body > * { animation: riseIn .8s cubic-bezier(.2,.7,.2,1) both; }
     .slide.is-active .slide-body > *:nth-child(2) { animation-delay: .08s; }
     .slide.is-active .slide-body > *:nth-child(3) { animation-delay: .16s; }
@@ -445,7 +445,7 @@
 
 <script>
 (function () {
-  // Showcase slideshow: advances every 6s, pauses on hover, focus or the
+  // Showcase slideshow: advances every 4s, pauses on hover, focus or the
   // pause button; manual only for people who turn off motion.
   var slides = [].slice.call(document.querySelectorAll(".slide"));
   var bars = [].slice.call(document.querySelectorAll(".bar"));
@@ -453,7 +453,7 @@
   var stage = document.getElementById("stage");
   var pauseBtn = document.getElementById("pause");
   if (!slides.length) return;
-  var DUR = 6000, i = 0, timer = null, hovering = false, userPaused = false;
+  var DUR = 4000, i = 0, timer = null, hovering = false, userPaused = false;
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduce) userPaused = true;
   controls.style.setProperty("--dur", DUR / 1000 + "s");
