@@ -9,7 +9,7 @@
 .stage {
   position: relative;
   /* Room for the active photo (5:7), its lift and the plinth below it. */
-  height: calc(var(--slide-w) * 1.4 * 1.04 + 4.5rem);
+  height: calc(var(--slide-w) * 1.4 * 1.1 + 4.5rem);
   perspective: 1400px;
   perspective-origin: 50% 40%;
   transform-style: preserve-3d;
@@ -60,7 +60,7 @@
     translateX(calc(var(--d) * var(--step) + var(--drag, 0px) * 0.6))
     translateZ(calc(var(--ad) * -160px))
     rotateY(calc(var(--d) * -24deg))
-    scale(calc(1 - var(--ad) * 0.06));
+    scale(calc(1 - var(--ad) * 0.1));
   opacity: calc(1 - var(--ad) * 0.18);
   transition:
     transform 900ms var(--ease-out),
@@ -86,7 +86,7 @@
   mask-image: linear-gradient(180deg, #000 82%, transparent);
 }
 .slide[data-active] .photo {
-  transform: translateY(-0.4rem) scale(1.04);
+  transform: translateY(-0.6rem) scale(1.1);
 }
 
 /* Name plinth: angled with the slide; the active one is a lit navy card. */
