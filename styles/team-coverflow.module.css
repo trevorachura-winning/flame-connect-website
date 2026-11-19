@@ -931,3 +931,128 @@
 .slide[data-active] {
   cursor: pointer;
 }
+
+/* ---------- Profile toggle on the centre name bar ---------- */
+.slide[data-active] {
+  cursor: default;
+}
+.plinth {
+  position: relative;
+}
+.plinthToggle {
+  position: absolute;
+  left: 50%;
+  bottom: -1.35rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-left: -1.375rem;
+  border-radius: 50%;
+  border: 2px solid #07111f;
+  background: #f4511e;
+  color: #07111f;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 10px 24px -8px rgba(244, 81, 30, 0.7);
+  transition: transform 250ms var(--ease-out), background-color 200ms ease;
+  pointer-events: auto;
+}
+.plinthToggle:hover {
+  transform: translateY(2px);
+  background: #ff936b;
+}
+.plinthToggle:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+.plinthChevron {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-right: 2.5px solid currentColor;
+  border-bottom: 2.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 300ms var(--ease-out);
+}
+.plinthToggle[aria-expanded="true"] .plinthChevron,
+.plinthChevron[data-up] {
+  transform: translateY(2px) rotate(225deg);
+}
+/* Room under the stage for the arrow button */
+.stage {
+  padding-bottom: 0;
+}
+.slide[data-active] .plinth {
+  margin-bottom: 1.6rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .plinthToggle[aria-expanded="false"] {
+    animation: nudge 2.4s ease-in-out 1.4s 2;
+  }
+}
+@keyframes nudge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* ---------- Profile panel dropping down below the ring ---------- */
+.panel {
+  position: relative;
+  max-width: 68rem;
+  margin: 1.6rem auto 0;
+  border: 1px solid rgba(7, 17, 31, 0.08);
+  border-radius: 1.4rem;
+  background: #fff;
+  box-shadow: 0 30px 70px -45px rgba(7, 17, 31, 0.45);
+  scroll-margin-top: 6rem;
+}
+.panel::before {
+  /* notch pointing up at the centre name bar */
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  background: #fff;
+  border-left: 1px solid rgba(7, 17, 31, 0.08);
+  border-top: 1px solid rgba(7, 17, 31, 0.08);
+  transform: rotate(45deg);
+}
+.panel .sheetHead {
+  position: static;
+  border-radius: 1.4rem 1.4rem 0 0;
+}
+.panel > .profile {
+  margin: 0;
+  max-width: none;
+  border: 0;
+  border-radius: 0 0 1.4rem 1.4rem;
+  box-shadow: none;
+  background: transparent;
+}
+.panel .profileMain > .role,
+.panel .profileMain > h2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.panel .profileMain > nav {
+  margin-top: 0;
+}
+.panel .grabber {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .panel {
+    animation: dropDown 450ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    transform-origin: 50% 0;
+  }
+}
+@keyframes dropDown {
+  from { opacity: 0; transform: translateY(-14px) scaleY(0.97); }
+  to { opacity: 1; transform: none; }
+}

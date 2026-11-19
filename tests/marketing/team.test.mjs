@@ -207,11 +207,12 @@ test("social profile icons link to actual accounts with accessible labels", () =
 
 test("profile card stays hidden until someone picks a person; photos keep moving", () => {
   const component = read("components/TeamCoverflow.tsx");
-  assert.match(component, /useState<number \| null>\(null\)/, "no person selected on load");
+  assert.match(component, /useState\(false\)/, "profile closed on load");
   assert.match(component, /\{current && \(/, "profile only renders after a pick");
-  assert.match(component, /<dialog/, "profile opens as a pop-up card");
+  assert.match(component, /aria-controls="team-profile"/, "profile opens from the arrow on the centre name bar");
   assert.match(component, /aria-label="Close profile"/);
-  assert.match(component, /selected !== null\) return;/, "slideshow pauses while a profile is open");
+  assert.match(component, /\|\| open\) return;/, "slideshow pauses while a profile is open");
+  assert.match(component, /d !== 0 && !suppressClick\.current\) go\(i\)/, "clicking a person rotates them to the centre");
   assert.doesNotMatch(component, /Tap a person/);
   assert.match(component, /AUTOPLAY_MS = 5000/);
 });
