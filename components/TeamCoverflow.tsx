@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties, type Keyb
 import type { TeamMember } from "../content/team";
 import { teamCoverflowOffset, teamAutoplayEnabled } from "../lib/team-coverflow";
 import { Icon } from "./Icons";
+import { mailtoHref } from "../lib/links";
 import styles from "../styles/team-coverflow.module.css";
 
 const AUTOPLAY_MS = 3000;
@@ -254,6 +255,13 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
             </nav>
           )}
           <p className={styles.bioText}>{current.bio}</p>
+          {mailtoHref(`CV request: ${current.name}`, `Hello Flame Connect,\n\nPlease could you share ${current.name}'s full CV?\n\nName:\nOrganisation:\nReason:\n`) && (
+            <p className={styles.cvRequest}>
+              <a href={mailtoHref(`CV request: ${current.name}`, `Hello Flame Connect,\n\nPlease could you share ${current.name}'s full CV?\n\nName:\nOrganisation:\nReason:\n`) ?? undefined} className="text-link">
+                Request full CV <Icon name="arrow-right" size={14} />
+              </a>
+            </p>
+          )}
         </div>
 
         {((current.focusAreas?.length ?? 0) > 0 || (current.credentials?.length ?? 0) > 0 || (current.skills?.length ?? 0) > 0 || !!current.qualification) && (

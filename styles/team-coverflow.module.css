@@ -741,3 +741,8 @@
     animation: bioIn 600ms var(--ease-out) both;
   }
 }
+
+.cvRequest {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}

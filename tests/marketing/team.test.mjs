@@ -109,7 +109,8 @@ test("Moses Owena is staged as Art Director with verified responsibilities", () 
   assert.equal(moses.publicationApproved, true);
   assert.equal(moses.photo, "/team/moses-owena.webp");
   assert.equal(moses.focusAreas.length, 4);
-  assert.match(moses.qualification, /Makerere University/);
+  assert.equal(moses.qualification, undefined, "Education is private");
+  assert.ok(moses.skills?.length >= 3);
   const component = read("components/TeamCoverflow.tsx");
   // Nov 2026 polish: focus areas and credentials sit in an always-visible
   // profile panel beside the bio instead of a collapsed disclosure.
@@ -125,7 +126,9 @@ test("Aaron Mwesigwa Mwebaze has his user-assigned marketing leadership and veri
   assert.equal(aaron.publicationApproved, true);
   assert.equal(aaron.photo, "/team/aaron-mwesigwa.webp");
   assert.match(aaron.bio, /Uganda’s foreign service/);
-  assert.match(aaron.qualification, /Mae Fah Luang University/);
+  assert.doesNotMatch(aaron.bio, /master|TICA|degree/i);
+  assert.equal(aaron.qualification, undefined, "Education is private");
+  assert.ok(aaron.skills?.length >= 3);
   assert.equal(aaron.focusAreas.length, 4);
   assert.match(aaron.linkedin, /^https:\/\/www\.linkedin\.com\/in\//);
 });
@@ -208,4 +211,9 @@ test("profile card stays hidden until someone picks a person; photos keep moving
   assert.match(component, /\{current && \(/, "profile only renders after a pick");
   assert.match(component, /Tap a person to see their profile\./);
   assert.match(component, /AUTOPLAY_MS = 3000/);
+});
+
+test("no team member publishes education; CVs are offered on request", () => {
+  for (const person of TEAM) assert.equal(person.qualification, undefined, person.name);
+  assert.match(read("components/TeamCoverflow.tsx"), /Request full CV/);
 });
