@@ -153,9 +153,42 @@ test("Trevor Achura leads the team with an approved portrait and authentic AI CE
   assert.equal(trevor.credentials[0].category, "Certification");
   assert.ok(trevor.credentials.some((credential) => credential.category === "Diploma"));
   assert.ok(trevor.credentials.some((credential) => credential.category === "Course"));
-  assert.doesNotMatch(trevor.bio, /\\blaw\\b|LLB|Bachelor of Laws/i);
+  assert.doesNotMatch(trevor.bio, /\blaw\b|LLB|Bachelor of Laws/i);
   const component = read("components/TeamCoverflow.tsx");
   assert.match(component, /Certifications &amp; training/);
-  assert.match(component, /current\\.credentials\\.map/);
+  assert.match(component, /current\.credentials\.map/);
   assert.ok(existsSync("public/team/trevor-achura.webp"));
+});
+
+
+test("team social URLs match owner-supplied destinations", () => {
+  const trevor = TEAM.find((m) => m.slug === "trevor-achura");
+  const moses = TEAM.find((m) => m.slug === "moses-owena");
+  const aaron = TEAM.find((m) => m.slug === "aaron-mwesigwa-mwebaze");
+  assert.equal(trevor.linkedin, "https://www.linkedin.com/in/trevor-jeremiah-achura-457b6743b");
+  assert.equal(moses.linkedin, "https://www.linkedin.com/in/moses-owena-791bbb202");
+  assert.equal(moses.instagram, "https://www.instagram.com/moses_owena/");
+  assert.equal(aaron.linkedin, "https://www.linkedin.com/in/mwebaze-aaron-6089a1224");
+  for (const member of TEAM) {
+    for (const address of [member.linkedin, member.instagram].filter(Boolean)) {
+      const url = new URL(address);
+      assert.equal(url.protocol, "https:");
+      assert.ok(["www.linkedin.com", "www.instagram.com"].includes(url.hostname));
+      assert.ok(!address.includes(String.fromCharCode(92)), "URL must not contain escape slashes");
+    }
+  }
+});
+
+test("social profile icons link to actual accounts with accessible labels", () => {
+  const component = read("components/TeamCoverflow.tsx");
+  const css = read("styles/team-coverflow.module.css");
+  assert.ok(component.includes("href={current.linkedin}"));
+  assert.ok(component.includes("href={current.instagram}"));
+  assert.ok(component.includes('name="linkedin"'));
+  assert.ok(component.includes('name="instagram"'));
+  assert.ok(component.includes('rel="noopener noreferrer"'));
+  assert.ok(component.includes("on LinkedIn (opens in a new tab)"));
+  assert.ok(component.includes("on Instagram (opens in a new tab)"));
+  assert.ok(css.includes(".socialLinks a:focus-visible"));
+  assert.ok(css.includes("width: 48px;") && css.includes("height: 48px;"));
 });
