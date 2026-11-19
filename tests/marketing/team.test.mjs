@@ -201,3 +201,11 @@ test("social profile icons link to actual accounts with accessible labels", () =
   assert.ok(css.includes(".socialLinks a:focus-visible"));
   assert.ok(css.includes("width: 48px;") && css.includes("height: 48px;"));
 });
+
+test("profile card stays hidden until someone picks a person; photos keep moving", () => {
+  const component = read("components/TeamCoverflow.tsx");
+  assert.match(component, /useState<number \| null>\(null\)/, "no person selected on load");
+  assert.match(component, /\{current && \(/, "profile only renders after a pick");
+  assert.match(component, /Tap a person to see their profile\./);
+  assert.match(component, /AUTOPLAY_MS = 3000/);
+});
