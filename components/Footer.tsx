@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BrandLogo } from "./BrandLogo";
 import { Icon } from "./Icons";
 import { whatsappHref } from "../lib/links";
+import { WhatsAppEnquiry } from "./WhatsAppEnquiry";
 import { FOOTER_NAV } from "../content/navigation";
 import { SITE } from "../lib/site";
 
@@ -67,9 +68,9 @@ export function Footer() {
                 )}
                 {waLink && (
                   <li>
-                    <a href={waLink} rel="noopener noreferrer">
-                      WhatsApp +{(SITE.contactWhatsApp ?? "").replace(/\D/g, "")}
-                    </a>
+                    <WhatsAppEnquiry>
+                      Chat on WhatsApp +{(SITE.contactWhatsApp ?? "").replace(/\D/g, "")}
+                    </WhatsAppEnquiry>
                   </li>
                 )}
                 <li><Link href="/contact?intent=consultation">Book a consultation</Link></li>

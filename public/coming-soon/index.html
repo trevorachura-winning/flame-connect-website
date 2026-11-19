@@ -175,6 +175,25 @@
     outline: 3px solid #fff;
     outline-offset: 3px;
   }
+  /* WhatsApp enquiry pop-up: visitors write first, then WhatsApp opens with the message ready. */
+  .wa-dialog { width: min(440px, calc(100vw - 2rem)); padding: 0; border: 1px solid rgba(255,255,255,.14); border-radius: 22px; background: #0b1a2e; color: #fff; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7); }
+  .wa-dialog::backdrop { background: rgba(4,10,20,.72); backdrop-filter: blur(4px); }
+  .wa-dialog .wa-form { display: grid; gap: .85rem; padding: 1.5rem; text-align: left; }
+  .wa-dialog h2 { font-family: "Montserrat", "Poppins", sans-serif; font-size: 1.3rem; letter-spacing: -.02em; margin: 0; }
+  .wa-dialog p { margin: 0; color: rgba(255,255,255,.72); font-size: .85rem; line-height: 1.55; }
+  .wa-dialog label { font-size: .8rem; font-weight: 500; color: rgba(255,255,255,.85); }
+  .wa-dialog input, .wa-dialog textarea { width: 100%; box-sizing: border-box; margin-top: .35rem; padding: .75rem .9rem; border: 1px solid rgba(255,255,255,.2); border-radius: 12px; background: rgba(255,255,255,.06); color: #fff; font: inherit; font-size: 16px; }
+  .wa-dialog textarea { min-height: 120px; resize: vertical; }
+  .wa-dialog input:focus, .wa-dialog textarea:focus { outline: 2px solid #f4511e; outline-offset: 1px; border-color: transparent; }
+  .wa-actions { display: flex; gap: .6rem; justify-content: flex-end; flex-wrap: wrap; margin-top: .25rem; }
+  .wa-actions button { min-height: 44px; padding: .7rem 1.3rem; border-radius: 999px; font: inherit; font-size: .88rem; font-weight: 600; cursor: pointer; border: 1px solid rgba(255,255,255,.3); background: transparent; color: #fff; }
+  .wa-actions .wa-send { display: inline-flex; align-items: center; min-height: 44px; padding: .7rem 1.3rem; border-radius: 999px; font-size: .88rem; font-weight: 600; text-decoration: none; background: #f4511e; border: 1px solid #f4511e; color: #07111f; }
+  .wa-actions .wa-send:hover { background: #ff936b; border-color: #ff936b; }
+  .wa-actions .wa-send:focus-visible, .wa-actions button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .wa-error { color: #ffb199 !important; font-size: .8rem !important; }
+  .wa-close { position: absolute; top: .7rem; right: .7rem; width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent; color: rgba(255,255,255,.7); font-size: 1.4rem; cursor: pointer; }
+  .wa-close:hover { background: rgba(255,255,255,.08); color: #fff; }
+  @media (prefers-reduced-motion: reduce) { .wa-dialog::backdrop { backdrop-filter: none; } }
   .contact-context { margin: 1.1rem auto 0; color: var(--muted); font-size: .78rem; }
   @media (max-width: 420px) {
     .prelaunch-actions { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 320px; }
@@ -303,7 +322,7 @@
       <p class="sr-only" id="sr-countdown" aria-live="polite"></p>
       <p class="when rise d4">Friday 20 November 2026 · <strong>12:00 EAT</strong> (Kampala)</p>
       <nav class="prelaunch-actions rise d4" aria-label="Contact Flame Connect before launch">
-        <a class="primary" href="https://wa.me/256764018701?text=Hello%20Flame%20Connect%2C%20I%27d%20like%20to%20learn%20more." target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
+        <a class="primary" data-wa-open href="https://wa.me/256764018701?text=Hello%20Flame%20Connect%2C%20I%27d%20like%20to%20learn%20more." target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>
         <a href="mailto:flameconnect1@gmail.com?subject=Flame%20Connect%20pre-launch%20enquiry">Email us</a>
       </nav>
       <p class="contact-context rise d4">We are here if you would like to talk before launch.</p>
@@ -499,6 +518,49 @@
   }, { passive: true });
   document.addEventListener("visibilitychange", schedule);
   if (reduce) setPaused(true); else show(0);
+})();
+</script>
+  <dialog class="wa-dialog" id="wa-dialog" aria-labelledby="wa-title">
+    <button type="button" class="wa-close" data-wa-close aria-label="Close">&times;</button>
+    <div class="wa-form" role="group" aria-labelledby="wa-title">
+      <h2 id="wa-title">Your enquiry</h2>
+      <p>Tell us what you need. When you press Send, WhatsApp opens with your message ready to go to Flame Connect.</p>
+      <label for="wa-name">Your name (optional)
+        <input id="wa-name" name="name" autocomplete="name" maxlength="80">
+      </label>
+      <label for="wa-message">Your enquiry
+        <textarea id="wa-message" name="message" required maxlength="1500" placeholder="For example: we would like help using AI to answer customer questions faster."></textarea>
+      </label>
+      <p class="wa-error" id="wa-error" role="alert" hidden>Please write your enquiry first.</p>
+      <div class="wa-actions">
+        <button type="button" data-wa-close>Cancel</button>
+        <a class="wa-send" id="wa-send" href="https://wa.me/256764018701" target="_blank" rel="noopener noreferrer">Send on WhatsApp</a>
+      </div>
+    </div>
+  </dialog>
+<script>
+(function () {
+  var dlg = document.getElementById("wa-dialog");
+  var opener = document.querySelector("[data-wa-open]");
+  if (!dlg || !opener || typeof dlg.showModal !== "function") return; // fall back to the plain link
+  var msg = document.getElementById("wa-message"), nameEl = document.getElementById("wa-name"),
+      err = document.getElementById("wa-error"), send = document.getElementById("wa-send");
+  // Send is a real link (in-app browsers block scripted pop-ups); its href
+  // carries the visitor's message and updates as they type.
+  function body() {
+    var name = nameEl.value.trim();
+    return "Hello Flame Connect" + (name ? ", this is " + name : "") + ".\n\n" + msg.value.trim();
+  }
+  function sync() { send.href = "https://wa.me/256764018701?text=" + encodeURIComponent(body()); if (msg.value.trim()) err.hidden = true; }
+  msg.addEventListener("input", sync); nameEl.addEventListener("input", sync);
+  opener.addEventListener("click", function (e) { e.preventDefault(); err.hidden = true; sync(); dlg.showModal(); msg.focus(); });
+  dlg.querySelectorAll("[data-wa-close]").forEach(function (b) { b.addEventListener("click", function () { dlg.close(); opener.focus(); }); });
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) { dlg.close(); opener.focus(); } });
+  send.addEventListener("click", function (e) {
+    if (!msg.value.trim()) { e.preventDefault(); err.hidden = false; msg.focus(); return; }
+    sync();
+    setTimeout(function () { dlg.close(); msg.value = ""; nameEl.value = ""; }, 300);
+  });
 })();
 </script>
 </body>

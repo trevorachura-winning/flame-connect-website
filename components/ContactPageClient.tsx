@@ -7,6 +7,7 @@ import { Icon } from "./Icons";
 import { SITE, type Intent } from "../lib/site";
 import m from "../styles/marketing/marketing.module.css";
 import { whatsappHref } from "../lib/links";
+import { WhatsAppEnquiry } from "./WhatsAppEnquiry";
 
 const VALID_INTENTS: Intent[] = ["consultation", "access", "waitlist", "community", "learning", "partnership", "newsletter", "media", "other"];
 
@@ -55,7 +56,7 @@ export function ContactPageClient() {
                 {SITE.contactEmail || SITE.contactWhatsApp ? (
                   <>
                     {SITE.contactEmail && <>Email <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>. </>}
-                    {waLink && <>WhatsApp <a href={waLink} rel="noopener noreferrer">+{(SITE.contactWhatsApp ?? "").replace(/\D/g, "")}</a>.</>}
+                    {waLink && <>WhatsApp <WhatsAppEnquiry>+{(SITE.contactWhatsApp ?? "").replace(/\D/g, "")}</WhatsAppEnquiry>.</>}
                   </>
                 ) : (
                   "Our public email and WhatsApp line are being finalised and will be published here before launch."
