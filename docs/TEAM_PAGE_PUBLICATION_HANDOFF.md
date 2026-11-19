@@ -1,38 +1,38 @@
-# Flame Connect team page — publication handoff
+# Flame Connect | Team Page publication handoff
 
-**Draft PR:** #44 (branch `feat/team-page`)  
-**Status:** Engineering staged; **not ready to merge or publish** until real, approved profiles arrive.
+**Draft PR:** #44 — `feat/team-page`  
+**Status:** Two-person visual preview prepared, not approved for publication.
 
-## Verified roster inputs
+## Team roster prepared in the branch
 
-| Person | What is known | What is still required |
-| --- | --- | --- |
-| Trevor Achura | Founder / Flame Connect project lead. The owner identified Trevor as a person to include. | Owner-approved final job title, a reviewed two to three sentence bio, transparent portrait, permission to publish, optional LinkedIn |
-| Moses Owena | Product Owner confirmed **Art Director**. Profile details are grounded in his 28 October 2026 CV, including film direction, cinematography and creative content strategy. | The approved transparent portrait must be uploaded as `public/team/moses-owena.webp`; Moses must approve the final bio and portrait for publication. Optional LinkedIn is not supplied. |
+| Person | Role on Flame Connect (Product Owner supplied) | Evidence and profile | Publication |
+| --- | --- | --- | --- |
+| Moses Owena | Art Director | CV dated 28 October 2026: cinematography, creative direction, visual storytelling, film production; Makerere University Bachelor of Performing Arts in Drama and Film. `public/team/moses-owena.webp` is committed. | `publicationApproved: false`; obtain his approval of portrait and final bio. |
+| Aaron Mwesigwa Mwebaze | Managing Partner & Chief Marketing Officer | Product Owner assigns marketing, digital communications, development policy research and partnerships. Supplied profile confirms international relations and development policy research, Uganda foreign service experience, completed UCU degree, pursuing MA at Mae Fah Luang University with TICA scholarship. `public/team/aaron-mwesigwa.webp` is committed. | `publicationApproved: false`; obtain his approval of portrait, final job title and bio. LinkedIn URL came from his supplied profile. |
+| Trevor Achura | Founder and Managing Director | Product Owner supplied role. | Awaiting approved photograph and bio; not in the registry yet. |
+| Ron | Managing Partner, Operations | Product Owner supplied remit only. | Awaiting full confirmed name, photo, bio, consent. |
 
-Do not copy another agency's staff, use stock faces or generate realistic portraits as substitutes for unprovided team members. Never assume consent merely because a photograph was shared elsewhere.
+No extra team members, client relationships, promotional statistics or testimonials are implied by the public team copy.
 
-## Portrait preparation (after approved source images are provided)
+## Existing design and interactions
 
-- Each subject supplies a clear waist-up original photo facing camera and authorises its use on Flame Connect.
-- A **transparent-background WebP** at **900 × 1260 px** has been prepared from Moses's supplied seated portrait. The pose is intentionally kept seated, not fabricated standing. Inspect the cut-out edges and confirm that the edited result faithfully represents him before publication.
-- Save to `public/team/<firstname-lastname>.webp` and reference `/team/<firstname-lastname>.webp`.
-- Inspect transparency and head/shoulder cropping at 320/375/414/768/1024/1440 px. Confirm professional but accurate representation.
-- Keep the person's permission in approved team records outside the public repository; `publicationApproved: true` is set in source code only after permission is confirmed.
+Keep Claude's custom 3D cover-flow design. Selected portrait remains in colour with a navy name plinth and Flame Orange underline; unselected neighbour sits back in greyscale. The section below shows the person's role and 2–3 sentence bio with a native disclosure (“What Moses leads” / “What Aaron leads”) for focus areas and education. For two people, the second portrait occupies one stable neighbour position, with no autoplay or dots. Arrow keys, swipe, arrows and reduced-motion controls remain supported.
 
-## How to activate the page
+Do not add unnecessary grain, role-coloured effects, pointer parallax or modify the main navigation without Product Owner approval.
 
-1. Moses Owena is staged in `content/team.ts` with `publicationApproved: false`. Upload his approved image to `public/team/moses-owena.webp`. Add at least one more confirmed entry before the public team page can launch. Each needs `slug`, `name`, `role`, `bio`, `photo` and `publicationApproved: true`; `linkedin` optional.
-2. Keep bios genuinely specific and warm, in British English, two or three sentences each. No invented career history, quotes or honours.
-3. `TEAM_IS_PREVIEW` becomes false with two approved profiles. Then `/team` becomes indexable, appears in the sitemap and the Company footer and About link automatically appear.
-4. The existing carousel supports exactly two profiles without autoplay or dots. For three or more, the wrap-around layout, dots and autoplay resume.
-5. Run `npm run content:check`, `npm run links:check`, `npm run test:marketing`, `npm run typecheck`, `npm run build`.
-6. Perform **actual browser acceptance** at 320, 375, 414, 768, 1024, 1440. Check no sideways scroll, uncropped portraits, keyboard focus, arrow keys, drag/swipe, hover/focus pause with three or more, reduced-motion, 44px controls, console and image fetch errors.
-7. Review PR #44 and obtain explicit Product Owner approval before merging or deploying.
+## Portrait sources
 
-## Release notes
+- Moses WebP: 900 × 1260 transparent cutout based on his submitted portrait, seated pose preserved. Check facial similarity and edges before public release.
+- Aaron WebP: 900 × 1260 transparent cutout based on his submitted conference photograph. Original photograph pixels were retained so his face, glasses, suit and crossed arms are not redrawn. Note that segmentation edges near shoulders warrant visual inspection before public release.
+- Both images are committed in `public/team/`; `content/team.ts` references those paths.
 
-- The preview remains `noindex` and unlinked because only one person is staged and his publication approval is pending. The profile photo file has not yet been transferred into the GitHub repository, so the current branch cannot pass visual portrait acceptance.
-- This branch does **not** change the public Coming Soon gate or the Friday 20 Nov 2026, 12:00 EAT release timestamp.
-- The untouched six-item main navigation remains Services, Products, Insights, About, Responsible AI, Contact. No new About dropdown is introduced without approval.
-- No database, login, backend or assessment submission behavior is changed.
+## Required publication actions
+
+1. Both people approve their own public portrait, biography and title. Record consent privately; do not publish consent records in the repository.
+2. Set `publicationApproved: true` only for profiles actually approved. The route remains `noindex` and omitted from sitemap/footer/About links while anyone in the registry is unapproved.
+3. Perform real-browser QA on the Vercel PR preview at widths 320, 375, 414, 768, 1024 and 1440 px. Check portrait cutout edges, overflow, focus, disclosure, text contrast, mobile touch and drag, keyboard operation, reduced motion and console errors.
+4. Run `npm run content:check`, `npm run links:check`, `npm run test:marketing`, `npm run typecheck`, `npm run build`.
+5. Confirm the two photo resources load over HTTP from preview. Check both people before publication.
+6. PR #44 remains draft and must not merge or deploy to production without Product Owner approval.
+
+The corporate website Coming Soon gate remains unchanged at **20 November 2026, 12:00 EAT**. No backend, database, login or product behaviour is changed.
