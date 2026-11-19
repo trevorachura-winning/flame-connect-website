@@ -2,12 +2,12 @@
  * Flame Connect's mission, vision and core values, agreed by the
  * Product Owner on 19 Nov 2026. One source for every page that uses them.
  */
-export const MISSION = "We help African businesses use AI and technology to work better, every day.";
+export const MISSION = "To enable African businesses to work smarter through practical AI and technology.";
 
-export const VISION = "A digital Africa where every business grows with technology.";
+export const VISION = "A digitally empowered Africa where every business grows through technology.";
 
 export const CORE_VALUES = [
-  { title: "People", copy: "We start with people, so technology fits them and not the other way round." },
-  { title: "Collaboration", copy: "We grow by sharing what we know with our clients, our partners and each other." },
-  { title: "Innovation", copy: "We stay curious, try new ideas early and turn the ones that work into practical tools." },
+  { title: "People", copy: "We place people at the centre of every solution we design and deliver." },
+  { title: "Collaboration", copy: "We build lasting partnerships with clients, partners and communities to achieve shared goals." },
+  { title: "Innovation", copy: "We apply new ideas and emerging technology to create practical solutions that deliver measurable results." },
 ] as const;
