@@ -26,7 +26,7 @@ export const CHAPTERS: StoryChapter[] = [
     title: "It started with design",
     body: [
       "Flame began as a small graphics business. Trevor worked as a freelance graphic designer, using professional tools like Adobe Creative Cloud to help people and small businesses look the part, one project at a time.",
-      "Along the way he earned a diploma in graphics and web design, and the work kept coming.",
+      "During lockdown his pursuit of new skills took off, starting with formal training in graphics and web design. The work kept coming, and so did the questions.",
     ],
     learnt: "Good design builds trust before a word is read.",
     art: "design",
