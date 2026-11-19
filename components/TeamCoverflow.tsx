@@ -183,6 +183,20 @@ export function TeamCoverflow({ team }: { team: TeamMember[] }) {
                 <strong>Education</strong> {current.qualification}
               </p>
             )}
+            {current.credentials && current.credentials.length > 0 && (
+              <section className={styles.credentials} aria-label="Certifications and training">
+                <h3>Certifications &amp; training</h3>
+                <ul className={styles.credentialList}>
+                  {current.credentials.map((credential) => (
+                    <li className={styles.credentialItem} key={`${credential.name}-${credential.issuer}`}>
+                      <span className={styles.credentialType}>{credential.category}</span>
+                      <span className={styles.credentialName}>{credential.name}</span>
+                      <span className={styles.credentialIssuer}>{credential.issuer} · {credential.year}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
           </details>
         )}
         {current.linkedin && (
