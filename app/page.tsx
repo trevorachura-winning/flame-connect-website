@@ -68,16 +68,17 @@ export default function HomePage() {
               {HOME_PROVERB_OPEN.meaning} {HOME_HERO.lede}
             </p>
             <div className={`hero-actions ${m.rise}`} style={v({ "--i": 5, "--d": "150ms" })}>
-              <Link href="/contact?intent=consultation" className={`btn btn-primary ${s.wrapBtn}`}>
-                Book a discovery consultation <Icon name="arrow-right" size={18} />
+              <Link href="/assessment" className={`btn btn-primary ${s.wrapBtn}`}>
+                Take the free AI assessment <Icon name="arrow-right" size={18} />
               </Link>
-              <Link href="/products" className={`btn btn-outline ${s.wrapBtn}`}>
-                Explore our products
+              <Link href="/services" className={`btn btn-outline ${s.wrapBtn}`}>
+                Explore our service lines
               </Link>
             </div>
             <p className={`hero-assess ${m.rise}`} style={v({ "--i": 5, "--d": "150ms" })}>
-              <Link href="/assessment" className="text-link">
-                Or take the free AI readiness assessment <Icon name="arrow-right" size={16} />
+              Not an AI question?{" "}
+              <Link href="/contact" className="text-link">
+                Talk to us <Icon name="arrow-right" size={16} />
               </Link>
             </p>
             <div className={`hero-points ${m.rise}`} style={v({ "--i": 6, "--d": "150ms" })}>

@@ -342,7 +342,7 @@ export function AssessmentClient() {
           </p>
           <div className={styles.nav}>
             <Link href="/contact?intent=consultation&service=ai-in-business" className="btn btn-primary">
-              Talk to us about your results
+              Book a consultation about your results
             </Link>
             <Link href="/services/ai-in-business" className="btn btn-outline">
               See our AI in Business services

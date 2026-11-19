@@ -14,7 +14,6 @@ import { CursorHalo } from "../components/CursorHalo";
 import { JsonLd } from "../components/JsonLd";
 import { SITE } from "../lib/site";
 import { organizationJsonLd, websiteJsonLd } from "../lib/seo";
-import { consultationHref } from "../lib/links";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.siteUrl),
@@ -50,9 +49,9 @@ const RIBBON =
   process.env.NEXT_PUBLIC_RIBBON_DISABLED === "1"
     ? null
     : {
-        text: "New: a free AI readiness assessment. Your score and three next steps in about five minutes.",
-        href: "/assessment",
-        linkText: "Take the assessment",
+        text: "Flame OS and Flame Academy are launching soon.",
+        href: "/products",
+        linkText: "Get early access",
       };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -64,7 +63,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </a>
         <JsonLd data={organizationJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
-        <Header ctaHref={consultationHref()} ribbon={RIBBON} />
+        <Header ribbon={RIBBON} />
         <main id="main">{children}</main>
         <Footer />
         <CursorHalo />

@@ -2434,17 +2434,34 @@ a.chip-link.on {
   }
 }
 
-/* Free AI assessment: secondary header action on wide screens only, plus a
-   quiet text link under the home hero buttons. */
-.header-assess {
+/* Header: the free AI assessment is the primary action; "Talk to us" sits
+   beside it on wide screens for non-AI enquiries (Contact is also in the menu). */
+.header-talk {
   display: none;
 }
 @media (min-width: 80rem) {
-  .header-assess {
+  .header-talk {
     display: inline-flex;
   }
 }
 .hero-assess {
   margin-top: 0.9rem;
   font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+/* Smallest phones: keep the full logo legible beside the assessment button. */
+.site-header .brand {
+  flex-shrink: 0;
+}
+@media (max-width: 22.5rem) {
+  .site-header .brand-lockup img {
+    height: 38px !important;
+    width: auto !important;
+  }
+  .header-actions .btn-sm {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+    font-size: 0.82rem;
+  }
 }
