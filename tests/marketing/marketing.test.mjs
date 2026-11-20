@@ -425,3 +425,18 @@ test("service pages: named sub-services and two quote-only packages", () => {
   const comp = fs.readFileSync(path.join(ROOT, "components/EnquiryComposer.tsx"), "utf8");
   assert.ok(comp.includes("would like a quote for the"));
 });
+
+test("service sub-offerings use the interactive explorer with an illustration each", () => {
+  const svc = fs.readFileSync(path.join(ROOT, "content/services.ts"), "utf8");
+  assert.equal((svc.match(/, art: "/g) || []).length, 12);
+  const art = fs.readFileSync(path.join(ROOT, "components/services/ServiceArt.tsx"), "utf8");
+  for (const k of ["design", "video", "photo", "print", "copy", "ai-content", "erp", "automation", "payments", "dashboards", "assistant", "support"]) {
+    assert.ok(art.includes(`case "${k}":`), k);
+  }
+  const ex = fs.readFileSync(path.join(ROOT, "components/services/ServiceExplorer.tsx"), "utf8");
+  assert.ok(ex.includes('role="tablist"') && ex.includes('role="tabpanel"') && ex.includes("ArrowDown"));
+  const css = fs.readFileSync(path.join(ROOT, "styles/service-explorer.module.css"), "utf8");
+  assert.ok(css.includes("prefers-reduced-motion: no-preference"), "motion only when allowed");
+  const page = fs.readFileSync(path.join(ROOT, "app/services/[slug]/page.tsx"), "utf8");
+  assert.ok(page.includes("<ServiceExplorer items={service.offerings.items} />"));
+});

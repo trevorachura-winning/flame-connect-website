@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { SectionHead } from "../../../components/SectionHead";
+import { ServiceExplorer } from "../../../components/services/ServiceExplorer";
 import { Faq } from "../../../components/Faq";
 import { Icon } from "../../../components/Icons";
 import { Reveal } from "../../../components/Reveal";
@@ -117,16 +118,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <section className="section tight">
           <div className="container">
             <SectionHead eyebrow={service.offerings.eyebrow} title={service.offerings.title} copy={service.offerings.intro} />
-            <div className={s.cols3}>
-              {service.offerings.items.map((item, i) => (
-                <Reveal key={item.name} delay={(i % 3) * 0.05}>
-                  <article className="card" style={{ height: "100%" }}>
-                    <h3>{item.name}</h3>
-                    <p>{item.detail}</p>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
+            <ServiceExplorer items={service.offerings.items} />
           </div>
         </section>
       )}

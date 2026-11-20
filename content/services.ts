@@ -1,3 +1,5 @@
+import type { ServiceArtKey } from "../components/services/ServiceArt";
+
 export interface ServiceFaq {
   question: string;
   answer: string;
@@ -7,7 +9,7 @@ export interface ServiceOfferingGroup {
   eyebrow: string;
   title: string;
   intro: string;
-  items: { name: string; detail: string }[];
+  items: { name: string; detail: string; art: ServiceArtKey }[];
 }
 
 export interface ServicePackage {
@@ -152,12 +154,12 @@ export const SERVICES: Service[] = [
       title: "Content we create with you",
       intro: "Strategy decides what to say. Our studio makes it: designed, filmed, photographed and produced to one brand standard.",
       items: [
-        { name: "Graphic design", detail: "Brand assets, social graphics, campaign artwork, presentations and reports that look like one organisation." },
-        { name: "Video production", detail: "Corporate films, reels, interviews and event coverage, from script and storyboard to edit, captions and sound." },
-        { name: "Photography", detail: "Team portraits, products, spaces and events, shot for your website, social channels and print." },
-        { name: "Print and physical brand assets", detail: "Signage, merchandise, event materials and printed collateral produced to your brand guidelines." },
-        { name: "Copy and storytelling", detail: "Website copy, campaign messages, captions and scripts written for the people you want to reach." },
-        { name: "AI-assisted production", detail: "Faster drafts, variations and edits using AI tools, always reviewed by our team and labelled honestly." },
+        { name: "Graphic design", detail: "Brand assets, social graphics, campaign artwork, presentations and reports that look like one organisation.", art: "design" },
+        { name: "Video production", detail: "Corporate films, reels, interviews and event coverage, from script and storyboard to edit, captions and sound.", art: "video" },
+        { name: "Photography", detail: "Team portraits, products, spaces and events, shot for your website, social channels and print.", art: "photo" },
+        { name: "Print and physical brand assets", detail: "Signage, merchandise, event materials and printed collateral produced to your brand guidelines.", art: "print" },
+        { name: "Copy and storytelling", detail: "Website copy, campaign messages, captions and scripts written for the people you want to reach.", art: "copy" },
+        { name: "AI-assisted production", detail: "Faster drafts, variations and edits using AI tools, always reviewed by our team and labelled honestly.", art: "ai-content" },
       ],
     },
     packages: [
@@ -253,12 +255,12 @@ export const SERVICES: Service[] = [
       title: "Systems built around how you work",
       intro: "When spreadsheets, paper and scattered apps slow you down, we design and build one system for your operations, starting small and growing in stages.",
       items: [
-        { name: "Business systems and ERP", detail: "Staff, finance, inventory, clients and orders in one place, built around your workflows rather than a vendor template." },
-        { name: "Workflow automation", detail: "Approvals, reminders, reports and hand-offs that run on their own, with people approving what matters." },
-        { name: "Payments and integrations", detail: "Mobile money, WhatsApp, booking and accounting tools connected so information is entered once." },
-        { name: "Dashboards and reporting", detail: "Live views of sales, operations and performance that leaders can act on." },
-        { name: "AI assistants and tools", detail: "Internal assistants and custom AI tools for the tasks where they genuinely save time." },
-        { name: "Support after launch", detail: "Training, maintenance and improvements so the system keeps up as you grow." },
+        { name: "Business systems and ERP", detail: "Staff, finance, inventory, clients and orders in one place, built around your workflows rather than a vendor template.", art: "erp" },
+        { name: "Workflow automation", detail: "Approvals, reminders, reports and hand-offs that run on their own, with people approving what matters.", art: "automation" },
+        { name: "Payments and integrations", detail: "Mobile money, WhatsApp, booking and accounting tools connected so information is entered once.", art: "payments" },
+        { name: "Dashboards and reporting", detail: "Live views of sales, operations and performance that leaders can act on.", art: "dashboards" },
+        { name: "AI assistants and tools", detail: "Internal assistants and custom AI tools for the tasks where they genuinely save time.", art: "assistant" },
+        { name: "Support after launch", detail: "Training, maintenance and improvements so the system keeps up as you grow.", art: "support" },
       ],
     },
     packages: [
