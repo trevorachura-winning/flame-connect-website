@@ -148,7 +148,7 @@ export function AssessmentClient() {
     }
     setSending(true);
     const fields: Record<string, string> = {
-      _subject: `AI readiness assessment: ${details.organisation || details.name} (${r.score}/100, ${r.level.name})`,
+      _subject: `Flame Connect | AI assessment: ${details.organisation.trim() || details.name.trim()}, ${r.score}/100 (${r.level.name})`,
       _replyto: details.email.trim(),
       Name: details.name.trim(),
       Email: details.email.trim(),

@@ -56,6 +56,11 @@ export default function PrivacyPage() {
               list for Flame OS or Flame Academy, or to receive updates, we keep your contact details and your request.
             </li>
             <li>
+              <b>Contact form.</b> If you send an enquiry from our contact page, we receive your
+              name, email address, any organisation and phone number you add, the topic and your
+              message. The form is sent to our inbox through FormSubmit, a form delivery service.
+            </li>
+            <li>
               <b>AI readiness assessment.</b> If you complete our free{" "}
               <Link href="/assessment">AI readiness assessment</Link>, we receive your answers, your
               score, the contact details you enter (your name and email, and optionally your
@@ -100,7 +105,7 @@ export default function PrivacyPage() {
           <p>
             We do not sell personal information. We share it only with trusted service providers
             who help us operate, such as website hosting, email and messaging services and our form
-            delivery service (FormSubmit, for the AI readiness assessment), and
+            delivery service (FormSubmit, for the contact form and the AI readiness assessment), and
             only as far as those services need; with professional advisers where necessary; or
             where required by law. When you contact us by WhatsApp or email, those services also
             process your messages under their own privacy terms.

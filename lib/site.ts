@@ -9,12 +9,11 @@
 /**
  * Website-only release (Nov 2026, Product Owner decision): the corporate site
  * is the point of sale. It has NO sign-in, NO backend and NO links into the
- * Flame platforms — the tools are presented under Products only. Enquiries
- * leave the site through the visitor's own email app or WhatsApp, prefilled
- * by components/EnquiryComposer.tsx; nothing is posted to a server.
+ * Flame platforms — the tools are presented under Products only. The contact
+ * form and the AI assessment are delivered to contactEmail through FormSubmit
+ * (lib/assessment-submit.ts); WhatsApp opens prefilled in the visitor's app.
  *
- * Public enquiry destinations are defined below. The visitor must still
- * press Send in their own email or WhatsApp app: the website does not submit.
+ * Public enquiry destinations are defined below.
  */
 export const SITE = {
   name: "Flame Connect",
