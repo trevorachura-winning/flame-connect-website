@@ -117,10 +117,15 @@
 /* ---- Phone: chips on top, picture, then the description ---- */
 @media (max-width: 860px) {
   .explorer {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* Let the chip row scroll instead of widening the page (320 px phones). */
+  .explorer > * {
+    min-width: 0;
   }
   .list {
     display: flex;
+    max-width: 100%;
     gap: 0.5rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
