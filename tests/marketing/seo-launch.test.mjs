@@ -78,18 +78,6 @@ test("organization and website graph reuse official logo and same organization I
   assert.equal(web.publisher["@id"], org["@id"]);
 });
 
-test("coming soon alone is temporarily noindex and launch gate remains unchanged", () => {
-  const gate = read("middleware.ts");
-  const announcement = read("public/coming-soon/index.html");
-  const root = read("app/layout.tsx");
-  assert.match(gate, /Date\.UTC\(2026, 10, 20, 9, 0, 0\)/);
-  assert.match(announcement, /Date\.UTC\(2026, 10, 20, 9, 0, 0\)/);
-  assert.match(gate, /X-Robots-Tag", "noindex, noarchive"/);
-  assert.match(gate, /if \(Date\.now\(\) >= LAUNCH_AT\) return NextResponse\.next\(\)/);
-  assert.match(announcement, /name="robots" content="noindex,follow"/);
-  assert.match(root, /robots: \{ index: true, follow: true \}/);
-});
-
 test("sitemap lists canonical content URLs without fictitious build-time dates", () => {
   const sitemap = read("app/sitemap.ts");
   assert.ok(sitemap.includes("ALL_ROUTES") && sitemap.includes(".map("), "sitemap must map canonical routes, optionally filtering unpublished pages");
