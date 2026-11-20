@@ -229,3 +229,8 @@ test("Derrick Kayiira is listed as CTO with a portrait and no education", () => 
   const block = src.slice(src.indexOf('slug: "derrick-kayiira"'));
   assert.ok(!/Victoria University|degree|undergraduate|Cyber Security and Digital Forensics/i.test(block), "no education");
 });
+
+test("team stage has extra headroom on phones so heads are not clipped", () => {
+  const css = readFileSync("styles/team-coverflow.module.css", "utf8");
+  assert.match(css, /@media \(max-width: 40rem\) \{\s*\.stage \{\s*height: calc\(var\(--slide-w\) \* 1\.4 \* 1\.1 \+ 8\.5rem\);/);
+});

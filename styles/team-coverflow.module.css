@@ -1056,3 +1056,13 @@
   from { opacity: 0; transform: translateY(-14px) scaleY(0.97); }
   to { opacity: 1; transform: none; }
 }
+
+/* Phones: the name bar sits under the photo, so the photo + bar are taller
+   than the desktop formula allows and heads were clipped at the top
+   (about 20 px at 375 px wide, PO report 21 Nov 2026). Give the stage
+   headroom on small screens only. */
+@media (max-width: 40rem) {
+  .stage {
+    height: calc(var(--slide-w) * 1.4 * 1.1 + 8.5rem);
+  }
+}
