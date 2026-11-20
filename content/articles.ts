@@ -19,6 +19,10 @@ export interface Article {
   limits: string[];
   relatedServiceSlug?: string;
   relatedProductSlug?: string;
+  /** Optional hand-picked "Keep reading" articles; falls back to the latest two. */
+  relatedArticleSlugs?: string[];
+  /** Optional evidence list rendered under the article. External, checked sources only. */
+  sources?: { label: string; href: string }[];
   seo: { title: string; description: string };
 }
 
@@ -446,6 +450,101 @@ export const ARTICLES: Article[] = [
       title: "AI in African languages for customer service",
       description:
         "African-language AI from teams like Sunbird AI and Lelapa AI is becoming usable. Here is where it can help customer service first, and how to test it safely.",
+    },
+  },
+  {
+    slug: "ai-adoption-african-business-2026",
+    title: "Africa's AI problem is no longer access. It is turning pilots into results.",
+    summary:
+      "AI use has spread quickly among African firms and workers, but few organisations can show what it earns them. What the 2026 evidence says, and a six-step way for Ugandan teams to start with discipline.",
+    category: "Research",
+    date: "2026-11-20",
+    readingTime: "7 min read",
+    author: EDITORIAL,
+    sections: [
+      {
+        heading: "The tension",
+        paragraphs: [
+          "Two things are true at once in 2026. AI tools are now part of everyday work for many African businesses: drafting proposals, answering customers, writing social posts and summarising reports. Yet most of those businesses cannot point to a clear number showing what AI has earned or saved them.",
+          "That gap between using AI and benefiting from it is the real adoption story on the continent this year. It matters most for operators who cannot afford expensive experiments.",
+        ],
+      },
+      {
+        heading: "Adoption among formal firms has risen fast",
+        paragraphs: [
+          "The World Bank's World Development Report 2026, released in August, draws on new enterprise surveys in seven countries, including Kenya and Nigeria. Reported figures show AI use among Nigerian formal firms rising from under 5% in 2022 to about 40% in 2025, while ODI's reading of the same survey puts Kenya at 42% of formal firms in early 2026, close to the 43% recorded in the United States.",
+          "Two caveats matter. These figures cover registered firms with at least five workers, not the informal businesses that make up much of African economies. And firms with stronger management, a record of innovation and better market access were much more likely to adopt AI. Adoption is following capability, not replacing it.",
+        ],
+      },
+      {
+        heading: "Most organisations are still in pilot mode",
+        paragraphs: [
+          "PwC's Decoding ROI from AI in Africa, published in May 2026, found that 82% of African organisations in its sample were running AI pilots, but few had scaled AI across the business. Average AI investment was 2% of revenue, against 5% among global AI leaders, and only 32% felt their investment was sufficient. PwC frames the challenge as execution at scale rather than adoption.",
+          "The same pattern shows up in South Africa, the continent's most closely measured market, where large organisations report near-universal AI use but low scores for integrating it into how the business actually runs.",
+        ],
+      },
+      {
+        heading: "Workers are ahead of their organisations",
+        paragraphs: [
+          "PwC also found that 64% of African workers in its sample already use AI in their roles. That is an asset and a risk. When staff adopt tools faster than leadership sets rules, businesses end up with unmanaged use: customer or financial data pasted into public tools with no policy, no record and no measurement.",
+        ],
+      },
+      {
+        heading: "East Africa starts from a lower base",
+        paragraphs: [
+          "Microsoft's Global AI Diffusion report estimates the share of working-age people using generative AI tools. In the first quarter of 2026, South Africa led the continent at 23.1%, Nigeria and Ghana were around 10% and Kenya 8.7%, while Uganda sat below 8%. Microsoft's September update shows the gap between richer and poorer economies still widening, and links it largely to electricity, connectivity and digital skills.",
+          "Uganda's own 2025 National AI Landscape Assessment, produced with ITU, identifies a lack of skills as the leading barrier to AI adoption in the country.",
+        ],
+      },
+      {
+        heading: "What this means for teams in Uganda",
+        paragraphs: [
+          "There is no published, representative survey of AI adoption by Ugandan businesses yet, so the honest reading is directional. Population-level use is lower than in Kenya or Nigeria, the firm-level evidence comes from neighbours, and the policy framework is still being written.",
+          "The Ministry of ICT and National Guidance began developing a National AI and Emerging Technologies Strategy in March 2026 with NITA-U and AI Uganda, and in October said it expects to launch it before the end of the year. Until then, the Data Protection and Privacy Act is the main rule that applies when businesses put personal data into AI systems.",
+          "There is an advantage hidden in this picture. Ugandan businesses can learn from pilot fatigue elsewhere and start with discipline, instead of catching up through scattered experiments.",
+        ],
+      },
+      {
+        heading: "One workflow, measured and governed",
+        paragraphs: [
+          "The World Bank's advice to developing economies is to adopt, adapt and then advance: use existing tools, tailor them to local conditions, and leave frontier model-building for later. For a business, that becomes six practical steps. Our 30-day pilot playbook and our guide to mapping one workflow before you automate go deeper on the first three.",
+        ],
+        list: [
+          "Pick one workflow with a visible cost, such as WhatsApp enquiries, quotation turnaround or monthly reporting.",
+          "Measure it for a week before any AI touches the work, so you have an honest baseline.",
+          "Decide on day one which customer, staff and financial data may never go into public tools.",
+          "Design for local reality: mobile, WhatsApp, voice, patchy connectivity and the languages your customers use.",
+          "Train the people already using AI, and turn informal habits into shared, safe practice.",
+          "At 90 days, compare against the baseline and decide: scale it, change it or stop it.",
+        ],
+      },
+    ],
+    actions: [
+      "Name one workflow and one owner this week.",
+      "Write a one-page rule on what data may and may not go into AI tools.",
+      "Book a 90-day decision meeting now, so the experiment has an end date.",
+    ],
+    limits: [
+      "Uganda-specific firm-level data on AI adoption is not yet published. Findings from Kenya, Nigeria and South Africa may not transfer directly.",
+      "The surveys measure different things: formal-firm adoption (World Bank), large-company executives (PwC, 85 African respondents in a global sample of 1,217) and individual tool use estimated from product telemetry (Microsoft). Their numbers are not directly comparable.",
+      "Uganda's national AI strategy had not been published at the time of writing. Its content and timing may change the picture.",
+    ],
+    relatedServiceSlug: "ai-in-business",
+    relatedArticleSlugs: ["thirty-day-ai-pilot-plan", "map-one-workflow-before-automation"],
+    sources: [
+      { label: "World Bank, World Development Report 2026: The Promise of Artificial Intelligence (Aug 2026)", href: "https://www.worldbank.org/wdr2026" },
+      { label: "ODI, Beyond adoption: turning AI productivity into better jobs in African economies (2026)", href: "https://odi.org/en/insights/beyond-adoption-turning-ai-productivity-into-better-jobs-in-african-economies/" },
+      { label: "PwC, Decoding ROI from AI in Africa, press release (18 May 2026)", href: "https://www.pwc.com/ke/en/press-room/pwc-ai-performance-findings.html" },
+      { label: "Microsoft, Global AI Diffusion Q1 2026 Trends and Insights (May 2026)", href: "https://www.microsoft.com/en-us/research/wp-content/uploads/2026/05/Microsoft-AI-Diffusion-Report-2026-Q1.pdf" },
+      { label: "Microsoft On the Issues, The continued state of global AI diffusion in 2026 (21 Sep 2026)", href: "https://blogs.microsoft.com/on-the-issues/2026/09/21/the-continued-state-of-global-ai-diffusion-in-2026/" },
+      { label: "ITU, Uganda National AI Landscape Assessment (2025)", href: "https://www.itu.int/dms_pub/itu-d/opb/uga/D-UGA-NAAILA-2025-EPB-E.epub" },
+      { label: "Ministry of ICT and National Guidance, stakeholder engagement on the National AI and Emerging Technologies Strategy (2026)", href: "https://ict.go.ug/media/news/ministry-engages-stakeholders-on-ugandas-national-emerging-technologies-strategy" },
+      { label: "New Vision, Govt to launch National AI Strategy this year (Oct 2026)", href: "https://www.newvision.co.ug/category/news/govt-to-launch-national-ai-strategy-this-year-NV_241670_102026" },
+    ],
+    seo: {
+      title: "AI adoption in African business 2026: from pilots to results",
+      description:
+        "African firms are adopting AI fast, but few see returns. What the 2026 evidence shows, and a six-step plan for Ugandan teams to turn pilots into results.",
     },
   },
 ];
