@@ -130,6 +130,7 @@
   }
   .tab {
     flex: 0 0 auto;
+    width: auto;
     grid-template-columns: auto;
     padding: 0.55rem 0.95rem;
     border: 1px solid var(--hairline-strong, #d7deea);
