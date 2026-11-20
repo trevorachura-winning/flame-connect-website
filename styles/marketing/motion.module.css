@@ -16,7 +16,7 @@
    ================================================================== */
 
 .scope {
-  --fc-blue: #153a8a;
+  --fc-blue: var(--fc-blue-text, #153a8a);
   --m-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --m-ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
 }

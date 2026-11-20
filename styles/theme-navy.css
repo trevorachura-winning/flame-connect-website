@@ -30,6 +30,7 @@
   --glass: rgba(14, 28, 49, 0.78);
   --glass-border: rgba(255, 255, 255, 0.14);
   --story-ink: #f5f7fb;
+  --fc-blue-text: #8fb0ff; /* Flame Blue lifted for text on navy, 8.4:1 */
 
   --line: rgba(255, 255, 255, 0.12);
   --line-soft: rgba(255, 255, 255, 0.07);
