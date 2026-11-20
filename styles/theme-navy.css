@@ -26,6 +26,10 @@
   --ink-soft: #b3c0d3;
   --ink-faint: #8e9bb1;
   --navy: #f5f7fb;
+  --navy-deep: #f5f7fb; /* only ever used as darkest-text colour */
+  --glass: rgba(14, 28, 49, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --story-ink: #f5f7fb;
 
   --line: rgba(255, 255, 255, 0.12);
   --line-soft: rgba(255, 255, 255, 0.07);

@@ -5,7 +5,7 @@
 .stepLabel { margin: 0.8rem 0 1.2rem; font-size: 0.9rem; color: var(--ink-soft, #4a5568); font-weight: 500; }
 
 .card {
-  background: var(--white, #fff);
+  background: var(--card, #fff);
   border: 1px solid var(--line, #dfe5ee);
   border-radius: var(--radius-l, 24px);
   padding: clamp(1.4rem, 4vw, 2.6rem);
@@ -23,7 +23,7 @@
   cursor: pointer; background: var(--paper, #fbfbf8); transition: border-color 160ms ease, background 160ms ease;
 }
 .option:hover { border-color: #f4a183; }
-.option[data-checked="true"] { border-color: var(--flame, #f4511e); background: #fff3ee; }
+.option[data-checked="true"] { border-color: var(--flame, #f4511e); background: var(--flame-tint, #fff3ee); }
 .option input { width: 20px; height: 20px; accent-color: #c43d0a; flex: none; margin: 0; }
 .option:has(input:focus-visible) { outline: 2px solid #c43d0a; outline-offset: 2px; }
 .option span { font-size: 0.95rem; color: var(--ink); line-height: 1.35; }
