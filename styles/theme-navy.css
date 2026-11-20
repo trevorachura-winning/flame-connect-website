@@ -1,0 +1,81 @@
+/*
+ * Navy and white rhythm (Product Owner request, 20 Nov 2026).
+ *
+ * Navy is used for moments, white for reading: every page opens on the
+ * coming-soon navy with the white circuit lines, statement bands and the
+ * footer stay navy, and detail content, cards and forms stay on white.
+ * Section spacing is about a third tighter than before.
+ *
+ * The dark zones work by remapping the design tokens inside them only, so
+ * every component in a navy zone picks up light text automatically.
+ * Remove the import in app/layout.tsx to return to the previous look.
+ *
+ * Contrast (WCAG 2.2 AA) on #07111f: text #f5f7fb 17.6:1, soft #b3c0d3
+ * 10.4:1, faint #8e9bb1 6.8:1, flame text #ff8a5c 7.6:1.
+ */
+
+/* ---- Tighter spacing everywhere ---- */
+.section { padding: clamp(3rem, 6vw, 5.25rem) 0; }
+.section.tight { padding: clamp(2rem, 4vw, 3.25rem) 0; }
+.page-hero { padding-block: clamp(3.25rem, 6.5vw, 5.5rem) clamp(2.5rem, 5vw, 4rem); }
+
+/* ---- Navy zones: heroes, statement bands, footer ---- */
+.hero-home,
+.page-hero,
+.page-hero.white,
+.band,
+.section.band,
+.footer {
+  color-scheme: dark;
+  --paper: #07111f;
+  --paper-2: #0a1729;
+  --card: #0e1c31;
+  --panel: #13243e;
+  --panel-deep: #1a2e4c;
+  --ink: #f5f7fb;
+  --slate: #d6deea;
+  --ink-soft: #b3c0d3;
+  --ink-faint: #8e9bb1;
+  --navy: #f5f7fb;
+  --navy-deep: #f5f7fb;
+  --line: rgba(255, 255, 255, 0.12);
+  --line-soft: rgba(255, 255, 255, 0.07);
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-strong: rgba(255, 255, 255, 0.16);
+  --flame-strong: #ff8a5c;
+  --flame-tint: rgba(244, 81, 30, 0.14);
+  --glass: rgba(14, 28, 49, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --fc-blue-text: #8fb0ff;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 12px -6px rgba(0, 0, 0, 0.45);
+  --shadow-2: 0 2px 6px rgba(0, 0, 0, 0.3), 0 18px 40px -20px rgba(0, 0, 0, 0.6);
+  color: var(--ink);
+}
+
+.page-hero,
+.page-hero.white {
+  background-color: #07111f;
+  background-image: var(--tl-dark), radial-gradient(110% 80% at 50% 120%, rgba(244, 81, 30, 0.16) 0%, transparent 55%),
+    linear-gradient(180deg, #0b1830 0%, #07111f 70%);
+  background-size: var(--tl-size), auto, auto;
+  background-position: center top, center, center;
+  background-repeat: repeat-y, no-repeat, no-repeat;
+}
+.hero-home {
+  background-color: #07111f;
+  background-image: var(--tl-dark), radial-gradient(120% 70% at 50% 115%, rgba(244, 81, 30, 0.18) 0%, transparent 55%),
+    linear-gradient(180deg, #0b1830 0%, #07111f 60%);
+  background-size: var(--tl-size), auto, auto;
+  background-position: center top, center, center;
+  background-repeat: repeat-y, no-repeat, no-repeat;
+}
+
+/* Buttons that use ink as a fill invert inside navy zones */
+:is(.hero-home, .page-hero, .band, .footer) :is(.btn-dark, a.chip-link.on) {
+  background: #f5f7fb;
+  color: #07111f;
+  border-color: #f5f7fb;
+}
+
+/* Header stays white (Product Owner, 20 Nov 2026): menus and dropdowns
+   keep their original light styling for legibility. */

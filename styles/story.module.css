@@ -145,7 +145,7 @@
   margin-top: 1rem !important;
   padding-left: 0.9rem;
   border-left: 3px solid var(--flame, #f4511e);
-  color: #07111f !important;
+  color: var(--story-ink, #07111f) !important;
   font-weight: 500;
 }
 .learnt span {
@@ -216,8 +216,8 @@
 .value {
   padding: 1.6rem;
   border-radius: 1.25rem;
-  background: #fff;
-  border: 1px solid rgba(7, 17, 31, 0.07);
+  background: var(--card, #fff);
+  border: 1px solid var(--hairline, rgba(7, 17, 31, 0.07));
   box-shadow: 0 24px 50px -40px rgba(7, 17, 31, 0.45);
 }
 .value h3 {

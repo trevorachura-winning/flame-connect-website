@@ -16,7 +16,7 @@
    ================================================================== */
 
 .scope {
-  --fc-blue: #153a8a;
+  --fc-blue: var(--fc-blue-text, #153a8a);
   --m-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --m-ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
 }
@@ -184,10 +184,10 @@
   max-width: 17rem;
   padding: 1rem 1.15rem;
   border-radius: var(--radius-m);
-  background: rgba(255, 255, 255, 0.86);
+  background: var(--glass, rgba(255, 255, 255, 0.86));
   backdrop-filter: blur(18px) saturate(170%);
   -webkit-backdrop-filter: blur(18px) saturate(170%);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.7));
   box-shadow: var(--shadow-3);
 }
 .glassCard b {
@@ -248,7 +248,7 @@
   font-weight: 700;
   font-size: 0.95rem;
   letter-spacing: -0.01em;
-  color: var(--fc-blue, #153a8a);
+  color: var(--fc-blue-text, var(--fc-blue, #153a8a));
 }
 .signature::before {
   content: "";
@@ -525,7 +525,7 @@
   background: var(--flame);
 }
 .group .mProduct {
-  color: var(--fc-blue, #153a8a);
+  color: var(--fc-blue-text, var(--fc-blue, #153a8a));
 }
 @media (prefers-reduced-motion: no-preference) {
   .track {
