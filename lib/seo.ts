@@ -10,13 +10,14 @@ export function pageMetadata(input: {
   publishedTime?: string;
 }): Metadata {
   const url = `${SITE.siteUrl}${input.path}`;
-  const image = input.image ?? "/opengraph-image.png";
+  // app/opengraph-image.tsx is served at /opengraph-image (no extension).
+  const image = input.image ?? "/opengraph-image";
   const openGraphBase = {
     title: input.title,
     description: input.description,
     url,
     siteName: SITE.name,
-    images: [{ url: image, alt: "Flame Connect. Digitizing Africa." }],
+    images: [{ url: image, width: 1200, height: 630, type: "image/png", alt: "Flame Connect. Digitizing Africa." }],
     locale: "en" as const,
   };
   return {

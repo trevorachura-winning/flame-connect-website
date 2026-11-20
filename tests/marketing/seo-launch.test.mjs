@@ -40,8 +40,8 @@ test("each page gets a canonical www URL and social image", () => {
   assert.equal(actual.alternates.canonical, "https://www.flameconnect.tech/services/ai-in-business");
   assert.equal(actual.openGraph.url, actual.alternates.canonical);
   assert.equal(actual.openGraph.type, "website");
-  assert.equal(actual.openGraph.images[0].url, "/opengraph-image.png");
-  assert.equal(actual.twitter.images[0], "/opengraph-image.png");
+  assert.equal(actual.openGraph.images[0].url, "/opengraph-image");
+  assert.equal(actual.twitter.images[0], "/opengraph-image");
   assert.equal(actual.title, "AI in Business");
 });
 

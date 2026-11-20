@@ -435,3 +435,10 @@ test("Vercel Web Analytics is loaded once and disclosed in the privacy notice", 
   const privacy = fs.readFileSync(path.join(ROOT, "app/privacy/page.tsx"), "utf8");
   assert.ok(privacy.includes("Vercel Web Analytics") && privacy.includes("sets no cookies"));
 });
+
+test("share previews point at the generated Open Graph image route", () => {
+  const seo = fs.readFileSync(path.join(ROOT, "lib/seo.ts"), "utf8");
+  assert.ok(!seo.includes('"/opengraph-image.png"'), "no .png suffix: that path 404s");
+  assert.ok(seo.includes('"/opengraph-image"'));
+  assert.ok(fs.existsSync(path.join(ROOT, "app/opengraph-image.tsx")));
+});

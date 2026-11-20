@@ -64,8 +64,11 @@ export default async function OgImage() {
               </span>
             </div>
           </div>
-          <span style={{ fontSize: 66, fontWeight: 800, lineHeight: 1.05, letterSpacing: -2 }}>
-            Digitizing <span style={{ color: "#F4511E" }}>Africa.</span>
+          {/* Two flex children with a gap: the image renderer drops the
+              trailing space inside mixed inline text. */}
+          <span style={{ display: "flex", gap: 18, fontSize: 66, fontWeight: 800, lineHeight: 1.05, letterSpacing: -2 }}>
+            <span>Digitizing</span>
+            <span style={{ color: "#F4511E" }}>Africa.</span>
           </span>
           <span style={{ fontSize: 24, color: "#C5D4F5", lineHeight: 1.4 }}>
             AI Centre of Change · Practical AI for African progress.
