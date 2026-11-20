@@ -2557,3 +2557,14 @@ a.chip-link.on {
     transform: translateX(5px);
   }
 }
+
+/* Small phones (≤ 400 px): long button labels may wrap instead of
+   widening the page (e.g. "Take the free AI readiness assessment" pushed
+   the AI in Business hero to 344 px on a 320 px screen). */
+@media (max-width: 25rem) {
+  .btn {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.3;
+  }
+}

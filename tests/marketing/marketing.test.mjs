@@ -410,3 +410,33 @@ test("share previews point at the generated Open Graph image route", () => {
   assert.ok(seo.includes('"/opengraph-image"'));
   assert.ok(fs.existsSync(path.join(ROOT, "app/opengraph-image.tsx")));
 });
+
+test("service pages: named sub-services and two quote-only packages", () => {
+  const svc = fs.readFileSync(path.join(ROOT, "content/services.ts"), "utf8");
+  for (const name of ["Graphic design", "Video production", "Photography", "Print and physical brand assets", "Business systems and ERP", "Payments and integrations"]) {
+    assert.ok(svc.includes(`name: "${name}"`), name);
+  }
+  assert.equal((svc.match(/name: "Essentials",/g) || []).length, 2);
+  assert.equal((svc.match(/name: "Growth system",/g) || []).length, 2);
+  assert.ok(!/UGX|USD|\$\d|Shs/.test(svc), "no prices published");
+  assert.ok(svc.includes("fixed written quote"), "explains why quote-only");
+  const page = fs.readFileSync(path.join(ROOT, "app/services/[slug]/page.tsx"), "utf8");
+  assert.ok(page.includes("Get a quote") && page.includes("&package="));
+  const comp = fs.readFileSync(path.join(ROOT, "components/EnquiryComposer.tsx"), "utf8");
+  assert.ok(comp.includes("would like a quote for the"));
+});
+
+test("service sub-offerings use the interactive explorer with an illustration each", () => {
+  const svc = fs.readFileSync(path.join(ROOT, "content/services.ts"), "utf8");
+  assert.equal((svc.match(/, art: "/g) || []).length, 12);
+  const art = fs.readFileSync(path.join(ROOT, "components/services/ServiceArt.tsx"), "utf8");
+  for (const k of ["design", "video", "photo", "print", "copy", "ai-content", "erp", "automation", "payments", "dashboards", "assistant", "support"]) {
+    assert.ok(art.includes(`case "${k}":`), k);
+  }
+  const ex = fs.readFileSync(path.join(ROOT, "components/services/ServiceExplorer.tsx"), "utf8");
+  assert.ok(ex.includes('role="tablist"') && ex.includes('role="tabpanel"') && ex.includes("ArrowDown"));
+  const css = fs.readFileSync(path.join(ROOT, "styles/service-explorer.module.css"), "utf8");
+  assert.ok(css.includes("prefers-reduced-motion: no-preference"), "motion only when allowed");
+  const page = fs.readFileSync(path.join(ROOT, "app/services/[slug]/page.tsx"), "utf8");
+  assert.ok(page.includes("<ServiceExplorer items={service.offerings.items} />"));
+});

@@ -1,7 +1,29 @@
+import type { ServiceArtKey } from "../components/services/ServiceArt";
+
 export interface ServiceFaq {
   question: string;
   answer: string;
 }
+
+export interface ServiceOfferingGroup {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  items: { name: string; detail: string; art: ServiceArtKey }[];
+}
+
+export interface ServicePackage {
+  name: "Essentials" | "Growth system";
+  bestFor: string;
+  includes: string[];
+}
+
+/**
+ * Quote-only pricing (Product Owner, 20 Nov 2026). We say why there is no
+ * price list and what changes the cost, following NN/g guidance.
+ */
+export const QUOTE_NOTE =
+  "Every project is quoted after a free 30-minute call, because scope, the number of locations and the systems we connect to all change the cost. You get a fixed written quote before any work starts.";
 
 export interface Service {
   slug: string;
@@ -16,6 +38,10 @@ export interface Service {
   capabilities: string[];
   outputs: string[];
   outcomeStatement: string;
+  /** Named sub-services, each with a one-line promise (research, 20 Nov 2026). */
+  offerings?: ServiceOfferingGroup;
+  /** Two quote-only ways to work with us. No prices are published. */
+  packages?: [ServicePackage, ServicePackage];
   image: { src: string; alt: string };
   relatedProductSlugs: string[];
   faqs: ServiceFaq[];
@@ -123,6 +149,39 @@ export const SERVICES: Service[] = [
     ],
     outcomeStatement:
       "More content is not the goal. Clearer positioning, better communication and a measurable change in how people find, understand and engage with you are.",
+    offerings: {
+      eyebrow: "Content creation",
+      title: "Content we create with you",
+      intro: "Strategy decides what to say. Our studio makes it: designed, filmed, photographed and produced to one brand standard.",
+      items: [
+        { name: "Graphic design", detail: "Brand assets, social graphics, campaign artwork, presentations and reports that look like one organisation.", art: "design" },
+        { name: "Video production", detail: "Corporate films, reels, interviews and event coverage, from script and storyboard to edit, captions and sound.", art: "video" },
+        { name: "Photography", detail: "Team portraits, products, spaces and events, shot for your website, social channels and print.", art: "photo" },
+        { name: "Print and physical brand assets", detail: "Signage, merchandise, event materials and printed collateral produced to your brand guidelines.", art: "print" },
+        { name: "Copy and storytelling", detail: "Website copy, campaign messages, captions and scripts written for the people you want to reach.", art: "copy" },
+        { name: "AI-assisted production", detail: "Faster drafts, variations and edits using AI tools, always reviewed by our team and labelled honestly.", art: "ai-content" },
+      ],
+    },
+    packages: [
+      {
+        name: "Essentials",
+        bestFor: "One clear piece of work with a defined end.",
+        includes: [
+          "A brand pack, a campaign or a single video project",
+          "Brief, concepts and two rounds of revisions",
+          "Final files in every format you need",
+        ],
+      },
+      {
+        name: "Growth system",
+        bestFor: "A steady stream of content that builds over months.",
+        includes: [
+          "Monthly content plan across design, video and photography",
+          "Production, scheduling support and a shared asset library",
+          "Monthly reporting on what reached people and what they did",
+        ],
+      },
+    ],
     image: {
       src: "/images/digital-communications.jpg",
       alt: "African creative and marketing team reviewing campaign assets and social analytics together in a Kampala studio.",
@@ -191,6 +250,39 @@ export const SERVICES: Service[] = [
     ],
     outcomeStatement:
       "The result should be a simpler process, a better decision or a measurable improvement in how you operate. AI is never the goal in itself.",
+    offerings: {
+      eyebrow: "Business systems",
+      title: "Systems built around how you work",
+      intro: "When spreadsheets, paper and scattered apps slow you down, we design and build one system for your operations, starting small and growing in stages.",
+      items: [
+        { name: "Business systems and ERP", detail: "Staff, finance, inventory, clients and orders in one place, built around your workflows rather than a vendor template.", art: "erp" },
+        { name: "Workflow automation", detail: "Approvals, reminders, reports and hand-offs that run on their own, with people approving what matters.", art: "automation" },
+        { name: "Payments and integrations", detail: "Mobile money, WhatsApp, booking and accounting tools connected so information is entered once.", art: "payments" },
+        { name: "Dashboards and reporting", detail: "Live views of sales, operations and performance that leaders can act on.", art: "dashboards" },
+        { name: "AI assistants and tools", detail: "Internal assistants and custom AI tools for the tasks where they genuinely save time.", art: "assistant" },
+        { name: "Support after launch", detail: "Training, maintenance and improvements so the system keeps up as you grow.", art: "support" },
+      ],
+    },
+    packages: [
+      {
+        name: "Essentials",
+        bestFor: "Proving value on one process before committing further.",
+        includes: [
+          "One workflow mapped and automated, or a pilot module",
+          "Testing with your team and a measured result",
+          "A clear recommendation on what to build next",
+        ],
+      },
+      {
+        name: "Growth system",
+        bestFor: "Running more of the organisation on one system.",
+        includes: [
+          "A business system rolled out module by module",
+          "Integrations, dashboards, training and data migration",
+          "Ongoing support and a quarterly improvement review",
+        ],
+      },
+    ],
     image: {
       src: "/images/ai-in-business.jpg",
       alt: "Facilitator mapping a workflow with sticky notes alongside an East African business team in a working session.",

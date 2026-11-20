@@ -3,11 +3,12 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { SectionHead } from "../../../components/SectionHead";
+import { ServiceExplorer } from "../../../components/services/ServiceExplorer";
 import { Faq } from "../../../components/Faq";
 import { Icon } from "../../../components/Icons";
 import { Reveal } from "../../../components/Reveal";
 import { JsonLd } from "../../../components/JsonLd";
-import { SERVICES, ENGAGEMENT_STAGES, getService } from "../../../content/services";
+import { SERVICES, ENGAGEMENT_STAGES, QUOTE_NOTE, getService } from "../../../content/services";
 import { getProduct } from "../../../lib/content";
 import { StatusBadge } from "../../../components/StatusBadge";
 import { pageMetadata, faqJsonLd } from "../../../lib/seo";
@@ -111,6 +112,49 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           </div>
         </div>
       </section>
+
+      {/* 4b — Named sub-services */}
+      {service.offerings && (
+        <section className="section tight">
+          <div className="container">
+            <SectionHead eyebrow={service.offerings.eyebrow} title={service.offerings.title} copy={service.offerings.intro} />
+            <ServiceExplorer items={service.offerings.items} />
+          </div>
+        </section>
+      )}
+
+      {/* 4c — Two quote-only ways to work with us */}
+      {service.packages && (
+        <section className="section paper2 tight">
+          <div className="container">
+            <SectionHead eyebrow="Ways to work with us" title="Start small or build the whole system" />
+            <div className={s.cols2}>
+              {service.packages.map((pkg, i) => (
+                <Reveal key={pkg.name} delay={i * 0.08}>
+                  <article className="card" style={{ height: "100%" }}>
+                    <span className="eyebrow">{pkg.name}</span>
+                    <h3>{pkg.bestFor}</h3>
+                    <ul className="tick-list" style={{ margin: "0.4rem 0 1.2rem" }}>
+                      {pkg.includes.map((line) => (
+                        <li key={line}><Icon name="check" size={17} /> {line}</li>
+                      ))}
+                    </ul>
+                    <div className="card-foot">
+                      <Link
+                        href={`/contact?intent=consultation&service=${service.slug}&package=${encodeURIComponent(pkg.name)}`}
+                        className={i === 1 ? "btn btn-primary btn-sm" : "btn btn-outline btn-sm"}
+                      >
+                        Get a quote <Icon name="arrow-right" size={15} />
+                      </Link>
+                    </div>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+            <p className="small" style={{ marginTop: "1.2rem", maxWidth: "46rem" }}>{QUOTE_NOTE}</p>
+          </div>
+        </section>
+      )}
 
       {/* 5 — How we work + 6 — Outputs */}
       <section className="section tight">
