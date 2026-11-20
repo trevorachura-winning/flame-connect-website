@@ -126,12 +126,16 @@
   .list {
     display: flex;
     max-width: 100%;
+    scrollbar-width: none;
     gap: 0.5rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding-bottom: 0.4rem;
     margin-inline: -0.25rem;
     padding-inline: 0.25rem;
+  }
+  .list::-webkit-scrollbar {
+    display: none;
   }
   .tab {
     flex: 0 0 auto;
