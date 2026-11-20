@@ -33,7 +33,7 @@ async function sendToInbox(defaultSubject: string, fields: Record<string, string
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({
         _subject: fields._subject ?? defaultSubject,
-        _template: "table",
+        _template: "box",
         _captcha: "false",
         ...fields,
       }),

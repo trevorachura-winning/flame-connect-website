@@ -418,3 +418,13 @@ test("contact form sends straight to the inbox through FormSubmit, WhatsApp stay
   const privacy = fs.readFileSync(path.join(ROOT, "app/privacy/page.tsx"), "utf8");
   assert.ok(/<b>Contact form\.<\/b>/.test(privacy), "privacy notice covers the contact form");
 });
+
+test("inbox emails are branded and readable", () => {
+  const sub = fs.readFileSync(path.join(ROOT, "lib/assessment-submit.ts"), "utf8");
+  assert.ok(sub.includes('_template: "box"'));
+  const enq = fs.readFileSync(path.join(ROOT, "components/EnquiryComposer.tsx"), "utf8");
+  const ass = fs.readFileSync(path.join(ROOT, "components/AssessmentClient.tsx"), "utf8");
+  assert.ok(enq.includes("Flame Connect | New enquiry from"), "enquiry subject");
+  assert.ok(ass.includes("Flame Connect | AI assessment:"), "assessment subject");
+  for (const label of ["Topic:", "Message:", "Name:", "Email:", '"Phone or WhatsApp":', "Organisation:", "_replyto:"]) assert.ok(enq.includes(label), label);
+});

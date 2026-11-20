@@ -108,15 +108,18 @@ export function EnquiryComposer({
     if (status === "sending" || !validate()) return;
     if (honey) { setStatus("sent"); return; } // spam bot filled the hidden field
     setStatus("sending");
+    const org = form.organization.trim();
     const ok = await submitEnquiry({
-      _subject: `Website enquiry: ${subject}`,
-      name: form.name.trim(),
-      email: form.email.trim(),
-      ...(form.phone.trim() ? { phone: form.phone.trim() } : {}),
-      ...(form.organization.trim() ? { organisation: form.organization.trim() } : {}),
-      topic: form.topic,
-      ...(product ? { product: titleCase(product) } : {}),
-      message: form.message.trim(),
+      _subject: `Flame Connect | New enquiry from ${form.name.trim()}${org ? `, ${org}` : ""}`,
+      _replyto: form.email.trim(),
+      Enquiry: heading,
+      Topic: form.topic,
+      ...(product ? { Product: titleCase(product) } : {}),
+      Message: form.message.trim(),
+      Name: form.name.trim(),
+      Email: form.email.trim(),
+      "Phone or WhatsApp": form.phone.trim() || "Not given",
+      Organisation: org || "Not given",
     });
     setStatus(ok ? "sent" : "failed");
   }
