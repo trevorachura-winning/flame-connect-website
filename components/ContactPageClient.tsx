@@ -17,6 +17,7 @@ export function ContactPageClient() {
   const intent: Intent = rawIntent && VALID_INTENTS.includes(rawIntent) ? rawIntent : "consultation";
   const product = params.get("product")?.slice(0, 60) ?? undefined;
   const service = params.get("service")?.slice(0, 60) ?? undefined;
+  const pkg = params.get("package")?.slice(0, 40) ?? undefined;
   const waLink = whatsappHref("Hello Flame Connect");
 
   return (
@@ -36,7 +37,7 @@ export function ContactPageClient() {
       <section className="section tight">
         <div className={`container ${m.split} ${m.splitTop}`}>
           <div className="form-card">
-            <EnquiryComposer intent={intent} product={product} service={service} />
+            <EnquiryComposer intent={intent} product={product} service={service} pkg={pkg} />
           </div>
 
           <aside className="contact-side">

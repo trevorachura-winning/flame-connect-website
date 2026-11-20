@@ -47,7 +47,11 @@ const SERVICE_TOPIC: Record<string, string> = {
 const titleCase = (slug: string) =>
   slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()).replace(/\bOs\b/, "OS");
 
-function starterMessage(intent: Intent, product?: string, service?: string): string {
+const PACKAGES = new Set(["Essentials", "Growth system"]);
+
+function starterMessage(intent: Intent, product?: string, service?: string, pkg?: string): string {
+  if (service && pkg && PACKAGES.has(pkg))
+    return `I would like a quote for the ${pkg} option of your ${SERVICE_TOPIC[service] ?? titleCase(service)} service.`;
   if (intent === "waitlist" && product === "flame-academy") return "We would like to register our interest in Flame Academy for our learners.";
   if (intent === "waitlist" && product) return `Please add me to the ${titleCase(product)} early-access list.`;
   if (intent === "access" && product) return `I would like to discuss access to ${titleCase(product)}.`;
@@ -61,10 +65,12 @@ export function EnquiryComposer({
   intent,
   product,
   service,
+  pkg,
 }: {
   intent: Intent;
   product?: string;
   service?: string;
+  pkg?: string;
 }) {
   const [form, setForm] = useState({
     name: "",
@@ -75,7 +81,7 @@ export function EnquiryComposer({
       product === "flame-academy"
         ? "Flame Academy (partnerships & clubs)"
         : (service && SERVICE_TOPIC[service]) || INTENT_TOPIC[intent] || "Other",
-    message: starterMessage(intent, product, service),
+    message: starterMessage(intent, product, service, pkg),
   });
   const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
   const [opened, setOpened] = useState<null | "email" | "whatsapp">(null);
