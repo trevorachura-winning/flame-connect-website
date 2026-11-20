@@ -1,0 +1,108 @@
+/*
+ * Navy theme (Product Owner request, 20 Nov 2026): carry the coming-soon
+ * page's navy canvas across the whole site, with tighter spacing so the
+ * white circuit lines read clearly.
+ *
+ * Loaded last (after tech-lines.css). It works by remapping the design
+ * tokens in globals.css to their dark equivalents, then fixing the few
+ * surfaces that hard-code a light colour. Delete the import in
+ * app/layout.tsx to return to the light theme.
+ *
+ * Contrast (WCAG 2.2 AA) on --paper #07111f: text #f5f7fb 17.6:1,
+ * --ink-soft #b3c0d3 10.4:1, --ink-faint #8e9bb1 6.8:1, --flame-strong
+ * #ff8a5c 7.6:1.
+ */
+:root {
+  color-scheme: dark;
+
+  --paper: #07111f;
+  --paper-2: #0a1729;
+  --card: #0e1c31;
+  --panel: #13243e;
+  --panel-deep: #1a2e4c;
+
+  --ink: #f5f7fb;
+  --slate: #d6deea;
+  --ink-soft: #b3c0d3;
+  --ink-faint: #8e9bb1;
+  --navy: #f5f7fb;
+
+  --line: rgba(255, 255, 255, 0.12);
+  --line-soft: rgba(255, 255, 255, 0.07);
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-strong: rgba(255, 255, 255, 0.16);
+
+  --flame-strong: #ff8a5c;
+  --flame-tint: rgba(244, 81, 30, 0.14);
+  --ok: #7fd69a;
+  --ok-tint: rgba(127, 214, 154, 0.12);
+  --warn: #f3c46b;
+  --warn-tint: rgba(243, 196, 107, 0.12);
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 12px -6px rgba(0, 0, 0, 0.45);
+  --shadow-2: 0 2px 6px rgba(0, 0, 0, 0.3), 0 18px 40px -20px rgba(0, 0, 0, 0.6);
+  --shadow-3: 0 4px 10px rgba(0, 0, 0, 0.3), 0 34px 70px -28px rgba(0, 0, 0, 0.7);
+  --shadow-lift: 0 10px 20px -8px rgba(0, 0, 0, 0.45), 0 30px 60px -30px rgba(0, 0, 0, 0.7);
+
+  /* Lines: white on navy, as on the coming-soon page */
+  --tl-light: var(--tl-dark);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --tl-light: url("/tech-lines/white-static.svg"); }
+}
+
+html,
+body {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* ---- Minimal white space: sections roughly a third tighter ---- */
+.section { padding: clamp(3rem, 6vw, 5.25rem) 0; }
+.section.tight { padding: clamp(2rem, 4vw, 3.25rem) 0; }
+.page-hero { padding-block: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3.5rem); }
+
+/* ---- Surfaces: every band sits on navy with the white lines ---- */
+.section,
+.section.white,
+.page-hero,
+.page-hero.white {
+  background-color: var(--paper);
+}
+.section.paper2 { background-color: var(--paper-2); }
+.section.panel-blue { background-color: var(--panel); }
+.hero-home {
+  background-image: var(--tl-dark), radial-gradient(120% 70% at 50% 115%, rgba(244, 81, 30, 0.18) 0%, transparent 55%),
+    linear-gradient(180deg, #0b1830 0%, var(--paper) 60%);
+  background-size: var(--tl-size), auto, auto;
+  background-position: center top, center, center;
+  background-repeat: repeat-y, no-repeat, no-repeat;
+}
+
+/* ---- Header ---- */
+.site-header { background: rgba(7, 17, 31, 0.72); }
+.site-header.scrolled {
+  background: rgba(7, 17, 31, 0.9);
+  box-shadow: 0 12px 32px -24px rgba(0, 0, 0, 0.8);
+}
+
+/* ---- Buttons that used ink as a fill now invert ---- */
+.btn-dark,
+a.chip-link.on {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.btn-dark:hover { background: #ffffff; color: var(--paper); }
+
+/* ---- Forms ---- */
+input,
+select,
+textarea {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--ink);
+  border-color: var(--hairline-strong);
+}
+input::placeholder,
+textarea::placeholder { color: var(--ink-faint); }
+select option { background: var(--card); color: var(--ink); }
