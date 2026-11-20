@@ -221,3 +221,11 @@ test("no team member publishes education or a CV request link", () => {
   for (const person of TEAM) assert.equal(person.qualification, undefined, person.name);
   assert.doesNotMatch(read("components/TeamCoverflow.tsx"), /Request full CV/);
 });
+
+test("Derrick Kayiira is listed as CTO with a portrait and no education", () => {
+  const src = readFileSync("content/team.ts", "utf8");
+  assert.ok(src.includes('name: "Derrick Kayiira"') && src.includes('role: "Chief Technology Officer"'));
+  assert.ok(existsSync("public/team/derrick-kayiira.webp"));
+  const block = src.slice(src.indexOf('slug: "derrick-kayiira"'));
+  assert.ok(!/Victoria University|degree|undergraduate|Cyber Security and Digital Forensics/i.test(block), "no education");
+});

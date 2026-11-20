@@ -33,8 +33,8 @@ export interface TeamMember {
   publicationApproved: boolean;
 }
 
-// All three approved their portrait, title and biography (Trevor, then Moses
-// and Aaron on 19 Nov 2026).
+// All approved their portrait, title and biography (Trevor, then Moses and
+// Aaron on 19 Nov 2026; Derrick, CTO, supplied by the Product Owner 20 Nov 2026).
 export const TEAM: TeamMember[] = [
   {
     slug: "trevor-achura",
@@ -105,6 +105,29 @@ export const TEAM: TeamMember[] = [
       { group: "Research and policy", items: ["Development policy analysis", "Strategic research", "African development"] },
       { group: "Partnerships", items: ["Partnership development", "Institutional relations", "Development partner engagement"] },
       { group: "Stakeholder engagement", items: ["Diplomatic communication", "Consultation", "Cross-sector coordination"] },
+    ],
+    publicationApproved: true,
+  },
+  {
+    slug: "derrick-kayiira",
+    name: "Derrick Kayiira",
+    role: "Chief Technology Officer",
+    bio: "Derrick leads technology at Flame Connect, overseeing how our platforms and client systems are designed, built and secured. A full-stack developer working with Next.js, React, TypeScript and Supabase, he has delivered web applications for clients in the legal, education and hospitality sectors, with a particular focus on secure development.",
+    photo: "/team/derrick-kayiira.webp",
+    focusAreas: [
+      { title: "Technology leadership", description: "Technical direction, architecture and delivery across Flame Connect platforms." },
+      { title: "Full-stack development", description: "Web applications from requirements through development, deployment and maintenance." },
+      { title: "Web application security", description: "Access control, secure configuration and responsible handling of user data." },
+      { title: "Payments and integrations", description: "Mobile money payments, booking systems and WhatsApp integrations." },
+    ],
+    // Skills and competences from Derrick's CV (20 Nov 2026). Education kept private.
+    skills: [
+      { group: "Web development", items: ["Next.js", "React", "TypeScript", "JavaScript", "Tailwind CSS"] },
+      { group: "Back end and data", items: ["Node.js", "PostgreSQL", "Supabase"] },
+      { group: "Deployment and operations", items: ["Vercel", "Git and GitHub", "Hosting and maintenance"] },
+      { group: "Payments and security", items: ["MTN and Airtel Mobile Money APIs", "Secure development practices"] },
+      { group: "AI-assisted development", items: ["Claude", "GitHub Copilot", "v0", "Lovable"] },
+      { group: "Leadership", items: ["Team leadership", "Project and time management", "Client delivery"] },
     ],
     publicationApproved: true,
   },
