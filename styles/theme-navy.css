@@ -77,15 +77,5 @@
   border-color: #f5f7fb;
 }
 
-/* ---- Header: navy glass, so it sits naturally on every navy hero ---- */
-.site-header {
-  --ink: #f5f7fb;
-  --ink-soft: #b3c0d3;
-  --hairline: rgba(255, 255, 255, 0.08);
-  color-scheme: dark;
-  background: rgba(7, 17, 31, 0.72);
-}
-.site-header.scrolled {
-  background: rgba(7, 17, 31, 0.9);
-  box-shadow: 0 12px 32px -24px rgba(0, 0, 0, 0.8);
-}
+/* Header stays white (Product Owner, 20 Nov 2026): menus and dropdowns
+   keep their original light styling for legibility. */

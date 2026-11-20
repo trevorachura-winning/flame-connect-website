@@ -248,7 +248,7 @@
   font-weight: 700;
   font-size: 0.95rem;
   letter-spacing: -0.01em;
-  color: var(--fc-blue, #153a8a);
+  color: var(--fc-blue-text, var(--fc-blue, #153a8a));
 }
 .signature::before {
   content: "";
@@ -525,7 +525,7 @@
   background: var(--flame);
 }
 .group .mProduct {
-  color: var(--fc-blue, #153a8a);
+  color: var(--fc-blue-text, var(--fc-blue, #153a8a));
 }
 @media (prefers-reduced-motion: no-preference) {
   .track {
