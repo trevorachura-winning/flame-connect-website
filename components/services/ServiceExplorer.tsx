@@ -55,7 +55,7 @@ export function ServiceExplorer({ items }: { items: ExplorerItem[] }) {
             <span className={s.num} aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
             <span className={s.tabText}>
               <b>{item.name}</b>
-              <span className={s.tabDetail}>{item.detail}</span>
+              <span className={s.tabDetail}><span>{item.detail}</span></span>
             </span>
           </button>
         ))}

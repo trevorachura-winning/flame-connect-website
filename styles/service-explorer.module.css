@@ -55,7 +55,9 @@
 
 .tabText {
   display: grid;
-  gap: 0.2rem;
+}
+.tab[data-active] .tabText {
+  row-gap: 0.2rem;
 }
 .tabText b {
   font-family: var(--font-display);
@@ -70,6 +72,9 @@
   opacity: 0;
   overflow: hidden;
   transition: grid-template-rows 0.35s ease, opacity 0.3s ease;
+}
+.tabDetail > span {
+  min-height: 0;
 }
 .tab[data-active] .tabDetail {
   grid-template-rows: 1fr;
