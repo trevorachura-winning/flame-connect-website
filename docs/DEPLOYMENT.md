@@ -9,13 +9,12 @@
 - `lib/site.ts` supplies the www fallback and normalizes the former apex domain value; always confirm Vercel's actual environment settings.
 - `main` is the Git production branch, with Vercel automatic deployment on merge. Confirm team, project, source SHA, and READY state before accepting release.
 
-## Scheduled Coming Soon launch gate
-- Current marketing launch gate: `middleware.ts` rewrites the two production hostnames to `public/coming-soon/index.html` **until 20 November 2026 at 12:00 EAT** (09:00 UTC).
-- Preview `*.vercel.app` and localhost are not gated, so the full site remains available for QA before launch.
-- The countdown page contains the same launch timestamp and reloads when the gate opens.
-- **This is automatic**: the current `main` website becomes public at the stated time. To delay launch, update both `middleware.ts` and the page countdown in a reviewed PR before that time.
-- While the gate is active, even old `/sign-in` and `/api/lead` paths show Coming Soon; their redirect/404 behavior can be verified only on an ungated preview or after launch.
-- Keep the existing full Flame Connect logo and cinematic tech-line assets. The public Coming Soon page includes direct email/WhatsApp contact actions.
+## Launch, staging and review
+- The site launched on Fri 20 Nov 2026 at 12:00 EAT. The countdown gate and `public/coming-soon/` were removed afterwards.
+- `staging.flameconnect.tech` serves the `staging` git branch for phone-friendly review without a Vercel login. `middleware.ts` sends `X-Robots-Tag: noindex, nofollow, noarchive` on that host only.
+- Review flow: push the feature branch to `staging`, the Product Owner checks it, then the PR is merged to `main` on approval.
+- Google Search Console: Domain property `flameconnect.tech`, verified by a TXT record in Vercel DNS (keep it). Sitemap: `https://www.flameconnect.tech/sitemap.xml`.
+- Vercel Web Analytics is enabled (included plan); team spend budget is $5 with notifications.
 
 ## Launch line-up
 - The current product registry lists **Flame OS** and **Flame Academy**, both marked `Launching soon`.
@@ -54,7 +53,7 @@ The website-only code does **not use**:
 7. Record PR number, merged SHA, deployment ID, test evidence and release blockers.
 
 ## Browser acceptance (mandatory, still outstanding)
-- Confirm at widths **320, 375, 390, 768, 1024, 1440 px** using a real browser. Inspect header, countdown, contact CTAs, product pages, footer, mobile drawer and both form handoffs.
+- Confirm at widths **320, 375, 390, 768, 1024, 1440 px** using a real browser. Inspect header, contact CTAs, product pages, footer, mobile drawer and both form handoffs.
 - Test keyboard and screen-reader labels, reduced-motion and touch/coarse pointer, console errors and horizontal overflow. CI source tests are not browser proof.
 - Test email and WhatsApp destinations on an actual device; the website cannot establish whether external messages were sent.
 - Confirm official logo and no missing image/font/video assets.

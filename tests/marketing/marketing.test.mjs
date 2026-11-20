@@ -301,23 +301,6 @@ test("launch: retired pages are gone and old links redirect sensibly", () => {
   assert.ok(!/source: "\/products\/:slug", destination/.test(cfg), "no catch-all product redirect");
 });
 
-test("pre-launch gate: production hosts only, opens Fri 20 Nov 12:00 EAT, page and middleware agree", () => {
-  const mw = fs.readFileSync(path.join(ROOT, "middleware.ts"), "utf8");
-  const page = fs.readFileSync(path.join(ROOT, "public/coming-soon/index.html"), "utf8");
-  const launch = "Date.UTC(2026, 10, 20, 9, 0, 0)";
-  assert.ok(mw.includes(launch), "middleware launch time");
-  assert.ok(page.includes(launch), "countdown launch time matches middleware");
-  assert.equal(Date.UTC(2026, 10, 20, 9, 0, 0), Date.parse("2026-11-20T12:00:00+03:00"));
-  assert.ok(/GATED_HOSTS = new Set\(\["www\.flameconnect\.tech", "flameconnect\.tech"\]\)/.test(mw), "previews stay ungated");
-  assert.ok(/coming-soon\//.test(mw) && /_next\//.test(mw), "gate lets its own assets through");
-  for (const asset of ["montserrat-700.woff", "poppins-400.woff", "poppins-500.woff"]) {
-    assert.ok(fs.existsSync(path.join(ROOT, "public/coming-soon", asset)), asset);
-  }
-  for (const ref of ["/brand/flame-connect-logo-tagline-inverse.png", "/videos/ember-loop.mp4", "/videos/ember-poster.jpg"]) {
-    assert.ok(fs.existsSync(path.join(ROOT, "public", ref)), ref);
-  }
-});
-
 test("site-wide tech lines: orange on light, white on dark, still art for reduced motion", () => {
   const css = fs.readFileSync(path.join(ROOT, "styles/tech-lines.css"), "utf8");
   const layout = fs.readFileSync(path.join(ROOT, "app/layout.tsx"), "utf8");
@@ -330,8 +313,6 @@ test("site-wide tech lines: orange on light, white on dark, still art for reduce
     assert.ok(svg.startsWith("<svg"), f);
     assert.equal(/@keyframes/.test(svg), !f.endsWith("static"), `${f} animation`);
   }
-  const mw = fs.readFileSync(path.join(ROOT, "middleware.ts"), "utf8");
-  assert.ok(/tech-lines\//.test(mw), "coming-soon page can load the lines");
 });
 
 test("tech pointer: custom arrow on fine pointers only, text fields keep the text cursor, reticle is decorative", () => {
@@ -365,19 +346,6 @@ test("enquiry: real links for email and WhatsApp, plus Gmail and Outlook fallbac
   assert.ok(!/window\.open\(/.test(src), "no scripted pop-ups (blocked in in-app browsers)");
 });
 
-test("coming soon: showcase slideshow of the three services and two products, pausable", () => {
-  const page = fs.readFileSync(path.join(ROOT, "public/coming-soon/index.html"), "utf8");
-  for (const name of ["Digital &amp; Communications", "AI in Business", "Consulting &amp; Thought Leadership", "Flame OS", "Flame Academy"]) {
-    assert.ok(page.includes(`<h3>${name}</h3>`), name);
-  }
-  for (const f of ["digital", "ai", "consulting", "flame-os", "flame-academy"]) {
-    assert.ok(fs.existsSync(path.join(ROOT, `public/coming-soon/show/${f}.webp`)), f);
-  }
-  assert.ok(/id="pause"/.test(page), "WCAG 2.2.2: auto-moving content can be paused");
-  assert.ok(/prefers-reduced-motion: reduce\)"\)\.matches/.test(page), "no autoplay for reduced motion");
-  assert.ok(!/window\.open\(/.test(page), "CTAs are real links");
-});
-
 test("AI readiness assessment: 12 questions across 6 areas, scoring and levels", () => {
   const A = load("content/assessment.ts");
   assert.equal(A.QUESTIONS.length, 12);
@@ -401,7 +369,7 @@ test("AI readiness assessment: 12 questions across 6 areas, scoring and levels",
 test("staging host is kept out of search results", () => {
   const mw = fs.readFileSync(path.join(ROOT, "middleware.ts"), "utf8");
   assert.ok(mw.includes('"staging.flameconnect.tech"'), "staging host listed");
-  assert.ok(mw.indexOf("STAGING_HOSTS.has(host)") < mw.indexOf("Date.now() >= LAUNCH_AT) return"), "noindex applies after launch too");
+  assert.ok(!mw.includes("LAUNCH_AT"), "launch gate removed after launch");
   assert.match(mw, /X-Robots-Tag", "noindex, nofollow, noarchive"/);
 });
 

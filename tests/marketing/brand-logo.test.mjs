@@ -2,7 +2,6 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 
-const html = readFileSync("public/coming-soon/index.html", "utf8");
 const component = readFileSync("components/BrandLogo.tsx", "utf8");
 const header = readFileSync("components/Header.tsx", "utf8");
 const footer = readFileSync("components/Footer.tsx", "utf8");
@@ -22,18 +21,13 @@ test("the official logo files exist and the old wordmark files are gone", () => 
   assert.ok(!existsSync("public/brand/flame-connect-wordmark-inverse.png"));
 });
 
-test("Coming Soon shows the official logo with its tagline, on dark", () => {
-  assert.match(html, /class="brand-logo" src="\/brand\/flame-connect-logo-tagline-inverse\.png" alt="Flame Connect\. Digitizing Africa" width="1341" height="528"/);
-  assert.match(html, /\.brand-logo \{[^}]*width: auto;[^}]*object-fit: contain;/);
-});
-
-test("main site uses the same official logo: header without tagline, footer with it", () => {
+test("main site uses the official logo: header without tagline, footer with it", () => {
   assert.match(component, /\/brand\/flame-connect-logo\$\{tagline \? "-tagline" : ""\}\$\{tone === "dark" \? "-inverse" : ""\}\.png/);
   assert.match(header, /<BrandLogo height=\{44\} priority \/>/);
   assert.match(footer, /<BrandLogo height=\{88\} tone="dark" tagline \/>/);
 });
 
-test("the logo change leaves launch timing unchanged", () => {
-  assert.match(html, /Date\.UTC\(2026, 10, 20, 9, 0, 0\)/);
-  assert.match(html, /Friday 20 November 2026/);
+test("the pre-launch countdown is gone after launch", () => {
+  assert.ok(!existsSync("public/coming-soon"));
+  assert.ok(!readFileSync("middleware.ts", "utf8").includes("LAUNCH_AT"));
 });
