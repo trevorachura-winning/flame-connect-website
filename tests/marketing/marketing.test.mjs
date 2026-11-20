@@ -428,3 +428,10 @@ test("inbox emails are branded and readable", () => {
   assert.ok(ass.includes("Flame Connect | AI assessment:"), "assessment subject");
   for (const label of ["Topic:", "Message:", "Name:", "Email:", '"Phone or WhatsApp":', "Organisation:", "_replyto:"]) assert.ok(enq.includes(label), label);
 });
+
+test("Vercel Web Analytics is loaded once and disclosed in the privacy notice", () => {
+  const layout = fs.readFileSync(path.join(ROOT, "app/layout.tsx"), "utf8");
+  assert.equal((layout.match(/\/_vercel\/insights\/script\.js/g) || []).length, 1);
+  const privacy = fs.readFileSync(path.join(ROOT, "app/privacy/page.tsx"), "utf8");
+  assert.ok(privacy.includes("Vercel Web Analytics") && privacy.includes("sets no cookies"));
+});

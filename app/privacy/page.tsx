@@ -135,9 +135,10 @@ export default function PrivacyPage() {
 
           <h2>9. Cookies and analytics</h2>
           <p>
-            {SITE.analyticsId
-              ? "We use analytics to understand, in aggregate, how visitors use our website. Analytics data does not include the content of your enquiries."
-              : "Our website does not use advertising or third-party tracking cookies, and we do not currently run third-party analytics. If this changes, we will update this notice first."}
+            Our website does not use advertising or tracking cookies. We use Vercel Web Analytics,
+            provided by our hosting company, to count visits in aggregate: which pages are viewed,
+            the referring site, country, device type and browser. It sets no cookies, does not
+            build a profile of you and does not include anything you type into our forms.
           </p>
 
           <h2>10. Your rights</h2>
