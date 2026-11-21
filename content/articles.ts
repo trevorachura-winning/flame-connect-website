@@ -458,7 +458,7 @@ export const ARTICLES: Article[] = [
     summary:
       "AI use has spread quickly among African firms and workers, but few organisations can show what it earns them. What the 2026 evidence says, and a six-step way for Ugandan teams to start with discipline.",
     category: "Research",
-    date: "2026-11-20",
+    date: "2026-11-21",
     readingTime: "7 min read",
     author: EDITORIAL,
     sections: [
