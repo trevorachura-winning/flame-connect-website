@@ -78,9 +78,9 @@ export default function TrustPage() {
                 <span className="card-icon"><Icon name="lock" size={20} /></span>
                 <h3 style={{ fontSize: "1.1rem" }}>Security</h3>
                 <ul className="tick-list" style={{ marginTop: "0.4rem" }}>
-                  <li><span className="small">Our platforms are designed with organisation-scoped access control.</span></li>
-                  <li><span className="small">Each organisation&rsquo;s data is kept separate.</span></li>
-                  <li><span className="small">Separate development, testing and production environments.</span></li>
+                  <li><span className="small">Our platforms are being built with organisation-scoped access control.</span></li>
+                  <li><span className="small">Each organisation&rsquo;s data will be kept separate.</span></li>
+                  <li><span className="small">Separate testing and live environments for this website and our platforms.</span></li>
                 </ul>
               </div>
             </Reveal>

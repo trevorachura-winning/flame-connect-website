@@ -84,8 +84,9 @@ test("knowledge base entries are safe to publish", async () => {
   const { KNOWLEDGE_BASE } = load("content/knowledge-base.ts");
   const { PRODUCTS } = load("content/products.ts");
   const { SERVICES } = load("content/services.ts");
+  const { ARTICLES } = load("content/articles.ts");
   const routes = new Set(["/", "/about", "/assessment", "/contact", "/insights", "/our-story", "/privacy", "/products", "/services", "/team", "/trust",
-    ...PRODUCTS.map((p) => `/products/${p.slug}`), ...SERVICES.map((s) => `/services/${s.slug}`)]);
+    ...PRODUCTS.map((p) => `/products/${p.slug}`), ...SERVICES.map((s) => `/services/${s.slug}`), ...ARTICLES.map((a) => `/insights/${a.slug}`)]);
   const ids = new Set();
   for (const k of KNOWLEDGE_BASE) {
     assert.ok(!ids.has(k.id), `duplicate id ${k.id}`); ids.add(k.id);
@@ -110,4 +111,13 @@ test("knowledge base answers win for the questions they cover", () => {
   assert.equal(top("give me a brief").doc.id, "kb-about-brief");
   assert.equal(top("Where are you?").doc.id, "kb-location");
   assert.equal(top("how much does it cost").doc.id, "kb-pricing");
+});
+
+test("compliance basics: no pre-ticked consent, regulator named, privacy linked from contact form", () => {
+  assert.match(readFileSync("components/AssessmentClient.tsx", "utf8"), /contactMe: false,/);
+  const privacy = readFileSync("app/privacy/page.tsx", "utf8");
+  assert.match(privacy, /pdpo\.go\.ug/);
+  assert.match(privacy, /automated means alone/);
+  assert.doesNotMatch(privacy, /the only form on our website/);
+  assert.match(readFileSync("components/EnquiryComposer.tsx", "utf8"), /href="\/privacy"/);
 });

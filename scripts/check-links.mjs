@@ -51,6 +51,8 @@ const ROUTES = new Set([
 const CONTENT_PREFIXES = ["/products/", "/services/", "/insights/"];
 const ALLOWED_EXTERNAL = [
   "https://github.com/trevorachura-winning/flame-connect-salesos-ai",
+  // Uganda's data protection regulator, linked from the privacy notice.
+  "https://www.pdpo.go.ug",
 ];
 
 function* walk(dir) {

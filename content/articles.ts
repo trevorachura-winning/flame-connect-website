@@ -550,6 +550,99 @@ export const ARTICLES: Article[] = [
         "African firms are adopting AI fast, but few see returns. What the 2026 evidence shows, and a six-step plan for Ugandan teams to turn pilots into results.",
     },
   },
+  {
+    slug: "uganda-data-protection-ai-business-guide-2026",
+    title: "Using data and AI in Uganda: what the law asks of your business",
+    summary:
+      "Uganda has no AI law yet, but its data protection law already covers most of what AI tools touch. Here is what applies today, what is still coming and a short checklist to act on.",
+    category: "Playbooks",
+    date: "2026-11-21",
+    readingTime: "7 min read",
+    author: EDITORIAL,
+    sections: [
+      {
+        heading: "Why this matters",
+        paragraphs: [
+          "Most AI tools a business adopts do something with personal data. A chatbot reads customer messages, a CRM stores names and phone numbers, a scoring tool ranks applicants. Each of those is processing personal data, and in Uganda that is regulated.",
+          "Many teams assume that because there is no AI law yet, AI is unregulated. That is not quite right. The Data Protection and Privacy Act, 2019 and its Regulations of 2021 already set clear duties, and the regulator has started to enforce them.",
+        ],
+      },
+      {
+        heading: "The law that already applies",
+        paragraphs: [
+          "The Data Protection and Privacy Act came into force on 3 May 2019, and the Data Protection and Privacy Regulations took effect on 12 March 2021. The Personal Data Protection Office, which sits under the National Information Technology Authority, Uganda (NITA-U), oversees them. It became operational in August 2021.",
+          "The Act applies to anyone collecting or processing personal data in Uganda, and to organisations outside Uganda handling data about Ugandan citizens. If your business keeps customer, staff or supplier records, it almost certainly applies to you.",
+        ],
+      },
+      {
+        heading: "What it asks of you, in plain terms",
+        paragraphs: [
+          "These are the duties that come up most often when a business adopts digital or AI tools. Section numbers refer to the Act as passed in 2019.",
+        ],
+        list: [
+          "Register with the Personal Data Protection Office and renew every year (section 29 and Regulation 15). Registered organisations also file an annual compliance report.",
+          "Name a data protection officer. The head of the organisation must designate one (section 6).",
+          "Tell people what you collect and why before you collect it, and get their consent unless another lawful reason applies (sections 7 and 13).",
+          "Collect only what you need and keep it only as long as you need it (sections 14 and 18).",
+          "Get a parent or guardian's consent before processing a child's data (section 8). This matters for schools, training programmes and youth initiatives.",
+          "Protect the data and report breaches. If personal data is accessed without authority, notify the Personal Data Protection Office immediately (sections 20 and 23).",
+          "Take care when data leaves Uganda. Most cloud and AI tools store data abroad, and the Act sets conditions for processing outside Uganda (section 19).",
+          "Let people say no to direct marketing (section 26), and give them a way to opt out of commercial messages.",
+          "Respect rights on automated decisions. People have rights where a decision about them is taken by automated means alone (section 27). Keep a person in the loop for decisions that affect people.",
+        ],
+      },
+      {
+        heading: "Enforcement is now real",
+        paragraphs: [
+          "In July 2025 the Personal Data Protection Office found that Google had breached the Act by not registering, and ordered it to register within 30 days. It was the regulator's first major ruling against a global technology company, and it confirmed that registration applies to every qualifying organisation until specific exemptions are published.",
+          "The same month, Uganda recorded its first criminal conviction under the Act, involving a director of a digital lending company. Offences such as unlawfully obtaining, disclosing or selling personal data can carry fines and imprisonment.",
+        ],
+      },
+      {
+        heading: "What about AI itself?",
+        paragraphs: [
+          "Uganda does not yet have an AI law or a published national AI strategy. The Ministry of ICT and National Guidance began drafting a National Strategy for Artificial Intelligence and Emerging Technologies in March 2026, held stakeholder workshops on the draft in May 2026, and is working on it with NITA-U. Until it is published, data protection law is the main rule book for AI in business.",
+          "Other rules still apply to digital work. The Electronic Transactions Act, 2011 covers online transactions and unsolicited commercial communications. In March 2026 the Constitutional Court declared the Computer Misuse (Amendment) Act, 2022 null and void; the original Computer Misuse Act, 2011 remains.",
+        ],
+      },
+      {
+        heading: "How we apply this at Flame Connect",
+        paragraphs: [
+          "We hold ourselves to the same standard we recommend. Our website sets no advertising or tracking cookies, consent boxes are never ticked for you, and our privacy notice explains what each form collects and where it goes. When we design systems for clients, we map the personal data first, keep people in charge of decisions that affect people, and agree with the client what may and may not go into AI tools.",
+        ],
+      },
+    ],
+    actions: [
+      "Check whether your organisation is registered with the Personal Data Protection Office, and when it is due for renewal.",
+      "Name your data protection officer and write down who they report to.",
+      "List every tool that holds customer or staff data, including AI tools, and where each one stores it.",
+      "Write a one-page rule on what data may and may not go into AI tools.",
+      "Check that every form you use explains what you collect and why, and that no consent box is ticked in advance.",
+    ],
+    limits: [
+      "This article is general guidance, not legal advice. Speak to a qualified advocate about your organisation's specific obligations.",
+      "Section numbers refer to the Act as passed in 2019. The Revised Laws of Uganda list it as Cap. 97, where numbering may differ.",
+      "Uganda's AI and emerging technologies strategy was still in draft at the time of writing, and its content may change these recommendations.",
+    ],
+    relatedServiceSlug: "ai-in-business",
+    relatedArticleSlugs: ["ai-adoption-african-business-2026", "five-questions-before-any-ai-tool"],
+    sources: [
+      { label: "Data Protection and Privacy Act, 2019 (Act 9 of 2019), ULII", href: "https://www.ulii.org/akn/ug/act/2019/9" },
+      { label: "DLA Piper, Data protection laws of the world: Uganda", href: "https://www.dlapiperdataprotection.com/?c=UG&t=law" },
+      { label: "PDPO press release: requirement to register (2 Nov 2021)", href: "https://demo.nita.go.ug/sites/default/files/2024-09/Press%20Release%20-%20Requirement%20to%20register%20with%20PDPO%20-%2002%20Nov%2021%281%29.pdf" },
+      { label: "DLA Piper, Uganda regulator clarifies compliance requirements for offshore entities (Aug 2025)", href: "https://privacymatters.dlapiper.com/2025/08/uganda-data-protection-regulator-clarifies-compliance-requirements-for-offshore-entities" },
+      { label: "Data Protection Gibraltar, Uganda jurisdiction notes: first criminal conviction under the Act (10 Jul 2025)", href: "https://dataprotection.gi/jurisdictions/uganda/" },
+      { label: "Electronic Transactions Regulations, 2013 (Ministry of ICT)", href: "https://ict.go.ug/site/documents/Electronic-Transction-Regulations-SI-42-of-2013.pdf" },
+      { label: "Ministry of ICT and National Guidance, stakeholder engagement on the National AI and Emerging Technologies Strategy (2026)", href: "https://ict.go.ug/media/news/ministry-engages-stakeholders-on-ugandas-national-emerging-technologies-strategy" },
+      { label: "Tech Review Africa, Uganda begins stakeholder consultations on AI and emerging technologies strategy (2 May 2026)", href: "https://techreviewafrica.com/news/5257/uganda-begins-stakeholder-consultations-on-ai-and-emerging-technologies-strategy" },
+      { label: "Nile Post, Constitutional Court declares key provisions of Computer Misuse law unconstitutional (17 Mar 2026)", href: "https://nilepost.co.ug/freedom%20of%20expression/328084/constitutional-court-declares-key-provisions-of-computer-misuse-law-unconstitutional" },
+    ],
+    seo: {
+      title: "Uganda data protection and AI: a 2026 guide for businesses",
+      description:
+        "What Uganda's Data Protection and Privacy Act asks of businesses using data and AI tools, what the coming AI strategy means, and a five-step checklist.",
+    },
+  },
 ];
 
 export const ARTICLE_CATEGORIES: ArticleCategory[] = [

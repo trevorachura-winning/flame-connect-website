@@ -38,7 +38,7 @@ const EMPTY: Details = {
   phone: "",
   sector: "",
   size: "",
-  contactMe: true,
+  contactMe: false,
   website: "",
 };
 

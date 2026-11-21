@@ -145,4 +145,13 @@ export const KNOWLEDGE_BASE: KnowledgeEntry[] = [
     alsoAsked: ["blog", "articles", "insights", "resources", "news", "reading"],
     updated: "2026-11-21",
   },
+  {
+    id: "uganda-data-law",
+    question: "What does Uganda's data protection law mean for my business?",
+    answer:
+      "If you keep customer, staff or supplier data, Uganda's Data Protection and Privacy Act applies. Our guide explains registration, consent, breaches and AI tools in plain terms. It is general guidance, not legal advice.",
+    link: "/insights/uganda-data-protection-ai-business-guide-2026",
+    alsoAsked: ["data protection", "pdpo", "privacy law", "uganda law", "ai law", "data law", "compliance", "register data"],
+    updated: "2026-11-21",
+  },
 ];

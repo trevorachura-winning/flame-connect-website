@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent, type MouseEvent } from "react";
 import { Icon } from "./Icons";
 import { SITE, type Intent, INTENT_LABELS } from "../lib/site";
@@ -294,6 +295,9 @@ export function EnquiryComposer({
           : opened === "whatsapp"
             ? "WhatsApp should now be open in a new tab with your message ready. Press send there."
             : "Please do not include passwords, confidential client information or sensitive personal data."}
+      </p>
+      <p className="small muted" style={{ marginTop: "0.4rem" }}>
+        We use your details only to reply to your enquiry. Read our <Link href="/privacy">privacy notice</Link>.
       </p>
 
       {(status === "failed" || opened === "email") && (
