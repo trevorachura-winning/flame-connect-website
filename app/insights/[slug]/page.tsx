@@ -34,7 +34,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   const relatedProduct = article.relatedProductSlug ? getProduct(article.relatedProductSlug) : undefined;
   const relatedService = article.relatedServiceSlug ? getService(article.relatedServiceSlug) : undefined;
-  const more = sortedArticles().filter((a) => a.slug !== article.slug).slice(0, 2);
+  const picked = (article.relatedArticleSlugs ?? [])
+    .map((slug) => getArticle(slug))
+    .filter((a): a is NonNullable<typeof a> => Boolean(a));
+  const more = picked.length
+    ? picked.slice(0, 2)
+    : sortedArticles().filter((a) => a.slug !== article.slug).slice(0, 2);
 
   return (
     <>
@@ -92,6 +97,20 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 ))}
               </ul>
             </div>
+            {article.sources && article.sources.length > 0 && (
+              <div className="callout" style={{ borderLeftColor: "var(--navy)" }}>
+                <h3 id="sources" style={{ scrollMarginTop: "6rem" }}>Sources</h3>
+                <ul>
+                  {article.sources.map((source) => (
+                    <li key={source.href}>
+                      <a href={source.href} target="_blank" rel="noopener noreferrer" className="text-link">
+                        {source.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <JsonLd data={articleJsonLd({ title: article.title, description: article.summary, slug: article.slug, date: article.date, category: article.category })} />
           </article>
 
@@ -106,6 +125,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 ))}
                 <li><a href="#actions">Actions you can take</a></li>
                 <li><a href="#limits">What stays uncertain</a></li>
+                {article.sources && article.sources.length > 0 && <li><a href="#sources">Sources</a></li>}
               </ol>
             </nav>
             {(relatedProduct || relatedService) && (
