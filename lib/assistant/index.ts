@@ -85,7 +85,7 @@ export function buildAssistantIndex(): AssistantDoc[] {
 
   for (const p of PRODUCTS) {
     const url = `/products/${p.slug}`;
-    docs.push({ id: `pr-${p.slug}`, kind: "Product", title: p.name, url, text: `${p.purpose} ${p.body} ${p.statusNote}`, keywords: [p.name, p.category, ...(p.tagline ? [p.tagline] : [])] });
+    docs.push({ id: `pr-${p.slug}`, kind: "Product", title: p.name, url, text: `${p.purpose} ${p.body} ${p.statusNote}`, keywords: [p.name, ...(p.category ? [p.category] : []), ...(p.tagline ? [p.tagline] : [])] });
     for (const f of p.features ?? []) docs.push({ id: `pr-${p.slug}-${f.name}`, kind: "Product", title: `${p.name}: ${f.name}`, url, text: f.copy, keywords: [p.name] });
     p.faqs.forEach((f, i) => docs.push({ id: `pr-${p.slug}-faq${i}`, kind: "FAQ", title: f.question, url, text: f.answer, keywords: [p.name] }));
   }
