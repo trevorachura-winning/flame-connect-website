@@ -31,3 +31,25 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: https://flame-connect-website.vercel.app
+
+  python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            services/flame-api/requirements-dev.txt
+            tools/requirements.txt
+      - name: Install
+        run: pip install -r services/flame-api/requirements-dev.txt -r tools/requirements.txt
+      - name: Python tests (core, Vercel functions, tools, FastAPI service)
+        run: python -m pytest -q tests/python services/flame-api/tests
+      - name: Image audit
+        run: python tools/image_audit.py
+

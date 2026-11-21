@@ -448,3 +448,12 @@ test("service sub-offerings use the interactive explorer with an illustration ea
   const page = fs.readFileSync(path.join(ROOT, "app/services/[slug]/page.tsx"), "utf8");
   assert.ok(page.includes("<ServiceExplorer items={service.offerings.items} />"));
 });
+
+test("Python assessment data is generated from the TypeScript source and current", () => {
+  const data = JSON.parse(fs.readFileSync(path.join(ROOT, "python/flame_core/assessment_data.json"), "utf8"));
+  const src = fs.readFileSync(path.join(ROOT, "content/assessment.ts"), "utf8");
+  const ids = [...src.matchAll(/id: "(q\d+)"/g)].map((m) => m[1]);
+  assert.deepEqual(data.questions.map((q) => q.id), ids, "run: node scripts/export-assessment.mjs");
+  for (const p of data.pillars) assert.ok(src.includes(p.nextStep), `stale next step for ${p.key}: run node scripts/export-assessment.mjs`);
+  for (const l of data.levels) assert.ok(src.includes(l.summary), `stale level ${l.name}: run node scripts/export-assessment.mjs`);
+});
