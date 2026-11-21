@@ -88,3 +88,7 @@ Orange `#F4511E`, Deep Navy `#07111F`, Ink Navy `#111827`, Light Blue `#EAF2FF`,
 White, Slate `#374151`; Montserrat/Poppins; dark/light rhythm with orange
 keylines. AA-safe interaction tones and the logo recreation are documented in
 [`docs/BRAND.md`](docs/BRAND.md).
+
+## Python
+
+Shared core, live Vercel functions (`/api/py/*`), tools and a FastAPI service: see [docs/PYTHON.md](docs/PYTHON.md).
