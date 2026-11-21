@@ -69,6 +69,17 @@ export default function PrivacyPage() {
               delivery service.
             </li>
             <li>
+              <b>Ask Flame help robot.</b> The help robot in the corner of our website searches
+              our website&rsquo;s own content inside your browser. The questions you type into it
+              are not sent to us or to anyone else. If you tell it your name, it is kept only in
+              your own browser so it can greet you. If you choose to request a call back, we
+              receive the name and phone number you enter, your last question and the page you
+              were on, sent to our inbox through FormSubmit, and we use them only to call you
+              about that question. For anything else, email us at{" "}
+              {SITE.contactEmail ?? "the address on our contact page"} or use our{" "}
+              <Link href="/contact">contact page</Link>.
+            </li>
+            <li>
               <b>Technical information.</b> Like most websites, our hosting provider automatically
               processes basic technical data, such as your IP address, browser type, device and the pages
               you request, to deliver the site securely and reliably.
@@ -105,7 +116,7 @@ export default function PrivacyPage() {
           <p>
             We do not sell personal information. We share it only with trusted service providers
             who help us operate, such as website hosting, email and messaging services and our form
-            delivery service (FormSubmit, for the contact form and the AI readiness assessment), and
+            delivery service (FormSubmit, for the contact form, the AI readiness assessment and robot call back requests), and
             only as far as those services need; with professional advisers where necessary; or
             where required by law. When you contact us by WhatsApp or email, those services also
             process your messages under their own privacy terms.

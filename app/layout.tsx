@@ -12,6 +12,7 @@ import "../styles/theme-navy.css";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { CursorHalo } from "../components/CursorHalo";
+import { AssistantRobot } from "../components/assistant/AssistantRobot";
 import Script from "next/script";
 import { JsonLd } from "../components/JsonLd";
 import { SITE } from "../lib/site";
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main id="main">{children}</main>
         <Footer />
         <CursorHalo />
+        <AssistantRobot />
         {/* Vercel Web Analytics (cookie-free, aggregate visits only). Served by
             Vercel at this path once Analytics is enabled on the project. */}
         <Script src="/_vercel/insights/script.js" strategy="afterInteractive" />
