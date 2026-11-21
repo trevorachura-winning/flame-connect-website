@@ -69,6 +69,13 @@ export default function PrivacyPage() {
               delivery service.
             </li>
             <li>
+              <b>Ask Flame help robot.</b> The help robot in the corner of our website searches
+              our website&rsquo;s own content inside your browser. Nothing you type into it is sent
+              to us or to anyone else, and it is not stored. For anything the robot cannot answer,
+              email us at {SITE.contactEmail ?? "the address on our contact page"} or use our{" "}
+              <Link href="/contact">contact page</Link>.
+            </li>
+            <li>
               <b>Technical information.</b> Like most websites, our hosting provider automatically
               processes basic technical data, such as your IP address, browser type, device and the pages
               you request, to deliver the site securely and reliably.

@@ -45,3 +45,11 @@ test("visible robot copy follows house style", () => {
   const strings = [...ui.matchAll(/>([^<>{}]{3,})</g)].map((m) => m[1]);
   for (const s of strings) assert.doesNotMatch(s, /[–—]| - /, `dash in "${s}"`);
 });
+
+test("privacy notice covers the robot and the panel carries no privacy footnote", () => {
+  const privacy = readFileSync("app/privacy/page.tsx", "utf8");
+  assert.match(privacy, /Ask Flame help robot/);
+  assert.match(privacy, /not stored/);
+  const ui = readFileSync("components/assistant/AssistantRobot.tsx", "utf8");
+  assert.doesNotMatch(ui, /Nothing you type/);
+});
