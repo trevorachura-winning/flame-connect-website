@@ -6,18 +6,21 @@ export function pageMetadata(input: {
   description: string;
   path: string;
   image?: string;
+  imageAlt?: string;
   type?: "website" | "article";
   publishedTime?: string;
 }): Metadata {
   const url = `${SITE.siteUrl}${input.path}`;
-  // app/opengraph-image.tsx is served at /opengraph-image (no extension).
-  const image = input.image ?? "/opengraph-image";
+  // Static, compressed JPEGs (< 300 KB) so WhatsApp, LinkedIn and X all show
+  // the image. WhatsApp silently drops og:images above ~300 KB; the old
+  // generated PNG was ~600 KB. Regenerate with scripts/make-og-image.py.
+  const image = input.image ?? "/og/flame-connect.jpg";
   const openGraphBase = {
     title: input.title,
     description: input.description,
     url,
     siteName: SITE.name,
-    images: [{ url: image, width: 1200, height: 630, type: "image/png", alt: "Flame Connect. Digitizing Africa." }],
+    images: [{ url: image, width: 1200, height: 630, type: "image/jpeg", alt: input.imageAlt ?? "Flame Connect. Digitizing Africa." }],
     locale: "en" as const,
   };
   return {

@@ -19,6 +19,8 @@ export interface Article {
   limits: string[];
   relatedServiceSlug?: string;
   relatedProductSlug?: string;
+  /** Optional 1200x630 JPEG share image under /public (keep it < 300 KB). */
+  ogImage?: string;
   /** Optional hand-picked "Keep reading" articles; falls back to the latest two. */
   relatedArticleSlugs?: string[];
   /** Optional evidence list rendered under the article. External, checked sources only. */
@@ -531,6 +533,7 @@ export const ARTICLES: Article[] = [
     ],
     relatedServiceSlug: "ai-in-business",
     relatedArticleSlugs: ["thirty-day-ai-pilot-plan", "map-one-workflow-before-automation"],
+    ogImage: "/og/ai-adoption-african-business-2026.jpg",
     sources: [
       { label: "World Bank, World Development Report 2026: The Promise of Artificial Intelligence (Aug 2026)", href: "https://www.worldbank.org/wdr2026" },
       { label: "ODI, Beyond adoption: turning AI productivity into better jobs in African economies (2026)", href: "https://odi.org/en/insights/beyond-adoption-turning-ai-productivity-into-better-jobs-in-african-economies/" },

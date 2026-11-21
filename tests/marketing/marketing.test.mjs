@@ -404,11 +404,19 @@ test("Vercel Web Analytics is loaded once and disclosed in the privacy notice", 
   assert.ok(privacy.includes("Vercel Web Analytics") && privacy.includes("sets no cookies"));
 });
 
-test("share previews point at the generated Open Graph image route", () => {
+test("share previews use small static JPEGs that WhatsApp will render", () => {
   const seo = fs.readFileSync(path.join(ROOT, "lib/seo.ts"), "utf8");
-  assert.ok(!seo.includes('"/opengraph-image.png"'), "no .png suffix: that path 404s");
-  assert.ok(seo.includes('"/opengraph-image"'));
-  assert.ok(fs.existsSync(path.join(ROOT, "app/opengraph-image.tsx")));
+  assert.ok(seo.includes('"/og/flame-connect.jpg"'));
+  // A file-based app/opengraph-image would override page metadata.
+  assert.ok(!fs.existsSync(path.join(ROOT, "app/opengraph-image.tsx")));
+  const ogDir = path.join(ROOT, "public/og");
+  for (const f of fs.readdirSync(ogDir).filter((n) => n.endsWith(".jpg"))) {
+    assert.ok(fs.statSync(path.join(ogDir, f)).size < 300_000, `${f} must stay under 300 KB`);
+  }
+  const articles = fs.readFileSync(path.join(ROOT, "content/articles.ts"), "utf8");
+  for (const m of articles.matchAll(/ogImage: "([^"]+)"/g)) {
+    assert.ok(fs.existsSync(path.join(ROOT, "public", m[1])), `missing ${m[1]}`);
+  }
 });
 
 test("service pages: named sub-services and two quote-only packages", () => {
