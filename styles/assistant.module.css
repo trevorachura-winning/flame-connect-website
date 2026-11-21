@@ -202,6 +202,7 @@
   border-radius: 1rem; padding: 0.9rem; background: #fff;
 }
 .callForm .field { padding: 0.7rem 0.9rem; }
+.formHint { font-size: 0.8rem; color: #5B6678; margin-top: -0.3rem; }
 .consent { display: flex; gap: 0.55rem; align-items: flex-start; font-size: 0.8rem; color: #4A5568; line-height: 1.45; }
 .consent input { width: 1.15rem; height: 1.15rem; margin-top: 0.1rem; flex: none; accent-color: #F4511E; }
 .consent a { color: #1451D2; }

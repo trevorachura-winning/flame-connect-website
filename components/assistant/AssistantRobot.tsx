@@ -31,7 +31,7 @@ function write(key: string, value: string | null, store: "local" | "session" = "
 /**
  * Ask Flame help robot. Searches the website's own content in the browser and
  * takes people to the right page. Nothing typed into the search is sent. A call
- * back form is offered only when it helps (no answer found, or a pricing or
+ * back form (phone, email or both) is offered only when it helps (no answer found, or a pricing or
  * project question); that form is sent to our inbox only if the visitor submits it.
  */
 export function AssistantRobot() {
@@ -47,6 +47,7 @@ export function AssistantRobot() {
   const [offerUsed, setOfferUsed] = useState(false);
   const [callName, setCallName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
@@ -136,12 +137,14 @@ export function AssistantRobot() {
 
   async function sendCall(e: FormEvent) {
     e.preventDefault();
-    if (!phone.trim() || !consent) return;
+    if (!canSend || !consent) return;
     setCall("sending");
     const last = turns[turns.length - 1]?.q ?? "";
     const ok = await submitCallback({
       name: callName.trim() || "Not given",
-      phone: phone.trim(),
+      phone: phone.trim() || "Not given",
+      email: email.trim() || "Not given",
+      ...(emailOk ? { _replyto: email.trim() } : {}),
       question: last,
       page: pathname ?? "/",
       source: "Ask Flame help robot",
@@ -149,6 +152,10 @@ export function AssistantRobot() {
     });
     setCall(ok ? "sent" : "error");
   }
+
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
+  const phoneOk = phone.replace(/\D/g, "").length >= 7;
+  const canSend = phoneOk || emailOk;
 
   const wa = whatsappHref("Hello Flame Connect, I have a question about your services.");
   const hello = name ? `Hi ${name}! ` : "Hi! ";
@@ -235,9 +242,9 @@ export function AssistantRobot() {
                     )}
                     {t.offer && call === "idle" && (
                       <div className={s.offer}>
-                        <p>Would you like one of our team to call you about this?</p>
+                        <p>Would you like our team to contact you about this?</p>
                         <div className={s.row}>
-                          <button type="button" className={s.goBtn} onClick={openCallForm}>Yes, call me</button>
+                          <button type="button" className={s.goBtn} onClick={openCallForm}>Yes, contact me</button>
                           <button type="button" className={s.ghostBtn} onClick={dismissOffer}>No thanks</button>
                         </div>
                       </div>
@@ -247,18 +254,21 @@ export function AssistantRobot() {
 
                 {(call === "form" || call === "sending" || call === "error") && (
                   <form className={s.callForm} onSubmit={sendCall}>
-                    <b>Request a call back</b>
+                    <b>How should we reach you?</b>
+                    <span className={s.formHint}>Add a phone number, an email or both.</span>
                     <label htmlFor="fc-call-name" className="sr-only">Your name</label>
                     <input id="fc-call-name" className={s.field} value={callName} onChange={(e) => setCallName(e.target.value)} placeholder="Your name" autoComplete="name" maxLength={60} />
                     <label htmlFor="fc-call-phone" className="sr-only">Phone or WhatsApp number</label>
-                    <input id="fc-call-phone" ref={phoneRef} className={s.field} type="tel" inputMode="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone or WhatsApp, e.g. +256 7…" autoComplete="tel" maxLength={25} required />
+                    <input id="fc-call-phone" ref={phoneRef} className={s.field} type="tel" inputMode="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone or WhatsApp, e.g. +256 7…" autoComplete="tel" maxLength={25} />
+                    <label htmlFor="fc-call-email" className="sr-only">Email address</label>
+                    <input id="fc-call-email" className={s.field} type="email" inputMode="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email address" autoComplete="email" maxLength={120} />
                     <label className={s.consent}>
                       <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} required />
                       <span>I agree to Flame Connect contacting me about my question. See our <Link href="/privacy" onClick={() => setOpen(false)}>privacy notice</Link>.</span>
                     </label>
                     {call === "error" && <p className={s.error}>That did not send. Please try again or WhatsApp us.</p>}
                     <div className={s.row}>
-                      <button type="submit" className={s.goBtn} disabled={call === "sending" || !phone.trim() || !consent}>
+                      <button type="submit" className={s.goBtn} disabled={call === "sending" || !canSend || !consent}>
                         {call === "sending" ? "Sending…" : "Send"}
                       </button>
                       <button type="button" className={s.ghostBtn} onClick={() => setCall("idle")}>Cancel</button>
@@ -266,7 +276,7 @@ export function AssistantRobot() {
                   </form>
                 )}
                 {call === "sent" && (
-                  <div className={s.bot}>Thank you{callName.trim() ? `, ${callName.trim()}` : ""}. One of our team will call you soon.</div>
+                  <div className={s.bot}>Thank you{callName.trim() ? `, ${callName.trim()}` : ""}. One of our team will be in touch soon.</div>
                 )}
               </div>
 

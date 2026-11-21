@@ -18,4 +18,4 @@ Rules: only facts already approved and published on the site. No prices, no inve
 ## Privacy
 - Questions typed into the search stay in the visitor's browser.
 - An optional first name is kept in the visitor's browser only, to greet them.
-- A call back form is offered only when the robot cannot answer or the question is about prices, quotes or starting a project. It sends to the inbox through FormSubmit only if the visitor adds a phone number, ticks consent and presses Send. The privacy notice (section 2) describes this.
+- A contact form (phone, email or both) is offered only when the robot cannot answer or the question is about prices, quotes or starting a project. It sends to the inbox through FormSubmit only if the visitor adds a phone number or email, ticks consent and presses Send. The privacy notice (section 2) describes this.

@@ -37,7 +37,9 @@ test("robot is mounted site wide, lazy loads its index and sends nothing", () =>
   assert.doesNotMatch(ui, /fetch\(/, "robot must not send what visitors type");
   // The only network call is the opt-in call back, gated by phone and consent.
   assert.match(ui, /submitCallback\(/);
-  assert.match(ui, /!phone\.trim\(\) \|\| !consent\) return;/);
+  assert.match(ui, /!canSend \|\| !consent\) return;/);
+  assert.match(ui, /const canSend = phoneOk \|\| emailOk;/);
+  assert.match(ui, /type="email"/);
   assert.ok(existsSync("styles/assistant.module.css"));
   const css = readFileSync("styles/assistant.module.css", "utf8");
   assert.match(css, /prefers-reduced-motion/);
@@ -52,7 +54,8 @@ test("visible robot copy follows house style", () => {
 test("privacy notice covers the robot and the panel carries no privacy footnote", () => {
   const privacy = readFileSync("app/privacy/page.tsx", "utf8");
   assert.match(privacy, /Ask Flame help robot/);
-  assert.match(privacy, /request a call back/);
+  assert.match(privacy, /ask our team to contact you/);
+  assert.match(privacy, /phone number or email address/);
   assert.match(privacy, /kept only in\s+your own browser/);
   const ui = readFileSync("components/assistant/AssistantRobot.tsx", "utf8");
   assert.doesNotMatch(ui, /Nothing you type/);
