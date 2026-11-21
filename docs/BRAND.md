@@ -119,7 +119,7 @@ repo's git history (`git log -- public/brand/`).
 
 | File | Contains | Consumed by |
 |---|---|---|
-| `public/brand/flame-connect-mark.png` | Flame-leaf mark, transparent, square | `components/BrandLogo.tsx`, `app/icon.png` (favicon resize), `app/opengraph-image.tsx` (OG card reads it at build) |
+| `public/brand/flame-connect-mark.png` | Flame-leaf mark, transparent, square | `components/BrandLogo.tsx`, `app/icon.png` (favicon resize), `public/og/*.jpg` share cards (built by `scripts/make-og-image.py`) |
 | `public/brand/flame-connect-wordmark.png` | FLAME CONNECT wordmark, navy circuit — for light surfaces | `components/BrandLogo.tsx` (header, drawer) |
 | `public/brand/flame-connect-wordmark-inverse.png` | Wordmark with Light Blue circuit — for the navy footer | `components/BrandLogo.tsx` with `tone="dark"` |
 | `app/icon.png` | 512px square favicon derived from the mark | Next.js serves it as the site icon |
