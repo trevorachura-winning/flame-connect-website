@@ -21,6 +21,7 @@ function load(file) {
   vm.runInNewContext(js, { module: mod, exports: mod.exports, require: req, process: { env: {} } });
   return mod.exports;
 }
+export { load };
 export function robot() {
   const { buildAssistantIndex } = load("lib/assistant/index.ts");
   const { search } = load("lib/assistant/search.ts");

@@ -131,7 +131,20 @@ export function snippet(text: string, terms: string[], max = 220): string {
 }
 
 /** Rank passages for a question. Returns [] when nothing is a reasonable match. */
+const norm = (x: string) => x.toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+
 export function search(query: string, docs: AssistantDoc[], limit = 4): AssistantHit[] {
+  // A question that matches a knowledge-base phrasing exactly wins outright,
+  // even when it is all stopwords ("where are you").
+  const nq = norm(query);
+  if (nq) {
+    const exact = docs.find((d) => (d.keywords ?? []).some((k) => norm(k) === nq));
+    if (exact) {
+      const rest = search(`${query} ${exact.title}`, docs.filter((d) => d !== exact), limit - 1)
+        .filter((h) => h.doc.url !== exact.url || h.doc.title !== exact.title);
+      return [{ doc: exact, score: 100, snippet: exact.text }, ...rest].slice(0, limit);
+    }
+  }
   const q = tokens(query);
   if (!q.length) return [];
   const terms = expand(q);

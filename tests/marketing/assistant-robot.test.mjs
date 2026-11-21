@@ -35,6 +35,9 @@ test("robot is mounted site wide, lazy loads its index and sends nothing", () =>
   assert.match(ui, /import\("\.\.\/\.\.\/lib\/assistant\/index"\)/, "index must be dynamically imported");
   assert.doesNotMatch(ui, /^import .*lib\/assistant\/index/m, "index must not be statically imported");
   assert.doesNotMatch(ui, /fetch\(/, "robot must not send what visitors type");
+  // The only network call is the opt-in call back, gated by phone and consent.
+  assert.match(ui, /submitCallback\(/);
+  assert.match(ui, /!phone\.trim\(\) \|\| !consent\) return;/);
   assert.ok(existsSync("styles/assistant.module.css"));
   const css = readFileSync("styles/assistant.module.css", "utf8");
   assert.match(css, /prefers-reduced-motion/);
@@ -49,7 +52,59 @@ test("visible robot copy follows house style", () => {
 test("privacy notice covers the robot and the panel carries no privacy footnote", () => {
   const privacy = readFileSync("app/privacy/page.tsx", "utf8");
   assert.match(privacy, /Ask Flame help robot/);
-  assert.match(privacy, /not stored/);
+  assert.match(privacy, /request a call back/);
+  assert.match(privacy, /kept only in\s+your own browser/);
   const ui = readFileSync("components/assistant/AssistantRobot.tsx", "utf8");
   assert.doesNotMatch(ui, /Nothing you type/);
+});
+
+test("first visit shows a welcome with an optional name, never a required gate", () => {
+  const ui = readFileSync("components/assistant/AssistantRobot.tsx", "utf8");
+  assert.match(ui, /Welcome to Flame Connect/);
+  assert.match(ui, /\(optional\)/);
+  assert.match(ui, />Skip</);
+  const welcome = ui.slice(ui.indexOf("Welcome to Flame Connect") - 600, ui.indexOf(">Skip<"));
+  assert.doesNotMatch(welcome, /required/, "welcome must not require anything");
+  assert.doesNotMatch(welcome, /type="tel"/, "no phone number on the welcome screen");
+});
+
+test("call back is offered only for no answer or buying intent", () => {
+  const ui = readFileSync("components/assistant/AssistantRobot.tsx", "utf8");
+  assert.match(ui, /!hits\.length \|\| INTENT\.test\(text\)/);
+  const INTENT = new RegExp(ui.match(/const INTENT = \/(.+)\/i;/)[1], "i");
+  for (const q of ["How much does it cost?", "Can I get a quote", "I want to book a consultation"]) assert.ok(INTENT.test(q), q);
+  for (const q of ["Who is the CTO", "What is Flame OS", "Tell me your story"]) assert.ok(!INTENT.test(q), q);
+});
+
+test("knowledge base entries are safe to publish", async () => {
+  const { load } = await import("../assistant/run-index.mjs");
+  const { KNOWLEDGE_BASE } = load("content/knowledge-base.ts");
+  const { PRODUCTS } = load("content/products.ts");
+  const { SERVICES } = load("content/services.ts");
+  const routes = new Set(["/", "/about", "/assessment", "/contact", "/insights", "/our-story", "/privacy", "/products", "/services", "/team", "/trust",
+    ...PRODUCTS.map((p) => `/products/${p.slug}`), ...SERVICES.map((s) => `/services/${s.slug}`)]);
+  const ids = new Set();
+  for (const k of KNOWLEDGE_BASE) {
+    assert.ok(!ids.has(k.id), `duplicate id ${k.id}`); ids.add(k.id);
+    assert.ok(k.question.trim() && k.answer.trim(), `${k.id} is empty`);
+    assert.ok(routes.has(k.link.split("?")[0]), `${k.id} links to unknown page ${k.link}`);
+    assert.match(k.updated, /^\d{4}-\d{2}-\d{2}$/, `${k.id} needs an updated date`);
+    for (const t of [k.question, k.answer]) {
+      assert.doesNotMatch(t, /[–—]| - /, `${k.id}: no dashes in visible copy`);
+      assert.doesNotMatch(t, /\b(UGX|USh|USD|KES)\b|\$\s?\d/, `${k.id}: no published prices`);
+      assert.doesNotMatch(t, /\b(organization|color|optimize|analyze)\b/i, `${k.id}: use British English`);
+    }
+    assert.ok(k.answer.length <= 320, `${k.id}: keep answers short`);
+  }
+  for (const p of PRODUCTS.filter((x) => x.status === "development")) {
+    for (const k of KNOWLEDGE_BASE.filter((e) => e.link === `/products/${p.slug}`)) {
+      assert.match(k.answer, /launching soon/i, `${k.id}: ${p.name} has not launched`);
+    }
+  }
+});
+
+test("knowledge base answers win for the questions they cover", () => {
+  assert.equal(top("give me a brief").doc.id, "kb-about-brief");
+  assert.equal(top("Where are you?").doc.id, "kb-location");
+  assert.equal(top("how much does it cost").doc.id, "kb-pricing");
 });

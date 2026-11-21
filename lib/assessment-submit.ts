@@ -25,6 +25,11 @@ export function submitEnquiry(fields: Record<string, string>): Promise<boolean> 
   return sendToInbox("New website enquiry", fields);
 }
 
+/** Call-back request from the Ask Flame robot. Sent only when the visitor submits it. */
+export function submitCallback(fields: Record<string, string>): Promise<boolean> {
+  return sendToInbox(`Flame Connect | Call back request from ${fields.name || "a website visitor"}`, fields);
+}
+
 async function sendToInbox(defaultSubject: string, fields: Record<string, string>): Promise<boolean> {
   if (!SITE.contactEmail) return false;
   try {

@@ -12,6 +12,7 @@ import { CHAPTERS, VISION as GROWTH } from "../../content/story";
 import { MISSION, VISION, CORE_VALUES } from "../../content/company";
 import { RESPONSIBLE_AI_COMMITMENTS } from "../../content/home";
 import { SITE } from "../site";
+import { KNOWLEDGE_BASE } from "../../content/knowledge-base";
 
 const PAGES: AssistantDoc[] = [
   { id: "p-home", kind: "Page", title: "Home", url: "/", text: "Flame Connect is an AI Centre of Change in Kampala, Uganda. Practical AI consulting, automation and digital communications for African organisations. Digitizing Africa.", keywords: ["flame connect", "who", "what do you do", "company"] },
@@ -69,6 +70,11 @@ function companyDocs(): AssistantDoc[] {
 
 export function buildAssistantIndex(): AssistantDoc[] {
   const docs: AssistantDoc[] = [...PAGES, ...contactDocs(), ...companyDocs()];
+
+  // Owner-maintained answers (content/knowledge-base.ts) come first so they win ties.
+  for (const k of KNOWLEDGE_BASE) {
+    docs.unshift({ id: `kb-${k.id}`, kind: "FAQ", title: k.question, url: k.link, text: k.answer, keywords: [k.question, ...(k.alsoAsked ?? [])] });
+  }
 
   for (const s of SERVICES) {
     const url = `/services/${s.slug}`;

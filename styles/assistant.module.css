@@ -166,6 +166,48 @@
 }
 .send:disabled { opacity: 0.35; cursor: default; }
 
+/* First-visit welcome */
+.welcome {
+  flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center;
+  text-align: center; gap: 0.75rem; padding: 1.6rem 1.25rem 1.25rem;
+  background: radial-gradient(120% 60% at 50% 0%, #FFF3EE 0%, #fff 70%);
+}
+.welcomeBot {
+  width: 6rem; height: 6rem; border-radius: 1.6rem; background: #fff; display: grid; place-items: center;
+  box-shadow: 0 10px 30px rgba(7, 17, 31, 0.12); margin-bottom: 0.3rem;
+}
+.welcomeTitle { margin: 0; font-size: 1.35rem; line-height: 1.25; color: #07111F; }
+.welcomeText { margin: 0 0 0.4rem; color: #4A5568; font-size: 0.95rem; line-height: 1.5; max-width: 19rem; }
+.field {
+  width: 100%; min-width: 0; border: 1px solid rgba(7, 17, 31, 0.16); border-radius: 0.9rem;
+  padding: 0.8rem 1rem; font-size: 1rem; font-family: inherit; color: #07111F; background: #fff;
+}
+.field:focus { outline: none; border-color: #1451D2; box-shadow: 0 0 0 3px rgba(20, 81, 210, 0.18); }
+.primary {
+  width: 100%; border: 0; border-radius: 0.9rem; padding: 0.85rem 1rem; min-height: 3rem;
+  background: #F4511E; color: #fff; font-weight: 700; font-size: 1rem; cursor: pointer; font-family: inherit;
+}
+.primary:hover { background: #D9431A; }
+.skip { border: 0; background: none; color: #5B6678; font-size: 0.9rem; padding: 0.4rem 1rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.primary:focus-visible, .skip:focus-visible { outline: 3px solid #1451D2; outline-offset: 2px; }
+
+/* Call back offer and form */
+.offer {
+  border: 1px solid rgba(244, 81, 30, 0.35); background: #FFF6F2; border-radius: 1rem;
+  padding: 0.75rem 0.9rem; font-size: 0.9rem;
+}
+.offer p { margin: 0 0 0.6rem; }
+.callForm {
+  display: flex; flex-direction: column; gap: 0.55rem; border: 1px solid rgba(7, 17, 31, 0.1);
+  border-radius: 1rem; padding: 0.9rem; background: #fff;
+}
+.callForm .field { padding: 0.7rem 0.9rem; }
+.consent { display: flex; gap: 0.55rem; align-items: flex-start; font-size: 0.8rem; color: #4A5568; line-height: 1.45; }
+.consent input { width: 1.15rem; height: 1.15rem; margin-top: 0.1rem; flex: none; accent-color: #F4511E; }
+.consent a { color: #1451D2; }
+.error { margin: 0; color: #B42318; font-size: 0.82rem; }
+.goBtn:disabled { opacity: 0.45; cursor: default; }
+
 @media (min-width: 40rem) {
   .panel {
     position: absolute;
