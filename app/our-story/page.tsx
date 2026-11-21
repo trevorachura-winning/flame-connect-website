@@ -141,7 +141,7 @@ export default function OurStoryPage() {
 
       <CTABand
         question="Want to be part of the next chapter?"
-        copy="Whether you are a business ready to use AI well, or a partner who shares the vision, we would love to hear from you."
+        copy="If you run a business that wants to use AI well, or you want to work with us on what comes next, get in touch."
         primary={{ label: "Take the free AI assessment", href: "/assessment" }}
         secondary={{ label: "Talk to us", href: "/contact" }}
       />

@@ -375,7 +375,7 @@ export const SERVICES: Service[] = [
     seo: {
       title: "Strategy & Leadership Consulting in Uganda",
       description:
-        "Strategy, research, leadership workshops and transformation roadmaps for organisations in Uganda and across Africa navigating digital and AI change.",
+        "Strategy, research, leadership workshops and transformation roadmaps for organisations in Uganda and across Africa working through digital and AI change.",
     },
   },
 ];

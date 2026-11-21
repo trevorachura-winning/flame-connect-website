@@ -11,7 +11,7 @@ export const metadata = pageMetadata({
   path: "/privacy",
 });
 
-const LAST_UPDATED = "2026-11-18";
+const LAST_UPDATED = "2026-11-21";
 
 export default function PrivacyPage() {
   const updated = new Date(LAST_UPDATED).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
@@ -86,11 +86,12 @@ export default function PrivacyPage() {
             </li>
           </ul>
           <p>
-            Our website has no user accounts and does not store the messages you write in the
-            enquiry composer: your message is only sent when you press send in your own email or
-            WhatsApp app. The AI readiness assessment is the only form on our website that sends
-            information to us directly. We do not knowingly collect sensitive personal data, and we ask you not
-            to send passwords, financial details or confidential third-party information.
+            Our website has no user accounts. Three things on it send information to us directly:
+            the contact form, the AI readiness assessment and a contact request made through the
+            Ask Flame help robot. If you choose to continue on WhatsApp or in your own email app
+            instead, your message is only sent when you press send there. We do not knowingly
+            collect sensitive personal data, and we ask you not to send passwords, financial
+            details or confidential third-party information.
           </p>
 
           <h2>3. How we use your information</h2>
@@ -124,8 +125,13 @@ export default function PrivacyPage() {
 
           <h2>6. International transfers</h2>
           <p>
-            Some of our service providers may process information outside Uganda. Where this
-            happens, we take reasonable steps to ensure your information remains protected.
+            Some of our service providers are based outside Uganda, so your information may be
+            processed in other countries. Our website is hosted by Vercel, based in the United
+            States; our email inbox is provided by Google; and our forms are delivered by
+            FormSubmit. When you send us information through our website, you agree to it being
+            processed by these providers. We share only what each service needs and rely on each
+            provider&rsquo;s own security and data protection commitments. We review these
+            providers as Uganda&rsquo;s rules on transfers outside the country develop.
           </p>
 
           <h2>7. Retention</h2>
@@ -141,7 +147,9 @@ export default function PrivacyPage() {
             We use appropriate technical and organisational measures to protect personal
             information, including access controls and secure (HTTPS) connections. No method of
             transmission or storage is completely secure, but we work to protect your information
-            and to respond promptly to any incident.
+            and to respond promptly to any incident. If a breach affects your personal
+            information, we will notify the Personal Data Protection Office as the law requires and
+            tell you what happened and what you can do.
           </p>
 
           <h2>9. Cookies and analytics</h2>
@@ -158,13 +166,14 @@ export default function PrivacyPage() {
             <li>access the personal information we hold about you;</li>
             <li>correct information that is inaccurate or incomplete;</li>
             <li>delete your information, or restrict how we use it;</li>
-            <li>object to processing, including for marketing; and</li>
+            <li>object to processing, including for marketing, or where it would cause you damage or distress;</li>
+            <li>ask that a decision about you is not made by automated means alone; and</li>
             <li>withdraw your consent at any time, where we rely on consent.</li>
           </ul>
           <p>
             We will respond within a reasonable time. If you are not satisfied with our response,
             you can complain to the relevant data protection authority. In Uganda, that is the Personal
-            Data Protection Office.
+            Data Protection Office (<a href="https://www.pdpo.go.ug" rel="noopener noreferrer" target="_blank">pdpo.go.ug</a>).
           </p>
 
           <h2>11. Contact us</h2>

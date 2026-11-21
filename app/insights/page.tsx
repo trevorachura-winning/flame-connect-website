@@ -12,7 +12,7 @@ import h from "../../styles/insights.module.css";
 export const metadata = pageMetadata({
   title: "Insights on AI and digital transformation in Africa",
   description:
-    "Practical playbooks, perspectives and real examples of AI transforming businesses in Africa, plus the reports and conversations worth reading.",
+    "Practical playbooks, field notes and perspectives on using AI and digital tools in African organisations, plus guides to Uganda's rules and plans and the reports worth reading.",
   path: "/insights",
 });
 
