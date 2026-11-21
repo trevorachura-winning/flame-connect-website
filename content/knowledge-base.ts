@@ -154,4 +154,13 @@ export const KNOWLEDGE_BASE: KnowledgeEntry[] = [
     alsoAsked: ["data protection", "pdpo", "privacy law", "uganda law", "ai law", "data law", "compliance", "register data"],
     updated: "2026-11-21",
   },
+  {
+    id: "ndp-iv",
+    question: "What is Uganda's NDP IV and how does it affect my business?",
+    answer:
+      "NDP IV is Uganda's Fourth National Development Plan for 2025/26 to 2029/30. It focuses on agro-industrialisation, tourism, minerals and science, technology and innovation, with digital transformation running through all of them. Our guide explains what it means for businesses.",
+    link: "/insights/uganda-ndp-iv-what-it-means-for-business",
+    alsoAsked: ["ndp", "ndp iv", "ndp 4", "national development plan", "tenfold growth", "atms", "government plan", "vision 2040"],
+    updated: "2026-11-21",
+  },
 ];

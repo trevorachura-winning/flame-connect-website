@@ -643,6 +643,98 @@ export const ARTICLES: Article[] = [
         "What Uganda's Data Protection and Privacy Act asks of businesses using data and AI tools, what the coming AI strategy means, and a five-step checklist.",
     },
   },
+  {
+    slug: "uganda-ndp-iv-what-it-means-for-business",
+    title: "Uganda's NDP IV: what it means for businesses going digital",
+    summary:
+      "The Fourth National Development Plan sets Uganda's priorities to 2030. Here is what it says, where digital and AI fit, and how to align your plans with it.",
+    category: "Perspectives",
+    date: "2026-11-21",
+    readingTime: "6 min read",
+    author: EDITORIAL,
+    sections: [
+      {
+        heading: "Why this matters",
+        paragraphs: [
+          "Government plans shape where public money goes, which sectors get support and what regulators pay attention to. Businesses that understand the plan can read the direction of budgets, tenders and policy, and position their work to match.",
+          "Uganda's current plan is the Fourth National Development Plan, known as NDP IV. It covers the financial years 2025/26 to 2029/30, and Government adopted it in January 2025.",
+        ],
+      },
+      {
+        heading: "What the plan says",
+        paragraphs: [
+          "The goal of NDP IV is to achieve higher household incomes, full monetisation of the economy and employment for sustainable socio-economic transformation. Its theme is Sustainable Industrialisation for Inclusive Growth, Employment and Wealth Creation.",
+          "It sits under Uganda Vision 2040 as the fourth of six five-year plans, and it is paired with the Tenfold Growth Strategy, which aims to double the size of the economy every five years.",
+        ],
+      },
+      {
+        heading: "The four growth areas",
+        paragraphs: [
+          "The plan and the national budget focus on four growth areas, known together as ATMS:",
+        ],
+        list: [
+          "Agro-industrialisation: adding value to what farms produce.",
+          "Tourism development.",
+          "Mineral-based industrial development, including oil and gas.",
+          "Science, technology and innovation, including ICT and the knowledge economy.",
+        ],
+      },
+      {
+        heading: "Where digital and AI fit",
+        paragraphs: [
+          "Digital transformation runs through the plan in two ways. It is a growth area in its own right under science, technology and innovation, and it is one of the NDP IV programmes, aimed at increasing the use of ICT for social and economic development. The national budget theme names digital transformation directly: full monetisation of the economy through commercial agriculture, industrialisation, services, digital transformation and market access.",
+          "Public agencies are now aligning their own plans to NDP IV. The Ministry of ICT and National Guidance launched a five-year strategic plan for 2025/26 to 2029/30, and NITA-U launched its plan in June 2026 with one main goal: more Ugandans actively using e-government services.",
+          "For businesses, monetisation and formalisation point the same way: more transactions recorded digitally, more services delivered online and closer attention to digital payments. Government has said it plans a national payment gateway to help monitor digital transactions and improve tax compliance.",
+        ],
+      },
+      {
+        heading: "What this means in practice",
+        paragraphs: [
+          "None of this requires a business to chase every national priority. It does suggest a few sensible moves for organisations planning their next three to five years.",
+        ],
+        list: [
+          "If you work in agriculture, tourism, minerals or technology, describe your projects in the plan's language when you approach government, development partners or lenders.",
+          "Get your records digital and clean. A business with reliable sales, stock and customer data is easier to finance, easier to audit and ready for digital payments.",
+          "Expect more of your customers, partners and public services to be online. Make sure your own processes can connect to them.",
+          "Build skills alongside systems. Tools only pay off when the people using them understand them.",
+          "Handle personal data properly from the start. Uganda's data protection law applies to every digital system you build.",
+        ],
+      },
+      {
+        heading: "How we help",
+        paragraphs: [
+          "Our work starts with the problem, not the plan. Where it helps, we map a client's digital and AI projects to NDP IV priorities, so proposals, budgets and funding requests speak the language decision makers use.",
+        ],
+      },
+    ],
+    actions: [
+      "Read the NDP IV goal and theme, and note which of the four growth areas your business touches.",
+      "List the records you still keep on paper, and pick one to move to a digital system this quarter.",
+      "When writing your next proposal or funding request, link it to a named NDP IV priority.",
+    ],
+    limits: [
+      "This article summarises public documents. It is not investment, tax or legal advice.",
+      "Budgets and programme priorities change each financial year. Check the latest budget speech and programme plans before making decisions.",
+      "Figures and targets in NDP IV are government targets, not forecasts or guarantees.",
+    ],
+    relatedServiceSlug: "consulting-thought-leadership",
+    relatedArticleSlugs: ["uganda-data-protection-ai-business-guide-2026", "ai-adoption-african-business-2026"],
+    sources: [
+      { label: "Ministry of Finance, Planning and Economic Development: national planning framework and NDP IV adoption", href: "https://development.finance.go.ug/planning" },
+      { label: "Office of the President: alignment of the NRM Manifesto 2026 to 2031 with NDP IV (goal and programmes)", href: "https://www.op.go.ug/sites/default/files/2025-11/Alignment%20between%20the%20NRM%20Manifesto%202026-31%20to%20NDP%20IV%202025-2030.pdf" },
+      { label: "Ministry of Finance: ATMS growth areas and the Tenfold Growth Strategy", href: "https://development.finance.go.ug/government-uganda-0" },
+      { label: "National Budget Strategy FY 2025/26", href: "https://www.mediacentre.go.ug/uploads/The%20National%20Budget%20Strategy%20FY%202025-26.pdf" },
+      { label: "Ministry of ICT and National Guidance: Digital Transformation Programme review and NDP IV alignment (June 2025)", href: "https://ict.go.ug/media/news/sectoral-performance-review-workshop-convened-to-advance-digital-transformation-agenda" },
+      { label: "Ministry of ICT and National Guidance: five-year strategic plan unveiled", href: "https://ict.go.ug/media/news/ict-5-year-strategic-plan-and-service-delivery-standards-unveiled" },
+      { label: "NITA-U: Strategic Plan FY 2025/26 to 2029/30 launched", href: "https://nita.go.ug/news-updates/nita-u-launches-strategic-plan-fy202526-fy202930-boost-reach-digital-government" },
+      { label: "Daily Monitor: Govt plans new ways to mobilise resources for the 2027/28 budget", href: "https://www.monitor.co.ug/uganda/news/national/govt-plans-new-ways-to-mobilise-resources-for-2027-28-budget-5591090" },
+    ],
+    seo: {
+      title: "Uganda NDP IV explained: what it means for businesses going digital",
+      description:
+        "What Uganda's Fourth National Development Plan (2025/26 to 2029/30) prioritises, where digital transformation and AI fit, and five practical moves for businesses.",
+    },
+  },
 ];
 
 export const ARTICLE_CATEGORIES: ArticleCategory[] = [
