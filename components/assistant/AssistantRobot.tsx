@@ -222,10 +222,10 @@ export function AssistantRobot() {
                         <button type="button" className={s.goBtn} onClick={() => go(t.hits[0].doc.url)}>
                           Take me there <span aria-hidden="true">→</span>
                         </button>
-                        {t.hits.length > 1 && (
+                        {t.hits.slice(1).some((h) => h.doc.title !== t.hits[0].doc.title) && (
                           <div className={s.more}>
                             <span>Also see</span>
-                            {t.hits.slice(1, 4).filter((h, k, arr) => arr.findIndex((x) => x.doc.url === h.doc.url && x.doc.title === h.doc.title) === k).map((h) => (
+                            {t.hits.slice(1).filter((h, k, arr) => h.doc.title !== t.hits[0].doc.title && arr.findIndex((x) => x.doc.title === h.doc.title) === k).slice(0, 3).map((h) => (
                               <button key={h.doc.id} type="button" className={s.moreLink} onClick={() => go(h.doc.url)}>{h.doc.title}</button>
                             ))}
                           </div>
